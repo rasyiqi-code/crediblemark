@@ -62,6 +62,21 @@ export function CreateServiceForm() {
             const result = await res.json();
 
             if (result.success && result.data) {
+                // Memformat data add-ons agar sesuai dengan skema komponen input form
+                const rawAddons = result.data.addons || [];
+                const formattedAddons = rawAddons.map((addon: any) => ({
+                    name: addon.name,
+                    price: addon.price,
+                    interval: addon.interval,
+                    currency: addon.currency
+                }));
+                const formattedAddonsId = rawAddons.map((addon: any) => ({
+                    name: addon.name_id || addon.name,
+                    price: addon.price,
+                    interval: addon.interval,
+                    currency: addon.currency
+                }));
+
                 const mergedData = {
                     title: currentForm?.get("title")?.toString() || "",
                     description: currentForm?.get("description")?.toString() || "",
@@ -70,7 +85,9 @@ export function CreateServiceForm() {
                     price: currentForm?.get("price") ? parseFloat(currentForm.get("price")!.toString()) : undefined,
                     currency: currentForm?.get("currency")?.toString() || "USD",
                     visibility: currentForm?.get("visibility")?.toString() || "PUBLIC",
-                    ...result.data
+                    ...result.data,
+                    addons: formattedAddons,
+                    addons_id: formattedAddonsId
                 };
 
                 if (result.data.slug) setSlug(result.data.slug);

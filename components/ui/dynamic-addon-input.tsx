@@ -22,7 +22,7 @@ interface DynamicAddonInputProps {
 }
 
 export function DynamicAddonInput({ name, defaultValue = [], className, currency = "USD" }: DynamicAddonInputProps) {
-    const [addons, setAddons] = useState<ServiceAddon[]>(defaultValue);
+    const [addons, setAddons] = useState<ServiceAddon[]>(Array.isArray(defaultValue) ? defaultValue : []);
     const [newName, setNewName] = useState("");
     const [newPrice, setNewPrice] = useState("");
     const [newInterval, setNewInterval] = useState<"one_time" | "monthly" | "yearly">("one_time");
@@ -116,7 +116,7 @@ export function DynamicAddonInput({ name, defaultValue = [], className, currency
                                     </div>
                                 </div>
                                 <span className="text-zinc-400 font-medium">
-                                    {(addon.currency || currency) === "IDR" ? `Rp ${addon.price.toLocaleString("id-ID")}` : `$${addon.price.toFixed(2)}`}
+                                    {(addon.currency || currency) === "IDR" ? `Rp ${Number(addon.price || 0).toLocaleString("id-ID")}` : `$${Number(addon.price || 0).toFixed(2)}`}
                                 </span>
                             </div>
                             <Button

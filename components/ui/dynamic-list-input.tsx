@@ -14,7 +14,7 @@ interface DynamicListInputProps {
 }
 
 export function DynamicListInput({ name, defaultValue = [], placeholder, className }: DynamicListInputProps) {
-    const [items, setItems] = useState<string[]>(defaultValue);
+    const [items, setItems] = useState<string[]>(Array.isArray(defaultValue) ? defaultValue : []);
     const [newItem, setNewItem] = useState("");
     const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
     const [isDraggable, setIsDraggable] = useState(false);
