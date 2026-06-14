@@ -52,7 +52,7 @@ export default async function ServicesPage() {
                             <ServiceAccordionItem
                                 key={service.id}
                                 service={service}
-                                index={index + 1}
+                                index={services.length - index}
                             />
                         ))}
                     </Accordion>
