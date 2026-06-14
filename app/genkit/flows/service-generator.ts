@@ -94,9 +94,9 @@ Input Description: "${sanitizedPrompt}"
      * Klien harus merasa mendapatkan diskon besar (sekitar 2.5 hingga 3 kali lipat lebih murah, bahkan bisa sampai diskon 89% untuk mencocokkan anggaran pasar target) untuk menunjukkan profesionalitas premium agensi sambil tetap menjaga harga akhir yang terjangkau.
      * Pertama, tentukan target Harga Akhir Konsumen (Consumer Price) yang menggunakan strategi Charm Pricing (angka ganjil/tidak bulat mulus) sesuai kerumitan proyek:
        - Indonesia (IDR) - HARUS berakhiran 990,000 atau 950,000 atau 490,000 atau 450,000 (JANGAN gunakan angka genap bulat seperti 3,000,000 atau 10,000,000):
-         * Low Complexity / UKM / Landing Page: Harga Akhir Konsumen IDR 2,450,000 s.d. IDR 5,990,000.
-         * Medium Complexity / Standard Company Profile / SME E-commerce: Harga Akhir Konsumen IDR 6,950,000 s.d. IDR 14,990,000.
-         * High Complexity / Custom System / SaaS / Enterprise Portal: Harga Akhir Konsumen IDR 17,950,000 s.d. IDR 49,990,000.
+         * Low Complexity / UKM / Landing Page: Harga Akhir Konsumen IDR 1,450,000 s.d. IDR 3,450,000.
+         * Medium Complexity / Standard Company Profile / SME E-commerce: Harga Akhir Konsumen IDR 3,950,000 s.d. IDR 14,990,000.
+         * High Complexity / Custom System / SaaS / Enterprise Portal: Harga Akhir Konsumen IDR 15,950,000 s.d. IDR 49,990,000.
        - Global (USD) - HARUS berakhiran angka 9 atau 7 atau 5 di digit terakhir (JANGAN gunakan angka genap bulat seperti 300 atau 1000):
          * Low Complexity: Harga Akhir Konsumen USD 249 s.d. USD 599.
          * Medium Complexity: Harga Akhir Konsumen USD 799 s.d. USD 1,799.
