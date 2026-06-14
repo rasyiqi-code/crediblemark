@@ -204,17 +204,17 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
             
             {/* 1. Selector Tipe Paket (Tabs) */}
             <div className="space-y-4">
-                <h4 className="text-xs font-bold uppercase tracking-widest text-zinc-500 text-center sm:text-left">
+                <h4 className="text-xs font-bold uppercase tracking-widest text-zinc-500 text-center md:text-left">
                     {isId ? "1. Pilih Tipe Paket Layanan:" : "1. Choose Your Package Tier:"}
                 </h4>
-                <div className="flex overflow-x-auto gap-3 pb-3 snap-x snap-mandatory scroll-smooth no-scrollbar sm:grid sm:grid-cols-3 sm:gap-4 sm:pb-0">
+                <div className="flex overflow-x-auto gap-3 pb-3 snap-x snap-mandatory scroll-smooth no-scrollbar md:grid md:grid-cols-3 md:gap-4 md:pb-0">
                     {packagesList.map((pkg) => {
                         const isActive = pkg.id === selectedPackageId;
                         return (
                             <button
                                 key={pkg.id}
                                 onClick={() => setSelectedPackageId(pkg.id)}
-                                className={`relative text-left p-4 rounded-xl border transition-all duration-300 flex flex-col justify-between gap-2 focus:outline-none cursor-pointer w-[75vw] max-w-[240px] sm:w-auto shrink-0 snap-align-start ${
+                                className={`relative text-left p-4 rounded-xl border transition-all duration-300 flex flex-col justify-between gap-2 focus:outline-none cursor-pointer w-[75vw] max-w-[240px] md:w-full md:max-w-full shrink-0 snap-align-start ${
                                     isActive
                                         ? "border-violet-500 bg-violet-600/10 shadow-lg shadow-violet-600/5 ring-1 ring-violet-500"
                                         : "border-white/5 bg-zinc-900/10 hover:border-white/10 hover:bg-zinc-900/20"
@@ -226,10 +226,10 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
                                     </div>
                                 )}
                                 <div className="min-w-0">
-                                    <h5 className="font-extrabold text-xs sm:text-sm text-white truncate">
+                                    <h5 className="font-extrabold text-xs md:text-sm text-white truncate">
                                         {isId ? pkg.nameId : pkg.nameEn}
                                     </h5>
-                                    <span className="text-[8px] sm:text-[9px] text-zinc-500 font-mono tracking-wider uppercase block mt-0.5 truncate">
+                                    <span className="text-[8px] md:text-[9px] text-zinc-500 font-mono tracking-wider uppercase block mt-0.5 truncate">
                                         {pkg.id === "custom" && (isId ? "Fungsionalitas Builder" : "Standard Page Builder")}
                                         {pkg.id === "eksklusif" && (isId ? "Clean Code / Custom Theme" : "Clean Code / Custom Theme")}
                                         {pkg.id === "headless" && (isId ? "Isolasi / Next.js Stack" : "API Decoupled / Next.js")}
@@ -237,7 +237,7 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
                                 </div>
                                 <div className="mt-1 pt-2 border-t border-white/5 w-full flex items-baseline justify-between">
                                     <span className="text-[10px] text-zinc-500">{isId ? "Mulai dari" : "Starts at"}</span>
-                                    <span className="font-black text-xs sm:text-base text-brand-yellow">
+                                    <span className="font-black text-xs md:text-base text-brand-yellow">
                                         {isId ? formatCurrency(pkg.priceIdr, "IDR") : formatCurrency(pkg.priceUsd, "USD")}
                                     </span>
                                 </div>
