@@ -867,7 +867,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             width: 65mm;
             display: flex;
             flex-direction: column;
-            padding-top: 18mm;
+            padding-top: 28mm;
         }
         
         .sig-line {
@@ -1260,10 +1260,10 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             <div class="signatures-container">
                 <div class="sig-box" style="position: relative;">
                     ` + (signatureUrl
-                        ? `<img src="${signatureUrl}" alt="Tanda Tangan" style="position: absolute; bottom: 38px; left: 0; height: 44px; width: auto; object-fit: contain; z-index: 2;" />`
+                        ? `<img src="${signatureUrl}" alt="Tanda Tangan" style="position: absolute; bottom: 55px; left: 0; height: 70px; width: auto; object-fit: contain; z-index: 2;" />`
                         : ``
                     ) + (stampUrl
-                        ? `<img src="${stampUrl}" alt="Stempel Resmi" style="position: absolute; bottom: 28px; left: 40px; width: 70px; height: 70px; object-fit: contain; opacity: 0.85; filter: brightness(0) invert(1); z-index: 3;" />`
+                        ? `<img src="${stampUrl}" alt="Stempel Resmi" style="position: absolute; bottom: 45px; left: 50px; width: 100px; height: 100px; object-fit: contain; opacity: 0.85; filter: brightness(0) invert(1); z-index: 3;" />`
                         : ``
                     ) + `
                     <div class="sig-line"></div>
