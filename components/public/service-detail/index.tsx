@@ -9,6 +9,8 @@ import { ServiceFeatures } from "./features";
 import { Deliverables } from "./deliverables";
 import { FooterInfo } from "./footer-info";
 import { StickyCTA } from "./sticky-cta";
+import { Share2 } from "lucide-react";
+import { toast } from "sonner";
 
 interface ServiceDetailContentProps
 {
@@ -21,6 +23,29 @@ interface ServiceDetailContentProps
 export function ServiceDetailContent({ service, isId, trustedAvatars = [] }: ServiceDetailContentProps)
 {
     const tService = useTranslations("Service");
+
+    const handleShare = async () => {
+        const shareUrl = typeof window !== "undefined" ? window.location.href : "";
+        const shareTitle = typeof document !== "undefined" ? document.title : ((isId && service.title_id) ? service.title_id : service.title);
+
+        if (typeof navigator !== "undefined" && navigator.share) {
+            try {
+                await navigator.share({
+                    title: shareTitle,
+                    url: shareUrl,
+                });
+            } catch (error) {
+                console.error("Error sharing:", error);
+            }
+        } else {
+            try {
+                await navigator.clipboard.writeText(shareUrl);
+                toast.success(isId ? "Tautan berhasil disalin ke papan klip!" : "Link copied to clipboard!");
+            } catch (err) {
+                console.error("Failed to copy:", err);
+            }
+        }
+    };
 
     // Fallback to EN if ID content is missing
     const displayTitle = (isId && service.title_id) ? service.title_id : service.title;
@@ -88,6 +113,19 @@ export function ServiceDetailContent({ service, isId, trustedAvatars = [] }: Ser
                 intervalLabel={intervalLabel}
                 selectedAddons={selectedAddons}
             />
+
+            {/* Tombol Share di pojok kiri bawah */}
+            <div className="fixed bottom-8 left-8 z-50">
+                <button
+                    type="button"
+                    onClick={handleShare}
+                    className="flex items-center justify-center w-12 h-12 rounded-full bg-zinc-900 border border-white/10 text-zinc-400 hover:text-brand-yellow hover:border-brand-yellow/30 shadow-2xl active:scale-95 transition-all group cursor-pointer"
+                    title={isId ? "Bagikan Layanan" : "Share Service"}
+                    aria-label="Share"
+                >
+                    <Share2 className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                </button>
+            </div>
         </div>
     );
 }
