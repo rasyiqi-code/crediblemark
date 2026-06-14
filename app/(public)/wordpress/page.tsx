@@ -202,17 +202,19 @@ export default async function WordPressLandingPage() {
                         </p>
                     </div>
 
-                    <div className="grid md:grid-cols-12 gap-4 md:gap-5">
+                    <div className="grid md:grid-cols-12 gap-3 md:gap-5">
                         {/* Box 1: UI/UX Kustom (Size: 7/12) */}
-                        <div className="md:col-span-7 rounded-2xl border border-white/5 bg-zinc-900 p-5 sm:p-6 flex flex-col justify-between hover:border-brand-yellow/30 hover:shadow-[0_10px_30px_rgba(254,215,0,0.15)] hover:-translate-y-1 transition-all duration-300 group">
-                            <div className="space-y-4">
-                                <div className="w-10 h-10 rounded-xl bg-brand-yellow/10 flex items-center justify-center">
-                                    <Sparkles className="w-5 h-5 text-brand-yellow group-hover:scale-125 group-hover:rotate-12 transition-transform duration-300" />
+                        <div className="md:col-span-7 rounded-2xl border border-white/5 bg-zinc-900 p-4 sm:p-6 flex flex-col justify-between hover:border-brand-yellow/30 hover:shadow-[0_10px_30px_rgba(254,215,0,0.15)] hover:-translate-y-1 transition-all duration-300 group">
+                            <div className="space-y-2.5 sm:space-y-4">
+                                <div className="flex items-center gap-3 sm:block">
+                                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-brand-yellow/10 flex items-center justify-center shrink-0">
+                                        <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-brand-yellow group-hover:scale-125 group-hover:rotate-12 transition-transform duration-300" />
+                                    </div>
+                                    <h3 className="text-base sm:text-xl font-bold text-white group-hover:text-brand-yellow transition-colors sm:mt-4">
+                                        {isId ? "Desain UI/UX Unik & Kustom" : "Bespoke UI/UX Design"}
+                                    </h3>
                                 </div>
-                                <h3 className="text-xl font-bold text-white group-hover:text-brand-yellow transition-colors">
-                                    {isId ? "Desain UI/UX Unik & Kustom" : "Bespoke UI/UX Design"}
-                                </h3>
-                                <p className="text-sm text-zinc-400 leading-relaxed">
+                                <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
                                     {isId
                                         ? "Setiap halaman dirancang khusus dari nol menyesuaikan identitas brand Anda. Bebas dari template pasaran, menghasilkan citra digital yang mewah dan eksklusif."
                                         : "Every screen is crafted from scratch to perfectly align with your brand identity. Zero generic templates, ensuring a premium and exclusive digital presence."}
@@ -221,15 +223,17 @@ export default async function WordPressLandingPage() {
                         </div>
 
                         {/* Box 2: Kecepatan Laju (Size: 5/12) */}
-                        <div className="md:col-span-5 rounded-2xl border border-white/5 bg-zinc-900 p-5 sm:p-6 flex flex-col justify-between hover:border-brand-yellow/30 hover:shadow-[0_10px_30px_rgba(254,215,0,0.15)] hover:-translate-y-1 transition-all duration-300 group">
-                            <div className="space-y-4">
-                                <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center">
-                                    <Zap className="w-5 h-5 text-emerald-400 group-hover:scale-125 group-hover:-rotate-12 transition-transform duration-300" />
+                        <div className="md:col-span-5 rounded-2xl border border-white/5 bg-zinc-900 p-4 sm:p-6 flex flex-col justify-between hover:border-brand-yellow/30 hover:shadow-[0_10px_30px_rgba(254,215,0,0.15)] hover:-translate-y-1 transition-all duration-300 group">
+                            <div className="space-y-2.5 sm:space-y-4">
+                                <div className="flex items-center gap-3 sm:block">
+                                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center shrink-0">
+                                        <Zap className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400 group-hover:scale-125 group-hover:-rotate-12 transition-transform duration-300" />
+                                    </div>
+                                    <h3 className="text-base sm:text-xl font-bold text-white group-hover:text-emerald-300 transition-colors sm:mt-4">
+                                        {isId ? "Optimasi Kecepatan Ekstrim" : "Extreme Speed Tuning"}
+                                    </h3>
                                 </div>
-                                <h3 className="text-xl font-bold text-white group-hover:text-emerald-300 transition-colors">
-                                    {isId ? "Optimasi Kecepatan Ekstrim" : "Extreme Speed Tuning"}
-                                </h3>
-                                <p className="text-sm text-zinc-400 leading-relaxed">
+                                <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
                                     {isId
                                         ? "Menggunakan caching layer tingkat lanjut (Redis), server teroptimasi, dan pemotongan aset gambar modern. Jaminan skor Core Web Vitals 90+."
                                         : "Configured with Redis server caching, image optimization, and CDN routing. We guarantee 90+ Core Web Vitals mobile and desktop speed marks."}
@@ -238,15 +242,17 @@ export default async function WordPressLandingPage() {
                         </div>
 
                         {/* Box 3: Keamanan (Size: 5/12) */}
-                        <div className="md:col-span-5 rounded-2xl border border-white/5 bg-zinc-900 p-5 sm:p-6 flex flex-col justify-between hover:border-brand-yellow/30 hover:shadow-[0_10px_30px_rgba(254,215,0,0.15)] hover:-translate-y-1 transition-all duration-300 group">
-                            <div className="space-y-4">
-                                <div className="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center">
-                                    <Shield className="w-5 h-5 text-red-400 group-hover:scale-110 group-hover:animate-pulse transition-transform duration-300" />
+                        <div className="md:col-span-5 rounded-2xl border border-white/5 bg-zinc-900 p-4 sm:p-6 flex flex-col justify-between hover:border-brand-yellow/30 hover:shadow-[0_10px_30px_rgba(254,215,0,0.15)] hover:-translate-y-1 transition-all duration-300 group">
+                            <div className="space-y-2.5 sm:space-y-4">
+                                <div className="flex items-center gap-3 sm:block">
+                                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-red-500/10 flex items-center justify-center shrink-0">
+                                        <Shield className="w-4 h-4 sm:w-5 sm:h-5 text-red-400 group-hover:scale-110 group-hover:animate-pulse transition-transform duration-300" />
+                                    </div>
+                                    <h3 className="text-base sm:text-xl font-bold text-white group-hover:text-red-300 transition-colors sm:mt-4">
+                                        {isId ? "Proteksi Keamanan Berlapis" : "Fortified Security Walls"}
+                                    </h3>
                                 </div>
-                                <h3 className="text-xl font-bold text-white group-hover:text-red-300 transition-colors">
-                                    {isId ? "Proteksi Keamanan Berlapis" : "Fortified Security Walls"}
-                                </h3>
-                                <p className="text-sm text-zinc-400 leading-relaxed">
+                                <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
                                     {isId
                                         ? "Path login admin dirubah, XML-RPC dinonaktifkan, proteksi brute-force diaktifkan, serta sistem deteksi malware otomatis yang berjalan setiap hari."
                                         : "Admin login paths shifted, XML-RPC deactivated, brute-force filters turned on, and daily automated malware scans set up to guard your website."}
@@ -255,15 +261,17 @@ export default async function WordPressLandingPage() {
                         </div>
 
                         {/* Box 4: E-commerce & Toko Online (Size: 7/12) */}
-                        <div className="md:col-span-7 rounded-2xl border border-white/5 bg-zinc-900 p-5 sm:p-6 flex flex-col justify-between hover:border-brand-yellow/30 hover:shadow-[0_10px_30px_rgba(254,215,0,0.15)] hover:-translate-y-1 transition-all duration-300 group">
-                            <div className="space-y-4">
-                                <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center">
-                                    <ShoppingBag className="w-5 h-5 text-blue-400 group-hover:scale-125 transition-transform duration-300" />
+                        <div className="md:col-span-7 rounded-2xl border border-white/5 bg-zinc-900 p-4 sm:p-6 flex flex-col justify-between hover:border-brand-yellow/30 hover:shadow-[0_10px_30px_rgba(254,215,0,0.15)] hover:-translate-y-1 transition-all duration-300 group">
+                            <div className="space-y-2.5 sm:space-y-4">
+                                <div className="flex items-center gap-3 sm:block">
+                                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-blue-500/10 flex items-center justify-center shrink-0">
+                                        <ShoppingBag className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400 group-hover:scale-125 transition-transform duration-300" />
+                                    </div>
+                                    <h3 className="text-base sm:text-xl font-bold text-white group-hover:text-blue-300 transition-colors sm:mt-4">
+                                        {isId ? "Sistem E-Commerce Kustom" : "Bespoke E-Commerce Engine"}
+                                    </h3>
                                 </div>
-                                <h3 className="text-xl font-bold text-white group-hover:text-blue-300 transition-colors">
-                                    {isId ? "Sistem E-Commerce Kustom" : "Bespoke E-Commerce Engine"}
-                                </h3>
-                                <p className="text-sm text-zinc-400 leading-relaxed">
+                                <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
                                     {isId
                                         ? "Integrasikan sistem toko online kustom buatan kami sendiri yang super ringan, kebal terhadap celah keamanan (exploit) umum WooCommerce, serta siap terhubung dengan gerbang pembayaran lokal (Midtrans) maupun global."
                                         : "Integrate our light and secure custom-built e-commerce engine, immune to standard WooCommerce security exploits, and ready to hook into local and global payment gateways."}

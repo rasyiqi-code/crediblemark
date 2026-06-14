@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { Check, ArrowRight, Sparkles } from "lucide-react";
+import { useState, useRef } from "react";
+import { Check, ArrowRight, Sparkles, ChevronLeft, ChevronRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useFloatingChat } from "@/lib/store/floating-chat-store";
 
@@ -148,6 +148,36 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
 
     const [selectedPackageId, setSelectedPackageId] = useState<"custom" | "eksklusif" | "headless">("eksklusif");
     const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
+    const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+    // Fungsi scroll ke paket tertentu secara presisi
+    const scrollToPackage = (id: "custom" | "eksklusif" | "headless") => {
+        setSelectedPackageId(id);
+        if (scrollContainerRef.current) {
+            const container = scrollContainerRef.current;
+            const index = packagesList.findIndex((p) => p.id === id);
+            const targetChild = container.children[index] as HTMLElement;
+            if (targetChild) {
+                container.scrollTo({
+                    left: targetChild.offsetLeft - 16,
+                    behavior: "smooth"
+                });
+            }
+        }
+    };
+
+    // Fungsi navigasi tombol panah
+    const navigatePackage = (direction: "prev" | "next") => {
+        const currentIndex = packagesList.findIndex((p) => p.id === selectedPackageId);
+        let targetIndex = currentIndex;
+        if (direction === "prev") {
+            targetIndex = currentIndex > 0 ? currentIndex - 1 : packagesList.length - 1;
+        } else {
+            targetIndex = currentIndex < packagesList.length - 1 ? currentIndex + 1 : 0;
+        }
+        const targetPackage = packagesList[targetIndex];
+        scrollToPackage(targetPackage.id);
+    };
 
     // Ambil detail paket terpilih
     const activePackage = packagesList.find((p) => p.id === selectedPackageId)!;
@@ -200,17 +230,45 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
             
             {/* Bagian I: Perbandingan 3 Paket Utama (3-Card Layout) */}
             <div className="space-y-4">
-                <h4 className="text-xs font-bold uppercase tracking-widest text-zinc-500 text-center md:text-left">
-                    {isId ? "1. Pilih Tipe Paket Utama:" : "1. Select Base Service Tier:"}
-                </h4>
+                <div className="flex items-center justify-between px-1">
+                    <h4 className="text-xs font-bold uppercase tracking-widest text-zinc-500">
+                        {isId ? "1. Pilih Tipe Paket Utama:" : "1. Select Base Service Tier:"}
+                    </h4>
+                    
+                    {/* Petunjuk Swipe & Trigger Navigasi di Mobile */}
+                    <div className="flex items-center gap-1.5 md:hidden">
+                        <span className="text-[10px] font-bold text-zinc-500 animate-pulse mr-1">
+                            {isId ? "Geser" : "Swipe"}
+                        </span>
+                        <button
+                            type="button"
+                            onClick={() => navigatePackage("prev")}
+                            className="p-1 rounded-lg bg-zinc-900 border border-white/5 text-zinc-400 active:scale-90 hover:text-brand-yellow transition-all"
+                            aria-label="Previous Package"
+                        >
+                            <ChevronLeft className="w-3.5 h-3.5" />
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => navigatePackage("next")}
+                            className="p-1 rounded-lg bg-zinc-900 border border-white/5 text-zinc-400 active:scale-90 hover:text-brand-yellow transition-all"
+                            aria-label="Next Package"
+                        >
+                            <ChevronRight className="w-3.5 h-3.5" />
+                        </button>
+                    </div>
+                </div>
                 
-                <div className="flex overflow-x-auto md:overflow-visible gap-4 pb-4 pt-2 snap-x snap-mandatory scroll-smooth no-scrollbar md:grid md:grid-cols-3 md:gap-6 md:pb-0">
+                <div 
+                    ref={scrollContainerRef}
+                    className="flex overflow-x-auto md:overflow-visible gap-4 pb-4 pt-2 snap-x snap-mandatory scroll-smooth no-scrollbar md:grid md:grid-cols-3 md:gap-6 md:pb-0"
+                >
                     {packagesList.map((pkg) => {
                         const isActive = pkg.id === selectedPackageId;
                         return (
                             <div
                                 key={pkg.id}
-                                onClick={() => setSelectedPackageId(pkg.id)}
+                                onClick={() => scrollToPackage(pkg.id)}
                                 className={`relative rounded-2xl border p-5 flex flex-col justify-between cursor-pointer transition-all duration-300 transform w-[85vw] max-w-[320px] md:w-full md:max-w-full shrink-0 snap-align-start hover:scale-[1.01] ${
                                     isActive
                                         ? "border-brand-yellow bg-zinc-900 shadow-xl shadow-brand-yellow/5 ring-1 ring-brand-yellow"
@@ -285,6 +343,24 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
                                     </button>
                                 </div>
                             </div>
+                        );
+                    })}
+                </div>
+
+                {/* Dots Indicator untuk Mobile */}
+                <div className="flex justify-center gap-1.5 md:hidden pt-2">
+                    {packagesList.map((pkg, idx) => {
+                        const isActive = pkg.id === selectedPackageId;
+                        return (
+                            <button
+                                key={pkg.id}
+                                type="button"
+                                onClick={() => scrollToPackage(pkg.id)}
+                                className={`h-1.5 rounded-full transition-all duration-300 ${
+                                    isActive ? "w-4 bg-brand-yellow" : "w-1.5 bg-zinc-700"
+                                }`}
+                                aria-label={`Go to package ${idx + 1}`}
+                            />
                         );
                     })}
                 </div>
