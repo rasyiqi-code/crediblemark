@@ -7,9 +7,10 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Accordion } from "@/components/ui/accordion";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ServiceAccordionItem } from "./service-accordion-item";
 import { deleteServices } from "@/app/actions/services";
-import { Trash2, CheckSquare, Square, Loader2, ListCheck, Search, X } from "lucide-react";
+import { Trash2, CheckSquare, Square, Loader2, ListCheck, Search, X, ArrowUpDown } from "lucide-react";
 
 interface ServiceData {
     id: string;
@@ -39,6 +40,8 @@ export function ServiceListClient({ services }: ServiceListClientProps) {
     const [selectedIds, setSelectedIds] = useState<string[]>([]);
     const [isSelectionMode, setIsSelectionMode] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
+    type SortOption = "latest" | "oldest" | "price_asc" | "price_desc" | "name_asc";
+    const [sortBy, setSortBy] = useState<SortOption>("latest");
     const [isPending, startTransition] = useTransition();
 
     // Menyaring layanan berdasarkan teks pencarian (searchQuery)
@@ -54,8 +57,25 @@ export function ServiceListClient({ services }: ServiceListClientProps) {
         return matchesTitle || matchesTitleId || matchesDesc || matchesDescId;
     });
 
+    // Mengurutkan layanan berdasarkan opsi pengurutan (sortBy)
+    const sortedServices = [...filteredServices].sort((a, b) => {
+        switch (sortBy) {
+            case "oldest":
+                return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+            case "price_asc":
+                return a.price - b.price;
+            case "price_desc":
+                return b.price - a.price;
+            case "name_asc":
+                return a.title.localeCompare(b.title);
+            case "latest":
+            default:
+                return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+        }
+    });
+
     // Cek apakah seluruh layanan yang disaring saat ini tercentang
-    const allSelected = filteredServices.length > 0 && selectedIds.length === filteredServices.length;
+    const allSelected = sortedServices.length > 0 && selectedIds.length === sortedServices.length;
 
     // Menangani perubahan centang pada masing-masing item layanan
     const handleSelectChange = (id: string, selected: boolean) => {
@@ -71,7 +91,7 @@ export function ServiceListClient({ services }: ServiceListClientProps) {
         if (allSelected) {
             setSelectedIds([]);
         } else {
-            setSelectedIds(filteredServices.map((s) => s.id));
+            setSelectedIds(sortedServices.map((s) => s.id));
         }
     };
 
@@ -155,8 +175,25 @@ export function ServiceListClient({ services }: ServiceListClientProps) {
                     )}
                 </div>
 
-                {/* Bagian Kanan Toolbar: Pencarian dan Tombol Hapus Massal */}
+                {/* Bagian Kanan Toolbar: Pengurutan, Pencarian, dan Tombol Hapus Massal */}
                 <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                    {/* Dropdown Pengurutan (Sort) */}
+                    <Select value={sortBy} onValueChange={(val: SortOption) => setSortBy(val)}>
+                        <SelectTrigger className="w-full sm:w-[140px] bg-black/20 border-white/5 text-zinc-300 text-xs h-8 focus:ring-blue-500/20 focus:ring-offset-0">
+                            <div className="flex items-center gap-1.5">
+                                <ArrowUpDown className="w-3 h-3 text-zinc-500" />
+                                <SelectValue placeholder={t("sortBy")} />
+                            </div>
+                        </SelectTrigger>
+                        <SelectContent className="bg-zinc-900 border-white/5 text-zinc-200">
+                            <SelectItem value="latest" className="text-xs">{t("sortLatest")}</SelectItem>
+                            <SelectItem value="oldest" className="text-xs">{t("sortOldest")}</SelectItem>
+                            <SelectItem value="price_asc" className="text-xs">{t("sortPriceAsc")}</SelectItem>
+                            <SelectItem value="price_desc" className="text-xs">{t("sortPriceDesc")}</SelectItem>
+                            <SelectItem value="name_asc" className="text-xs">{t("sortNameAsc")}</SelectItem>
+                        </SelectContent>
+                    </Select>
+
                     {/* Input Pencarian */}
                     <div className="relative flex-1 sm:flex-initial">
                         <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-zinc-500" />
@@ -198,13 +235,13 @@ export function ServiceListClient({ services }: ServiceListClientProps) {
             </div>
 
             {/* List Accordion dengan opsi pencentangan dinamis */}
-            {filteredServices.length === 0 ? (
+            {sortedServices.length === 0 ? (
                 <div className="rounded-xl border border-zinc-800/50 bg-zinc-950/50 py-16 text-center text-zinc-600 text-sm">
                     {searchQuery ? t("noServicesFound") : t("noServices")}
                 </div>
             ) : (
                 <Accordion type="multiple" className="w-full space-y-2">
-                    {filteredServices.map((service, index) => (
+                    {sortedServices.map((service, index) => (
                         <ServiceAccordionItem
                             key={service.id}
                             service={service}
