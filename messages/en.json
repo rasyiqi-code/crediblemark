@@ -431,6 +431,8 @@
             "deselectAll": "Deselect All",
             "selectMode": "Select Services",
             "cancelSelectMode": "Cancel",
+            "searchPlaceholder": "Search services...",
+            "noServicesFound": "No services match your search query.",
             "noServices": "No services defined yet.",
             "interval": "Interval",
             "priceModel": "Price Model",

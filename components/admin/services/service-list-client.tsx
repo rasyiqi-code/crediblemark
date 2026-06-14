@@ -5,15 +5,18 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Accordion } from "@/components/ui/accordion";
 import { ServiceAccordionItem } from "./service-accordion-item";
 import { deleteServices } from "@/app/actions/services";
-import { Trash2, CheckSquare, Square, Loader2, ListCheck } from "lucide-react";
+import { Trash2, CheckSquare, Square, Loader2, ListCheck, Search, X } from "lucide-react";
 
 interface ServiceData {
     id: string;
     title: string;
     title_id?: string | null;
+    description: string;
+    description_id?: string | null;
     price: number;
     discount?: number | null;
     currency?: string | null;
@@ -35,10 +38,24 @@ export function ServiceListClient({ services }: ServiceListClientProps) {
     const router = useRouter();
     const [selectedIds, setSelectedIds] = useState<string[]>([]);
     const [isSelectionMode, setIsSelectionMode] = useState(false);
+    const [searchQuery, setSearchQuery] = useState("");
     const [isPending, startTransition] = useTransition();
 
-    // Cek apakah seluruh layanan saat ini tercentang
-    const allSelected = services.length > 0 && selectedIds.length === services.length;
+    // Menyaring layanan berdasarkan teks pencarian (searchQuery)
+    const filteredServices = services.filter((service) => {
+        const query = searchQuery.toLowerCase().trim();
+        if (!query) return true;
+
+        const matchesTitle = service.title.toLowerCase().includes(query);
+        const matchesTitleId = service.title_id?.toLowerCase().includes(query) || false;
+        const matchesDesc = service.description.toLowerCase().includes(query);
+        const matchesDescId = service.description_id?.toLowerCase().includes(query) || false;
+
+        return matchesTitle || matchesTitleId || matchesDesc || matchesDescId;
+    });
+
+    // Cek apakah seluruh layanan yang disaring saat ini tercentang
+    const allSelected = filteredServices.length > 0 && selectedIds.length === filteredServices.length;
 
     // Menangani perubahan centang pada masing-masing item layanan
     const handleSelectChange = (id: string, selected: boolean) => {
@@ -54,7 +71,7 @@ export function ServiceListClient({ services }: ServiceListClientProps) {
         if (allSelected) {
             setSelectedIds([]);
         } else {
-            setSelectedIds(services.map((s) => s.id));
+            setSelectedIds(filteredServices.map((s) => s.id));
         }
     };
 
@@ -84,7 +101,7 @@ export function ServiceListClient({ services }: ServiceListClientProps) {
 
     return (
         <div className="w-full space-y-4">
-            {/* Toolbar Aksi Massal */}
+            {/* Toolbar Aksi & Pencarian */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-zinc-900/20 border border-zinc-800/60 rounded-xl p-3 w-full">
                 <div className="flex flex-wrap items-center gap-3">
                     {/* Tombol aktifkan/nonaktifkan mode seleksi */}
@@ -138,36 +155,67 @@ export function ServiceListClient({ services }: ServiceListClientProps) {
                     )}
                 </div>
 
-                {isSelectionMode && selectedIds.length > 0 && (
-                    <Button
-                        type="button"
-                        onClick={handleBulkDelete}
-                        disabled={isPending}
-                        className="h-8 text-xs font-semibold bg-red-500/10 border border-red-500/20 text-red-400 hover:bg-red-500/20 hover:text-red-300 transition-all active:scale-95 flex items-center justify-center gap-1.5 px-3.5 rounded-lg animate-in fade-in slide-in-from-right-1 duration-200"
-                    >
-                        {isPending ? (
-                            <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                        ) : (
-                            <Trash2 className="w-3.5 h-3.5" />
+                {/* Bagian Kanan Toolbar: Pencarian dan Tombol Hapus Massal */}
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                    {/* Input Pencarian */}
+                    <div className="relative flex-1 sm:flex-initial">
+                        <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-zinc-500" />
+                        <Input
+                            type="text"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            placeholder={t("searchPlaceholder")}
+                            className="bg-black/20 border-white/5 text-zinc-200 text-xs pl-9 pr-8 h-8 w-full sm:w-56 focus-visible:ring-blue-500/20"
+                        />
+                        {searchQuery && (
+                            <button
+                                type="button"
+                                onClick={() => setSearchQuery("")}
+                                className="absolute right-2.5 top-2.5 text-zinc-500 hover:text-white transition-colors"
+                            >
+                                <X className="w-3 h-3" />
+                            </button>
                         )}
-                        <span>{t("deleteSelected", { count: selectedIds.length })}</span>
-                    </Button>
-                )}
+                    </div>
+
+                    {/* Tombol Hapus Massal */}
+                    {isSelectionMode && selectedIds.length > 0 && (
+                        <Button
+                            type="button"
+                            onClick={handleBulkDelete}
+                            disabled={isPending}
+                            className="h-8 text-xs font-semibold bg-red-500/10 border border-red-500/20 text-red-400 hover:bg-red-500/20 hover:text-red-300 transition-all active:scale-95 flex items-center justify-center gap-1.5 px-3.5 rounded-lg shrink-0 animate-in fade-in slide-in-from-right-1 duration-200"
+                        >
+                            {isPending ? (
+                                <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                            ) : (
+                                <Trash2 className="w-3.5 h-3.5" />
+                            )}
+                            <span>{t("deleteSelected", { count: selectedIds.length })}</span>
+                        </Button>
+                    )}
+                </div>
             </div>
 
             {/* List Accordion dengan opsi pencentangan dinamis */}
-            <Accordion type="multiple" className="w-full space-y-2">
-                {services.map((service, index) => (
-                    <ServiceAccordionItem
-                        key={service.id}
-                        service={service}
-                        index={services.length - index}
-                        showCheckbox={isSelectionMode}
-                        isSelected={selectedIds.includes(service.id)}
-                        onSelectChange={(selected) => handleSelectChange(service.id, selected)}
-                    />
-                ))}
-            </Accordion>
+            {filteredServices.length === 0 ? (
+                <div className="rounded-xl border border-zinc-800/50 bg-zinc-950/50 py-16 text-center text-zinc-600 text-sm">
+                    {searchQuery ? t("noServicesFound") : t("noServices")}
+                </div>
+            ) : (
+                <Accordion type="multiple" className="w-full space-y-2">
+                    {filteredServices.map((service, index) => (
+                        <ServiceAccordionItem
+                            key={service.id}
+                            service={service}
+                            index={services.length - index}
+                            showCheckbox={isSelectionMode}
+                            isSelected={selectedIds.includes(service.id)}
+                            onSelectChange={(selected) => handleSelectChange(service.id, selected)}
+                        />
+                    ))}
+                </Accordion>
+            )}
         </div>
     );
 }

@@ -489,6 +489,8 @@
             "deselectAll": "Batal Tandai Semua",
             "selectMode": "Tandai Layanan",
             "cancelSelectMode": "Batal",
+            "searchPlaceholder": "Cari layanan...",
+            "noServicesFound": "Tidak ada layanan yang cocok dengan pencarian Anda.",
             "noServices": "Belum ada layanan.",
             "interval": "Interval",
             "priceModel": "Model Harga",
