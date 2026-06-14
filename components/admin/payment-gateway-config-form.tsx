@@ -16,12 +16,6 @@ interface PaymentGatewayConfig {
         isProduction: boolean;
         isActive: boolean;
     };
-    creem?: {
-        apiKey: string;
-        storeId: string;
-        isProduction: boolean;
-        isActive: boolean;
-    };
 }
 
 export function PaymentGatewayConfigForm({ initialConfig }: { initialConfig: PaymentGatewayConfig }) {
@@ -33,17 +27,8 @@ export function PaymentGatewayConfigForm({ initialConfig }: { initialConfig: Pay
         isActive: false
     });
 
-    const [creemConfig, setCreemConfig] = useState(initialConfig.creem || {
-        apiKey: '',
-        storeId: '',
-        isProduction: false,
-        isActive: false
-    });
-
     const [showMidtransKeys, setShowMidtransKeys] = useState(false);
-    const [showCreemKey, setShowCreemKey] = useState(false);
     const [savingMidtrans, setSavingMidtrans] = useState(false);
-    const [savingCreem, setSavingCreem] = useState(false);
 
     const handleSaveMidtrans = async () => {
         setSavingMidtrans(true);
@@ -55,19 +40,6 @@ export function PaymentGatewayConfigForm({ initialConfig }: { initialConfig: Pay
             toast.error(error instanceof Error ? error.message : "Failed to save Midtrans configuration");
         } finally {
             setSavingMidtrans(false);
-        }
-    };
-
-    const handleSaveCreem = async () => {
-        setSavingCreem(true);
-        try {
-            await savePaymentConfig("creem", creemConfig);
-            toast.success("Creem configuration saved successfully");
-        } catch (error) {
-            console.error(error);
-            toast.error(error instanceof Error ? error.message : "Failed to save Creem configuration");
-        } finally {
-            setSavingCreem(false);
         }
     };
 
@@ -165,93 +137,6 @@ export function PaymentGatewayConfigForm({ initialConfig }: { initialConfig: Pay
                                 <>
                                     <Save className="w-4 h-4 mr-2" />
                                     Save Midtrans Config
-                                </>
-                            )}
-                        </Button>
-                    </div>
-                </div>
-            </div>
-
-            {/* Creem Configuration */}
-            <div className="space-y-6 pt-6 border-t border-white/5">
-                <div className="pb-4 border-b border-white/5 flex justify-between items-center">
-                    <div>
-                        <h3 className="text-sm font-semibold text-white flex items-center gap-2">
-                            <Store className="w-4 h-4 text-purple-500" />
-                            Creem Payment Gateway
-                        </h3>
-                        <p className="text-xs text-zinc-500 mt-1">Configure Creem.io API credentials and mode.</p>
-                    </div>
-                </div>
-
-                <div className="space-y-4">
-                    <div className="space-y-2">
-                        <label className="text-xs font-medium text-zinc-400 flex items-center justify-between">
-                            API Key
-                            <button
-                                type="button"
-                                onClick={() => setShowCreemKey(!showCreemKey)}
-                                className="text-zinc-500 hover:text-zinc-300"
-                            >
-                                {showCreemKey ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
-                            </button>
-                        </label>
-                        <Input
-                            type={showCreemKey ? "text" : "password"}
-                            value={creemConfig.apiKey}
-                            onChange={(e) => setCreemConfig({ ...creemConfig, apiKey: e.target.value })}
-                            placeholder="creem_test_xxxxx or creem_live_xxxxx"
-                            className="bg-black/20 border-white/10 text-zinc-200 font-mono text-sm focus-visible:ring-purple-500/20"
-                        />
-                    </div>
-
-                    <div className="space-y-2">
-                        <label className="text-xs font-medium text-zinc-400">Store ID</label>
-                        <Input
-                            value={creemConfig.storeId}
-                            onChange={(e) => setCreemConfig({ ...creemConfig, storeId: e.target.value })}
-                            placeholder="sto_xxxxx"
-                            className="bg-black/20 border-white/10 text-zinc-200 font-mono text-sm focus-visible:ring-purple-500/20"
-                        />
-                    </div>
-
-                    <div className="flex items-center justify-between p-4 rounded-lg bg-zinc-800/30 border border-white/5">
-                        <div>
-                            <p className="text-sm font-medium text-white">Active Status</p>
-                            <p className="text-xs text-zinc-500">Enable or disable Creem as a payment option</p>
-                        </div>
-                        <Switch
-                            checked={creemConfig.isActive}
-                            onCheckedChange={(checked) => setCreemConfig({ ...creemConfig, isActive: checked })}
-                        />
-                    </div>
-
-                    <div className="flex items-center justify-between p-4 rounded-lg bg-zinc-800/30 border border-white/5">
-                        <div>
-                            <p className="text-sm font-medium text-white">Live Mode</p>
-                            <p className="text-xs text-zinc-500">Enable for production (disable for test mode)</p>
-                        </div>
-                        <Switch
-                            checked={creemConfig.isProduction}
-                            onCheckedChange={(checked) => setCreemConfig({ ...creemConfig, isProduction: checked })}
-                        />
-                    </div>
-
-                    <div className="pt-4 border-t border-white/5 flex justify-end">
-                        <Button
-                            onClick={handleSaveCreem}
-                            disabled={savingCreem || !creemConfig.apiKey || !creemConfig.storeId}
-                            className="bg-purple-600 hover:bg-purple-500 text-white font-medium disabled:opacity-50"
-                        >
-                            {savingCreem ? (
-                                <>
-                                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                                    Saving...
-                                </>
-                            ) : (
-                                <>
-                                    <Save className="w-4 h-4 mr-2" />
-                                    Save Creem Config
                                 </>
                             )}
                         </Button>

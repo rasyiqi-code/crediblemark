@@ -146,7 +146,7 @@ export default async function PublicInvoicePage(props: { params: Promise<{ id: s
         getSystemSettings(['bank_name', 'bank_account', 'bank_holder', 'manual_payment_active', 'AGENCY_NAME', 'COMPANY_NAME', 'CONTACT_ADDRESS', 'CONTACT_EMAIL', 'CONTACT_PHONE', 'CONTACT_TELEGRAM']),
         paymentGatewayService.getGatewayStatus()
     ]);
-    const hasActiveGateway = gatewayStatus.midtrans || gatewayStatus.creem;
+    const hasActiveGateway = gatewayStatus.midtrans;
     const getSetting = (key: string) => settings.find(s => s.key === key)?.value;
 
     const isManualActive = getSetting('manual_payment_active') === 'true';

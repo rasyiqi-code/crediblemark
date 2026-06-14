@@ -65,7 +65,6 @@ export default async function ServicesPage() {
                                 : (isId ? (service.interval === 'monthly' ? 'Bulanan' : 'Tahunan') : service.interval);
                             const displayTitle = isId ? (service.title_id || service.title) : service.title;
                             const displayDesc = (isId ? (service.description_id || service.description) : service.description).replace(/<[^>]*>?/gm, '');
-                            const isSynced = !!service.creemProductId;
 
                             return (
                                 <AccordionItem
@@ -126,8 +125,8 @@ export default async function ServicesPage() {
                                                 <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-3">
                                                     {/* Detail grid — matching projects style */}
                                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 flex-1 lg:pr-8">
-                                                        <div className="flex items-center gap-2 group/detail">
-                                                            <span className="text-zinc-600"><Zap className="w-3.5 h-3.5" /></span>
+                                                        <div className="flex items-start gap-2 group/detail">
+                                                            <span className="text-zinc-600 mt-0.5"><Zap className="w-3.5 h-3.5" /></span>
                                                             <div className="flex-1 min-w-0">
                                                                 <span className="text-[10px] text-zinc-600 uppercase tracking-wider block">{isId ? 'Interval' : 'Interval'}</span>
                                                                 <span className="text-xs text-zinc-400 font-medium">
@@ -135,8 +134,8 @@ export default async function ServicesPage() {
                                                                 </span>
                                                             </div>
                                                         </div>
-                                                        <div className="flex items-center gap-2 group/detail">
-                                                            <span className="text-zinc-600"><CreditCard className="w-3.5 h-3.5" /></span>
+                                                        <div className="flex items-start gap-2 group/detail">
+                                                            <span className="text-zinc-600 mt-0.5"><CreditCard className="w-3.5 h-3.5" /></span>
                                                             <div className="flex-1 min-w-0">
                                                                 <span className="text-[10px] text-zinc-600 uppercase tracking-wider block">{isId ? 'Model Harga' : 'Price Model'}</span>
                                                                 <span className="text-xs text-zinc-400 font-medium">
@@ -149,7 +148,7 @@ export default async function ServicesPage() {
                                                     </div>
 
                                                     {/* Tombol Aksi - sejajar vertikal dengan detail grid */}
-                                                    <div className="flex justify-start lg:justify-end shrink-0 pt-2 lg:pt-0">
+                                                    <div className="flex justify-start lg:justify-end shrink-0 pt-2 lg:pt-0 pl-[22px] lg:pl-0">
                                                         <ServiceActionButtons serviceId={service.id} />
                                                     </div>
                                                 </div>

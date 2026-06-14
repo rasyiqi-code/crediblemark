@@ -108,7 +108,7 @@ export function SystemAlertsClient({ aiConfigured, gatewayConfigured }: SystemAl
                                     Gateway Pembayaran Belum Aktif
                                 </h3>
                                 <p className="text-xs text-amber-500/70 mt-1 leading-relaxed">
-                                    Midtrans atau Creem belum dikonfigurasi secara lengkap. Pelanggan akan dialihkan ke metode pembayaran <strong>transfer bank manual</strong>.
+                                    Midtrans belum dikonfigurasi secara lengkap. Pelanggan akan dialihkan ke metode pembayaran <strong>transfer bank manual</strong>.
                                 </p>
                             </div>
                         </div>

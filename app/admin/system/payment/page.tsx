@@ -19,10 +19,7 @@ export default async function AdminPaymentPage() {
     const settings = await getSystemSettings(['bank_name', 'bank_account', 'bank_holder', 'manual_payment_active']);
 
     // Fetch payment gateway configs
-    const [midtransConfig, creemConfig] = await Promise.all([
-        paymentGatewayService.getMidtransConfig(),
-        paymentGatewayService.getCreemConfig()
-    ]);
+    const midtransConfig = await paymentGatewayService.getMidtransConfig();
 
     const getSetting = (key: string) => settings.find((s: { key: string; value: string }) => s.key === key)?.value || "";
 
@@ -147,11 +144,9 @@ export default async function AdminPaymentPage() {
                         </div>
                     </div>
 
-                    {/* Payment Gateway Configuration */}
                     <PaymentGatewayConfigForm
                         initialConfig={{
-                            midtrans: midtransConfig,
-                            creem: creemConfig
+                            midtrans: midtransConfig
                         }}
                     />
 

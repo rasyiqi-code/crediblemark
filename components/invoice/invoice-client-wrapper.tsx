@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { InvoiceDocument, type AgencyInvoiceSettings } from "@/components/checkout/invoice-document";
 import { PaymentSelector } from "@/components/payment/payment-selector";
 import { ExtendedEstimate } from "@/lib/shared/types";
-import type { MidtransPaymentData, CreemPaymentMetadata, BankDetails } from "@/types/payment";
+import type { MidtransPaymentData, BankDetails } from "@/types/payment";
 import { useReactToPrint } from "react-to-print";
 
 interface InvoiceClientWrapperProps {
@@ -22,7 +22,7 @@ interface InvoiceClientWrapperProps {
         userId: string | null;
         createdAt: Date;
         updatedAt: Date;
-        paymentMetadata: MidtransPaymentData | CreemPaymentMetadata | null;
+        paymentMetadata: MidtransPaymentData | null;
         project: {
             id: string;
             title: string;
@@ -42,7 +42,7 @@ interface InvoiceClientWrapperProps {
     bankDetails?: BankDetails;
     agencySettings?: AgencyInvoiceSettings;
     hasActiveGateway?: boolean;
-    gatewayStatus?: { midtrans: boolean; creem: boolean };
+    gatewayStatus?: { midtrans: boolean };
 }
 
 import { useTranslations, useLocale } from "next-intl";

@@ -5,7 +5,6 @@ import { isAdmin } from "@/lib/shared/auth-helpers";
 import { currencyService } from "@/lib/server/currency-service";
 import { paymentGatewayService } from "@/lib/server/payment-gateway-service";
 import { resetMidtransInstances } from "@/lib/integrations/midtrans";
-import { resetCreemInstance } from "@/lib/integrations/creem";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { hexclaveServerApp } from "@/lib/config/hexclave";
 import { getResendClient, getAdminEmailTarget, getSenderConfig } from "@/lib/email/client";
@@ -38,19 +37,12 @@ export async function forceUpdateCurrencyRates() {
 
 export async function getPaymentConfigs() {
     if (!await isAdmin()) throw new Error("Unauthorized");
-    const [midtrans, creem] = await Promise.all([
-        paymentGatewayService.getMidtransConfig(),
-        paymentGatewayService.getCreemConfig()
-    ]);
+    const midtrans = await paymentGatewayService.getMidtransConfig();
     return {
         midtrans: {
             ...midtrans,
             serverKey: midtrans.serverKey ? `***${midtrans.serverKey.slice(-4)}` : '',
             clientKey: midtrans.clientKey ? `***${midtrans.clientKey.slice(-4)}` : '',
-        },
-        creem: {
-            ...creem,
-            apiKey: creem.apiKey ? `***${creem.apiKey.slice(-4)}` : '',
         }
     };
 }
@@ -73,21 +65,8 @@ export async function savePaymentConfig(gateway: string, config: Record<string, 
         resetMidtransInstances();
         revalidatePath("/admin/system/payment");
         return { message: "Midtrans configuration saved successfully" };
-    } else if (gateway === "creem") {
-        if (!config.apiKey || !config.storeId) {
-            throw new Error("Missing required Creem fields");
-        }
-        await paymentGatewayService.saveCreemConfig({
-            apiKey: config.apiKey as string,
-            storeId: config.storeId as string,
-            isProduction: (config.isProduction as boolean) || false,
-            isActive: (config.isActive as boolean) || false
-        });
-        resetCreemInstance();
-        revalidatePath("/admin/system/payment");
-        return { message: "Creem configuration saved successfully" };
     } else {
-        throw new Error("Invalid gateway. Must be 'midtrans' or 'creem'");
+        throw new Error("Invalid gateway. Must be 'midtrans'");
     }
 }
 

@@ -37,7 +37,6 @@
         "clsx": "^2.1.1",
         "cmdk": "^1.1.1",
         "cookies-next": "^6.1.1",
-        "creem_io": "^0.4.0",
         "date-fns": "^4.1.0",
         "dotenv": "^17.3.1",
         "embla-carousel-autoplay": "^8.6.0",
@@ -1501,8 +1500,6 @@
     "cors": ["cors@2.8.5", "", { "dependencies": { "object-assign": "^4", "vary": "^1" } }, "sha512-KIHbLJqu73RGr/hnbrO9uBeixNGuvSQjul/jdFvS/KFSIH1hWVd1ng7zOHx+YrEfInLG7q4n6GHQ9cDtxv/P6g=="],
 
     "crc": ["crc@4.3.2", "", { "peerDependencies": { "buffer": ">=6.0.3" }, "optionalPeers": ["buffer"] }, "sha512-uGDHf4KLLh2zsHa8D8hIQ1H/HtFQhyHrc0uhHBcoKGol/Xnb+MPYfUMw7cvON6ze/GUESTudKayDcJC5HnJv1A=="],
-
-    "creem_io": ["creem_io@0.4.0", "", {}, "sha512-zw5CFxSb5RPHSphxP5fo5bZa79M84XisXZeORjFFhWwgdzL/JuS4hv+Xsnr8tIRAG2QBKdAQ0Pc4XQdn5+t4VQ=="],
 
     "crelt": ["crelt@1.0.6", "", {}, "sha512-VQ2MBenTq1fWZUH9DJNGti7kKv6EeAuYr3cLwxUWhIu1baTaXh4Ib5W2CqHVqib4/MqbYGJqiL3Zb8GJZr3l4g=="],
 

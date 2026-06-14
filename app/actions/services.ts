@@ -57,25 +57,6 @@ export async function createService(formData: FormData) {
         }
     }
 
-    let creemProductId: string | null = null;
-    try {
-        const { creem } = await import("@/lib/integrations/creem");
-        const sdk = await creem();
-        const creemProduct = await sdk.products.create({
-            name: title,
-            description: description.replace(/<[^>]*>?/gm, '').slice(0, 255),
-            price: Math.round(finalPrice * 100),
-            currency: currency,
-            billingType: interval === 'one_time' ? 'onetime' : 'recurring',
-            billingPeriod: (interval === 'one_time' ? 'once' : (billingPeriodMap[interval] || 'every-month')) as "once" | "every-month" | "every-year",
-            taxMode: "inclusive",
-            taxCategory: "digital-goods-service",
-            imageUrl: imageUrl || undefined
-        });
-        creemProductId = creemProduct.id;
-    } catch (error) {
-        console.error("Failed to create Creem product (Proceeding anyway):", error);
-    }
 
     const service = await prisma.service.create({
         data: {
@@ -108,7 +89,6 @@ export async function createService(formData: FormData) {
                 }
             })(),
             image: imageUrl,
-            creemProductId,
             slug: slugInput ? slugify(slugInput) : slugify(title)
         } as Prisma.ServiceCreateInput
     });
@@ -197,57 +177,6 @@ export async function updateService(serviceId: string, formData: FormData) {
         data.image = imageUrlInput;
     }
 
-    try {
-        const { creem } = await import("@/lib/integrations/creem");
-        const sdk = await creem();
-        const existingService = await prisma.service.findUnique({ where: { id: serviceId } });
-
-        if (existingService?.creemProductId) {
-            try {
-                await sdk.products.update({
-                    productId: existingService.creemProductId,
-                    name: title,
-                    description: description.replace(/<[^>]*>?/gm, '').slice(0, 255),
-                    price: Math.round(finalPrice * 100),
-                    billingPeriod: (interval === 'one_time' ? 'once' : (billingPeriodMap[interval] || 'every-month')) as "once" | "every-month" | "every-year",
-                    imageUrl: (data.image as string) || undefined
-                });
-            } catch (innerError) {
-                const errorObj = innerError as { status?: number; message?: string };
-                if (errorObj?.status === 404) {
-                    const newProduct = await sdk.products.create({
-                        name: title,
-                        description: description.replace(/<[^>]*>?/gm, '').slice(0, 255),
-                        price: Math.round(finalPrice * 100),
-                        currency: currency,
-                        billingType: interval === 'one_time' ? 'onetime' : 'recurring',
-                        billingPeriod: (interval === 'one_time' ? 'once' : (billingPeriodMap[interval] || 'every-month')) as "once" | "every-month" | "every-year",
-                        taxMode: "inclusive",
-                        taxCategory: "digital-goods-service",
-                        imageUrl: (data.image as string) || undefined
-                    });
-                    data.creemProductId = newProduct.id;
-                } else {
-                    throw innerError;
-                }
-            }
-        } else {
-            const creemProduct = await sdk.products.create({
-                name: title,
-                description: description.replace(/<[^>]*>?/gm, '').slice(0, 255),
-                price: Math.round(finalPrice * 100),
-                currency: currency,
-                billingType: interval === 'one_time' ? 'onetime' : 'recurring',
-                billingPeriod: (interval === 'one_time' ? 'once' : (billingPeriodMap[interval] || 'every-month')) as "once" | "every-month" | "every-year",
-                taxMode: "inclusive",
-                taxCategory: "digital-goods-service",
-                imageUrl: (data.image as string) || undefined
-            });
-            data.creemProductId = creemProduct.id;
-        }
-    } catch (e) {
-        console.error("Creem sync failed during update:", e);
-    }
 
     const updated = await prisma.service.update({
         where: { id: serviceId },
@@ -265,17 +194,6 @@ export async function updateService(serviceId: string, formData: FormData) {
 export async function deleteService(serviceId: string) {
     const user = await hexclaveServerApp.getUser();
     if (!user) return { error: "Unauthorized" };
-
-    const service = await prisma.service.findUnique({ where: { id: serviceId } });
-    if (service?.creemProductId) {
-        try {
-            const { creem } = await import("@/lib/integrations/creem");
-            const sdk = await creem();
-            await sdk.products.delete({ productId: service.creemProductId });
-        } catch (e) {
-            console.error("Failed to delete from Creem:", e);
-        }
-    }
 
     await prisma.service.delete({ where: { id: serviceId } });
 

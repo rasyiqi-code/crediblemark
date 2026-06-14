@@ -35,7 +35,7 @@ export function CheckoutPortal({
     user: { displayName: string | null, email: string | null },
     agencySettings?: AgencyInvoiceSettings,
     hasActiveGateway?: boolean,
-    gatewayStatus?: { midtrans: boolean; creem: boolean },
+    gatewayStatus?: { midtrans: boolean },
     defaultPaymentType?: "FULL" | "DP" | "REPAYMENT",
     projectPaidAmount?: number;
     projectTotalAmount?: number;

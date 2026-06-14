@@ -64,7 +64,7 @@ export default async function CheckoutPage(props: PageProps) {
         const getSetting = (key: string) => settings.find((s: SystemSetting) => s.key === key)?.value;
 
         const gatewayStatus = await paymentGatewayService.getGatewayStatus();
-        const hasActiveGateway = gatewayStatus.midtrans || gatewayStatus.creem;
+        const hasActiveGateway = gatewayStatus.midtrans;
 
         const isManualActive = getSetting('manual_payment_active') === 'true';
         const bankDetails = isManualActive ? {

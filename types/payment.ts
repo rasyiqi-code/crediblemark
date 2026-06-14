@@ -27,21 +27,9 @@ export interface MidtransPaymentMetadata {
 }
 
 /**
- * Creem payment metadata structure  
+ * Combined payment metadata (can be either Midtrans or other format)
  */
-export interface CreemPaymentMetadata {
-    checkoutId?: string;
-    creemProductId?: string;
-    status?: string;
-    customerId?: string;
-    subscriptionId?: string;
-    [key: string]: Prisma.JsonValue | undefined;
-}
-
-/**
- * Combined payment metadata (can be either Midtrans or Creem)
- */
-export type PaymentMetadata = MidtransPaymentMetadata | CreemPaymentMetadata | Prisma.JsonValue;
+export type PaymentMetadata = MidtransPaymentMetadata | Prisma.JsonValue;
 
 // ============================================
 // Bank Details Types
@@ -126,7 +114,7 @@ export interface MidtransPaymentResult {
 export interface PaymentMethod {
     id: string;
     name: string;
-    type: "bank_transfer" | "credit_card" | "ewallet" | "creem";
+    type: "bank_transfer" | "credit_card" | "ewallet";
     icon?: string;
     enabled?: boolean;
 }
@@ -188,7 +176,6 @@ export interface OrderWithProject {
         service?: {
             id: string;
             title: string;
-            creemProductId?: string | null;
         } | null;
     } | null;
 }
@@ -293,7 +280,7 @@ export interface InvoiceOrder {
     paymentType: string | null;
     currency: string;
     exchangeRate: number;
-    paymentMetadata: MidtransPaymentData | CreemPaymentMetadata | null;
+    paymentMetadata: MidtransPaymentData | null;
     createdAt: Date;
     updatedAt: Date;
     project: {

@@ -7,19 +7,18 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useLocale, useTranslations } from "next-intl";
 
-import { initiateCreemPayment } from "@/components/payment/creem/client";
 import { ManualPayment } from "@/components/payment/manual/manual-payment";
 import { MidtransPayment } from "@/components/payment/midtrans/midtrans-payment";
 import { PaymentMethodItem } from "@/components/payment/payment-method-item";
 import { PaymentPendingState } from "@/components/payment/payment-pending-state";
 import { VerificationInProgress } from "@/components/payment/verification-in-progress";
 
-import type { MidtransPaymentData, CreemPaymentMetadata, BankDetails, SelectedPaymentMethod } from "@/types/payment";
+import type { MidtransPaymentData, BankDetails, SelectedPaymentMethod } from "@/types/payment";
 
 export interface PaymentSelectorProps {
     orderId: string;
     amount: number;
-    paymentMetadata?: MidtransPaymentData | CreemPaymentMetadata | null;
+    paymentMetadata?: MidtransPaymentData | null;
     allowedGroups?: string[];
     currency?: 'USD' | 'IDR';
     bankDetails?: BankDetails;
@@ -28,7 +27,7 @@ export interface PaymentSelectorProps {
     contactWA?: string | null;
     contactTele?: string | null;
     hasActiveGateway?: boolean;
-    gatewayStatus?: { midtrans: boolean; creem: boolean };
+    gatewayStatus?: { midtrans: boolean };
     noCard?: boolean;
     onPaymentInitiated?: () => void;
     onPaymentClosed?: () => void; // Callback ketika proses pembayaran dibatalkan atau ditutup
@@ -44,14 +43,6 @@ interface PaymentMethod {
 
 // Data statis konfigurasi grup metode pembayaran
 const PAYMENT_GROUPS: { id: string; label: string; icon: React.ElementType; methods: PaymentMethod[] }[] = [
-    {
-        id: "card",
-        label: "Credit / Debit Card",
-        icon: CreditCard,
-        methods: [
-            { id: "cc", label: "Visa / Mastercard / JCB", type: "credit_card", disabled: false },
-        ]
-    },
     {
         id: "manual",
         label: "Bank / Wire Transfer",
@@ -120,7 +111,7 @@ export function PaymentSelector({
     const [loading, setLoading] = useState(false);
     const [selectedMethod, setSelectedMethod] = useState<SelectedPaymentMethod | null>(null);
 
-    const [paymentData, setPaymentData] = useState<MidtransPaymentData | CreemPaymentMetadata | null>(() => {
+    const [paymentData, setPaymentData] = useState<MidtransPaymentData | null>(() => {
         if (!paymentMetadata) return null;
         if ('payment_type' in paymentMetadata || 'transaction_id' in paymentMetadata || 'status_code' in paymentMetadata) {
             return paymentMetadata;
@@ -140,7 +131,7 @@ export function PaymentSelector({
     // Logika pemfilteran metode pembayaran berdasarkan ketersediaan gateway dan mata uang
     let availableGroups = PAYMENT_GROUPS;
     if (currency === 'USD') {
-        availableGroups = PAYMENT_GROUPS.filter(g => ['card', 'manual'].includes(g.id));
+        availableGroups = PAYMENT_GROUPS.filter(g => ['manual'].includes(g.id));
     }
 
     let filteredGroups = availableGroups;
@@ -153,9 +144,6 @@ export function PaymentSelector({
     if (gatewayStatus) {
         if (!gatewayStatus.midtrans) {
             filteredGroups = filteredGroups.filter(g => !['va', 'ewallet', 'cstore'].includes(g.id));
-        }
-        if (!gatewayStatus.creem) {
-            filteredGroups = filteredGroups.filter(g => g.id !== 'card');
         }
     }
     if (allowedGroups) {
@@ -223,19 +211,6 @@ export function PaymentSelector({
                 console.error(error);
                 toast.error(t("toastManualError"));
             } finally {
-                setLoading(false);
-            }
-            return;
-        }
-
-        // 2. PENANGANAN KARTU KREDIT (CREEM GATEWAY)
-        if (selectedMethod.id === 'cc') {
-            try {
-                const data = await initiateCreemPayment(orderId);
-                onPaymentInitiated?.();
-                window.location.href = data.checkout_url;
-            } catch (error: unknown) {
-                toast.error(error instanceof Error ? error.message : "Payment initialization failed");
                 setLoading(false);
             }
             return;

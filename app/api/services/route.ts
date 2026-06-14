@@ -5,11 +5,6 @@ import { hexclaveServerApp } from "@/lib/config/hexclave";
 import { slugify } from "@/lib/shared/utils";
 import { Prisma } from "@prisma/client";
 
-const billingPeriodMap: Record<string, string> = {
-    'monthly': 'every-month',
-    'yearly': 'every-year',
-    'one_time': 'once'
-};
 
 export async function GET() {
     try {
@@ -36,13 +31,6 @@ export async function POST(req: NextRequest) {
 
     try {
         const formData = await req.formData();
-
-        // Check if sync request or create request
-        const action = formData.get("action");
-        if (action === 'sync') {
-            console.warn("Creem API: List Products not supported by current endpoint. Import skipped.");
-            return NextResponse.json({ success: true, count: 0, warning: "Import checks skipped: API limitation" });
-        }
 
         // CREATE LOGIC
         const title = formData.get("title")?.toString();
@@ -82,26 +70,6 @@ export async function POST(req: NextRequest) {
             }
         }
 
-        let creemProductId = null;
-        try {
-            const { creem } = await import("@/lib/integrations/creem");
-            const sdk = await creem();
-            const creemProduct = await sdk.products.create({
-                name: title,
-                description: description.replace(/<[^>]*>?/gm, '').slice(0, 255),
-                price: Math.round(price * 100),
-                currency: currency,
-                billingType: interval === 'one_time' ? 'onetime' : 'recurring',
-                billingPeriod: (interval === 'one_time' ? 'once' : (billingPeriodMap[interval] || 'every-month')) as "once" | "every-month" | "every-year",
-                taxMode: "inclusive",
-                taxCategory: "digital-goods-service",
-                imageUrl: imageUrl || undefined
-            });
-            creemProductId = creemProduct.id;
-        } catch (error) {
-            console.error("Failed to create Creem product (Proceeding anyway):", error);
-        }
-
         const service = await prisma.service.create({
             data: {
                 title,
@@ -135,7 +103,6 @@ export async function POST(req: NextRequest) {
                     }
                 })(),
                 image: imageUrl,
-                creemProductId,
                 slug: slugInput ? slugify(slugInput) : slugify(title)
             } as Prisma.ServiceCreateInput
         });

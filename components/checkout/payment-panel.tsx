@@ -37,7 +37,7 @@ export function PaymentPanel({
     paymentType: "FULL" | "DP" | "REPAYMENT",
     onChangePaymentType: (type: "FULL" | "DP" | "REPAYMENT") => void,
     hasActiveGateway?: boolean,
-    gatewayStatus?: { midtrans: boolean; creem: boolean },
+    gatewayStatus?: { midtrans: boolean },
     defaultPaymentType?: "FULL" | "DP" | "REPAYMENT",
     user?: { displayName: string | null, email: string | null },
     activeOrderId: string | null,

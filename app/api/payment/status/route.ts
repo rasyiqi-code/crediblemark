@@ -1,8 +1,6 @@
 import { prisma } from "@/lib/config/db";
 import { getCore } from "@/lib/integrations/midtrans";
-import { creem as getCreem } from "@/lib/integrations/creem";
 import { NextResponse } from "next/server";
-import type { CreemPaymentMetadata } from "@/types/payment";
 
 
 export async function GET(req: Request) {
@@ -96,69 +94,6 @@ export async function GET(req: Request) {
             } catch (midtransError) {
                 console.error("Midtrans check failed:", midtransError);
                 // Fallback to existing DB status if upstream check fails
-            }
-        }
-
-        // 2. Creem Check
-        if (order.status === 'pending') {
-            const checkoutId = searchParams.get('checkout_id') || order.transactionId;
-
-
-            if (checkoutId) {
-                try {
-                    const creem = await getCreem();
-                    const creemStatus = await creem.checkouts.get({ checkoutId });
-
-
-
-                    const status = creemStatus.status as string;
-                    if (status === 'completed' || status === 'paid') {
-
-                        // Update Order
-                        const updatedOrder = await prisma.order.update({
-                            where: { id: orderId },
-                            data: {
-                                status: "paid",
-                                transactionId: checkoutId,
-                                paymentMetadata: creemStatus as unknown as CreemPaymentMetadata
-                            },
-                            include: { project: true }
-                        });
-
-                        // Activate Project/Estimate + update paymentStatus & paidAmount
-                        if (updatedOrder.project) {
-                            const currentPaid = updatedOrder.project.paidAmount || 0;
-                            const newPaid = currentPaid + updatedOrder.amount;
-
-                            let paymentStatus = "UNPAID";
-                            if (updatedOrder.type === "FULL" || updatedOrder.type === "REPAYMENT") {
-                                paymentStatus = "PAID";
-                            } else if (updatedOrder.type === "DP") {
-                                paymentStatus = "PARTIAL";
-                            }
-
-                            await prisma.project.update({
-                                where: { id: updatedOrder.project.id },
-                                data: {
-                                    status: "queue",
-                                    paymentStatus: paymentStatus,
-                                    paidAmount: newPaid,
-                                }
-                            });
-
-                            if (updatedOrder.project.estimateId) {
-                                await prisma.estimate.update({
-                                    where: { id: updatedOrder.project.estimateId },
-                                    data: { status: "paid" }
-                                });
-                            }
-                        }
-
-                        order.status = "paid"; // Update local var for redirect logic
-                    }
-                } catch (e) {
-                    console.error("Creem manual check failed:", e);
-                }
             }
         }
 

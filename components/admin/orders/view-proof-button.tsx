@@ -33,10 +33,7 @@ export function ViewProofButton({ estimate }: ViewProofButtonProps) {
     }
     // 2. If NO Proof URL but YES Payment Type (Online), show Text
     else if (paymentType) {
-        // User request: "kalau midtrans ya midtrans saja, kalau creem ya creem saja"
-        const isCreem = paymentType.toLowerCase().includes('creem');
-        const label = isCreem ? 'Creem' : 'Midtrans';
-        return <span className="text-xs text-zinc-500 font-medium whitespace-nowrap">Via {label}</span>;
+        return <span className="text-xs text-zinc-500 font-medium whitespace-nowrap">Via Midtrans</span>;
     }
     // 3. Else show nothing
     else {

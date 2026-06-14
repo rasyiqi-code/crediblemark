@@ -107,7 +107,7 @@ export default async function PrivacyPolicyPage() {
                                         <strong className="text-white">Informasi Akun:</strong> Nama, alamat email, foto profil, dan kredensial login (via Stack Auth/NextAuth) yang Anda gunakan untuk mendaftar.
                                     </li>
                                     <li>
-                                        <strong className="text-white">Data Pembayaran:</strong> Riwayat transaksi, faktur (Invoice), dan status pembayaran. Kami <em>tidak</em> menyimpan detail kartu kredit lengkap Anda; pemrosesan pembayaran ditangani oleh pihak ketiga (Midtrans/Creem).
+                                        <strong className="text-white">Data Pembayaran:</strong> Riwayat transaksi, faktur (Invoice), dan status pembayaran. Kami <em>tidak</em> menyimpan detail kartu kredit lengkap Anda; pemrosesan pembayaran ditangani oleh pihak ketiga (Midtrans).
                                     </li>
                                     <li>
                                         <strong className="text-white">Data Proyek:</strong> Brief, file aset, pesan support, dan log aktivitas proyek yang Anda unggah atau buat di dalam platform.
@@ -157,7 +157,7 @@ export default async function PrivacyPolicyPage() {
                                         <strong className="text-white">Account Information:</strong> Name, email address, profile picture, and login credentials (via Stack Auth/NextAuth) that you use to register.
                                     </li>
                                     <li>
-                                        <strong className="text-white">Payment Data:</strong> Transaction history, invoices, and payment status. We do <em>not</em> store your full credit card details; payment processing is handled by third parties (Midtrans/Creem).
+                                        <strong className="text-white">Payment Data:</strong> Transaction history, invoices, and payment status. We do <em>not</em> store your full credit card details; payment processing is handled by third parties (Midtrans).
                                     </li>
                                     <li>
                                         <strong className="text-white">Project Data:</strong> Briefs, asset files, support messages, and project activity logs that you upload or create within the platform.
