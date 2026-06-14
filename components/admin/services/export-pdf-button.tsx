@@ -1276,7 +1276,6 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
                     <span class="sig-title">${tClientRepresentative}</span>
                 </div>
             </div>
-            `
         </div>
         
         <div class="page-footer">
