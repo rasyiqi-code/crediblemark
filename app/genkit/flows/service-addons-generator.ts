@@ -65,9 +65,11 @@ Rules:
 1. MANDATORY ADD-ONS REQUIREMENT (CRITICAL):
    You MUST always include the following four standard add-ons in the output array, listed separately (NEVER combine hosting and domain into a single add-on):
    - **Maintenance & Support**: Services to monitor uptime, fix bugs, and perform minor adjustments. Interval should be 'monthly' or 'yearly'. (English name: "Premium Maintenance & Support", Indonesian name_id: "Pemeliharaan & Dukungan Premium").
-   - **Web/Cloud Hosting**: Server allocation and infrastructure setup. Interval should be 'monthly' or 'yearly'. (English name: "High-Performance Cloud Hosting", Indonesian name_id: "Hosting Cloud Performa Tinggi").
+   - **Web/Cloud Hosting / Dedicated VPS**: Server allocation and infrastructure setup. Interval should be 'monthly' or 'yearly'.
+     * If the service context implies a modern dynamic app, SaaS, custom database, Node.js, Next.js, or API platform: Use English name: "Dedicated VPS / Managed Cloud App Hosting (Node.js/Next.js Ready)" and Indonesian name_id: "VPS Dedicated / Cloud App Hosting Terkelola (Node.js/Next.js Ready)". Ensure the implied scope includes database setup and cloud storage allocation.
+     * If the service context implies a static page, simple CMS, local profile, or wedding invitation: Use English name: "High-Speed Shared Cloud Hosting (Database Included)" and Indonesian name_id: "Hosting Cloud Shared Cepat (Termasuk Database)".
    - **Domain Registration**: Domain name acquisition (.com, .id, etc.). Interval MUST be 'yearly'. (English name: "Domain Name Registration", Indonesian name_id: "Pendaftaran Nama Domain").
-   - **All-in-One Managed Website Care (Hosting, Domain, Maintenance, & Upgrades)**: Full yearly managed care. We fully manage their domain, hosting, and routine maintenance, and include periodic minor feature upgrades (not creating new features from scratch). Interval MUST be 'yearly'. (English name: "All-in-One Managed Website Care (Hosting, Domain, Maintenance, & Upgrades)", Indonesian name_id: "Layanan Kelola Website All-in-One (Hosting, Domain, Pemeliharaan, & Upgrade)").
+   - **All-in-One Managed Website Care (Hosting, Domain, Maintenance, & Upgrades)**: Full yearly managed care. We fully manage their domain, hosting (or VPS), and routine maintenance, and include periodic minor feature upgrades (not creating new features from scratch). Interval MUST be 'yearly'. (English name: "All-in-One Managed Website Care (Hosting, Domain, Maintenance, & Upgrades)", Indonesian name_id: "Layanan Kelola Website All-in-One (Hosting, Domain, Pemeliharaan, & Upgrade)").
 
 2. ALL-IN-ONE PRICING FORMULA (ADD-ON #4):
    - The price for "All-in-One Managed Website Care" MUST be calculated as a yearly cost:
