@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -10,15 +10,15 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { RichTextEditorClient } from "@/components/ui/rich-text-editor-client";
 import { DynamicListInput } from "@/components/ui/dynamic-list-input";
 import { Button } from "@/components/ui/button";
-import { FileText, ListChecks, CreditCard, Sparkles, ArrowLeft, CheckCircle2, Plus, Link as LinkIcon } from "lucide-react";
+import { FileText, ListChecks, CreditCard, Sparkles, ArrowLeft, CheckCircle2, Plus, Link as LinkIcon, Loader2 } from "lucide-react";
 import { slugify } from "@/lib/shared/utils";
 import { DynamicAddonInput, type ServiceAddon } from "@/components/ui/dynamic-addon-input";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Flag } from "lucide-react";
+import { Textarea } from "@/components/ui/textarea";
 // import { generateServiceAction } from '@/app/actions/genkit';
 import Link from "next/link";
-import { MagicDraftPopover } from "./magic-draft-popover";
 
 export interface ServiceData {
     id: string;
@@ -62,53 +62,82 @@ export function EditServiceForm({
     // AI Generation State
     const [prompt, setPrompt] = useState("");
     const [isGenerating, setIsGenerating] = useState(false);
-    const [generationKey, setGenerationKey] = useState(0);
+    const [isGeneratingPricing, setIsGeneratingPricing] = useState(false);
+    const [isGeneratingAddons, setIsGeneratingAddons] = useState(false);
+    
+    // Inisialisasi pendingDraft dengan data awal layanan agar tombol Pricing dan Addons langsung aktif
+    const [pendingDraft, setPendingDraft] = useState<DraftServiceData | null>({
+        title: service.title,
+        title_id: service.title_id || "",
+        description: service.description,
+        description_id: service.description_id || "",
+        features: features,
+        features_id: features_id
+    });
+    const [isPricingApplied, setIsPricingApplied] = useState(true);
     const [generatedData, setGeneratedData] = useState<DraftServiceData | null>(null);
+
+    // 3 key terpisah agar force-remount hanya field yang relevan per step
+    const [keyContent, setKeyContent] = useState(0);
+    const [keyPricing, setKeyPricing] = useState(0);
+    const [keyAddons, setKeyAddons] = useState(0);
+
     const [slug, setSlug] = useState(service.slug || "");
-    const [priceType, setPriceType] = useState<string>(generatedData?.priceType ?? service.priceType ?? "FIXED");
-    const [interval, setInterval] = useState<string>(generatedData?.interval ?? service.interval ?? "one_time");
+    const [priceType, setPriceType] = useState<string>(service.priceType || "FIXED");
+    const [interval, setInterval] = useState<string>(service.interval || "one_time");
+
+    const formRef = useRef<HTMLFormElement>(null);
 
     // Sinkronisasi tipe harga
     const handlePriceTypeChange = (value: string) => {
         setPriceType(value);
     };
 
+    // Generate AI Step 1: apply judul/deskripsi/fitur langsung ke form
     async function handleGenerate() {
         if (!prompt.trim()) return;
-
         setIsGenerating(true);
         try {
-            // Grab current form inputs so we don't wipe them on re-mount
-            const formElement = document.querySelector("form");
-            const currentForm = formElement ? new FormData(formElement) : null;
-
             const res = await fetch("/api/genkit/generate-service", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ description: prompt })
+                body: JSON.stringify({ type: "content", prompt: prompt })
             });
             const result = await res.json();
 
             if (result.success && result.data) {
-                const mergedData = {
-                    ...service,
-                    title: currentForm?.get("title")?.toString() || service.title,
-                    description: currentForm?.get("description")?.toString() || service.description,
-                    title_id: currentForm?.get("title_id")?.toString() || service.title_id,
-                    description_id: currentForm?.get("description_id")?.toString() || service.description_id,
-                    price: currentForm?.get("price") ? parseFloat(currentForm.get("price")!.toString()) : service.price,
-                    currency: currentForm?.get("currency")?.toString() || service.currency,
-                    visibility: currentForm?.get("visibility")?.toString() || service.visibility,
-                    ...result.data
-                };
+                const draft = result.data;
 
-                if (result.data.slug) setSlug(result.data.slug);
-                if (result.data.priceType) setPriceType(result.data.priceType);
-                if (result.data.interval) setInterval(result.data.interval);
+                // Set content di form
+                setGeneratedData(prev => ({
+                    ...prev,
+                    title: draft.title,
+                    title_id: draft.title_id,
+                    description: draft.description,
+                    description_id: draft.description_id,
+                    features: draft.features,
+                    features_id: draft.features_id,
+                }));
+                
+                // Set pendingDraft untuk menandakan step 1 sukses
+                setPendingDraft({
+                    title: draft.title,
+                    title_id: draft.title_id,
+                    description: draft.description,
+                    description_id: draft.description_id,
+                    features: draft.features,
+                    features_id: draft.features_id,
+                });
 
-                setGeneratedData(mergedData);
-                setGenerationKey(prev => prev + 1);
-                toast.success(tAdmin("aiDraftedSuccess"));
+                if (draft.slug) {
+                    setSlug(draft.slug as string);
+                } else if (draft.title) {
+                    setSlug(slugify(draft.title));
+                }
+
+                setKeyContent(prev => prev + 1);
+                setIsPricingApplied(false); // Reset status harga agar addon dinonaktifkan kembali
+                toast.success("Judul, deskripsi, dan fitur berhasil dibuat oleh AI!");
             } else {
                 toast.error(result.error || tAdmin("aiFail"));
             }
@@ -117,6 +146,139 @@ export function EditServiceForm({
             toast.error(tAdmin("aiError"));
         } finally {
             setIsGenerating(false);
+        }
+    }
+
+    // Generate AI Step 2: Terapkan harga & konfigurasi ke form berdasarkan konten teraktual dari form
+    async function applyStep2() {
+        if (!formRef.current) return;
+        setIsGeneratingPricing(true);
+
+        try {
+            const formData = new FormData(formRef.current);
+            const title = formData.get("title") as string;
+            const title_id = formData.get("title_id") as string;
+            const description = formData.get("description") as string;
+            const description_id = formData.get("description_id") as string;
+            const features = formData.get("features") ? (formData.get("features") as string).split('\n').filter(Boolean) : [];
+            const features_id = formData.get("features_id") ? (formData.get("features_id") as string).split('\n').filter(Boolean) : [];
+
+            const res = await fetch("/api/genkit/generate-service", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    type: "pricing",
+                    title,
+                    title_id,
+                    description,
+                    description_id,
+                    features,
+                    features_id
+                })
+            });
+            const result = await res.json();
+
+            if (result.success && result.data) {
+                const pricing = result.data;
+
+                // Terapkan harga ke form
+                setGeneratedData(prev => ({
+                    ...prev,
+                    recommended_price: pricing.recommended_price,
+                    discount: pricing.discount,
+                    currency: pricing.currency,
+                    priceType: pricing.priceType,
+                    interval: pricing.interval,
+                }));
+
+                // Update state lokal untuk sinkronisasi input Radix Select
+                if (pricing.priceType) setPriceType(pricing.priceType as string);
+                if (pricing.interval) setInterval(pricing.interval as string);
+
+                // Update pendingDraft agar menyertakan data harga juga
+                setPendingDraft(prev => prev ? {
+                    ...prev,
+                    recommended_price: pricing.recommended_price,
+                    discount: pricing.discount,
+                    currency: pricing.currency,
+                    priceType: pricing.priceType,
+                    interval: pricing.interval,
+                } : null);
+
+                setKeyPricing(prev => prev + 1);
+                setIsPricingApplied(true);
+                toast.success("Rekomendasi harga berhasil dibuat oleh AI!");
+            } else {
+                toast.error(result.error || "Gagal membuat rekomendasi harga.");
+            }
+        } catch (error) {
+            console.error("AI Pricing Generation error:", error);
+            toast.error("Terjadi kesalahan saat memproses harga.");
+        } finally {
+            setIsGeneratingPricing(false);
+        }
+    }
+
+    // Generate AI Step 3: Terapkan add-ons ke form berdasarkan konten dan harga teraktual dari form
+    async function applyStep3() {
+        if (!formRef.current) return;
+        setIsGeneratingAddons(true);
+
+        try {
+            const formData = new FormData(formRef.current);
+            const title = formData.get("title") as string;
+            const title_id = formData.get("title_id") as string;
+            const description = formData.get("description") as string;
+            const description_id = formData.get("description_id") as string;
+            const features = formData.get("features") ? (formData.get("features") as string).split('\n').filter(Boolean) : [];
+            const features_id = formData.get("features_id") ? (formData.get("features_id") as string).split('\n').filter(Boolean) : [];
+            
+            const recommended_price = formData.get("price") ? Number(formData.get("price")) : undefined;
+            const discount = formData.get("discount") ? Number(formData.get("discount")) : undefined;
+            const currency = formData.get("currency") as "USD" | "IDR" || "USD";
+            
+            const res = await fetch("/api/genkit/generate-service", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    type: "addons",
+                    title,
+                    title_id,
+                    description,
+                    description_id,
+                    features,
+                    features_id,
+                    recommended_price,
+                    discount,
+                    currency,
+                    priceType,
+                    interval
+                })
+            });
+            const result = await res.json();
+
+            if (result.success && result.data) {
+                const { addons, addons_id } = result.data;
+
+                // Terapkan addons ke form
+                setGeneratedData(prev => ({
+                    ...prev,
+                    addons,
+                    addons_id
+                }));
+
+                setKeyAddons(prev => prev + 1);
+                setPendingDraft(null); // Selesai
+                setIsPricingApplied(false);
+                toast.success("Daftar add-ons berhasil dibuat oleh AI!");
+            } else {
+                toast.error(result.error || "Gagal membuat add-ons.");
+            }
+        } catch (error) {
+            console.error("AI Add-ons Generation error:", error);
+            toast.error("Terjadi kesalahan saat memproses add-ons.");
+        } finally {
+            setIsGeneratingAddons(false);
         }
     }
 
@@ -169,24 +331,6 @@ export function EditServiceForm({
                             <CheckCircle2 className="w-6 h-6 text-blue-500" />
                             Edit Service
                         </h1>
-
-                        {/* AI Assistant Popover */}
-                        <MagicDraftPopover
-                            prompt={prompt}
-                            setPrompt={setPrompt}
-                            isGenerating={isGenerating}
-                            onGenerate={handleGenerate}
-                            align="start"
-                        >
-                            <Button
-                                variant="outline"
-                                size="sm"
-                                className="h-8 gap-2 bg-indigo-500/10 border-indigo-500/20 text-indigo-400 hover:bg-indigo-500/20 hover:text-indigo-300 transition-all hover:scale-105 active:scale-95"
-                            >
-                                <Sparkles className="w-3.5 h-3.5 animate-pulse" />
-                                <span className="text-xs font-semibold">AI Assistant</span>
-                            </Button>
-                        </MagicDraftPopover>
                     </div>
                     <p className="text-zinc-400 mt-1 text-sm max-w-2xl">
                         Update service details, pricing, and features.
@@ -202,11 +346,48 @@ export function EditServiceForm({
                 </div>
             </div>
 
-            <form onSubmit={onSubmit} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <form ref={formRef} onSubmit={onSubmit} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <input type="hidden" name="id" value={service.id} />
 
                 {/* Left Column: Primary Information */}
-                <div className="lg:col-span-2 space-y-6" key={generationKey}>
+                <div className="lg:col-span-2 space-y-6" key={`content-${keyContent}`}>
+                    {/* AI Magic Draft - Box Generator */}
+                    <div className="rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-6 space-y-4">
+                        <div className="flex items-center gap-2">
+                            <Sparkles className="w-5 h-5 text-indigo-400 animate-pulse" />
+                            <h3 className="text-sm font-semibold text-white">AI Magic Draft</h3>
+                        </div>
+                        <p className="text-xs text-indigo-300/80 leading-normal">
+                            {tAdmin("magicDraftDesc")}
+                        </p>
+                        <div className="space-y-3">
+                            <Textarea
+                                value={prompt}
+                                onChange={(e) => setPrompt(e.target.value)}
+                                placeholder={tAdmin("promptPlaceholder")}
+                                className="bg-black/40 border-indigo-500/20 text-zinc-200 focus-ring-indigo-500/40 min-h-[100px] text-xs resize-none"
+                            />
+                            <Button
+                                type="button"
+                                onClick={handleGenerate}
+                                disabled={isGenerating || !prompt.trim()}
+                                className="w-full bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-500/20 h-10 transition-all active:scale-95 text-xs font-semibold"
+                            >
+                                {isGenerating ? (
+                                    <>
+                                        <Loader2 className="w-4 h-4 animate-spin mr-2" />
+                                        {tAdmin("crafting")}
+                                    </>
+                                ) : (
+                                    <>
+                                        <Sparkles className="w-4 h-4 mr-2" />
+                                        {tAdmin("autoFill")}
+                                    </>
+                                )}
+                            </Button>
+                        </div>
+                    </div>
+
                     <Tabs defaultValue="en" className="w-full">
                         <TabsList className="bg-zinc-900/40 border border-white/5 mb-4">
                             <TabsTrigger value="en">{tAdmin("enDefault")}</TabsTrigger>
@@ -276,14 +457,32 @@ export function EditServiceForm({
                             </div>
 
                             <div className="space-y-6">
-                                <div className="flex items-center gap-2 pb-3 border-b border-white/5">
-                                    <Plus className="w-4 h-4 text-blue-400" />
-                                    <h3 className="text-sm font-semibold text-white">Add-ons (English)</h3>
+                                <div className="flex items-center justify-between pb-3 border-b border-white/5">
+                                    <div className="flex items-center gap-2">
+                                        <Plus className="w-4 h-4 text-blue-400" />
+                                        <h3 className="text-sm font-semibold text-white">Add-ons (English)</h3>
+                                    </div>
+                                    <Button
+                                        type="button"
+                                        onClick={applyStep3}
+                                        disabled={!pendingDraft || !isPricingApplied || isGeneratingAddons}
+                                        variant="outline"
+                                        size="sm"
+                                        className="h-7 px-2.5 text-[10px] gap-1 bg-indigo-500/10 border-indigo-500/20 text-indigo-400 hover:bg-indigo-500/20 hover:text-indigo-300 disabled:opacity-40 disabled:hover:bg-indigo-500/10 disabled:hover:text-indigo-400"
+                                    >
+                                        {isGeneratingAddons ? (
+                                            <Loader2 className="w-3 h-3 animate-spin" />
+                                        ) : (
+                                            <Sparkles className="w-3 h-3" />
+                                        )}
+                                        Isi dari AI
+                                    </Button>
                                 </div>
                                 <div className="space-y-6">
                                     <div className="space-y-2">
                                         <label className="text-xs font-medium text-zinc-400 uppercase tracking-wider">Configure optional upsells</label>
                                         <DynamicAddonInput
+                                            key={`addons-en-${keyAddons}`}
                                             name="addons"
                                             defaultValue={generatedData?.addons ?? service.addons ?? []}
                                             currency={generatedData?.currency ?? service.currency ?? "USD"}
@@ -342,14 +541,32 @@ export function EditServiceForm({
                             </div>
 
                             <div className="space-y-6">
-                                <div className="flex items-center gap-2 pb-3 border-b border-white/5">
-                                    <Plus className="w-4 h-4 text-red-500" />
-                                    <h3 className="text-sm font-semibold text-white">Add-ons (Bahasa Indonesia)</h3>
+                                <div className="flex items-center justify-between pb-3 border-b border-white/5">
+                                    <div className="flex items-center gap-2">
+                                        <Plus className="w-4 h-4 text-red-500" />
+                                        <h3 className="text-sm font-semibold text-white">Add-ons (Bahasa Indonesia)</h3>
+                                    </div>
+                                    <Button
+                                        type="button"
+                                        onClick={applyStep3}
+                                        disabled={!pendingDraft || !isPricingApplied || isGeneratingAddons}
+                                        variant="outline"
+                                        size="sm"
+                                        className="h-7 px-2.5 text-[10px] gap-1 bg-indigo-500/10 border-indigo-500/20 text-indigo-400 hover:bg-indigo-500/20 hover:text-indigo-300 disabled:opacity-40 disabled:hover:bg-indigo-500/10 disabled:hover:text-indigo-400"
+                                    >
+                                        {isGeneratingAddons ? (
+                                            <Loader2 className="w-3 h-3 animate-spin" />
+                                        ) : (
+                                            <Sparkles className="w-3 h-3" />
+                                        )}
+                                        Isi dari AI
+                                    </Button>
                                 </div>
                                 <div className="space-y-6">
                                     <div className="space-y-2">
                                         <label className="text-xs font-medium text-zinc-400 uppercase tracking-wider">Konfigurasi add-on opsional</label>
                                         <DynamicAddonInput
+                                            key={`addons-id-${keyAddons}`}
                                             name="addons_id"
                                             defaultValue={generatedData?.addons_id ?? service.addons_id ?? []}
                                             currency={generatedData?.currency ?? service.currency ?? "USD"}
@@ -362,14 +579,31 @@ export function EditServiceForm({
                 </div>
 
                 {/* Right Column: Configuration & Actions */}
-                <div className="lg:col-span-1" key={`pricing-${generationKey}`}>
+                <div className="lg:col-span-1" key={`pricing-${keyPricing}`}>
                     <div className="sticky top-8 space-y-6">
 
 
                         <div className="rounded-xl border border-white/5 bg-zinc-900/40 overflow-hidden">
-                            <div className="px-6 py-4 border-b border-white/5 bg-zinc-900/20 flex items-center gap-2">
-                                <CreditCard className="w-4 h-4 text-violet-400" />
-                                <h3 className="text-sm font-semibold text-white">{tAdmin("pricingConfig")}</h3>
+                            <div className="px-6 py-4 border-b border-white/5 bg-zinc-900/20 flex items-center justify-between">
+                                <div className="flex items-center gap-2">
+                                    <CreditCard className="w-4 h-4 text-violet-400" />
+                                    <h3 className="text-sm font-semibold text-white">{tAdmin("pricingConfig")}</h3>
+                                </div>
+                                <Button
+                                    type="button"
+                                    onClick={applyStep2}
+                                    disabled={!pendingDraft || isGeneratingPricing}
+                                    variant="outline"
+                                    size="sm"
+                                    className="h-7 px-2.5 text-[10px] gap-1 bg-indigo-500/10 border-indigo-500/20 text-indigo-400 hover:bg-indigo-500/20 hover:text-indigo-300 disabled:opacity-40 disabled:hover:bg-indigo-500/10 disabled:hover:text-indigo-400"
+                                >
+                                    {isGeneratingPricing ? (
+                                        <Loader2 className="w-3 h-3 animate-spin" />
+                                    ) : (
+                                        <Sparkles className="w-3 h-3" />
+                                    )}
+                                    Isi dari AI
+                                </Button>
                             </div>
                             <div className="p-6 space-y-6">
 
