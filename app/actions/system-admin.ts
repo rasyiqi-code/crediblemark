@@ -235,3 +235,18 @@ export async function getCompanyStamp(): Promise<string | null> {
         return null;
     }
 }
+
+/**
+ * Membaca file tanda tangan direktur dari folder public dan mengembalikan data URL base64.
+ * Digunakan di dokumen PDF proposal pada bagian otorisasi.
+ */
+export async function getDirectorSignature(): Promise<string | null> {
+    try {
+        const sigPath = join(process.cwd(), "public", "signature.png");
+        const sigBuffer = readFileSync(sigPath);
+        const base64 = sigBuffer.toString("base64");
+        return `data:image/png;base64,${base64}`;
+    } catch {
+        return null;
+    }
+}

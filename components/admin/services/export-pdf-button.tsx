@@ -7,7 +7,7 @@ import { ServiceAddon } from "@/lib/shared/types";
 import { useLocale } from "next-intl";
 import idMessages from "@/messages/id.json";
 import enMessages from "@/messages/en.json";
-import { getAgencyLogo, getCompanyStamp } from "@/app/actions/system-admin";
+import { getAgencyLogo, getCompanyStamp, getDirectorSignature } from "@/app/actions/system-admin";
 
 interface ServiceData {
     id: string;
@@ -30,11 +30,13 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
     const [isGenerating, setIsGenerating] = useState(false);
     const [logoUrl, setLogoUrl] = useState<string | null>(null);
     const [stampUrl, setStampUrl] = useState<string | null>(null);
+    const [signatureUrl, setSignatureUrl] = useState<string | null>(null);
     const locale = useLocale();
 
     useEffect(() => {
         getAgencyLogo().then(setLogoUrl).catch(console.error);
         getCompanyStamp().then(setStampUrl).catch(console.error);
+        getDirectorSignature().then(setSignatureUrl).catch(console.error);
     }, []);
 
     const handleExport = () => {
@@ -1256,21 +1258,23 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             
             <div class="signatures-container">
                 <div class="sig-box">
-                    <div class="sig-line"></div>
+                    ` + (signatureUrl
+                        ? `<div style="height: 10mm; display: flex; align-items: flex-end; margin-bottom: 2px;"><img src="${signatureUrl}" alt="Tanda Tangan" style="height: 32px; width: auto; object-fit: contain;" /></div>`
+                        : `<div class="sig-line"></div>`
+                    ) + `
                     <span class="sig-name">M. Rasyiqi</span>
                     <span class="sig-title">Director, Crediblemark</span>
                 </div>
                 <div class="sig-box">
                     <div class="sig-line"></div>
-                    <span class="sig-name">...................................................</span>
+                    <span class="sig-name">...</span>
                     <span class="sig-title">${tClientRepresentative}</span>
                 </div>
             </div>
-            ${stampUrl ? `
-            <div style="margin-top: 12px; width: 65mm;">
-                <img src="${stampUrl}" alt="Stempel Resmi" style="width: 80px; height: 80px; object-fit: contain; opacity: 0.85; filter: brightness(0) invert(1);" />
-            </div>
-            ` : ''}
+            ` + (stampUrl
+                ? `<div style="margin-top: 12px; width: 65mm;"><img src="${stampUrl}" alt="Stempel Resmi" style="width: 80px; height: 80px; object-fit: contain; opacity: 0.85; filter: brightness(0) invert(1);" /></div>`
+                : ``
+            ) + `
         </div>
         
         <div class="page-footer">
