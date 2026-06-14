@@ -106,20 +106,31 @@ Input Description: "${sanitizedPrompt}"
    - "recommended_price": A plain number (integer or float). The base price (original price) matching the currency before any discount is applied. NO currency symbols or commas.
    - "discount": A plain integer from 0 to 60. If no discount, use 0. NEVER use null or omit this field.
 
-5. ADD-ONS ("addons"):
-   - Generate 2-4 highly relevant upsell options.
-   - Each addon MUST have exactly these fields: "name" (string), "name_id" (string in Indonesian), "price" (number), "interval" (exactly "one_time", "monthly", or "yearly"), "currency" (exactly "USD" or "IDR").
-   - Add-on currency MUST match the main currency.
-   - Relevant add-on examples:
-     * For Landing Page: Extra copywriting, A/B testing setup, conversion tracking.
-     * For E-Commerce: Shipping rate integration (RajaOngkir), payment gateway setup, inventory sync.
-     * For Web App: Push notifications, advanced analytics dashboard, multi-language support.
-   - ADD-ON INTERVAL & PRICING LOGIC:
-     * Recurring services (e.g., Maintenance, Premium Support, Monthly Update Retainer) must have interval "monthly" or "yearly".
-     * One-off services (e.g., Extra page design, Logo branding, API Integration) must have interval "one_time".
-     * If the add-on interval MATCHES the base service interval: Price should be 5% to 25% of the base price (recommended_price).
-     * If the add-on interval is DIFFERENT (e.g., base service is "one_time" development, add-on is "monthly" maintenance): Set a reasonable monthly price relative to the complexity (e.g., 5% to 15% of the base price per month).
-     * Round all prices to make them clean (e.g., 500000, 1000000, or 50, 150).
+5. ADD-ONS ("addons") — (NICHE-SPECIFIC & LOGICAL MARKET PRICING):
+   - Generate 2-4 highly specific, high-value add-ons. 
+   - NICHE OPPORTUNITY MATCHING (CRITICAL):
+     * Do NOT generate generic add-ons (like 'Basic SEO' or 'Extra Pages') unless they are highly tailored to the niche.
+     * Analyze the specific niche/industry of the requested website and brainstorm industry-specific upsells that present high-value business opportunities.
+     * Niche Examples:
+       - For Car Dealerships: 'Simulasi Kredit & Angsuran Interaktif' (One-time), 'WhatsApp Auto-routing for Test Drive Booking' (Monthly).
+       - For Clinics/Dentists: 'Sistem Reservasi Jadwal Dokter Real-time' (One-time), 'Integrasi Whatsapp Reminder Jadwal Pasien' (Monthly).
+       - For Hotels/Villas: 'OTA Channel Manager Integration (Sync with Traveloka, Booking.com)' (Monthly), 'Sistem Reservasi Kamar & Manajemen Deposit' (One-time).
+       - For E-Commerce: 'Integrasi Kurir Lokal Otomatis & Cek Resi (RajaOngkir/Biteship)' (One-time), 'Inventory Sync & Multi-Warehouse Setup' (One-time).
+       - For Professional Services (Lawyers/Consultants): 'Online Consultation Booking & Invoice Automation' (One-time).
+   
+   - LOGICAL & ACCURATE MARKET PRICING (CRITICAL):
+     * Do NOT use a rigid percentage formula of the base price. Pricing must reflect real-world market rates for digital agency services while remaining highly attractive and affordable (upsell-friendly).
+     * Add-on prices must match the base service currency (USD or IDR).
+     * Real-World Price Ranges (Indonesia - IDR):
+       - One-Time Features (e.g., Credit calculator, Custom API, Payment Setup): IDR 500,000 to IDR 3,500,000 (depending on complexity).
+       - Monthly Services (e.g., WhatsApp integration maintenance, Monthly content updates, Technical support retainer): IDR 250,000 to IDR 1,200,000 per month (making it highly affordable for businesses).
+       - Yearly Services: IDR 2,000,000 to IDR 8,000,000 per year.
+     * Real-World Price Ranges (Global - USD):
+       - One-Time Features: USD 50 to USD 350.
+       - Monthly Services: USD 25 to USD 120 per month.
+       - Yearly Services: USD 200 to USD 800 per year.
+     * Round all prices cleanly (e.g., IDR 350,000, IDR 1,500,000, or USD 49, USD 120).
+     * Ensure every add-on has all 5 fields: "name" (string), "name_id" (string in Indonesian), "price" (number), "interval" ("one_time", "monthly", "yearly"), and "currency" ("USD" or "IDR").
 
 === REQUIRED JSON OUTPUT FORMAT ===
 You MUST return ONLY a raw JSON object with NO markdown, NO explanation, NO code block wrappers. The JSON must exactly match this structure:
