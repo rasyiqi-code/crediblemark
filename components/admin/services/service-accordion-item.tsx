@@ -33,21 +33,21 @@ export function ServiceAccordionItem({ service, displayTitle, intervalLabel, isI
             id={`service-item-${service.id}`}
             className="border border-zinc-800/60 rounded-xl overflow-hidden transition-all duration-200 hover:border-zinc-700/80 bg-zinc-950/50 data-[state=open]:border-zinc-700/80 w-full max-w-full relative select-none"
         >
-            <AccordionTrigger className="hover:no-underline px-4 py-3.5 cursor-pointer hover:bg-zinc-900/40 group">
+            <AccordionTrigger className="hover:no-underline px-4 py-3.5 cursor-pointer hover:bg-zinc-900/40 group [&>svg]:hidden grid-cols-1 gap-0">
                 <div className="flex flex-1 items-center justify-between gap-4 min-w-0">
                     <div className="flex items-start gap-2 sm:gap-3 min-w-0 flex-1">
                         <div className="flex-1 min-w-0 pr-2">
                             <span className="font-medium text-white text-sm truncate block">{displayTitle}</span>
-                            <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-[11px] text-zinc-500 mt-1">
+                            <div className="flex flex-wrap items-center gap-x-1.5 sm:gap-x-2 gap-y-1 text-[11px] text-zinc-500 mt-1">
                                 <span className="truncate font-semibold text-white">
                                     <PriceDisplay amount={service.discount && service.discount > 0 ? (service.price * (1 - service.discount / 100)) : service.price} baseCurrency={service.currency || 'USD'} />
                                 </span>
                                 {service.discount && service.discount > 0 ? (
                                     <>
-                                        <span className="line-through text-zinc-400 text-[10px] ml-1">
+                                        <span className="line-through text-zinc-400 text-[10px]">
                                             <PriceDisplay amount={service.price} baseCurrency={service.currency || 'USD'} />
                                         </span>
-                                        <span className="text-[10px] bg-red-500/10 text-red-400 border border-red-500/20 px-1 py-0.25 rounded font-bold ml-1">
+                                        <span className="text-[10px] bg-red-500/10 text-red-400 border border-red-500/20 px-1 py-0.25 rounded font-bold">
                                             -{service.discount}%
                                         </span>
                                     </>
@@ -57,17 +57,15 @@ export function ServiceAccordionItem({ service, displayTitle, intervalLabel, isI
                                     {new Date(service.createdAt).toLocaleDateString()}
                                 </span>
 
-                                <div className="flex flex-wrap items-center gap-1.5 ml-0 sm:ml-2">
-                                    <Badge
-                                        variant="outline"
-                                        className={`py-0 px-1.5 h-4 text-[10px] shrink-0 font-medium ${service.visibility === 'PRIVATE'
-                                            ? 'bg-zinc-500/10 text-zinc-400 border-zinc-500/20'
-                                            : 'bg-blue-500/10 text-blue-400 border-blue-500/20'
-                                            }`}
-                                    >
-                                        {service.visibility === 'PRIVATE' ? 'Private' : 'Public'}
-                                    </Badge>
-                                </div>
+                                <Badge
+                                    variant="outline"
+                                    className={`py-0 px-1.5 h-3.5 text-[9px] sm:text-[10px] shrink-0 font-medium ${service.visibility === 'PRIVATE'
+                                        ? 'bg-zinc-500/10 text-zinc-400 border-zinc-500/20'
+                                        : 'bg-blue-500/10 text-blue-400 border-blue-500/20'
+                                        }`}
+                                >
+                                    {service.visibility === 'PRIVATE' ? 'Private' : 'Public'}
+                                </Badge>
                             </div>
                         </div>
                     </div>
