@@ -47,20 +47,38 @@ Service details:
 - Description: "${sanitizedDesc}"
 - Features: "${sanitizedFeatures}"
 
-Rules:
-1. CURRENCY: 'IDR' if title/description has Indonesian words or currency symbols; otherwise 'USD'.
+Rules for Pricing Instinct and Strategy:
+1. CURRENCY: 'IDR' if title/description has Indonesian words, references Indonesian places, or uses IDR/Rp symbols; otherwise 'USD'.
 2. PRICE TYPE: 'FIXED' or 'STARTING_AT'.
 3. INTERVAL: 'one_time' for project builds; 'monthly'/'yearly' for retainers/support.
-4. CHARM PRICING STRATEGY:
-   - Target Business Scale Definitions & Prices (based on complexity/scope of the title and description):
-     * Ultra Micro (IDR 1.45M - 1.95M / USD 149 - 199): Informal, self-run (e.g. tiny stalls, street vendors). Assets <= IDR 50M, annual revenue <= IDR 300M. Site: 100% static, no DB.
-     * Micro (IDR 2.45M - 3.45M / USD 249 - 349): Micro-scale sole proprietorship (e.g. barbershop, laundry, kost, independent clinic). Staff: 1-5. Assets <= IDR 50M, annual revenue <= IDR 300M. Site: basic forms, WA link.
-     * Small (IDR 3.95M - 8.95M / USD 399 - 899): Growing local business (e.g. local cafe, local school, builder shop). Staff: 6-19. Assets IDR 50M-500M, annual revenue IDR 300M-2.5B. Site: standard catalog, booking.
-     * Medium/SME (IDR 9.95M - 19.95M / USD 999 - 1,999): Regional companies. Staff: 20-99. Assets IDR 500M-10B, annual revenue IDR 2.5B-50B. Site: payment gateway, dynamic operations.
-     * Large/Enterprise (IDR 24.95M - 49.99M+ / USD 2,499 - 5,999+): Corporates/tech platforms. Staff >= 100. Assets > IDR 10B, annual revenue > IDR 50B. Site: full automation, SaaS, ERP, multi-role.
-   - Determine "discount" as an ODD integer between 51 and 89 (e.g. 53, 55, 59, 65, 75, 85, 89). No even discount numbers.
+4. TARGET BUSINESS SCALE PROFILING (CRITICAL):
+   Analyze the service context, industry, and complexity to identify the target client's business scale:
+   - **Ultra Mikro (UMi)**:
+     * Profile: Informal, self-run businesses, or individuals (e.g. food stall/warung kelontong kecil, street vendors, local mosque/masjid, personal portfolio, digital wedding invitation).
+     * Budget Constraint: Extremely price sensitive. High pricing is completely unaffordable.
+     * Target Consumer Price Range: IDR 1,450,000 - IDR 1,950,000 (or USD 149 - 199).
+   - **Usaha Mikro**:
+     * Profile: Micro-scale sole proprietorship/small shop with 1-5 employees (e.g. local barbershop, local laundry, kost-kostan, independent medical clinic, small local cafe).
+     * Target Consumer Price Range: IDR 2,450,000 - IDR 3,450,000 (or USD 249 - 349).
+   - **Usaha Kecil**:
+     * Profile: Growing local business with structured operations and 6-19 employees (e.g. popular local cafe with multiple branches, local private school, builder shop, clothing distro/boutique).
+     * Target Consumer Price Range: IDR 3,950,000 - IDR 8,950,000 (or USD 399 - 899).
+   - **Usaha Menengah (SME)**:
+     * Profile: Regional structured companies with 20-99 employees. Requires dynamic operations, payment gateway integration, or booking/inventory management (e.g. regional car showroom/dealer, small factory, province distributor).
+     * Target Consumer Price Range: IDR 9,950,000 - IDR 19,950,000 (or USD 999 - 1,999).
+   - **Besar/Enterprise**:
+     * Profile: Corporates, national brands, SaaS platform, ERP, heavy machinery B2B, large scale exporters, staff >= 100.
+     * Value Perception: High price represents premium quality. Cheap pricing devalues the brand.
+     * Target Consumer Price Range: IDR 24,950,000 - IDR 49,990,000+ (or USD 2,499 - 5,999+).
+
+5. CHARM PRICING & ANCHOR PRICE CALCULATION:
+   - Determine "Consumer Price" (the final price the client actually pays after discount) within the chosen range above.
+   - Choose a "discount" percentage as an ODD integer between 51 and 89 (e.g. 53, 55, 59, 65, 75, 85, 89). No even discount numbers.
    - Calculate "recommended_price" (Anchor Price) as: Consumer Price / (1 - (discount / 100)).
-   - Round "recommended_price" cleanly (e.g. 79950000) using charm pricing numbers. No decimals.
+   - Round both final prices cleanly:
+     * For IDR, final Consumer Price and recommended_price must end in 000, 50000, 90000, 95000, or 99000 (e.g., IDR 1,450,000, IDR 3,450,000, IDR 8,950,000).
+     * For USD, final Consumer Price and recommended_price must end in .99, .95, or 9 (e.g. USD 149, USD 349, USD 899).
+     * Ensure recommended_price > Consumer Price.
 
 Format Output: Raw JSON matching the schema. No markdown wrappers, no explanations.
             `,

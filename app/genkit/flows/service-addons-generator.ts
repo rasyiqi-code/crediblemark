@@ -75,14 +75,53 @@ Rules:
 2. NO CMS CAPACITY RESTRICTIONS:
    - Never limit database/CMS features (e.g. DO NOT limit products, categories, or image uploads). The client must have unlimited CMS capability.
    - Limit/quota fields MUST only apply to our manual deliverables (e.g. "3 Articles/Month", "Up to 3 Custom APIs Setup", "4 Hours/Month Support").
-3. PRICING:
-   - Addon currency must be "${currency}". Price must be an ODD (charm pricing) number.
-   - Pricing must be based on development complexity, effort, and the industry's target market (NOT tied to the base package price):
-     * Low Complexity / Standard Setup (e.g. basic newsletter integration, WhatsApp click-to-chat setup): IDR 990k - 1.99M / USD 99 - 199.
-     * Medium Complexity / Automated Flow & Integrations (e.g. Google Calendar live sync, recurring payment setup, analytics conversion tracking): IDR 1.99M - 3.49M / USD 199 - 349.
-     * High Complexity / Client Portals & Dynamic Databases (e.g. Client Login Area, live inventory API sync with ERP, multi-role authorization): IDR 3.99M - 7.99M / USD 399 - 799.
-     * Monthly Retainer / Maintenance: IDR 390k - 990k/month / USD 39 - 99/month.
-   - Adjust these base ranges down for highly retail/micro markets (e.g. wedding websites) and up for enterprise/high-margin B2B industries (e.g. heavy machinery, custom corporate ERPs).
+3. PRICING & TARGET BUSINESS SCALE ADJUSTMENT:
+   - Addon currency must be "${currency}".
+   - First, identify the Target Business Scale of the service based on its title, description, and base/consumer price.
+   - Scale the pricing of the addons to match the client's business scale:
+
+     * **For Ultra Mikro (UMi)** (informal/individual target market):
+       - Low Complexity: IDR 290k - 490k / USD 29 - 49.
+       - Medium Complexity: IDR 490k - 890k / USD 49 - 89.
+       - High Complexity: IDR 890k - 1,490,000 / USD 89 - 149.
+       - Monthly Retainer: IDR 99k - 199k / USD 9 - 19.
+
+     * **For Usaha Mikro** (small businesses with 1-5 employees):
+       - Low Complexity: IDR 490k - 890k / USD 49 - 89.
+       - Medium Complexity: IDR 890k - 1,490,000 / USD 89 - 149.
+       - High Complexity: IDR 1,490,000 - 2,450,000 / USD 149 - 245.
+       - Monthly Retainer: IDR 190k - 390k / USD 19 - 39.
+
+     * **For Usaha Kecil** (growing local businesses with 6-19 employees):
+       - Low Complexity: IDR 990k - 1,990,000 / USD 99 - 199.
+       - Medium Complexity: IDR 1,990,000 - 3,490,000 / USD 199 - 349.
+       - High Complexity: IDR 3,990,000 - 6,990,000 / USD 399 - 699.
+       - Monthly Retainer: IDR 390k - 990k / USD 39 - 99.
+
+     * **For Usaha Menengah (SME)** (regional companies with 20-99 employees):
+       - Low Complexity: IDR 1,990,000 - 3,490,000 / USD 199 - 349.
+       - Medium Complexity: IDR 3,490,000 - 5,990,000 / USD 349 - 599.
+       - High Complexity: IDR 5,990,000 - 9,950,000 / USD 599 - 995.
+       - Monthly Retainer: IDR 990k - 1,990,000 / USD 99 - 199.
+
+     * **For Besar/Enterprise** (national corporates or tech platforms):
+       - Low Complexity: IDR 3,950,000 - 6,950,000 / USD 399 - 699.
+       - Medium Complexity: IDR 6,950,000 - 11,950,000 / USD 699 - 1,195.
+       - High Complexity: IDR 11,950,000 - 19,950,000+ / USD 1,195 - 1,995+.
+       - Monthly Retainer: IDR 1,950,000 - 4,950,000 / USD 195 - 495.
+
+   - Ensure addon pricing uses charm pricing numbers (e.g. ending in 90k, 95k, 99k for IDR, or .99 / .95 for USD).
+
+4. STRICT SCHEMA ADHERENCE:
+   - Your output MUST match the output schema EXACTLY.
+   - For each addon, you MUST include:
+     * "name": Name of the addon in English.
+     * "name_id": Name of the addon translated to Indonesian.
+     * "price": The calculated price (number).
+     * "interval": The interval ('one_time', 'monthly', or 'yearly').
+     * "currency": The currency ('USD' or 'IDR').
+   - DO NOT add extra properties inside the addon objects (like "id", "description", "category", "complexity").
+   - DO NOT add extra properties at the root level of the JSON (like "target_business_scale", "discount"). Only output the "addons" array at the root level.
 
 Format Output: Raw JSON matching the schema. No markdown wrappers, no explanations.
             `,
