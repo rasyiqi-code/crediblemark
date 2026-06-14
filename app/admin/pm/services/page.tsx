@@ -1,4 +1,4 @@
-import { ServiceAccordionItem } from "@/components/admin/services/service-accordion-item";
+import { ServiceListClient } from "@/components/admin/services/service-list-client";
 import { prisma } from "@/lib/config/db";
 import { Button } from "@/components/ui/button";
 import { Package, Plus } from "lucide-react";
@@ -6,11 +6,10 @@ import Link from "next/link";
 import { isAdmin } from "@/lib/shared/auth-helpers";
 import { redirect } from "next/navigation";
 import { AdminHeaderSetter } from "@/components/admin/admin-header-setter";
-import { Accordion } from "@/components/ui/accordion";
 import { getTranslations } from "next-intl/server";
 
 export default async function ServicesPage() {
-    // Strict Access Control: Only Admins can manage services
+    // Strict Access Control: Hanya Administrator yang dapat mengakses manajemen layanan
     if (!await isAdmin()) redirect('/dashboard');
 
     const services = await prisma.service.findMany({
@@ -47,15 +46,8 @@ export default async function ServicesPage() {
                         {t("noServices")}
                     </div>
                 ) : (
-                    <Accordion type="multiple" className="w-full space-y-2">
-                        {services.map((service, index) => (
-                            <ServiceAccordionItem
-                                key={service.id}
-                                service={service}
-                                index={services.length - index}
-                            />
-                        ))}
-                    </Accordion>
+                    /* Menggunakan komponen Client-side ServiceListClient untuk fitur bulk delete */
+                    <ServiceListClient services={services} />
                 )}
             </div>
         </div>

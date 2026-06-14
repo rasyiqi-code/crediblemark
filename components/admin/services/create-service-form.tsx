@@ -20,6 +20,14 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import Link from "next/link";
 import { ServiceData } from "./edit-service-form";
 
+interface ServiceAddonDraft {
+    name: string;
+    name_id: string;
+    price: number;
+    interval: "one_time" | "monthly" | "yearly";
+    currency: "USD" | "IDR";
+}
+
 interface DraftServiceData extends Partial<ServiceData> {
     recommended_price?: number;
     original_price?: number | null;
@@ -64,13 +72,13 @@ export function CreateServiceForm() {
             if (result.success && result.data) {
                 // Memformat data add-ons agar sesuai dengan skema komponen input form
                 const rawAddons = result.data.addons || [];
-                const formattedAddons = rawAddons.map((addon: any) => ({
+                const formattedAddons = rawAddons.map((addon: ServiceAddonDraft) => ({
                     name: addon.name,
                     price: addon.price,
                     interval: addon.interval,
                     currency: addon.currency
                 }));
-                const formattedAddonsId = rawAddons.map((addon: any) => ({
+                const formattedAddonsId = rawAddons.map((addon: ServiceAddonDraft) => ({
                     name: addon.name_id || addon.name,
                     price: addon.price,
                     interval: addon.interval,

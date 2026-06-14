@@ -195,3 +195,35 @@ export async function deleteService(serviceId: string) {
     revalidatePath("/id/services");
     return { success: true };
 }
+
+/**
+ * Menghapus beberapa layanan sekaligus dari database (bulk delete).
+ * Hanya dapat diakses oleh Administrator.
+ */
+export async function deleteServices(serviceIds: string[]) {
+    const user = await hexclaveServerApp.getUser();
+    if (!user) return { error: "Unauthorized" };
+
+    if (!Array.isArray(serviceIds) || serviceIds.length === 0) {
+        return { error: "No services selected" };
+    }
+
+    try {
+        await prisma.service.deleteMany({
+            where: {
+                id: { in: serviceIds }
+            }
+        });
+
+        // Invalidasi cache halaman publik dan admin
+        (revalidateTag as unknown as (tag: string) => void)("services");
+        revalidatePath("/admin/pm/services");
+        revalidatePath("/en/services");
+        revalidatePath("/id/services");
+        return { success: true };
+    } catch (error) {
+        console.error("BULK DELETE SERVICES ERROR:", error);
+        return { error: "Failed to delete services" };
+    }
+}
+

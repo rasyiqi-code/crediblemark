@@ -28,9 +28,18 @@ interface ServiceData {
 interface ServiceAccordionItemProps {
     service: ServiceData;
     index?: number;
+    showCheckbox?: boolean;
+    isSelected?: boolean;
+    onSelectChange?: (selected: boolean) => void;
 }
 
-export function ServiceAccordionItem({ service, index }: ServiceAccordionItemProps) {
+export function ServiceAccordionItem({ 
+    service, 
+    index, 
+    showCheckbox = false, 
+    isSelected = false, 
+    onSelectChange 
+}: ServiceAccordionItemProps) {
     const t = useTranslations("Admin.Services");
     const locale = useLocale();
     const isId = locale === 'id' || locale === 'id-ID';
@@ -49,6 +58,17 @@ export function ServiceAccordionItem({ service, index }: ServiceAccordionItemPro
             <AccordionTrigger className="hover:no-underline px-4 py-3.5 cursor-pointer hover:bg-zinc-900/40 group [&>svg]:hidden grid-cols-1 gap-0">
                 <div className="flex flex-1 items-center justify-between gap-4 min-w-0">
                     <div className="flex items-start gap-2 sm:gap-3 min-w-0 flex-1">
+                        {showCheckbox && (
+                            /* Stop propagation agar mencentang checkbox tidak mentrigger ekspansi accordion */
+                            <div className="flex items-center self-center" onClick={(e) => e.stopPropagation()}>
+                                <input
+                                    type="checkbox"
+                                    checked={isSelected}
+                                    onChange={(e) => onSelectChange?.(e.target.checked)}
+                                    className="w-4 h-4 rounded border-zinc-700 bg-zinc-900 text-blue-600 focus:ring-blue-500/20 focus:ring-offset-0 focus:ring-1 cursor-pointer"
+                                />
+                            </div>
+                        )}
                         <div className="flex-1 min-w-0 pr-2">
                             <span className="font-medium text-white text-sm truncate block">
                                 {index ? `${index}. ` : ""}{displayTitle}
