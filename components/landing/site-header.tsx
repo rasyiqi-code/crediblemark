@@ -99,6 +99,9 @@ export async function SiteHeader() {
                             <Link href={`/${locale}/services`} className="text-sm font-bold text-sky-500 hover:text-sky-400 transition-colors duration-200 cursor-pointer">
                                 {t("services")}
                             </Link>
+                            <Link href={`/${locale}/wordpress`} className="text-sm font-bold text-violet-400 hover:text-violet-300 transition-colors duration-200 cursor-pointer">
+                                {t("wordpress")}
+                            </Link>
                             <Link href={`/portfolio`} className="text-sm font-bold text-rose-500 hover:text-rose-400 transition-colors duration-200 cursor-pointer">
                                 Portfolio
                             </Link>
@@ -156,6 +159,9 @@ export async function SiteHeader() {
                     </Link>
                     <Link href={`/${locale}/services`} className="text-sm font-bold text-sky-500 hover:text-sky-400 transition-colors duration-200 cursor-pointer whitespace-nowrap">
                         {t("services")}
+                    </Link>
+                    <Link href={`/${locale}/wordpress`} className="text-sm font-bold text-violet-400 hover:text-violet-300 transition-colors duration-200 cursor-pointer whitespace-nowrap">
+                        {t("wordpress")}
                     </Link>
                     <Link href={`/portfolio`} className="text-sm font-bold text-rose-500 hover:text-rose-400 transition-colors duration-200 cursor-pointer whitespace-nowrap">
                         Portfolio

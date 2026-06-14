@@ -1,6 +1,7 @@
 import { ContactForm } from "@/components/public/contact-form";
-import { ArrowLeft, Mail, MapPin, Phone } from "lucide-react";
+import { ArrowLeft, Mail, MapPin, Phone, Loader2 } from "lucide-react";
 import Link from "next/link";
+import { Suspense } from "react";
 
 import { getPageSeo } from "@/lib/server/seo";
 import { getLocale, getTranslations } from "next-intl/server";
@@ -200,7 +201,14 @@ export default async function ContactPage() {
                         <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-2xl blur opacity-20 pointer-events-none" />
 
                         <div className="relative rounded-2xl border border-white/10 bg-black/80 backdrop-blur-xl p-6 sm:p-8">
-                            <ContactForm />
+                            <Suspense fallback={
+                                <div className="h-[400px] flex flex-col items-center justify-center space-y-4">
+                                    <Loader2 className="w-8 h-8 animate-spin text-zinc-500" />
+                                    <span className="text-zinc-500 text-sm">Loading Form...</span>
+                                </div>
+                            }>
+                                <ContactForm />
+                            </Suspense>
                         </div>
                     </div>
                 </div>

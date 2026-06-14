@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Send, CheckCircle2, Loader2, AlertCircle } from "lucide-react";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { useSearchParams } from "next/navigation";
 
 interface ContactState {
     success?: boolean;
@@ -23,6 +24,9 @@ interface ContactState {
 export function ContactForm() {
     const t = useTranslations("ContactForm");
     const tc = useTranslations("Common");
+    const searchParams = useSearchParams();
+    const defaultSubject = searchParams.get("subject") || "";
+    const defaultMessage = searchParams.get("message") || "";
     const [state, setState] = useState<ContactState>({ success: false, error: "", fieldErrors: {} });
     const [isPending, setIsPending] = useState(false);
 
@@ -132,6 +136,7 @@ export function ContactForm() {
                     name="subject"
                     id="subject"
                     required
+                    defaultValue={defaultSubject}
                     placeholder={t("placeholderSubject")}
                     className="bg-zinc-900/50 border-white/10 focus-visible:ring-blue-500 text-white placeholder:text-zinc-600"
                 />
@@ -144,6 +149,7 @@ export function ContactForm() {
                     name="message"
                     id="message"
                     required
+                    defaultValue={defaultMessage}
                     placeholder={t("placeholderMessage")}
                     className="min-h-[120px] bg-zinc-900/50 border-white/10 focus-visible:ring-blue-500 text-white placeholder:text-zinc-600 resize-none"
                 />
