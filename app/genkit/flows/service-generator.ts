@@ -130,13 +130,13 @@ Input Description: "${sanitizedPrompt}"
    - LOGICAL & ACCURATE MARKET PRICING (CRITICAL):
      * Do NOT use a rigid percentage formula of the base price. Pricing must reflect real-world market rates for digital agency services while remaining highly attractive and affordable (upsell-friendly).
      * Add-on prices must match the base service currency (USD or IDR).
-     * Real-World Price Ranges (Indonesia - IDR):
-       - One-Time Features (e.g., Credit calculator, Custom API, Payment Setup): IDR 500,000 to IDR 3,500,000 (depending on complexity).
-       - Monthly Services (e.g., WhatsApp integration maintenance, Monthly content updates, Technical support retainer): IDR 250,000 to IDR 1,200,000 per month (making it highly affordable for businesses).
+     * Real-World Price Ranges (Indonesia - IDR) — STRICTLY ADHERE TO THESE LIMITS:
+       - One-Time Features (e.g., Setup WhatsApp API/Notification, Custom API integration, Credit calculator, Payment setup): IDR 500,000 to IDR 3,000,000 (One-time setup fee).
+       - Monthly Services (e.g., WhatsApp gateway/API cloud maintenance, Technical support retainer, Monthly content updates): IDR 250,000 to IDR 800,000 per month (NEVER exceed IDR 1,000,000/month as recurring fee, otherwise clients will reject it).
        - Yearly Services: IDR 2,000,000 to IDR 8,000,000 per year.
-     * Real-World Price Ranges (Global - USD):
-       - One-Time Features: USD 50 to USD 350.
-       - Monthly Services: USD 25 to USD 120 per month.
+     * Real-World Price Ranges (Global - USD) — STRICTLY ADHERE TO THESE LIMITS:
+       - One-Time Features: USD 50 to USD 300.
+       - Monthly Services: USD 25 to USD 80 per month (NEVER exceed USD 100/month as recurring fee).
        - Yearly Services: USD 200 to USD 800 per year.
      * Round all prices cleanly (e.g., IDR 350,000, IDR 1,500,000, or USD 49, USD 120).
      * Ensure every add-on has all 5 fields: "name" (string), "name_id" (string in Indonesian), "price" (number), "interval" ("one_time", "monthly", "yearly"), and "currency" ("USD" or "IDR").
@@ -175,6 +175,7 @@ CRITICAL CONSTRAINTS — ANY VIOLATION WILL CAUSE A SYSTEM ERROR:
 - "recommended_price" and "price" must be plain numbers, NOT strings.
 - "discount" must be a plain integer (50–70), NOT null or omitted.
 - Every addon must have all 5 fields: name, name_id, price, interval, currency.
+- If an addon has "monthly" interval, its price MUST NOT exceed 1000000 IDR (or 100 USD).
 - Do NOT add any extra fields not listed in the schema above.
 - Output ONLY the JSON object. No text before or after.
             `,
