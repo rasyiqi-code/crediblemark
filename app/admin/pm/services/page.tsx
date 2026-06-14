@@ -130,13 +130,6 @@ export default async function ServicesPage() {
                                             )}
 
                                             <div className="flex-1 flex flex-col min-w-0">
-                                                {/* Description */}
-                                                {displayDesc && (
-                                                    <p className="text-zinc-400 text-xs leading-relaxed mb-3 max-w-2xl">
-                                                        {displayDesc}
-                                                    </p>
-                                                )}
-
                                                 {/* Detail grid — matching projects style */}
                                                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-3">
                                                     <div className="flex items-center gap-2 group/detail">
