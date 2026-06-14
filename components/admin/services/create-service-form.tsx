@@ -33,35 +33,42 @@ interface DraftServiceData extends Partial<ServiceData> {
     original_price?: number | null;
 }
 
+// Tipe step untuk multi-step magic draft popover
+// input = textarea prompt, step2 = apply harga, step3 = apply add-ons
+type DraftStep = 'input' | 'step2' | 'step3';
+
 export function CreateServiceForm() {
     const router = useRouter();
     const t = useTranslations("Service");
     const tAdmin = useTranslations("Admin.Services");
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    // AI Generation State
+    // State AI Generation
     const [prompt, setPrompt] = useState("");
     const [isGenerating, setIsGenerating] = useState(false);
-    const [generationKey, setGenerationKey] = useState(0); // Force re-render on generation
+    const [draftStep, setDraftStep] = useState<DraftStep>('input');
+    const [pendingDraft, setPendingDraft] = useState<DraftServiceData | null>(null);
     const [generatedData, setGeneratedData] = useState<DraftServiceData | null>(null);
+
+    // 3 key terpisah agar force-remount hanya field yang relevan per step
+    const [keyContent, setKeyContent] = useState(0);
+    const [keyPricing, setKeyPricing] = useState(0);
+    const [keyAddons, setKeyAddons] = useState(0);
+
     const [slug, setSlug] = useState("");
     const [isCustomSlug, setIsCustomSlug] = useState(false);
     const [priceType, setPriceType] = useState<string>(generatedData?.priceType || "FIXED");
     const [interval, setInterval] = useState<string>(generatedData?.interval || "one_time");
 
-    // Sinkronisasi tipe harga
     const handlePriceTypeChange = (value: string) => {
         setPriceType(value);
     };
 
+    // Generate AI: apply judul/deskripsi/fitur langsung ke form, lalu pindah ke step2
     async function handleGenerate() {
         if (!prompt.trim()) return;
         setIsGenerating(true);
         try {
-            // Grab current form inputs so we don't wipe them on re-mount
-            const formElement = document.querySelector("form");
-            const currentForm = formElement ? new FormData(formElement) : null;
-
             const res = await fetch("/api/genkit/generate-service", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -70,7 +77,6 @@ export function CreateServiceForm() {
             const result = await res.json();
 
             if (result.success && result.data) {
-                // Memformat data add-ons agar sesuai dengan skema komponen input form
                 const rawAddons = result.data.addons || [];
                 const formattedAddons = rawAddons.map((addon: ServiceAddonDraft) => ({
                     name: addon.name,
@@ -85,26 +91,30 @@ export function CreateServiceForm() {
                     currency: addon.currency
                 }));
 
-                const mergedData = {
-                    title: currentForm?.get("title")?.toString() || "",
-                    description: currentForm?.get("description")?.toString() || "",
-                    title_id: currentForm?.get("title_id")?.toString() || "",
-                    description_id: currentForm?.get("description_id")?.toString() || "",
-                    price: currentForm?.get("price") ? parseFloat(currentForm.get("price")!.toString()) : undefined,
-                    currency: currentForm?.get("currency")?.toString() || "USD",
-                    visibility: currentForm?.get("visibility")?.toString() || "PUBLIC",
+                const draft = {
                     ...result.data,
                     addons: formattedAddons,
                     addons_id: formattedAddonsId
                 };
 
-                if (result.data.slug) setSlug(result.data.slug);
-                if (result.data.priceType) setPriceType(result.data.priceType);
-                if (result.data.interval) setInterval(result.data.interval);
+                // Simpan semua data ke pendingDraft
+                setPendingDraft(draft);
 
-                setGeneratedData(mergedData);
-                setGenerationKey(prev => prev + 1);
-                toast.success(tAdmin("aiDraftedSuccess"));
+                // Langsung apply judul, deskripsi, dan fitur ke form
+                setGeneratedData(prev => ({
+                    ...prev,
+                    title: draft.title,
+                    title_id: draft.title_id,
+                    description: draft.description,
+                    description_id: draft.description_id,
+                    features: draft.features,
+                    features_id: draft.features_id,
+                }));
+                if (draft.slug) setSlug(draft.slug as string);
+                setKeyContent(prev => prev + 1);
+
+                // Langsung ke step 2 (harga)
+                setDraftStep('step2');
             } else {
                 toast.error(result.error || tAdmin("aiFail"));
             }
@@ -114,6 +124,38 @@ export function CreateServiceForm() {
         } finally {
             setIsGenerating(false);
         }
+    }
+
+    // Step 2: apply harga & konfigurasi ke form
+    function applyStep2() {
+        if (!pendingDraft) return;
+        setGeneratedData(prev => ({
+            ...prev,
+            recommended_price: pendingDraft.recommended_price,
+            discount: pendingDraft.discount,
+            currency: pendingDraft.currency,
+            priceType: pendingDraft.priceType,
+            interval: pendingDraft.interval,
+        }));
+        if (pendingDraft.priceType) setPriceType(pendingDraft.priceType as string);
+        if (pendingDraft.interval) setInterval(pendingDraft.interval as string);
+        setKeyPricing(prev => prev + 1);
+        setDraftStep('step3');
+    }
+
+    // Step 3: apply add-ons ke form
+    function applyStep3() {
+        if (!pendingDraft) return;
+        setGeneratedData(prev => ({
+            ...prev,
+            addons: pendingDraft.addons,
+            addons_id: pendingDraft.addons_id,
+            currency: pendingDraft.currency,
+        }));
+        setKeyAddons(prev => prev + 1);
+        setDraftStep('input');
+        setPendingDraft(null);
+        toast.success(tAdmin("aiDraftedSuccess"));
     }
 
     async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -166,8 +208,8 @@ export function CreateServiceForm() {
                             {tAdmin("createNew")}
                         </h1>
 
-                        {/* AI Assistant Popover */}
-                        <Popover>
+                        {/* AI Assistant Popover - Multi-step Magic Draft */}
+                        <Popover onOpenChange={(open) => { if (!open) { setDraftStep('input'); } }}>
                             <PopoverTrigger asChild>
                                 <Button
                                     variant="outline"
@@ -183,39 +225,114 @@ export function CreateServiceForm() {
                                 align="end"
                                 sideOffset={8}
                             >
+                                {/* Header */}
                                 <div className="p-4 border-b border-white/5 bg-indigo-500/5">
                                     <div className="flex items-center gap-2 mb-1">
                                         <Sparkles className="w-4 h-4 text-indigo-400" />
                                         <h4 className="font-semibold text-white text-sm">{tAdmin("magicDraft")}</h4>
                                     </div>
-                                    <p className="text-[10px] text-indigo-300/80">{tAdmin("magicDraftDesc")}</p>
+                                    <p className="text-[10px] text-indigo-300/80">
+                                        {draftStep === 'input' && tAdmin("magicDraftDesc")}
+                                        {draftStep === 'step2' && 'Step 2/3 — Harga & Konfigurasi'}
+                                        {draftStep === 'step3' && 'Step 3/3 — Add-ons'}
+                                    </p>
+                                    {/* Step progress bar */}
+                                    {draftStep !== 'input' && (
+                                        <div className="flex items-center gap-1.5 mt-2">
+                                            <div className="h-1 flex-1 rounded-full bg-indigo-600" />
+                                            <div className={`h-1 flex-1 rounded-full transition-all ${draftStep === 'step2' ? 'bg-indigo-400' : 'bg-indigo-600'}`} />
+                                            <div className={`h-1 flex-1 rounded-full transition-all ${draftStep === 'step3' ? 'bg-indigo-400' : 'bg-white/10'}`} />
+                                        </div>
+                                    )}
                                 </div>
-                                <div className="p-4 space-y-4">
-                                    <Textarea
-                                        value={prompt}
-                                        onChange={(e) => setPrompt(e.target.value)}
-                                        placeholder={tAdmin("promptPlaceholder")}
-                                        className="bg-black/40 border-indigo-500/20 text-zinc-200 focus:ring-indigo-500/40 min-h-[100px] text-xs resize-none"
-                                    />
-                                    <Button
-                                        type="button"
-                                        onClick={handleGenerate}
-                                        disabled={isGenerating || !prompt.trim()}
-                                        className="w-full bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-500/20 h-9 transition-all active:scale-95"
-                                    >
-                                        {isGenerating ? (
-                                            <>
-                                                <Loader2 className="w-4 h-4 animate-spin mr-2" />
-                                                {tAdmin("crafting")}
-                                            </>
-                                        ) : (
-                                            <>
-                                                <Sparkles className="w-4 h-4 mr-2" />
-                                                {tAdmin("autoFill")}
-                                            </>
-                                        )}
-                                    </Button>
-                                </div>
+
+                                {/* Step 1: Input prompt + Generate */}
+                                {draftStep === 'input' && (
+                                    <div className="p-4 space-y-4">
+                                        <Textarea
+                                            value={prompt}
+                                            onChange={(e) => setPrompt(e.target.value)}
+                                            placeholder={tAdmin("promptPlaceholder")}
+                                            className="bg-black/40 border-indigo-500/20 text-zinc-200 focus:ring-indigo-500/40 min-h-[100px] text-xs resize-none"
+                                        />
+                                        <Button
+                                            type="button"
+                                            onClick={handleGenerate}
+                                            disabled={isGenerating || !prompt.trim()}
+                                            className="w-full bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-500/20 h-9 transition-all active:scale-95"
+                                        >
+                                            {isGenerating ? (
+                                                <>
+                                                    <Loader2 className="w-4 h-4 animate-spin mr-2" />
+                                                    {tAdmin("crafting")}
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <Sparkles className="w-4 h-4 mr-2" />
+                                                    {tAdmin("autoFill")}
+                                                </>
+                                            )}
+                                        </Button>
+                                    </div>
+                                )}
+
+                                {/* Step 2: Apply Harga */}
+                                {draftStep === 'step2' && pendingDraft && (
+                                    <div className="p-4 space-y-3">
+                                        <div className="rounded-lg bg-white/5 border border-white/5 p-3 grid grid-cols-2 gap-3">
+                                            <div>
+                                                <p className="text-[10px] text-zinc-500 uppercase tracking-wider mb-1">Harga</p>
+                                                <p className="text-sm text-white font-semibold">
+                                                    {pendingDraft.currency} {Number(pendingDraft.recommended_price).toLocaleString()}
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <p className="text-[10px] text-zinc-500 uppercase tracking-wider mb-1">Diskon</p>
+                                                <p className="text-sm text-white font-semibold">{pendingDraft.discount as number}%</p>
+                                            </div>
+                                            <div>
+                                                <p className="text-[10px] text-zinc-500 uppercase tracking-wider mb-1">Tipe</p>
+                                                <p className="text-xs text-zinc-300">{pendingDraft.priceType as string}</p>
+                                            </div>
+                                            <div>
+                                                <p className="text-[10px] text-zinc-500 uppercase tracking-wider mb-1">Interval</p>
+                                                <p className="text-xs text-zinc-300">{pendingDraft.interval as string}</p>
+                                            </div>
+                                        </div>
+                                        <div className="flex gap-2">
+                                            <Button type="button" variant="ghost" size="sm" onClick={() => setDraftStep('input')} className="flex-1 text-xs text-zinc-500 hover:text-white h-8">
+                                                ← Ulang
+                                            </Button>
+                                            <Button type="button" onClick={applyStep2} className="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white h-8 text-xs">
+                                                Terapkan Harga →
+                                            </Button>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* Step 3: Apply Add-ons */}
+                                {draftStep === 'step3' && pendingDraft && (
+                                    <div className="p-4 space-y-3">
+                                        <div className="space-y-1.5 max-h-44 overflow-y-auto pr-1">
+                                            {(pendingDraft.addons as ServiceAddonDraft[] || []).map((addon, i) => (
+                                                <div key={i} className="flex items-center justify-between gap-2 text-xs py-1 border-b border-white/5 last:border-0">
+                                                    <span className="text-zinc-300 leading-snug truncate">{addon.name}</span>
+                                                    <span className="text-indigo-400 font-medium whitespace-nowrap">
+                                                        {addon.currency} {Number(addon.price).toLocaleString()}
+                                                    </span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                        <div className="flex gap-2">
+                                            <Button type="button" variant="ghost" size="sm" onClick={() => setDraftStep('step2')} className="flex-1 text-xs text-zinc-500 hover:text-white h-8">
+                                                ← Back
+                                            </Button>
+                                            <Button type="button" onClick={applyStep3} className="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white h-8 text-xs">
+                                                Terapkan Add-ons ✓
+                                            </Button>
+                                        </div>
+                                    </div>
+                                )}
                             </PopoverContent>
                         </Popover>
                     </div>
@@ -237,7 +354,7 @@ export function CreateServiceForm() {
 
 
                 {/* Left Column: Primary Information (2/3 width) */}
-                <div className="lg:col-span-2 space-y-6" key={generationKey}>
+                <div className="lg:col-span-2 space-y-6" key={keyContent}>
 
 
 
@@ -339,6 +456,7 @@ export function CreateServiceForm() {
                                     <div className="space-y-2">
                                         <label className="text-xs font-medium text-zinc-400 uppercase tracking-wider">Available Add-ons</label>
                                         <DynamicAddonInput
+                                            key={`addons-${keyAddons}`}
                                             name="addons"
                                             defaultValue={generatedData?.addons || []}
                                             currency={generatedData?.currency || "USD"}
@@ -405,6 +523,7 @@ export function CreateServiceForm() {
                                     <div className="space-y-2">
                                         <label className="text-xs font-medium text-zinc-400 uppercase tracking-wider">Add-on Tersedia</label>
                                         <DynamicAddonInput
+                                            key={`addons-id-${keyAddons}`}
                                             name="addons_id"
                                             defaultValue={generatedData?.addons_id || []}
                                             currency={generatedData?.currency || "USD"}
@@ -417,7 +536,7 @@ export function CreateServiceForm() {
                 </div>
 
                 {/* Right Column: Configuration & Actions (1/3 width) */}
-                <div className="lg:col-span-1" key={`pricing-${generationKey}`}>
+                <div className="lg:col-span-1" key={keyPricing}>
                     <div className="sticky top-8 space-y-6">
 
 
