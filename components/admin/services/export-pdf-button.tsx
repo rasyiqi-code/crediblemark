@@ -646,61 +646,42 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             text-align: justify;
         }
 
-        /* Workflow Grid Halaman 2 - Clean & Modern (Tanpa Box Kaku) */
-        .workflow-container {
-            position: relative;
+        /* Workflow List Halaman 2 - Susunan Vertikal (Numbering List) */
+        .workflow-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
             margin-top: 15px;
         }
 
-        .workflow-line {
-            position: absolute;
-            top: 15px;
-            left: 15%;
-            right: 15%;
-            height: 1px;
-            background: #e2e8f0;
-            z-index: 1;
-        }
-
-        .workflow-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .workflow-card {
+        .workflow-item {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            padding: 0 10px;
+            align-items: flex-start;
+            gap: 12px;
         }
 
-        .workflow-icon-box {
-            width: 30px;
-            height: 30px;
+        .workflow-number {
+            width: 22px;
+            height: 22px;
             border-radius: 50%;
             background: #0f172a;
             color: #ffffff;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 800;
-            margin-bottom: 12px;
-            border: 3px solid #ffffff;
-            box-shadow: 0 0 0 1px #e2e8f0;
+            flex-shrink: 0;
+            margin-top: 2px;
         }
 
-        .workflow-content-box {
+        .workflow-text {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 2px;
         }
 
-        .workflow-card-title {
+        .workflow-item-title {
             font-size: 12px;
             font-weight: 800;
             color: #0f172a;
@@ -708,10 +689,11 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             letter-spacing: 0.5px;
         }
 
-        .workflow-card-desc {
-            font-size: 10px;
-            color: #64748b;
+        .workflow-item-desc {
+            font-size: 11px;
+            color: #475569;
             line-height: 1.5;
+            text-align: justify;
         }
 
         /* Financial Logic Grid Halaman 5 */
@@ -957,35 +939,32 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         </div>
 
         <!-- PROSES KERJA JUJUR (Workflow Section) - Mengisi kekosongan Halaman 2 secara fungsional & mewah -->
-        <div class="body-section" style="margin-top: auto; border-top: 1px solid #e2e8f0; padding-top: 20px;">
+        <div class="body-section" style="margin-top: 25px; border-top: 1px solid #e2e8f0; padding-top: 20px;">
             <h3 class="body-section-title">${tWorkflowTitle}</h3>
-            <p class="paragraph-text" style="font-size: 11px; color: #64748b; margin-bottom: 20px;">
+            <p class="paragraph-text" style="font-size: 11px; color: #64748b; margin-bottom: 15px;">
                 ${tWorkflowSubtitle}
             </p>
             
-            <div class="workflow-container">
-                <div class="workflow-line"></div>
-                <div class="workflow-grid">
-                    <div class="workflow-card">
-                        <div class="workflow-icon-box">1</div>
-                        <div class="workflow-content-box">
-                            <div class="workflow-card-title">${step1}</div>
-                            <div class="workflow-card-desc">${step1Desc}</div>
-                        </div>
+            <div class="workflow-list">
+                <div class="workflow-item">
+                    <div class="workflow-number">1</div>
+                    <div class="workflow-text">
+                        <div class="workflow-item-title">${step1}</div>
+                        <div class="workflow-item-desc">${step1Desc}</div>
                     </div>
-                    <div class="workflow-card">
-                        <div class="workflow-icon-box">2</div>
-                        <div class="workflow-content-box">
-                            <div class="workflow-card-title">${step2}</div>
-                            <div class="workflow-card-desc">${step2Desc}</div>
-                        </div>
+                </div>
+                <div class="workflow-item">
+                    <div class="workflow-number">2</div>
+                    <div class="workflow-text">
+                        <div class="workflow-item-title">${step2}</div>
+                        <div class="workflow-item-desc">${step2Desc}</div>
                     </div>
-                    <div class="workflow-card">
-                        <div class="workflow-icon-box">3</div>
-                        <div class="workflow-content-box">
-                            <div class="workflow-card-title">${step3}</div>
-                            <div class="workflow-card-desc">${step3Desc}</div>
-                        </div>
+                </div>
+                <div class="workflow-item">
+                    <div class="workflow-number">3</div>
+                    <div class="workflow-text">
+                        <div class="workflow-item-title">${step3}</div>
+                        <div class="workflow-item-desc">${step3Desc}</div>
                     </div>
                 </div>
             </div>
