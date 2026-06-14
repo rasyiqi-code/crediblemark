@@ -976,19 +976,19 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
 
         <!-- FILOSOFI SOLUSI -->
         <div class="body-section" style="margin-top: 30px; border-top: 1px solid #27272a; padding-top: 25px;">
-            <div style="font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; font-style: italic; color: #fbbf24; margin-bottom: 15px; letter-spacing: 0.5px;">
-                Build to Scale, Design to Prevail
-            </div>
-            
             <div style="background: #09090b; border: 1px solid #27272a; border-left: 4px solid #fbbf24; border-radius: 8px; padding: 20px; margin-bottom: 15px;">
                 <p style="font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; font-style: italic; color: #ffffff; line-height: 1.5; margin: 0;">
                     &ldquo;${quoteText}&rdquo;
                 </p>
             </div>
             
-            <p class="paragraph-text" style="font-size: 14.5px; color: #ffffff; line-height: 1.8; text-align: justify; font-weight: 400;">
+            <p class="paragraph-text" style="font-size: 14.5px; color: #ffffff; line-height: 1.8; text-align: justify; font-weight: 400; margin-bottom: 20px;">
                 ${combinedText}
             </p>
+
+            <div style="font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; font-style: italic; color: #fbbf24; margin-top: 15px; letter-spacing: 0.5px;">
+                Build to Scale, Design to Prevail
+            </div>
         </div>
         
         <div class="page-footer">
