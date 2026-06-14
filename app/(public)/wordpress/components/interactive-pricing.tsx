@@ -369,7 +369,7 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
                 <div className="lg:col-span-7 space-y-8">
                     
                     {/* Deskripsi Paket Aktif */}
-                    <div className="space-y-4">
+                    <div className="rounded-2xl border border-white/5 bg-zinc-900 p-6 space-y-6">
                         <div className="flex items-center gap-3">
                             <span className="text-xs font-mono font-bold text-brand-yellow bg-brand-yellow/10 px-2 py-1 rounded">
                                 {isId ? "PAKET AKTIF" : "ACTIVE TIER"}
