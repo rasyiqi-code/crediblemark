@@ -200,7 +200,7 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
     };
 
     return (
-        <div className="relative rounded-3xl border border-white/10 bg-zinc-950/40 p-6 sm:p-10 md:p-12 backdrop-blur-xl shadow-2xl space-y-10">
+        <div className="space-y-10">
             
             {/* 1. Selector Tipe Paket (Tabs) */}
             <div className="space-y-4">
