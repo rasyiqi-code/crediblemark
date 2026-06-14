@@ -98,11 +98,12 @@ Service Profile:
 4. ADD-ON NAME SPECIFICITY (CRITICAL — MANDATORY):
    - "name" and "name_id" MUST be specific and self-explanatory. Include details such as deliverables, scope, target integrations, or realistic frequency directly in the name.
    - NEVER use short generic names (e.g. avoid plain "SEO" or "Maintenance").
-   - DO NOT invent arbitrary system limitations or maximum quotas (like "Up to 50 units" for a catalog or database) unless it is a standard usage tier (e.g., number of monthly blog posts or API event triggers).
+   - DO NOT invent arbitrary system/capacity limits on the client's business operations (such as limiting the number of physical inventory units, showroom items, products, or database entries). Our agency does NOT sell hosting, servers, or domains.
+   - Quotas/limits MUST ONLY apply to the agency's service deliverables (e.g., "3 Articles/Month", "Up to 3 API setups", "4 hours of support/month", "2 custom page designs").
    - Good examples:
      * "SEO Content Writing - 3 Articles/Month (500-800 Words Each)"
-     * "WhatsApp & Email Notification Integration (Up to 3 Event Triggers)"
-     * "Monthly Performance Report & Core Updates Verification"
+     * "WhatsApp API Setup & Integration (Up to 3 Custom Event Triggers)"
+     * "Monthly Performance Support - 4 Hours/Month Support Retainer"
      * "Custom Lead Capture Form with CRM Auto-Sync (HubSpot/Zoho)"
      * "Konten Blog SEO - 3 Artikel/Bulan (600-800 Kata)"
 
