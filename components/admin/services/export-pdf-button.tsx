@@ -179,6 +179,32 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             ? "If the initial work plan does not suit you after our initial discussion, we will refund your down payment (DP) 100%. No terms. You still get to keep the design draft as long as the project has not entered the development phase."
             : "Jika rencana kerja awal tidak sesuai setelah diskusi awal kita, uang muka (DP) Anda kami kembalikan 100%. Tanpa syarat. Anda tetap boleh menyimpan rancangan tersebut selama proyek belum masuk tahap pembuatan.";
 
+        // Data Workflow (Proses Kerja Jujur)
+        const tWorkflowTitle = isEn ? "Honest Work Process" : "Proses Kerja Jujur";
+        const tWorkflowSubtitle = isEn 
+            ? "Track your project's progress in real-time through the Client Dashboard. Transparent, fast, and outcome-focused."
+            : "Semua progres terpantau setiap saat melalui Dashboard Klien. Cara kerja yang transparan, cepat, dan fokus pada hasil nyata.";
+        const step1 = isEn ? "Written Plan" : "Rencana Tertulis";
+        const step1Desc = isEn 
+            ? "Written agreement on features and pricing before any line of code is written."
+            : "Kesepakatan fitur dan harga tertulis sebelum pengetikan kode.";
+        const step2 = isEn ? "Meet The Builders" : "Kenalkan Diri Kami";
+        const step2Desc = isEn 
+            ? "Direct communication with the system builders (no account managers or sales reps)."
+            : "Komunikasi langsung dengan pembuat sistem (tanpa account manager/sales).";
+        const step3 = isEn ? "Single Tangible Outcome" : "Hasil Tangible Tunggal";
+        const step3Desc = isEn 
+            ? "Focussed launch of a real solution for business operations."
+            : "Fokus peluncuran solusi nyata untuk operasional bisnis.";
+
+        // Data Financial (Yang Jarang Disadari)
+        const tFinTitle = isEn ? "What is Often Overlooked." : "Yang Jarang Disadari";
+        const tFinSubtitle = isEn 
+            ? "Why waste months trying to build an in-house development team when you can launch instantly?"
+            : "Mengapa menghabiskan waktu berbulan-bulan membangun tim internal jika Anda bisa langsung meluncur?";
+        const tFinHireOld = isEn ? "Hiring In-House" : "Merekrut Karyawan Sendiri";
+        const tFinHireNew = isEn ? "Crediblemark Partnership" : "Kemitraan Crediblemark";
+
         // Template HTML Proposal A4 Premium
         const htmlContent = `
 <!DOCTYPE html>
@@ -620,6 +646,155 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             text-align: justify;
         }
 
+        /* Workflow Grid Halaman 2 */
+        .workflow-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .workflow-card {
+            background: #fafbfc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .workflow-icon-box {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #0f172a;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .workflow-content-box {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .workflow-card-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: #0f172a;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .workflow-card-desc {
+            font-size: 9.5px;
+            color: #64748b;
+            line-height: 1.4;
+        }
+
+        /* Financial Logic Grid Halaman 5 */
+        .fin-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .fin-box {
+            border-radius: 8px;
+            padding: 12px 15px;
+            font-size: 11px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .fin-box.old {
+            border: 1px solid #e2e8f0;
+            background: #f8fafc;
+        }
+
+        .fin-box.new {
+            border: 1.5px solid #d97706;
+            background: #fffdf9;
+        }
+
+        .fin-title-bar {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .fin-title-bar.old {
+            color: #64748b;
+        }
+
+        .fin-title-bar.new {
+            color: #1e3a8a;
+        }
+
+        .fin-sub-value {
+            font-size: 13px;
+            font-weight: 700;
+            margin-top: 4px;
+        }
+
+        .fin-sub-value.old {
+            color: #ef4444;
+        }
+
+        .fin-sub-value.new {
+            color: #d97706;
+        }
+
+        .fin-desc {
+            font-size: 9.5px;
+            color: #64748b;
+            margin-top: 2px;
+            margin-bottom: 8px;
+        }
+
+        .fin-divider {
+            height: 1px;
+            background: #e2e8f0;
+            margin-bottom: 8px;
+        }
+
+        .fin-box.new .fin-divider {
+            background: #fbd5b5;
+        }
+
+        .fin-item {
+            display: flex;
+            align-items: start;
+            gap: 6px;
+            margin-bottom: 6px;
+            line-height: 1.3;
+            color: #334155;
+            font-size: 10.5px;
+        }
+
+        .fin-icon {
+            font-size: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .fin-icon.old {
+            color: #ef4444;
+        }
+
+        .fin-icon.new {
+            color: #d97706;
+        }
+
         /* Investasi Section */
         .pricing-banner {
             background: linear-gradient(135deg, #fafbfc 0%, #f8fafc 100%);
@@ -753,21 +928,96 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         </div>
     </div>
     
-    <!-- HALAMAN 2: DESKRIPSI LAYANAN ASLI & PERBANDINGAN AGENSI (COMPARISON) -->
+    <!-- HALAMAN 2: DESKRIPSI LAYANAN ASLI & PROSES KERJA JUJUR -->
     <div class="page">
         <div class="section-header">
-            <h2 class="section-title">01 / Deskripsi Solusi & Kredibilitas</h2>
+            <h2 class="section-title">01 / Deskripsi Solusi & Proses Kerja</h2>
             <span class="section-subtitle-badge">Halaman 2 dari 5</span>
         </div>
         
-        <div class="body-section">
+        <div class="body-section" style="margin-bottom: 20px;">
             <div class="desc-content">
                 ${descriptionHtml}
             </div>
         </div>
 
-        <!-- PERBANDINGAN AGENSI (Comparison Section) - Mengisi kekosongan Halaman 2 secara fungsional & mewah -->
-        <div class="body-section" style="margin-top: 30px; border-top: 1px solid #e2e8f0; padding-top: 20px;">
+        <!-- PROSES KERJA JUJUR (Workflow Section) - Mengisi kekosongan Halaman 2 secara fungsional & mewah -->
+        <div class="body-section" style="margin-top: auto; border-top: 1px solid #e2e8f0; padding-top: 20px;">
+            <h3 class="body-section-title">${tWorkflowTitle}</h3>
+            <p class="paragraph-text" style="font-size: 11px; color: #64748b; margin-bottom: 15px;">
+                ${tWorkflowSubtitle}
+            </p>
+            
+            <div class="workflow-grid">
+                <div class="workflow-card">
+                    <div class="workflow-icon-box">1</div>
+                    <div class="workflow-content-box">
+                        <div class="workflow-card-title">${step1}</div>
+                        <div class="workflow-card-desc">${step1Desc}</div>
+                    </div>
+                </div>
+                <div class="workflow-card">
+                    <div class="workflow-icon-box">2</div>
+                    <div class="workflow-content-box">
+                        <div class="workflow-card-title">${step2}</div>
+                        <div class="workflow-card-desc">${step2Desc}</div>
+                    </div>
+                </div>
+                <div class="workflow-card">
+                    <div class="workflow-icon-box">3</div>
+                    <div class="workflow-content-box">
+                        <div class="workflow-card-title">${step3}</div>
+                        <div class="workflow-card-desc">${step3Desc}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="page-footer">
+            <span>CREDIBLEMARK &bull; Proposal ${title}</span>
+            <span>Halaman 2 dari 5</span>
+        </div>
+    </div>
+    
+    <!-- HALAMAN 3: FITUR & DELIVERABLES ASLI -->
+    <div class="page">
+        <div class="section-header">
+            <h2 class="section-title">02 / Fitur & Deliverables Utama</h2>
+            <span class="section-subtitle-badge">Halaman 3 dari 5</span>
+        </div>
+
+        <div class="body-section">
+            <p class="paragraph-text" style="font-size: 13px; color: #475569; margin-bottom: 15px;">
+                Daftar lengkap fitur spesifik dan deliverables hasil kerja yang tercakup dalam solusi layanan ini:
+            </p>
+            
+            <div class="scope-container">
+                <div class="features-grid">
+                    ${featuresListHtml ? featuresListHtml : `
+                        <div class="feature-card-item">
+                            <div class="feature-card-dot"></div>
+                            <div class="feature-card-text">Layanan implementasi fungsional ${title} lengkap.</div>
+                        </div>
+                    `}
+                </div>
+            </div>
+        </div>
+        
+        <div class="page-footer">
+            <span>CREDIBLEMARK &bull; Proposal ${title}</span>
+            <span>Halaman 3 dari 5</span>
+        </div>
+    </div>
+
+    <!-- HALAMAN 4: KEMITRAAN & JAMINAN STANDAR PREMIUM -->
+    <div class="page">
+        <div class="section-header">
+            <h2 class="section-title">03 / Kemitraan & Jaminan Kualitas</h2>
+            <span class="section-subtitle-badge">Halaman 4 dari 5</span>
+        </div>
+
+        <!-- Kenapa Pilih Kami (Comparison Section) -->
+        <div class="body-section" style="margin-bottom: 25px;">
             <h3 class="body-section-title">${tCompTitle}</h3>
             <p class="paragraph-text" style="font-size: 11px; color: #64748b; margin-bottom: 8px;">
                 ${tCompSubtitle}
@@ -813,56 +1063,12 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
                 </div>
             </div>
         </div>
-        
-        <div class="page-footer">
-            <span>CREDIBLEMARK &bull; Proposal ${title}</span>
-            <span>Halaman 2 dari 5</span>
-        </div>
-    </div>
-    
-    <!-- HALAMAN 3: FITUR & DELIVERABLES ASLI -->
-    <div class="page">
-        <div class="section-header">
-            <h2 class="section-title">02 / Fitur & Deliverables Utama</h2>
-            <span class="section-subtitle-badge">Halaman 3 dari 5</span>
-        </div>
 
+        <!-- Jaminan Standar Premium (f1 - f6) -->
         <div class="body-section">
-            <p class="paragraph-text" style="font-size: 13px; color: #475569; margin-bottom: 15px;">
-                Daftar lengkap fitur spesifik dan deliverables hasil kerja yang tercakup dalam solusi layanan ini:
-            </p>
+            <h3 class="body-section-title">${tEverything}</h3>
             
-            <div class="scope-container">
-                <div class="features-grid">
-                    ${featuresListHtml ? featuresListHtml : `
-                        <div class="feature-card-item">
-                            <div class="feature-card-dot"></div>
-                            <div class="feature-card-text">Layanan implementasi fungsional ${title} lengkap.</div>
-                        </div>
-                    `}
-                </div>
-            </div>
-        </div>
-        
-        <div class="page-footer">
-            <span>CREDIBLEMARK &bull; Proposal ${title}</span>
-            <span>Halaman 3 dari 5</span>
-        </div>
-    </div>
-
-    <!-- HALAMAN 4: JAMINAN STANDAR PREMIUM & GARANSI UANG KEMBALI -->
-    <div class="page">
-        <div class="section-header">
-            <h2 class="section-title">03 / Jaminan Mutu & Keamanan</h2>
-            <span class="section-subtitle-badge">Halaman 4 dari 5</span>
-        </div>
-
-        <div class="body-section" style="margin-bottom: 15px;">
-            <p class="paragraph-text" style="font-size: 13px; color: #475569; margin-bottom: 12px; font-weight: 600;">
-                ${tEverything}
-            </p>
-            
-            <div class="success-grid">
+            <div class="success-grid" style="margin-top: 8px;">
                 <div class="success-card">
                     <div class="success-icon-box">&check;</div>
                     <div class="success-content">
@@ -907,13 +1113,6 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
                 </div>
             </div>
         </div>
-
-        <!-- GARANSI UANG KEMBALI (Guarantee Box) -->
-        <div class="guarantee-box">
-            <span class="guarantee-badge">&nbsp; ${tGuarTitle} &nbsp;</span>
-            <div class="guarantee-title">${tGuarSubtitle}</div>
-            <p class="guarantee-desc">${tGuarDesc}</p>
-        </div>
         
         <div class="page-footer">
             <span>CREDIBLEMARK &bull; Proposal ${title}</span>
@@ -921,14 +1120,43 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         </div>
     </div>
 
-    <!-- HALAMAN 5: INVESTASI, ADDONS ASLI, & OTORISASI -->
+    <!-- HALAMAN 5: INVESTASI, LOGIKA FINANSIAL & PERSETUJUAN -->
     <div class="page">
         <div class="section-header">
             <h2 class="section-title">04 / Rencana Investasi & Persetujuan</h2>
             <span class="section-subtitle-badge">Halaman 5 dari 5</span>
         </div>
 
-        <div class="body-section">
+        <!-- Yang Jarang Disadari (Logika Finansial) -->
+        <div class="body-section" style="margin-bottom: 20px;">
+            <h3 class="body-section-title">${tFinTitle}</h3>
+            <p class="paragraph-text" style="font-size: 11px; color: #64748b; margin-bottom: 8px;">
+                ${tFinSubtitle}
+            </p>
+            <div class="fin-container">
+                <div class="fin-box old">
+                    <div class="fin-title-bar old">${tFinHireOld}</div>
+                    <div class="fin-sub-value old">${isEn ? "High Monthly Overhead" : "Beban Operasional Tinggi"}</div>
+                    <div class="fin-desc old">${isEn ? "Fixed Salaries + Benefits + Equipment" : "Gaji Bulanan Tetap + THR + Fasilitas Kerja"}</div>
+                    <div class="fin-divider"></div>
+                    <div class="fin-item"><span class="fin-icon old">&times;</span> ${isEn ? "Hiring & onboarding (1-3 months)." : "Cari & Rekrut Staf (1-3 bulan)."}</div>
+                    <div class="fin-item"><span class="fin-icon old">&times;</span> ${isEn ? "High-level software talent is expensive." : "Gaji Programmer Ahli Sangat Mahal."}</div>
+                    <div class="fin-item"><span class="fin-icon old">&times;</span> ${isEn ? "Risk of employee resignation & downtime." : "Risiko Karyawan Resign & Sistem Macet."}</div>
+                </div>
+                <div class="fin-box new">
+                    <div class="fin-title-bar new">${tFinHireNew}</div>
+                    <div class="fin-sub-value new">${isEn ? "One-Time Project Price" : "Investasi Sekali Bayar"}</div>
+                    <div class="fin-desc new">${isEn ? "Pay Only for What You Actually Need" : "Bayar Hanya Sesuai Kebutuhan Proyek"}</div>
+                    <div class="fin-divider"></div>
+                    <div class="fin-item"><span class="fin-icon new">&check;</span> ${isEn ? "Instant Execution (Day 1)." : "Mulai Kerja Instan (Hari ke-1)."}</div>
+                    <div class="fin-item"><span class="fin-icon new">&check;</span> ${isEn ? "Expert team quality, project-based cost." : "Kualitas Tim Ahli, Bayar Hanya Sesuai Proyek."}</div>
+                    <div class="fin-item"><span class="fin-icon new">&check;</span> ${isEn ? "Guaranteed delivery & system operation." : "Jaminan Sistem Selesai & Berjalan Lancar."}</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Investasi Layanan -->
+        <div class="body-section" style="margin-bottom: 15px;">
             <h3 class="body-section-title">Investasi Layanan</h3>
             <div class="pricing-banner">
                 <div class="pricing-info">
@@ -943,8 +1171,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         </div>
 
         ${addonsHtml ? `
-        <div class="body-section" style="margin-top: 10px;">
-            <h3 class="body-section-title">Add-ons Opsional</h3>
+        <div class="body-section" style="margin-bottom: 15px;">
             <table class="proposal-table">
                 <thead>
                     <tr>
@@ -960,8 +1187,15 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         </div>
         ` : ''}
 
-        <div class="body-section" style="margin-top: 20px;">
-            <p class="paragraph-text" style="font-size: 11px; color: #64748b; line-height: 1.6;">
+        <!-- GARANSI UANG KEMBALI (Guarantee Box) -->
+        <div class="guarantee-box" style="margin-bottom: 20px;">
+            <span class="guarantee-badge">&nbsp; ${tGuarTitle} &nbsp;</span>
+            <div class="guarantee-title">${tGuarSubtitle}</div>
+            <p class="guarantee-desc">${tGuarDesc}</p>
+        </div>
+
+        <div class="body-section">
+            <p class="paragraph-text" style="font-size: 10px; color: #64748b; line-height: 1.5; margin-bottom: 12px;">
                 Dengan menandatangani dokumen ini, kedua belah pihak menyepakati rincian fitur kerja, nilai investasi, serta skema pembayaran yang tertera di atas.
             </p>
             
