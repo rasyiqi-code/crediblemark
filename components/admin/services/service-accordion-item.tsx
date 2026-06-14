@@ -39,7 +39,7 @@ export function ServiceAccordionItem({ service, displayTitle, intervalLabel, isI
                         <div className="flex-1 min-w-0 pr-2">
                             <span className="font-medium text-white text-sm truncate block">{displayTitle}</span>
                             <div className="flex flex-wrap items-center gap-x-1.5 sm:gap-x-2 gap-y-1 text-[11px] text-zinc-500 mt-1">
-                                <span className="truncate font-semibold text-white">
+                                <span className="truncate font-semibold text-brand-yellow">
                                     <PriceDisplay amount={service.discount && service.discount > 0 ? (service.price * (1 - service.discount / 100)) : service.price} baseCurrency={service.currency || 'USD'} />
                                 </span>
                                 {service.discount && service.discount > 0 ? (
