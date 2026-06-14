@@ -868,7 +868,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         }
         
         .sig-line {
-            border-bottom: 1px solid #27272a;
+            border-bottom: 1px solid #ffffff;
             height: 10mm;
             margin-bottom: 8px;
         }
