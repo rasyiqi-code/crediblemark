@@ -4,7 +4,7 @@ import Image from "next/image";
 import { prisma } from "@/lib/config/db";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Plus, Package, CreditCard, Zap } from "lucide-react";
+import { Plus, Package, CreditCard, Zap, Percent } from "lucide-react";
 import Link from "next/link";
 import { isAdmin } from "@/lib/shared/auth-helpers";
 import { redirect } from "next/navigation";
@@ -80,9 +80,19 @@ export default async function ServicesPage() {
                                                 <div className="flex-1 min-w-0 pr-2">
                                                     <span className="font-medium text-white text-sm truncate block">{displayTitle}</span>
                                                     <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-[11px] text-zinc-500 mt-1">
-                                                        <span className="truncate">
-                                                            <PriceDisplay amount={service.price} baseCurrency={((service as Record<string, unknown>).currency as "USD" | "IDR") || 'USD'} />
+                                                        <span className="truncate font-semibold text-white">
+                                                            <PriceDisplay amount={service.discount && service.discount > 0 ? (service.price * (1 - service.discount / 100)) : service.price} baseCurrency={((service as Record<string, unknown>).currency as "USD" | "IDR") || 'USD'} />
                                                         </span>
+                                                        {service.discount && service.discount > 0 ? (
+                                                            <>
+                                                                <span className="line-through text-zinc-500 text-[10px] ml-1">
+                                                                    <PriceDisplay amount={service.price} baseCurrency={((service as Record<string, unknown>).currency as "USD" | "IDR") || 'USD'} />
+                                                                </span>
+                                                                <span className="text-[10px] bg-red-500/10 text-red-400 border border-red-500/20 px-1 py-0.25 rounded font-bold ml-1">
+                                                                    -{service.discount}%
+                                                                </span>
+                                                            </>
+                                                        ) : null}
                                                         <span className="hidden sm:inline-block text-zinc-700">•</span>
                                                         <span className="hidden sm:inline-block whitespace-nowrap">
                                                             {new Date(service.createdAt).toLocaleDateString()}
@@ -124,7 +134,7 @@ export default async function ServicesPage() {
                                             <div className="flex-1 flex flex-col min-w-0">
                                                 <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-3">
                                                     {/* Detail grid — matching projects style */}
-                                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 flex-1 lg:pr-8">
+                                                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 flex-1 lg:pr-8">
                                                         <div className="flex items-start gap-2 group/detail">
                                                             <span className="text-zinc-600 mt-0.5"><Zap className="w-3.5 h-3.5" /></span>
                                                             <div className="flex-1 min-w-0">
@@ -145,10 +155,19 @@ export default async function ServicesPage() {
                                                                 </span>
                                                             </div>
                                                         </div>
+                                                        <div className="flex items-start gap-2 group/detail">
+                                                            <span className="text-zinc-600 mt-0.5"><Percent className="w-3.5 h-3.5" /></span>
+                                                            <div className="flex-1 min-w-0">
+                                                                <span className="text-[10px] text-zinc-600 uppercase tracking-wider block">{isId ? 'Diskon' : 'Discount'}</span>
+                                                                <span className="text-xs text-zinc-400 font-medium">
+                                                                    {service.discount && service.discount > 0 ? `${service.discount}%` : (isId ? 'Tidak ada' : 'None')}
+                                                                </span>
+                                                            </div>
+                                                        </div>
                                                     </div>
 
                                                     {/* Tombol Aksi - sejajar vertikal dengan detail grid */}
-                                                    <div className="flex justify-start lg:justify-end shrink-0 pt-2 lg:pt-0 pl-[22px] lg:pl-0">
+                                                    <div className="flex justify-start lg:justify-end shrink-0 pt-2 lg:pt-0 pl-6 lg:pl-0">
                                                         <ServiceActionButtons serviceId={service.id} />
                                                     </div>
                                                 </div>
