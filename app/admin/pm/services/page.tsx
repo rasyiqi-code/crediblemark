@@ -133,9 +133,9 @@ export default async function ServicesPage() {
 
                                             <div className="flex-1 flex flex-col min-w-0">
                                                 <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-3">
-                                                    {/* Detail grid — horizontal scroll di mobile, grid di desktop */}
-                                                    <div className="flex flex-row overflow-x-auto sm:grid sm:grid-cols-3 gap-6 flex-1 min-w-0 pr-8 scrollbar-none pb-2 sm:pb-0 whitespace-nowrap">
-                                                        <div className="flex items-start gap-2 group/detail shrink-0">
+                                                    {/* Detail grid — 2 kolom di mobile, 3 kolom di desktop */}
+                                                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 flex-1 lg:pr-8">
+                                                        <div className="flex items-start gap-2 group/detail">
                                                             <span className="text-zinc-600 mt-0.5"><Zap className="w-3.5 h-3.5" /></span>
                                                             <div className="flex-1 min-w-0">
                                                                 <span className="text-[10px] text-zinc-600 uppercase tracking-wider block">{isId ? 'Interval' : 'Interval'}</span>
@@ -144,18 +144,18 @@ export default async function ServicesPage() {
                                                                 </span>
                                                             </div>
                                                         </div>
-                                                        <div className="flex items-start gap-2 group/detail shrink-0">
+                                                        <div className="flex items-start gap-2 group/detail">
                                                             <span className="text-zinc-600 mt-0.5"><CreditCard className="w-3.5 h-3.5" /></span>
                                                             <div className="flex-1 min-w-0">
                                                                 <span className="text-[10px] text-zinc-600 uppercase tracking-wider block">{isId ? 'Model Harga' : 'Price Model'}</span>
                                                                 <span className="text-xs text-zinc-400 font-medium">
-                                                                    {service.priceType === 'STARTING_AT' 
-                                                                        ? (isId ? 'Investasi Dasar' : 'Starting At') 
+                                                                    {service.priceType === 'STARTING_AT'
+                                                                        ? (isId ? 'Investasi Dasar' : 'Starting At')
                                                                         : (isId ? 'Harga Tetap' : 'Fixed Price')}
                                                                 </span>
                                                             </div>
                                                         </div>
-                                                        <div className="flex items-start gap-2 group/detail shrink-0">
+                                                        <div className="flex items-start gap-2 group/detail">
                                                             <span className="text-zinc-600 mt-0.5"><Percent className="w-3.5 h-3.5" /></span>
                                                             <div className="flex-1 min-w-0">
                                                                 <span className="text-[10px] text-zinc-600 uppercase tracking-wider block">{isId ? 'Diskon' : 'Discount'}</span>
