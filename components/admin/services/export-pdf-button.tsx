@@ -1262,7 +1262,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
                 </div>
                 ${stampUrl ? `
                 <div style="display: flex; flex-direction: column; align-items: center; justify-content: flex-end;">
-                    <img src="${stampUrl}" alt="Stempel Resmi" style="width: 90px; height: 90px; object-fit: contain; opacity: 0.85;" />
+                    <img src="${stampUrl}" alt="Stempel Resmi" style="width: 90px; height: 90px; object-fit: contain; opacity: 0.85; filter: brightness(0) invert(1);" />
                 </div>
                 ` : ''}
                 <div class="sig-box">
