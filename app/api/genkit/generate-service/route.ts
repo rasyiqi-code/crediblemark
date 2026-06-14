@@ -27,7 +27,8 @@ export async function POST(req: NextRequest) {
             discount,
             currency,
             priceType,
-            interval
+            interval,
+            targetBusinessScale
         } = body;
 
         if (!type) {
@@ -52,6 +53,7 @@ export async function POST(req: NextRequest) {
                 description_id: description_id || description,
                 features: features || [],
                 features_id: features_id || features || [],
+                targetBusinessScale: targetBusinessScale || 'AUTO'
             });
         } else if (type === 'addons') {
             if (!title || !description) {
@@ -68,7 +70,8 @@ export async function POST(req: NextRequest) {
                 discount: discount !== undefined ? Number(discount) : 0,
                 currency: currency || 'USD',
                 priceType: priceType || 'FIXED',
-                interval: interval || 'one_time'
+                interval: interval || 'one_time',
+                targetBusinessScale: targetBusinessScale || 'AUTO'
             });
 
             interface AddonItem {

@@ -85,6 +85,7 @@ export function EditServiceForm({
     const [slug, setSlug] = useState(service.slug || "");
     const [priceType, setPriceType] = useState<string>(service.priceType || "FIXED");
     const [interval, setInterval] = useState<string>(service.interval || "one_time");
+    const [businessScale, setBusinessScale] = useState<string>("AUTO");
 
     const formRef = useRef<HTMLFormElement>(null);
 
@@ -101,7 +102,11 @@ export function EditServiceForm({
             const res = await fetch("/api/genkit/generate-service", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ type: "content", prompt: prompt })
+                body: JSON.stringify({
+                    type: "content",
+                    prompt: prompt,
+                    targetBusinessScale: businessScale
+                })
             });
             const result = await res.json();
 
@@ -173,7 +178,8 @@ export function EditServiceForm({
                     description,
                     description_id,
                     features,
-                    features_id
+                    features_id,
+                    targetBusinessScale: businessScale
                 })
             });
             const result = await res.json();
@@ -252,7 +258,8 @@ export function EditServiceForm({
                     discount,
                     currency,
                     priceType,
-                    interval
+                    interval,
+                    targetBusinessScale: businessScale
                 })
             });
             const result = await res.json();
@@ -360,7 +367,25 @@ export function EditServiceForm({
                         <p className="text-xs text-indigo-300/80 leading-normal">
                             {tAdmin("magicDraftDesc")}
                         </p>
-                        <div className="space-y-3">
+                        <div className="space-y-4">
+                            <div className="flex flex-col gap-1.5">
+                                <label className="text-[10px] font-medium text-indigo-300 uppercase tracking-wider">
+                                    Skala Bisnis Target (Target Business Scale)
+                                </label>
+                                <Select value={businessScale} onValueChange={setBusinessScale}>
+                                    <SelectTrigger className="bg-black/40 border-indigo-500/20 text-zinc-300 focus:ring-indigo-500/40 text-xs h-9">
+                                        <SelectValue placeholder="Pilih Skala Bisnis" />
+                                    </SelectTrigger>
+                                    <SelectContent className="bg-zinc-950 border-zinc-800 text-zinc-300">
+                                        <SelectItem value="AUTO">Deteksi Otomatis (Insting AI)</SelectItem>
+                                        <SelectItem value="ULTRA_MICRO">Ultra Mikro (UMi) - Rp 1.45jt - Rp 2.45jt</SelectItem>
+                                        <SelectItem value="MICRO">Mikro - Rp 2.45jt - Rp 3.95jt</SelectItem>
+                                        <SelectItem value="SMALL">Kecil - Rp 3.95jt - Rp 9.95jt</SelectItem>
+                                        <SelectItem value="MEDIUM">Menengah (SME) - Rp 9.95jt - Rp 24.95jt</SelectItem>
+                                        <SelectItem value="ENTERPRISE">Besar (Enterprise) - Rp 24.95jt - Rp 49.99jt+</SelectItem>
+                                    </SelectContent>
+                                </Select>
+                            </div>
                             <Textarea
                                 value={prompt}
                                 onChange={(e) => setPrompt(e.target.value)}
