@@ -130,9 +130,9 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
 
             return `
                 <tr>
-                    <td><strong>${addon.name}</strong><br><small style="color: #64748b;">${addon.description || ''}</small></td>
+                    <td><strong>${addon.name}</strong><br><small style="color: #a1a1aa; font-size: 12px;">${addon.description || ''}</small></td>
                     <td>${addInterval}</td>
-                    <td style="text-align: right; font-weight: 600; color: #1e3a8a;">${addonFormattedPrice}</td>
+                    <td style="text-align: right; font-weight: 600; color: #fbbf24;">${addonFormattedPrice}</td>
                 </tr>
             `;
         }).join("");
@@ -221,11 +221,12 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         }
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            color: #1e293b;
-            background: #ffffff;
-            line-height: 1.5;
+            color: #ffffff;
+            background: #000000;
+            line-height: 1.6;
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
+            font-size: 15px;
         }
         
         @page {
@@ -238,18 +239,18 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             height: 297mm;
             page-break-after: always;
             position: relative;
-            background: #ffffff;
+            background: #000000;
             overflow: hidden;
             padding: 25mm 20mm;
         }
         
-        /* Halaman Cover (Estetika Tinggi) */
+        /* Halaman Cover (Estetika Tinggi - Dark Theme) */
         .page-cover {
             padding: 0;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            background: #fafbfc;
+            background: radial-gradient(circle at top right, rgba(250, 204, 21, 0.15) 0%, transparent 60%), #000000;
         }
         
         .cover-top-accent {
@@ -259,8 +260,10 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             width: 420px;
             height: 420px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+            background: linear-gradient(135deg, #facc15 0%, #d97706 100%);
             z-index: 1;
+            opacity: 0.85;
+            filter: blur(1px);
         }
         
         .cover-top-accent-sub {
@@ -270,11 +273,11 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             width: 110px;
             height: 110px;
             border-radius: 50%;
-            background: #d97706;
-            opacity: 0.85;
+            background: #ffffff;
+            opacity: 0.1;
             z-index: 2;
         }
-
+ 
         .cover-bottom-accent {
             position: absolute;
             bottom: -120px;
@@ -282,8 +285,10 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             width: 380px;
             height: 380px;
             border-radius: 50%;
-            background: linear-gradient(45deg, #1e3a8a 0%, #0a0f1d 100%);
+            background: linear-gradient(45deg, #d97706 0%, #000000 100%);
             z-index: 1;
+            opacity: 0.6;
+            filter: blur(10px);
         }
         
         .cover-bottom-stripes {
@@ -292,12 +297,12 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             left: 220px;
             width: 140px;
             height: 140px;
-            background: radial-gradient(circle, transparent 20%, #ffffff 20%, #ffffff 40%, transparent 40%, transparent 60%, #d97706 60%, #d97706 80%, transparent 80%);
+            background: radial-gradient(circle, transparent 20%, #ffffff 20%, #ffffff 40%, transparent 40%, transparent 60%, #facc15 60%, #facc15 80%, transparent 80%);
             background-size: 18px 18px;
-            opacity: 0.12;
+            opacity: 0.08;
             z-index: 2;
         }
-
+ 
         .cover-content {
             position: relative;
             z-index: 10;
@@ -317,9 +322,9 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         }
         
         .logo-text {
-            font-size: 16px;
+            font-size: 20px;
             font-weight: 800;
-            color: #0f172a;
+            color: #ffffff;
             letter-spacing: 2px;
         }
         
@@ -331,163 +336,163 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             display: inline-block;
             background: #d97706;
             color: #ffffff;
-            font-size: 10px;
+            font-size: 12px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 2.5px;
-            padding: 5px 12px;
+            padding: 6px 14px;
             border-radius: 4px;
-            margin-bottom: 18px;
+            margin-bottom: 20px;
         }
         
         .main-title {
             font-family: 'Playfair Display', serif;
-            font-size: 38px;
+            font-size: 44px;
             font-weight: 700;
-            color: #0f172a;
+            color: #ffffff;
             line-height: 1.2;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
         
         .title-divider {
             width: 75mm;
             height: 3px;
-            background: #d97706;
-            margin-bottom: 25px;
+            background: #facc15;
+            margin-bottom: 28px;
         }
         
         .sub-title {
-            font-size: 14px;
-            color: #475569;
+            font-size: 16px;
+            color: #a1a1aa;
             font-weight: 400;
             max-width: 145mm;
-            line-height: 1.6;
+            line-height: 1.7;
         }
         
         .cover-footer {
             margin-top: auto;
-            border-top: 1px solid #e2e8f0;
-            padding-top: 20px;
+            border-top: 1px solid #27272a;
+            padding-top: 24px;
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
         }
         
         .metadata-label {
-            font-size: 9px;
+            font-size: 11px;
             text-transform: uppercase;
-            color: #64748b;
+            color: #a1a1aa;
             letter-spacing: 1px;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
         }
         
         .metadata-value {
-            font-size: 12px;
+            font-size: 14px;
             font-weight: 600;
-            color: #0f172a;
+            color: #ffffff;
         }
-
-        /* Halaman Standar */
+ 
+        /* Halaman Standar (Dark Theme) */
         .section-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border-bottom: 2px solid #f1f5f9;
-            padding-bottom: 8px;
-            margin-bottom: 25px;
+            border-bottom: 2px solid #27272a;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
         }
         
         .section-title {
             font-family: 'Playfair Display', serif;
-            font-size: 22px;
+            font-size: 28px;
             font-weight: 700;
-            color: #0f172a;
+            color: #ffffff;
         }
         
         .section-subtitle-badge {
-            font-size: 9px;
+            font-size: 11px;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #d97706;
+            letter-spacing: 1.5px;
+            color: #fbbf24;
             font-weight: 700;
         }
         
         .body-section {
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
-
+ 
         .body-section-title {
-            font-size: 13px;
+            font-size: 16px;
             font-weight: 700;
-            color: #1e3a8a;
-            margin-bottom: 12px;
+            color: #fbbf24;
+            margin-bottom: 15px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-
+ 
         .desc-content {
-            font-size: 13px;
-            color: #334155;
-            line-height: 1.7;
+            font-size: 15px;
+            color: #e4e4e7;
+            line-height: 1.8;
         }
-
+ 
         .desc-content p {
-            margin-bottom: 14px;
+            margin-bottom: 16px;
             text-align: justify;
         }
-
+ 
         .desc-content ul, .desc-content ol {
-            margin-left: 20px;
-            margin-bottom: 14px;
+            margin-left: 24px;
+            margin-bottom: 16px;
         }
-
+ 
         .desc-content li {
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
-
+ 
         /* Scope / Fitur Grid */
         .scope-container {
-            background: #fafbfc;
-            border: 1px solid #e2e8f0;
+            background: #09090b;
+            border: 1px solid #27272a;
             border-radius: 8px;
-            padding: 20px;
+            padding: 24px;
             margin-top: 15px;
         }
-
+ 
         .features-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 15px;
             margin-top: 10px;
         }
-
+ 
         .feature-card-item {
             display: flex;
             align-items: flex-start;
-            gap: 10px;
-            background: #ffffff;
-            border: 1px solid #f1f5f9;
-            border-left: 4px solid #1e3a8a;
+            gap: 12px;
+            background: #18181b;
+            border: 1px solid #27272a;
+            border-left: 4px solid #fbbf24;
             border-radius: 6px;
-            padding: 12px 15px;
+            padding: 14px 18px;
         }
-
+ 
         .feature-card-dot {
             width: 6px;
             height: 6px;
             border-radius: 50%;
-            background: #d97706;
-            margin-top: 6px;
+            background: #fbbf24;
+            margin-top: 8px;
             flex-shrink: 0;
         }
-
+ 
         .feature-card-text {
-            font-size: 12px;
+            font-size: 14.5px;
             font-weight: 600;
-            color: #334155;
-            line-height: 1.4;
+            color: #ffffff;
+            line-height: 1.5;
         }
-
+ 
         /* Comparison Grid */
         .comp-container {
             display: grid;
@@ -495,70 +500,70 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             gap: 20px;
             margin-top: 10px;
         }
-
+ 
         .comp-box {
             border-radius: 8px;
-            padding: 18px;
-            font-size: 12px;
+            padding: 20px;
+            font-size: 14px;
         }
-
+ 
         .comp-box.old {
-            border: 1px solid #e2e8f0;
-            background: #f8fafc;
+            border: 1px solid #27272a;
+            background: #18181b;
         }
-
+ 
         .comp-box.new {
-            border: 1px solid #d97706;
-            background: #fffdf9;
+            border: 1.5px solid #d97706;
+            background: #1c1917;
         }
-
+ 
         .comp-title-bar {
-            font-size: 13px;
+            font-size: 16px;
             font-weight: 800;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-
+ 
         .comp-title-bar.old {
-            color: #64748b;
-            border-bottom: 1px solid #e2e8f0;
-            padding-bottom: 6px;
+            color: #a1a1aa;
+            border-bottom: 1px solid #27272a;
+            padding-bottom: 8px;
         }
-
+ 
         .comp-title-bar.new {
-            color: #1e3a8a;
+            color: #fbbf24;
             border-bottom: 1px solid #d97706;
-            padding-bottom: 6px;
+            padding-bottom: 8px;
         }
-
+ 
         .comp-item {
             display: flex;
             align-items: start;
-            gap: 10px;
-            margin-bottom: 10px;
+            gap: 12px;
+            margin-bottom: 12px;
         }
-
+ 
         .comp-icon {
-            font-size: 14px;
+            font-size: 18px;
             font-weight: bold;
             flex-shrink: 0;
-            margin-top: 2px;
+            margin-top: 1px;
         }
-
+ 
         .comp-icon.old {
-            color: #ef4444;
+            color: #f87171;
         }
-
+ 
         .comp-icon.new {
-            color: #d97706;
+            color: #fbbf24;
         }
-
+ 
         .comp-item-text {
-            line-height: 1.4;
-            color: #334155;
+            line-height: 1.5;
+            color: #e4e4e7;
         }
-
+ 
         /* Jaminan Premium Grid */
         .success-grid {
             display: grid;
@@ -566,136 +571,136 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             gap: 15px;
             margin-top: 15px;
         }
-
+ 
         .success-card {
-            background: #fafbfc;
-            border: 1px solid #e2e8f0;
+            background: #18181b;
+            border: 1px solid #27272a;
             border-radius: 8px;
-            padding: 15px;
+            padding: 16px;
             display: flex;
             align-items: start;
-            gap: 12px;
+            gap: 14px;
         }
-
+ 
         .success-icon-box {
-            width: 24px;
-            height: 24px;
+            width: 26px;
+            height: 26px;
             border-radius: 50%;
-            background: #d97706;
-            color: #ffffff;
+            background: #fbbf24;
+            color: #000000;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 12px;
+            font-size: 14px;
             font-weight: bold;
             flex-shrink: 0;
         }
-
+ 
         .success-content {
             display: flex;
             flex-direction: column;
         }
-
+ 
         .success-card-title {
-            font-size: 12px;
+            font-size: 14.5px;
             font-weight: 700;
-            color: #0f172a;
-            margin-bottom: 4px;
+            color: #ffffff;
+            margin-bottom: 6px;
         }
-
+ 
         .success-card-desc {
-            font-size: 10px;
-            color: #64748b;
-            line-height: 1.4;
+            font-size: 12.5px;
+            color: #a1a1aa;
+            line-height: 1.5;
         }
-
+ 
         /* Guarantee Box */
         .guarantee-box {
-            background: #fffdf9;
+            background: #1c1917;
             border: 1.5px solid #d97706;
             border-radius: 8px;
-            padding: 18px;
+            padding: 20px;
             margin-top: 20px;
             position: relative;
         }
-
+ 
         .guarantee-badge {
             display: inline-block;
-            background: #d97706;
-            color: #ffffff;
-            font-size: 9px;
+            background: #fbbf24;
+            color: #000000;
+            font-size: 10px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            padding: 3px 10px;
+            padding: 4px 12px;
             border-radius: 4px;
+            margin-bottom: 10px;
+        }
+ 
+        .guarantee-title {
+            font-size: 15px;
+            font-weight: 800;
+            color: #ffffff;
             margin-bottom: 8px;
         }
-
-        .guarantee-title {
-            font-size: 13px;
-            font-weight: 800;
-            color: #0f172a;
-            margin-bottom: 6px;
-        }
-
+ 
         .guarantee-desc {
-            font-size: 11px;
-            color: #475569;
-            line-height: 1.5;
+            font-size: 13.5px;
+            color: #e4e4e7;
+            line-height: 1.6;
             text-align: justify;
         }
-
+ 
         /* Workflow List Halaman 2 - Susunan Vertikal (Numbering List) */
         .workflow-list {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 15px;
             margin-top: 15px;
         }
-
+ 
         .workflow-item {
             display: flex;
             align-items: flex-start;
-            gap: 12px;
+            gap: 14px;
         }
-
+ 
         .workflow-number {
-            width: 22px;
-            height: 22px;
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
-            background: #0f172a;
-            color: #ffffff;
+            background: #fbbf24;
+            color: #000000;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 11px;
+            font-size: 13px;
             font-weight: 800;
             flex-shrink: 0;
             margin-top: 2px;
         }
-
+ 
         .workflow-text {
             display: flex;
             flex-direction: column;
-            gap: 2px;
+            gap: 4px;
         }
-
+ 
         .workflow-item-title {
-            font-size: 12px;
+            font-size: 14.5px;
             font-weight: 800;
-            color: #0f172a;
+            color: #ffffff;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-
+ 
         .workflow-item-desc {
-            font-size: 11px;
-            color: #475569;
-            line-height: 1.5;
+            font-size: 13px;
+            color: #cbd5e1;
+            line-height: 1.6;
             text-align: justify;
         }
-
+ 
         /* Financial Logic Grid Halaman 5 */
         .fin-container {
             display: grid;
@@ -703,99 +708,99 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             gap: 15px;
             margin-top: 10px;
         }
-
+ 
         .fin-box {
             border-radius: 8px;
-            padding: 12px 15px;
-            font-size: 11px;
+            padding: 14px 18px;
+            font-size: 13px;
             display: flex;
             flex-direction: column;
         }
-
+ 
         .fin-box.old {
-            border: 1px solid #e2e8f0;
-            background: #f8fafc;
+            border: 1px solid #27272a;
+            background: #18181b;
         }
-
+ 
         .fin-box.new {
             border: 1.5px solid #d97706;
-            background: #fffdf9;
+            background: #1c1917;
         }
-
+ 
         .fin-title-bar {
-            font-size: 11px;
+            font-size: 13.5px;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-
+ 
         .fin-title-bar.old {
-            color: #64748b;
+            color: #a1a1aa;
         }
-
+ 
         .fin-title-bar.new {
-            color: #1e3a8a;
+            color: #fbbf24;
         }
-
+ 
         .fin-sub-value {
-            font-size: 13px;
+            font-size: 15px;
             font-weight: 700;
             margin-top: 4px;
         }
-
+ 
         .fin-sub-value.old {
-            color: #ef4444;
+            color: #f87171;
         }
-
+ 
         .fin-sub-value.new {
-            color: #d97706;
+            color: #fbbf24;
         }
-
+ 
         .fin-desc {
-            font-size: 9.5px;
-            color: #64748b;
+            font-size: 11px;
+            color: #a1a1aa;
             margin-top: 2px;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
-
+ 
         .fin-divider {
             height: 1px;
-            background: #e2e8f0;
-            margin-bottom: 8px;
+            background: #27272a;
+            margin-bottom: 10px;
         }
-
+ 
         .fin-box.new .fin-divider {
-            background: #fbd5b5;
+            background: #78350f;
         }
-
+ 
         .fin-item {
             display: flex;
             align-items: start;
-            gap: 6px;
-            margin-bottom: 6px;
-            line-height: 1.3;
-            color: #334155;
-            font-size: 10.5px;
+            gap: 8px;
+            margin-bottom: 8px;
+            line-height: 1.4;
+            color: #e4e4e7;
+            font-size: 12.5px;
         }
-
+ 
         .fin-icon {
-            font-size: 12px;
+            font-size: 14px;
             font-weight: bold;
             flex-shrink: 0;
         }
-
+ 
         .fin-icon.old {
-            color: #ef4444;
+            color: #f87171;
         }
-
+ 
         .fin-icon.new {
-            color: #d97706;
+            color: #fbbf24;
         }
-
+ 
         /* Investasi Section */
         .pricing-banner {
-            background: linear-gradient(135deg, #fafbfc 0%, #f8fafc 100%);
-            border: 1px solid #e2e8f0;
+            background: linear-gradient(135deg, #18181b 0%, #09090b 100%);
+            border: 1px solid #27272a;
             border-radius: 8px;
             padding: 20px;
             display: flex;
@@ -803,16 +808,16 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             align-items: center;
             margin-bottom: 25px;
         }
-
+ 
         .pricing-info {
             display: flex;
             flex-direction: column;
         }
-
+ 
         .pricing-price {
-            font-size: 26px;
+            font-size: 32px;
             font-weight: 700;
-            color: #1e3a8a;
+            color: #fbbf24;
         }
         
         /* Tables */
@@ -824,28 +829,28 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         }
         
         .proposal-table th {
-            background: #0f172a;
+            background: #18181b;
             color: #ffffff;
-            font-size: 10px;
+            font-size: 12px;
             font-weight: 600;
             text-align: left;
-            padding: 10px 12px;
+            padding: 12px 14px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
         
         .proposal-table td {
-            padding: 10px 12px;
-            font-size: 12px;
-            border-bottom: 1px solid #e2e8f0;
-            color: #334155;
+            padding: 12px 14px;
+            font-size: 14px;
+            border-bottom: 1px solid #27272a;
+            color: #e4e4e7;
             vertical-align: middle;
         }
         
         .proposal-table tr:nth-child(even) td {
-            background: #f8fafc;
+            background: #09090b;
         }
-
+ 
         /* Tanda Tangan */
         .signatures-container {
             margin-top: 20mm;
@@ -860,20 +865,20 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         }
         
         .sig-line {
-            border-bottom: 1px solid #94a3b8;
+            border-bottom: 1px solid #27272a;
             height: 15mm;
             margin-bottom: 8px;
         }
         
         .sig-name {
-            font-size: 12px;
+            font-size: 14px;
             font-weight: 600;
-            color: #0f172a;
+            color: #ffffff;
         }
         
         .sig-title {
-            font-size: 10px;
-            color: #64748b;
+            font-size: 12px;
+            color: #a1a1aa;
         }
         
         /* Footer Halaman */
@@ -882,13 +887,13 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             bottom: 10mm;
             left: 20mm;
             right: 20mm;
-            border-top: 1px solid #f1f5f9;
+            border-top: 1px solid #27272a;
             padding-top: 6px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 8px;
-            color: #94a3b8;
+            font-size: 10px;
+            color: #a1a1aa;
         }
     </style>
 </head>
@@ -939,9 +944,9 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         </div>
 
         <!-- PROSES KERJA JUJUR (Workflow Section) - Mengisi kekosongan Halaman 2 secara fungsional & mewah -->
-        <div class="body-section" style="margin-top: 25px; border-top: 1px solid #e2e8f0; padding-top: 20px;">
+        <div class="body-section" style="margin-top: 25px; border-top: 1px solid #27272a; padding-top: 20px;">
             <h3 class="body-section-title">${tWorkflowTitle}</h3>
-            <p class="paragraph-text" style="font-size: 11px; color: #64748b; margin-bottom: 15px;">
+            <p class="paragraph-text" style="font-size: 13px; color: #a1a1aa; margin-bottom: 15px;">
                 ${tWorkflowSubtitle}
             </p>
             
@@ -984,7 +989,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         </div>
 
         <div class="body-section">
-            <p class="paragraph-text" style="font-size: 13px; color: #475569; margin-bottom: 15px;">
+            <p class="paragraph-text" style="font-size: 15px; color: #e4e4e7; margin-bottom: 15px;">
                 Daftar lengkap fitur spesifik dan deliverables hasil kerja yang tercakup dalam solusi layanan ini:
             </p>
             
@@ -1016,7 +1021,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         <!-- Kenapa Pilih Kami (Comparison Section) -->
         <div class="body-section" style="margin-bottom: 25px;">
             <h3 class="body-section-title">${tCompTitle}</h3>
-            <p class="paragraph-text" style="font-size: 11px; color: #64748b; margin-bottom: 8px;">
+            <p class="paragraph-text" style="font-size: 13px; color: #a1a1aa; margin-bottom: 8px;">
                 ${tCompSubtitle}
             </p>
             <div class="comp-container">
@@ -1127,7 +1132,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         <!-- Yang Jarang Disadari (Logika Finansial) -->
         <div class="body-section" style="margin-bottom: 20px;">
             <h3 class="body-section-title">${tFinTitle}</h3>
-            <p class="paragraph-text" style="font-size: 11px; color: #64748b; margin-bottom: 8px;">
+            <p class="paragraph-text" style="font-size: 13px; color: #a1a1aa; margin-bottom: 8px;">
                 ${tFinSubtitle}
             </p>
             <div class="fin-container">
@@ -1157,12 +1162,12 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             <h3 class="body-section-title">Investasi Layanan</h3>
             <div class="pricing-banner">
                 <div class="pricing-info">
-                    <span style="font-size: 10px; text-transform: uppercase; color: #64748b; letter-spacing: 0.5px;">Biaya Layanan Utama (${priceModel})</span>
+                    <span style="font-size: 11px; text-transform: uppercase; color: #a1a1aa; letter-spacing: 0.5px;">Biaya Layanan Utama (${priceModel})</span>
                     <span class="pricing-price">${formattedPrice}</span>
                 </div>
                 <div style="text-align: right;">
-                    <span style="font-size: 10px; text-transform: uppercase; color: #64748b; letter-spacing: 0.5px;">Skema Pembayaran</span>
-                    <span style="font-size: 14px; font-weight: 600; color: #0f172a; display: block;">${intervalLabel}</span>
+                    <span style="font-size: 11px; text-transform: uppercase; color: #a1a1aa; letter-spacing: 0.5px;">Skema Pembayaran</span>
+                    <span style="font-size: 16px; font-weight: 600; color: #ffffff; display: block;">${intervalLabel}</span>
                 </div>
             </div>
         </div>
@@ -1192,7 +1197,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         </div>
 
         <div class="body-section">
-            <p class="paragraph-text" style="font-size: 10px; color: #64748b; line-height: 1.5; margin-bottom: 12px;">
+            <p class="paragraph-text" style="font-size: 12px; color: #cbd5e1; line-height: 1.5; margin-bottom: 12px;">
                 Dengan menandatangani dokumen ini, kedua belah pihak menyepakati rincian fitur kerja, nilai investasi, serta skema pembayaran yang tertera di atas.
             </p>
             
