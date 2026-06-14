@@ -9,6 +9,29 @@ export const ai = genkit({
     plugins: [googleAI({ apiKey: false })],
 });
 
+// Safe cache wrapper to support running in CLI/testing environment outside Next.js server
+function safeCache<T extends (...args: any[]) => any>(
+    fn: T,
+    keys: string[],
+    options?: any
+): T {
+    try {
+        const cachedFn = unstable_cache(fn, keys, options);
+        return (async (...args: any[]) => {
+            try {
+                return await cachedFn(...args);
+            } catch (error: any) {
+                if (error?.message?.includes("incrementalCache missing") || error?.message?.includes("unstable_cache")) {
+                    return await fn(...args);
+                }
+                throw error;
+            }
+        }) as unknown as T;
+    } catch {
+        return fn;
+    }
+}
+
 interface NvidiaMessage {
     role: string;
     content: string;
@@ -45,7 +68,7 @@ interface NvidiaResponseData {
     choices?: NvidiaChoice[];
 }
 
-export const isAIConfigured = unstable_cache(
+export const isAIConfigured = safeCache(
     async () => {
         try {
             const key = await prisma.systemKey.findFirst({
@@ -60,7 +83,7 @@ export const isAIConfigured = unstable_cache(
     { tags: ["system-keys"], revalidate: 3600 }
 );
 
-export const getActiveAIConfig = unstable_cache(
+export const getActiveAIConfig = safeCache(
     async () => {
         const key = await prisma.systemKey.findFirst({
             where: { isActive: true, provider: { in: ['google', 'nvidia'] } }
