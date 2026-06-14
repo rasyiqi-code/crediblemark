@@ -830,5 +830,29 @@
         "f5Desc": "Dokumen serah terima yang komprehensif, referensi API, dan diagram arsitektur. Tim Anda dapat mengambil alih tugas dengan percaya diri.",
         "f6": "Dukungan Pasca-Peluncuran",
         "f6Desc": "Masa garansi 90 hari untuk perbaikan bug. Kami tidak menghilang setelah pengiriman — kami mendampingi Anda hingga sistem stabil."
+    },
+    "ProposalExport": {
+        "businessProposal": "Proposal Bisnis",
+        "coverSub": "Dokumen penawaran dan rencana solusi digital resmi yang diajukan untuk penyediaan serta implementasi layanan profesional.",
+        "preparedFor": "Dipersiapkan Untuk",
+        "valuedClient": "Klien Terhormat",
+        "proposalDate": "Tanggal Proposal",
+        "sec1Title": "01 / Deskripsi Solusi & Filosofi",
+        "sec2Title": "02 / Fitur & Deliverables Utama",
+        "sec3Title": "03 / Kemitraan & Jaminan Kualitas",
+        "sec4Title": "04 / Rencana Investasi & Keuangan",
+        "sec5Title": "05 / FAQ & Persetujuan",
+        "pageFooter": "Halaman {page} dari 6",
+        "featuresIntro": "Daftar lengkap fitur spesifik dan deliverables hasil kerja yang tercakup dalam solusi layanan ini:",
+        "fallbackFeature": "Layanan implementasi fungsional {title} lengkap.",
+        "investTitle": "Investasi Layanan",
+        "baseInvestLabel": "Biaya Layanan Utama ({priceModel})",
+        "paymentScheme": "Skema Pembayaran",
+        "addonHeaderModule": "Modul Add-on",
+        "addonHeaderScheme": "Skema",
+        "addonHeaderInvest": "Investasi",
+        "agreementText": "Dengan menandatangani dokumen ini, kedua belah pihak menyepakati rincian fitur kerja, nilai investasi, serta skema pembayaran yang tertera di atas.",
+        "clientRepresentative": "Perwakilan Klien",
+        "moreInfoAt": "Info selengkapnya kunjungi"
     }
 }

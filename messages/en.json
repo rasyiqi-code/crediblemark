@@ -830,5 +830,29 @@
         "f5Desc": "Comprehensive handoff docs, API references, and architecture diagrams. Your team can take over with confidence.",
         "f6": "Post-Launch Support",
         "f6Desc": "90-day warranty period for bug fixes. We don't disappear after delivery — we stay until your system is stable."
+    },
+    "ProposalExport": {
+        "businessProposal": "Business Proposal",
+        "coverSub": "Official digital proposal and solution plan submitted for the provision and implementation of professional services.",
+        "preparedFor": "Prepared For",
+        "valuedClient": "Valued Client",
+        "proposalDate": "Proposal Date",
+        "sec1Title": "01 / Solution Description & Philosophy",
+        "sec2Title": "02 / Features & Key Deliverables",
+        "sec3Title": "03 / Partnership & Quality Guarantee",
+        "sec4Title": "04 / Investment & Financial Plan",
+        "sec5Title": "05 / FAQ & Approval",
+        "pageFooter": "Page {page} of 6",
+        "featuresIntro": "Complete list of specific features and deliverables included in this service solution:",
+        "fallbackFeature": "Complete functional implementation services for {title}.",
+        "investTitle": "Service Investment",
+        "baseInvestLabel": "Main Service Cost ({priceModel})",
+        "paymentScheme": "Payment Scheme",
+        "addonHeaderModule": "Add-on Module",
+        "addonHeaderScheme": "Scheme",
+        "addonHeaderInvest": "Investment",
+        "agreementText": "By signing this document, both parties agree to the details of the work features, investment value, and payment scheme listed above.",
+        "clientRepresentative": "Client Representative",
+        "moreInfoAt": "For more info, visit"
     }
 }

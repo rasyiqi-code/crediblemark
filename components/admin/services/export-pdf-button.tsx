@@ -139,48 +139,6 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             `;
         }).join("");
 
-        // Teks untuk section 'Semua yang Anda Butuhkan untuk Sukses' dari Landing/Detail page
-        const tEverything = isEn ? "Everything you need to succeed" : "Semua yang Anda butuhkan untuk sukses";
-        const tPremiumStandard = isEn ? "Premium quality deliverable included as standard in this package." : "Hasil kerja kualitas premium disertakan sebagai standar dalam paket ini.";
-        
-        const f1 = isEn ? "100% Full Ownership" : "100% Hak Milik Penuh";
-        const f2 = isEn ? "1-on-1 Strategy Session" : "Sesi Strategi 1-on-1";
-        const f3 = isEn ? "Dedicated Expert" : "Expert Berdedikasi";
-        const f4 = isEn ? "Post-release Support" : "Dukungan Pasca Rilis";
-        const f5 = isEn ? "Fast Delivery" : "Pengiriman Cepat";
-        const f6 = isEn ? "Clean & Scalable Code" : "Kode Rapi & Skalabel";
-
-        // Data Comparison dari Landing Page
-        const tCompTitle = isEn ? "Why Choose Us?" : "Kenapa Pilih Kami?";
-        const tCompSubtitle = isEn ? "We deliver results and services above market standards." : "Kami memberikan hasil dan pelayanan di atas standar pasar.";
-        const tCompOldTitle = isEn ? "Traditional Agency" : "Agensi Tradisional";
-        const tCompNewTitle = "Crediblemark";
-        
-        const old1 = isEn ? "Hidden Fees:" : "Biaya Siluman:";
-        const old1Sub = isEn ? "Cheap at first, bloated at the end." : "Harga murah di awal, tagihan bengkak di akhir.";
-        const old2 = isEn ? "Closed Process:" : "Proses Tertutup:";
-        const old2Sub = isEn ? "You don't know what is being worked on." : "Anda tidak tahu apa yang sedang dikerjakan.";
-        const old3 = isEn ? "Vendor Lock-in:" : "Ketergantungan Vendor:";
-        const old3Sub = isEn ? "Code locked, forced to subscribe." : "Kode dikunci, Anda dipaksa langganan.";
-        const old4 = isEn ? "Template-based:" : "Template-based:";
-        const old4Sub = isEn ? "Hard to customize and prone to security leaks." : "Sangat sulit diubah sesuai kebutuhan dan rawan kebocoran data.";
-
-        const new1 = isEn ? "Fixed Price:" : "Harga Pasti:";
-        const new1Sub = isEn ? "The agreed price is the price you pay." : "Harga yang disepakati adalah harga yang Anda bayar.";
-        const new2 = isEn ? "Daily Reports:" : "Laporan Harian:";
-        const new2Sub = isEn ? "Monitor progress daily via Dashboard." : "Pantau progres setiap hari via Dashboard.";
-        const new3 = isEn ? "Full Ownership:" : "Hak Milik Penuh:";
-        const new3Sub = isEn ? "Code belongs to you 100% from day one." : "Kode aplikasi milik Anda 100% sejak hari pertama.";
-        const new4 = isEn ? "Custom Built:" : "Dibuat Khusus:";
-        const new4Sub = isEn ? "System built from scratch for your business needs." : "Sistem dibangun dari nol khusus untuk kebutuhan bisnis Anda.";
-
-        // Data Guarantee dari Landing Page
-        const tGuarTitle = isEn ? "Safe and Transparent." : "Aman dan Transparan.";
-        const tGuarSubtitle = isEn ? "100% Money Back Guarantee Before Work Begins" : "Garansi Uang Kembali 100% Sebelum Mulai Dikerjakan";
-        const tGuarDesc = isEn 
-            ? "If the initial work plan does not suit you after our initial discussion, we will refund your down payment (DP) 100%. No terms. You still get to keep the design draft as long as the project has not entered the development phase."
-            : "Jika rencana kerja awal tidak sesuai setelah diskusi awal kita, uang muka (DP) Anda kami kembalikan 100%. Tanpa syarat. Anda tetap boleh menyimpan rancangan tersebut selama proyek belum masuk tahap pembuatan.";
-
         // Data Filosofi & Slogan dari Landing Page / Lokalisasi
         const messages = isEn ? enMessages : idMessages;
         const quoteText = messages.About.quote;
@@ -191,30 +149,104 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         const formattedAboutDesc = aboutDesc.endsWith(".") ? aboutDesc : `${aboutDesc}.`;
         const combinedText = `${formattedAboutDesc} ${heroDesc}`;
 
-        // Data Financial (Yang Jarang Disadari)
-        const tFinTitle = isEn ? "What is Often Overlooked." : "Yang Jarang Disadari";
-        const tFinSubtitle = isEn 
-            ? "Why waste months trying to build an in-house development team when you can launch instantly?"
-            : "Mengapa menghabiskan waktu berbulan-bulan membangun tim internal jika Anda bisa langsung meluncur?";
-        const tFinHireOld = isEn ? "Hiring In-House" : "Merekrut Karyawan Sendiri";
-        const tFinHireNew = isEn ? "Crediblemark Partnership" : "Kemitraan Crediblemark";
+        // Lokalisasi dinamis untuk Cover
+        const tBusinessProposal = messages.ProposalExport.businessProposal;
+        const tCoverSub = messages.ProposalExport.coverSub;
+        const tPreparedFor = messages.ProposalExport.preparedFor;
+        const tValuedClient = messages.ProposalExport.valuedClient;
+        const tProposalDate = messages.ProposalExport.proposalDate;
 
-        // Data FAQ (Pertanyaan Umum)
-        const tFaqTitle = isEn ? "Frequently Asked Questions (FAQ)" : "Pertanyaan yang Sering Diajukan (FAQ)";
-        const faqQ1 = isEn ? "What if I want to add new features mid-project?" : "Bagaimana jika saya ingin menambahkan fitur baru di tengah proyek?";
-        const faqA1 = isEn 
-            ? "We will discuss the changes and transparently adjust the additional investment scope before the work on new features begins."
-            : "Kita akan mendiskusikan perubahan tersebut dan menyesuaikan investasi tambahan secara transparan sebelum fitur mulai dikerjakan.";
-            
-        const faqQ2 = isEn ? "Do I get full source code ownership?" : "Apakah saya mendapatkan akses kode sumber penuh?";
-        const faqA2 = isEn 
-            ? "Yes, once final payment is completed, 100% of the source code ownership and design assets belong to you."
-            : "Ya, setelah pelunasan dilakukan, seluruh hak milik kode sumber dan aset desain 100% diserahkan kepada Anda.";
-            
-        const faqQ3 = isEn ? "What is the post-release support policy?" : "Bagaimana skema bantuan dukungan setelah aplikasi dirilis?";
-        const faqA3 = isEn 
-            ? "We provide 30 days of free bug-fixing support to ensure your application runs smoothly without issues."
-            : "Kami menyediakan dukungan gratis selama 30 hari untuk perbaikan bug guna memastikan aplikasi berjalan lancar tanpa kendala.";
+        // Lokalisasi dinamis untuk judul Section
+        const tSec1Title = messages.ProposalExport.sec1Title;
+        const tSec2Title = messages.ProposalExport.sec2Title;
+        const tSec3Title = messages.ProposalExport.sec3Title;
+        const tSec4Title = messages.ProposalExport.sec4Title;
+        const tSec5Title = messages.ProposalExport.sec5Title;
+
+        const getPageFooterHtml = (page: number) => {
+            return messages.ProposalExport.pageFooter.replace("{page}", page.toString());
+        };
+
+        // Lokalisasi dinamis untuk Halaman 3
+        const tFeaturesIntro = messages.ProposalExport.featuresIntro;
+        const tFallbackFeature = messages.ProposalExport.fallbackFeature.replace("{title}", title);
+
+        // Lokalisasi dinamis untuk Halaman 4 (Comparison & Premium deliverables)
+        const tCompTitle = messages.Comparison.title.replace("{brand}", "Crediblemark");
+        const tCompSubtitle = messages.Comparison.subtitle;
+        const tCompOldTitle = messages.Comparison.oldTitle;
+        const tCompNewTitle = messages.Comparison.newTitle.replace("{brand}", "Crediblemark");
+        
+        const old1 = messages.Comparison.old1;
+        const old1Sub = messages.Comparison.old1Sub;
+        const old2 = messages.Comparison.old2;
+        const old2Sub = messages.Comparison.old2Sub;
+        const old3 = messages.Comparison.old3;
+        const old3Sub = messages.Comparison.old3Sub;
+        const old4 = messages.Comparison.old4;
+        const old4Sub = messages.Comparison.old4Sub;
+
+        const new1 = messages.Comparison.new1;
+        const new1Sub = messages.Comparison.new1Sub;
+        const new2 = messages.Comparison.new2;
+        const new2Sub = messages.Comparison.new2Sub;
+        const new3 = messages.Comparison.new3;
+        const new3Sub = messages.Comparison.new3Sub;
+        const new4 = messages.Comparison.new4;
+        const new4Sub = messages.Comparison.new4Sub;
+
+        const tEverything = messages.Service.everythingToSucceed;
+        const tPremiumStandard = messages.Service.premiumStandard;
+        const f1 = messages.Service.f1;
+        const f2 = messages.Service.f2;
+        const f3 = messages.Service.f3;
+        const f4 = messages.Service.f4;
+        const f5 = messages.Service.f5;
+        const f6 = messages.Service.f6;
+
+        // Lokalisasi dinamis untuk Halaman 5 (Financial & Pricing)
+        const tFinTitle = messages.Financial.title;
+        const tFinSubtitle = messages.Financial.subtitle;
+        const tFinHireOld = messages.Financial.hireSenior;
+        const tFinHireNew = messages.Financial.hybrid.replace("{brand}", "Crediblemark");
+        
+        const tFinOverheadLabel = messages.Financial.salaryOldValue;
+        const tFinOverheadDesc = messages.Financial.salaryOld;
+        const tFinProjectLabel = messages.Financial.salaryNewValue;
+        const tFinProjectDesc = messages.Financial.salaryNew;
+
+        const fin1Old = messages.Financial.comp1Old;
+        const fin1New = messages.Financial.comp1New;
+        const fin2Old = messages.Financial.comp2Old;
+        const fin2New = messages.Financial.comp2New;
+        const fin3Old = messages.Financial.comp3Old;
+        const fin3New = messages.Financial.comp3New;
+
+        const tInvestTitle = messages.ProposalExport.investTitle;
+        const tBaseInvestLabel = messages.ProposalExport.baseInvestLabel.replace("{priceModel}", priceModel);
+        const tPaymentScheme = messages.ProposalExport.paymentScheme;
+        
+        const tAddonHeaderModule = messages.ProposalExport.addonHeaderModule;
+        const tAddonHeaderScheme = messages.ProposalExport.addonHeaderScheme;
+        const tAddonHeaderInvest = messages.ProposalExport.addonHeaderInvest;
+
+        // Lokalisasi dinamis untuk Halaman 6 (FAQ, Guarantee, Otorisasi)
+        const tFaqTitle = messages.FAQ.title;
+        const tMoreInfoAt = messages.ProposalExport.moreInfoAt;
+        
+        const faqQ1 = messages.FAQ.q4;
+        const faqA1 = messages.FAQ.a4;
+        const faqQ2 = messages.FAQ.q3;
+        const faqA2 = messages.FAQ.a3;
+        const faqQ3 = messages.FAQ.q13;
+        const faqA3 = messages.FAQ.a13;
+
+        const tGuarTitle = messages.Guarantee.title;
+        const tGuarSubtitle = messages.Guarantee.subtitle.replace("\n", " ");
+        const tGuarDesc = `${messages.Guarantee.desc} ${messages.Guarantee.footer}`;
+
+        const tAgreementText = messages.ProposalExport.agreementText;
+        const tClientRepresentative = messages.ProposalExport.clientRepresentative;
 
         // Template HTML Proposal A4 Premium
         const htmlContent = `
@@ -903,19 +935,19 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             </div>
             
             <div class="main-title-box">
-                <span class="proposal-badge">Business Proposal</span>
+                <span class="proposal-badge">${tBusinessProposal}</span>
                 <h1 class="main-title">${title}</h1>
                 <div class="title-divider"></div>
-                <p class="sub-title">Dokumen penawaran dan rencana solusi digital resmi yang diajukan untuk penyediaan serta implementasi layanan profesional.</p>
+                <p class="sub-title">${tCoverSub}</p>
             </div>
             
             <div class="cover-footer">
                 <div>
-                    <div class="metadata-label">Dipersiapkan Untuk</div>
-                    <div class="metadata-value">Valued Client / Klien Terhormat</div>
+                    <div class="metadata-label">${tPreparedFor}</div>
+                    <div class="metadata-value">${tValuedClient}</div>
                 </div>
                 <div style="text-align: right;">
-                    <div class="metadata-label">Tanggal Proposal</div>
+                    <div class="metadata-label">${tProposalDate}</div>
                     <div class="metadata-value">${dateStr}</div>
                 </div>
             </div>
@@ -925,8 +957,8 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
     <!-- HALAMAN 2: DESKRIPSI LAYANAN ASLI & FILOSOFI SOLUSI -->
     <div class="page">
         <div class="section-header">
-            <h2 class="section-title">${isEn ? "01 / Solution Description & Philosophy" : "01 / Deskripsi Solusi & Filosofi"}</h2>
-            <span class="section-subtitle-badge">${isEn ? "Page 2 of 6" : "Halaman 2 dari 6"}</span>
+            <h2 class="section-title">${tSec1Title}</h2>
+            <span class="section-subtitle-badge">${getPageFooterHtml(2)}</span>
         </div>
         
         <div class="body-section" style="margin-bottom: 25px;">
@@ -954,20 +986,20 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         
         <div class="page-footer">
             <span>CREDIBLEMARK &bull; Proposal ${title}</span>
-            <span>${isEn ? "Page 2 of 6" : "Halaman 2 dari 6"}</span>
+            <span>${getPageFooterHtml(2)}</span>
         </div>
     </div>
     
     <!-- HALAMAN 3: FITUR & DELIVERABLES ASLI -->
     <div class="page">
         <div class="section-header">
-            <h2 class="section-title">02 / Fitur & Deliverables Utama</h2>
-            <span class="section-subtitle-badge">Halaman 3 dari 6</span>
+            <h2 class="section-title">${tSec2Title}</h2>
+            <span class="section-subtitle-badge">${getPageFooterHtml(3)}</span>
         </div>
-
+ 
         <div class="body-section">
             <p class="paragraph-text" style="font-size: 16px; color: #ffffff; margin-bottom: 15px;">
-                Daftar lengkap fitur spesifik dan deliverables hasil kerja yang tercakup dalam solusi layanan ini:
+                ${tFeaturesIntro}
             </p>
             
             <div class="scope-container">
@@ -975,7 +1007,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
                     ${featuresListHtml ? featuresListHtml : `
                         <div class="feature-card-item">
                             <div class="feature-card-dot"></div>
-                            <div class="feature-card-text">Layanan implementasi fungsional ${title} lengkap.</div>
+                            <div class="feature-card-text">${tFallbackFeature}</div>
                         </div>
                     `}
                 </div>
@@ -984,17 +1016,17 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         
         <div class="page-footer">
             <span>CREDIBLEMARK &bull; Proposal ${title}</span>
-            <span>Halaman 3 dari 6</span>
+            <span>${getPageFooterHtml(3)}</span>
         </div>
     </div>
-
+ 
     <!-- HALAMAN 4: KEMITRAAN & JAMINAN STANDAR PREMIUM -->
     <div class="page">
         <div class="section-header">
-            <h2 class="section-title">03 / Kemitraan & Jaminan Kualitas</h2>
-            <span class="section-subtitle-badge">Halaman 4 dari 6</span>
+            <h2 class="section-title">${tSec3Title}</h2>
+            <span class="section-subtitle-badge">${getPageFooterHtml(4)}</span>
         </div>
-
+ 
         <!-- Kenapa Pilih Kami (Comparison Section) -->
         <div class="body-section" style="margin-bottom: 25px;">
             <h3 class="body-section-title">${tCompTitle}</h3>
@@ -1042,7 +1074,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
                 </div>
             </div>
         </div>
-
+ 
         <!-- Jaminan Standar Premium (f1 - f6) -->
         <div class="body-section">
             <h3 class="body-section-title">${tEverything}</h3>
@@ -1095,17 +1127,17 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         
         <div class="page-footer">
             <span>CREDIBLEMARK &bull; Proposal ${title}</span>
-            <span>Halaman 4 dari 6</span>
+            <span>${getPageFooterHtml(4)}</span>
         </div>
     </div>
-
+ 
     <!-- HALAMAN 5: INVESTASI & LOGIKA FINANSIAL -->
     <div class="page">
         <div class="section-header">
-            <h2 class="section-title">04 / Rencana Investasi & Keuangan</h2>
-            <span class="section-subtitle-badge">Halaman 5 dari 6</span>
+            <h2 class="section-title">${tSec4Title}</h2>
+            <span class="section-subtitle-badge">${getPageFooterHtml(5)}</span>
         </div>
-
+ 
         <!-- Yang Jarang Disadari (Logika Finansial) -->
         <div class="body-section" style="margin-bottom: 20px;">
             <h3 class="body-section-title">${tFinTitle}</h3>
@@ -1115,48 +1147,48 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             <div class="fin-container">
                 <div class="fin-box old">
                     <div class="fin-title-bar old">${tFinHireOld}</div>
-                    <div class="fin-sub-value old">${isEn ? "High Monthly Overhead" : "Beban Operasional Tinggi"}</div>
-                    <div class="fin-desc old">${isEn ? "Fixed Salaries + Benefits + Equipment" : "Gaji Bulanan Tetap + THR + Fasilitas Kerja"}</div>
+                    <div class="fin-sub-value old">${tFinOverheadLabel}</div>
+                    <div class="fin-desc old">${tFinOverheadDesc}</div>
                     <div class="fin-divider"></div>
-                    <div class="fin-item"><span class="fin-icon old">&times;</span> ${isEn ? "Hiring & onboarding (1-3 months)." : "Cari & Rekrut Staf (1-3 bulan)."}</div>
-                    <div class="fin-item"><span class="fin-icon old">&times;</span> ${isEn ? "High-level software talent is expensive." : "Gaji Programmer Ahli Sangat Mahal."}</div>
-                    <div class="fin-item"><span class="fin-icon old">&times;</span> ${isEn ? "Risk of employee resignation & downtime." : "Risiko Karyawan Resign & Sistem Macet."}</div>
+                    <div class="fin-item"><span class="fin-icon old">&times;</span> ${fin1Old}</div>
+                    <div class="fin-item"><span class="fin-icon old">&times;</span> ${fin2Old}</div>
+                    <div class="fin-item"><span class="fin-icon old">&times;</span> ${fin3Old}</div>
                 </div>
                 <div class="fin-box new">
                     <div class="fin-title-bar new">${tFinHireNew}</div>
-                    <div class="fin-sub-value new">${isEn ? "One-Time Project Price" : "Investasi Sekali Bayar"}</div>
-                    <div class="fin-desc new">${isEn ? "Pay Only for What You Actually Need" : "Bayar Hanya Sesuai Kebutuhan Proyek"}</div>
+                    <div class="fin-sub-value new">${tFinProjectLabel}</div>
+                    <div class="fin-desc new">${tFinProjectDesc}</div>
                     <div class="fin-divider"></div>
-                    <div class="fin-item"><span class="fin-icon new">&check;</span> ${isEn ? "Instant Execution (Day 1)." : "Mulai Kerja Instan (Hari ke-1)."}</div>
-                    <div class="fin-item"><span class="fin-icon new">&check;</span> ${isEn ? "Expert team quality, project-based cost." : "Kualitas Tim Ahli, Bayar Hanya Sesuai Proyek."}</div>
-                    <div class="fin-item"><span class="fin-icon new">&check;</span> ${isEn ? "Guaranteed delivery & system operation." : "Jaminan Sistem Selesai & Berjalan Lancar."}</div>
+                    <div class="fin-item"><span class="fin-icon new">&check;</span> ${fin1New}</div>
+                    <div class="fin-item"><span class="fin-icon new">&check;</span> ${fin2New}</div>
+                    <div class="fin-item"><span class="fin-icon new">&check;</span> ${fin3New}</div>
                 </div>
             </div>
         </div>
-
+ 
         <!-- Investasi Layanan -->
         <div class="body-section" style="margin-bottom: 25px;">
-            <h3 class="body-section-title">Investasi Layanan</h3>
+            <h3 class="body-section-title">${tInvestTitle}</h3>
             <div class="pricing-banner">
                 <div class="pricing-info">
-                    <span style="font-size: 12px; text-transform: uppercase; color: #ffffff; letter-spacing: 0.5px;">Biaya Layanan Utama (${priceModel})</span>
+                    <span style="font-size: 12px; text-transform: uppercase; color: #ffffff; letter-spacing: 0.5px;">${tBaseInvestLabel}</span>
                     <span class="pricing-price">${formattedPrice}</span>
                 </div>
                 <div style="text-align: right;">
-                    <span style="font-size: 12px; text-transform: uppercase; color: #ffffff; letter-spacing: 0.5px;">Skema Pembayaran</span>
+                    <span style="font-size: 12px; text-transform: uppercase; color: #ffffff; letter-spacing: 0.5px;">${tPaymentScheme}</span>
                     <span style="font-size: 17px; font-weight: 600; color: #ffffff; display: block;">${intervalLabel}</span>
                 </div>
             </div>
         </div>
-
+ 
         ${addonsHtml ? `
         <div class="body-section" style="margin-bottom: 15px;">
             <table class="proposal-table">
                 <thead>
                     <tr>
-                        <th>Modul Add-on</th>
-                        <th>Skema</th>
-                        <th style="text-align: right;">Investasi</th>
+                        <th>${tAddonHeaderModule}</th>
+                        <th>${tAddonHeaderScheme}</th>
+                        <th style="text-align: right;">${tAddonHeaderInvest}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -1168,22 +1200,22 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         
         <div class="page-footer">
             <span>CREDIBLEMARK &bull; Proposal ${title}</span>
-            <span>Halaman 5 dari 6</span>
+            <span>${getPageFooterHtml(5)}</span>
         </div>
     </div>
-
+ 
     <!-- HALAMAN 6: FAQ & OTORISASI PERSETUJUAN -->
     <div class="page">
         <div class="section-header">
-            <h2 class="section-title">05 / FAQ & Persetujuan</h2>
-            <span class="section-subtitle-badge">Halaman 6 dari 6</span>
+            <h2 class="section-title">${tSec5Title}</h2>
+            <span class="section-subtitle-badge">${getPageFooterHtml(6)}</span>
         </div>
-
+ 
         <!-- FAQ Section -->
         <div class="body-section" style="margin-bottom: 20px;">
             <h3 class="body-section-title">${tFaqTitle}</h3>
             <p class="paragraph-text" style="font-size: 13px; color: #ffffff; margin-bottom: 12px; margin-top: -5px;">
-                ${isEn ? "For more info, visit" : "Info selengkapnya kunjungi"} <strong style="color: #fbbf24;">crediblemark.com</strong>
+                ${tMoreInfoAt} <strong style="color: #fbbf24;">crediblemark.com</strong>
             </p>
             <div class="faq-container">
                 <div class="faq-item">
@@ -1200,17 +1232,17 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
                 </div>
             </div>
         </div>
-
+ 
         <!-- GARANSI UANG KEMBALI (Guarantee Box) -->
         <div class="guarantee-box" style="margin-bottom: 25px;">
             <span class="guarantee-badge">&nbsp; ${tGuarTitle} &nbsp;</span>
             <div class="guarantee-title">${tGuarSubtitle}</div>
             <p class="guarantee-desc">${tGuarDesc}</p>
         </div>
-
+ 
         <div class="body-section">
             <p class="paragraph-text" style="font-size: 13px; color: #ffffff; line-height: 1.5; margin-bottom: 15px;">
-                Dengan menandatangani dokumen ini, kedua belah pihak menyepakati rincian fitur kerja, nilai investasi, serta skema pembayaran yang tertera di atas.
+                ${tAgreementText}
             </p>
             
             <div class="signatures-container">
@@ -1222,14 +1254,14 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
                 <div class="sig-box">
                     <div class="sig-line"></div>
                     <span class="sig-name">...................................................</span>
-                    <span class="sig-title">Perwakilan Klien</span>
+                    <span class="sig-title">${tClientRepresentative}</span>
                 </div>
             </div>
         </div>
         
         <div class="page-footer">
             <span>CREDIBLEMARK &bull; Proposal ${title}</span>
-            <span>Halaman 6 dari 6</span>
+            <span>${getPageFooterHtml(6)}</span>
         </div>
     </div>
 </body>
