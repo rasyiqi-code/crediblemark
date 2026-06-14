@@ -128,8 +128,8 @@ export const serviceAddonsGeneratorFlow = ai.defineFlow(
                 temperature: 0.7
             },
             prompt: `
-Role: Expert Product Manager & Upsell Strategist.
-Task: Generate 5-7 specific, high-value add-ons for the service below.
+Role: Expert Product Manager, Business Strategist, & Upsell Expert.
+Task: Generate 7-10 specific, highly valuable, and essential add-ons for the service below (including 4 mandatory infrastructure add-ons and 3-6 custom functional/business add-ons).
 
 Service Profile:
 - Title: "${sanitizedTitle}"
@@ -159,8 +159,16 @@ Rules:
      * Final charm rounded price: IDR 10,990,000/yearly or IDR 11,150,000/yearly.
    - CRITICAL: The yearly All-in-One price MUST be a large yearly sum (typically IDR 2.5M - 4.5M for UMi, IDR 4M - 8M for Mikro, IDR 8M - 19M for Small, IDR 20M - 49M for SME, and IDR 50M - 199M for Enterprise). Never output low monthly-like numbers (such as IDR 7,799,000) for Enterprise All-in-One yearly packages!
 
-3. CUSTOM FUNCTIONAL ADD-ONS:
-   In addition to the four mandatory add-ons above, you MUST generate 1-3 custom functional add-ons tailored specifically to the service's industry context (e.g. B2B Tiered Pricing, live API integrations, booking systems, custom client portals, AI chatbots).
+3. CUSTOM FUNCTIONAL & BUSINESS ADD-ONS (MANDATORY 3-6 ITEMS):
+   In addition to the four mandatory infrastructure add-ons above, you MUST generate 3-6 custom, highly valuable, and essential business/functional add-ons tailored specifically to the service's industry context. These add-ons must solve practical business pain points, drive revenue, or automate operations for the client.
+   - Good examples:
+     * **WhatsApp Integration & CRM**: English name: "WhatsApp Gateway Integration & Automated Notifications", Indonesian name_id: "Integrasi Gateway WhatsApp & Notifikasi Otomatis".
+     * **Payment Gateway Integration**: English name: "Multi-Payment Gateway Integration (Midtrans/Xendit)", Indonesian name_id: "Integrasi Payment Gateway Multi-Metode (Midtrans/Xendit)".
+     * **Shipping/Logistics Auto-Sync**: English name: "Automated Shipping & Courier Cost Calculator", Indonesian name_id: "Kalkulator Ongkos Kirim & Ekspedisi Otomatis".
+     * **AI-Powered Customer Assistant**: English name: "Custom 24/7 AI Customer Support Chatbot", Indonesian name_id: "Chatbot AI Asisten Layanan Pelanggan 24/7".
+     * **Membership & Loyalty Program**: English name: "Customer Loyalty, Points, & Membership System", Indonesian name_id: "Sistem Membership, Poin Loyalitas, & Voucher Diskon".
+     * **Analytics Dashboard**: English name: "Interactive Business Intelligence & Sales Analytics Dashboard", Indonesian name_id: "Dashboard Analisis Penjualan & Laporan Kinerja Interaktif".
+   - Avoid generic/useless features. Every generated custom addon must be highly relevant and feel indispensable.
 
 4. NO CMS CAPACITY RESTRICTIONS:
    - Never limit database/CMS features (e.g. DO NOT limit products, categories, or image uploads). The client must have unlimited CMS capability.
