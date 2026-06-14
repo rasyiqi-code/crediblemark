@@ -77,9 +77,6 @@ export default async function ServicesPage() {
                                     <AccordionTrigger className="hover:no-underline px-4 py-3.5 cursor-pointer hover:bg-zinc-900/40 group">
                                         <div className="flex flex-1 items-center justify-between gap-4 min-w-0">
                                             <div className="flex items-start gap-2 sm:gap-3 min-w-0 flex-1">
-                                                {/* Status indicator dot — green if synced, amber if not */}
-                                                <div className={`w-2 h-2 mt-1.5 rounded-full shrink-0 ${isSynced ? 'bg-emerald-500' : 'bg-amber-500'}`} />
-
                                                 {/* Title + price + date + badges */}
                                                 <div className="flex-1 min-w-0 pr-2">
                                                     <span className="font-medium text-white text-sm truncate block">{displayTitle}</span>
@@ -128,16 +125,7 @@ export default async function ServicesPage() {
                                             <div className="flex-1 flex flex-col min-w-0">
                                                 <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-3">
                                                     {/* Detail grid — matching projects style */}
-                                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 flex-1 lg:pr-8">
-                                                        <div className="flex items-center gap-2 group/detail">
-                                                            <span className="text-zinc-600"><Package className="w-3.5 h-3.5" /></span>
-                                                            <div className="flex-1 min-w-0">
-                                                                <span className="text-[10px] text-zinc-600 uppercase tracking-wider block">Creem ID</span>
-                                                                <span className={`text-xs font-mono truncate block ${isSynced ? 'text-zinc-400' : 'text-amber-500 italic'}`} title={service.creemProductId || undefined}>
-                                                                    {service.creemProductId || (isId ? 'Belum Sinkron' : 'Not Synced')}
-                                                                </span>
-                                                            </div>
-                                                        </div>
+                                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 flex-1 lg:pr-8">
                                                         <div className="flex items-center gap-2 group/detail">
                                                             <span className="text-zinc-600"><Zap className="w-3.5 h-3.5" /></span>
                                                             <div className="flex-1 min-w-0">
