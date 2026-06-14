@@ -13,6 +13,8 @@ interface ServiceData {
     id: string;
     title: string;
     title_id?: string | null;
+    description: string;
+    description_id?: string | null;
     price: number;
     discount?: number | null;
     currency?: string | null;
@@ -156,13 +158,13 @@ export function ServiceAccordionItem({
 
                                 {/* Tombol Aksi di Mobile (sejajar horizontal dengan Diskon di kolom kedua) */}
                                 <div className="flex items-center sm:hidden">
-                                    <ServiceActionButtons serviceId={service.id} />
+                                    <ServiceActionButtons service={service} />
                                 </div>
                             </div>
 
                             {/* Tombol Aksi di Desktop/Tablet (sm ke atas) */}
                             <div className="hidden sm:flex justify-start lg:justify-end shrink-0 pt-2 lg:pt-0 pl-6 lg:pl-0">
-                                <ServiceActionButtons serviceId={service.id} />
+                                <ServiceActionButtons service={service} />
                             </div>
                         </div>
 
