@@ -188,8 +188,8 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
         const currentUrl = typeof window !== "undefined" ? window.location.href : "";
         
         const bodyText = isId
-            ? `Halo, saya tertarik dengan layanan pembuatan WordPress.\n\nDetail Paket:\n- Paket Utama: Paket ${packageName}\n- Add-ons Terpilih: ${addonNames || "Tidak ada"}\n- Estimasi Investasi: ${formatCurrency(totalIdr, "IDR")}\n\nJalur Halaman: ${currentUrl}`
-            : `Hello, I'm interested in the WordPress Development Service.\n\nPackage Details:\n- Chosen Package: ${packageName} Package\n- Selected Addons: ${addonNames || "None"}\n- Estimated Investment: ${formatCurrency(totalUsd, "USD")}\n\nSource Page: ${currentUrl}`;
+            ? `Halo, saya tertarik dengan layanan pembuatan WordPress.\n\nDetail Paket:\n- Paket Utama: Paket ${packageName}\n- Add-ons Terpilih: ${addonNames || "Tidak ada"}\n- Estimasi Investasi: ${formatCurrency(totalIdr, "IDR")}\n\n${currentUrl}`
+            : `Hello, I'm interested in the WordPress Development Service.\n\nPackage Details:\n- Chosen Package: ${packageName} Package\n- Selected Addons: ${addonNames || "None"}\n- Estimated Investment: ${formatCurrency(totalUsd, "USD")}\n\n${currentUrl}`;
 
         setDefaultInput(bodyText);
         setIsMenuOpen(true);
