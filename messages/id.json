@@ -487,6 +487,8 @@
             "deleteSelectedError": "Gagal menghapus layanan terpilih",
             "selectAll": "Tandai Semua",
             "deselectAll": "Batal Tandai Semua",
+            "selectMode": "Tandai Layanan",
+            "cancelSelectMode": "Batal",
             "noServices": "Belum ada layanan.",
             "interval": "Interval",
             "priceModel": "Model Harga",

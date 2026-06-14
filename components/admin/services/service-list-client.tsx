@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Accordion } from "@/components/ui/accordion";
 import { ServiceAccordionItem } from "./service-accordion-item";
 import { deleteServices } from "@/app/actions/services";
-import { Trash2, CheckSquare, Square, Loader2 } from "lucide-react";
+import { Trash2, CheckSquare, Square, Loader2, ListCheck } from "lucide-react";
 
 interface ServiceData {
     id: string;
@@ -34,6 +34,7 @@ export function ServiceListClient({ services }: ServiceListClientProps) {
     const t = useTranslations("Admin.Services");
     const router = useRouter();
     const [selectedIds, setSelectedIds] = useState<string[]>([]);
+    const [isSelectionMode, setIsSelectionMode] = useState(false);
     const [isPending, startTransition] = useTransition();
 
     // Cek apakah seluruh layanan saat ini tercentang
@@ -85,34 +86,59 @@ export function ServiceListClient({ services }: ServiceListClientProps) {
         <div className="w-full space-y-4">
             {/* Toolbar Aksi Massal */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-zinc-900/20 border border-zinc-800/60 rounded-xl p-3 w-full">
-                <div className="flex items-center gap-3">
+                <div className="flex flex-wrap items-center gap-3">
+                    {/* Tombol aktifkan/nonaktifkan mode seleksi */}
                     <Button
                         type="button"
                         variant="ghost"
                         size="sm"
-                        onClick={handleToggleSelectAll}
-                        className="text-xs text-zinc-400 hover:text-white flex items-center gap-2 px-3 h-8 bg-zinc-900/40 hover:bg-zinc-800/50 border border-white/5 transition-all rounded-lg active:scale-95"
+                        onClick={() => {
+                            setIsSelectionMode(!isSelectionMode);
+                            if (isSelectionMode) setSelectedIds([]); // Reset seleksi saat keluar mode
+                        }}
+                        className={`text-xs flex items-center gap-2 px-3 h-8 border transition-all rounded-lg active:scale-95 ${
+                            isSelectionMode 
+                                ? "bg-zinc-800 border-zinc-700 text-white hover:bg-zinc-700"
+                                : "bg-zinc-900/40 border-white/5 text-zinc-400 hover:bg-zinc-800/50 hover:text-white"
+                        }`}
                     >
-                        {allSelected ? (
-                            <>
-                                <Square className="w-3.5 h-3.5 text-zinc-500" />
-                                <span>{t("deselectAll")}</span>
-                            </>
-                        ) : (
-                            <>
-                                <CheckSquare className="w-3.5 h-3.5 text-blue-400" />
-                                <span>{t("selectAll")}</span>
-                            </>
-                        )}
+                        <ListCheck className="w-3.5 h-3.5" />
+                        <span>{isSelectionMode ? t("cancelSelectMode") : t("selectMode")}</span>
                     </Button>
-                    {selectedIds.length > 0 && (
+
+                    {isSelectionMode && (
+                        <>
+                            <div className="h-4 w-[1px] bg-zinc-800 hidden sm:block" />
+                            <Button
+                                type="button"
+                                variant="ghost"
+                                size="sm"
+                                onClick={handleToggleSelectAll}
+                                className="text-xs text-zinc-400 hover:text-white flex items-center gap-2 px-3 h-8 bg-zinc-900/40 hover:bg-zinc-800/50 border border-white/5 transition-all rounded-lg active:scale-95"
+                            >
+                                {allSelected ? (
+                                    <>
+                                        <Square className="w-3.5 h-3.5 text-zinc-500" />
+                                        <span>{t("deselectAll")}</span>
+                                    </>
+                                ) : (
+                                    <>
+                                        <CheckSquare className="w-3.5 h-3.5 text-blue-400" />
+                                        <span>{t("selectAll")}</span>
+                                    </>
+                                )}
+                            </Button>
+                        </>
+                    )}
+
+                    {isSelectionMode && selectedIds.length > 0 && (
                         <span className="text-xs text-zinc-500 animate-in fade-in duration-200">
                             {selectedIds.length} terpilih
                         </span>
                     )}
                 </div>
 
-                {selectedIds.length > 0 && (
+                {isSelectionMode && selectedIds.length > 0 && (
                     <Button
                         type="button"
                         onClick={handleBulkDelete}
@@ -129,14 +155,14 @@ export function ServiceListClient({ services }: ServiceListClientProps) {
                 )}
             </div>
 
-            {/* List Accordion dengan opsi pencentangan */}
+            {/* List Accordion dengan opsi pencentangan dinamis */}
             <Accordion type="multiple" className="w-full space-y-2">
                 {services.map((service, index) => (
                     <ServiceAccordionItem
                         key={service.id}
                         service={service}
                         index={services.length - index}
-                        showCheckbox={true}
+                        showCheckbox={isSelectionMode}
                         isSelected={selectedIds.includes(service.id)}
                         onSelectChange={(selected) => handleSelectChange(service.id, selected)}
                     />
