@@ -1260,17 +1260,17 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
                     <span class="sig-name">M. Rasyiqi</span>
                     <span class="sig-title">Director, Crediblemark</span>
                 </div>
-                ${stampUrl ? `
-                <div style="display: flex; flex-direction: column; align-items: center; justify-content: flex-end;">
-                    <img src="${stampUrl}" alt="Stempel Resmi" style="width: 90px; height: 90px; object-fit: contain; opacity: 0.85; filter: brightness(0) invert(1);" />
-                </div>
-                ` : ''}
                 <div class="sig-box">
                     <div class="sig-line"></div>
                     <span class="sig-name">...................................................</span>
                     <span class="sig-title">${tClientRepresentative}</span>
                 </div>
             </div>
+            ${stampUrl ? `
+            <div style="margin-top: 12px; width: 65mm;">
+                <img src="${stampUrl}" alt="Stempel Resmi" style="width: 80px; height: 80px; object-fit: contain; opacity: 0.85; filter: brightness(0) invert(1);" />
+            </div>
+            ` : ''}
         </div>
         
         <div class="page-footer">
