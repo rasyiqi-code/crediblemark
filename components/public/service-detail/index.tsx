@@ -23,7 +23,7 @@ interface ServiceDetailContentProps
 export function ServiceDetailContent({ service, isId, trustedAvatars = [] }: ServiceDetailContentProps)
 {
     const tService = useTranslations("Service");
-    const { setIsOpen } = useFloatingChat();
+    const { openChat } = useFloatingChat();
 
     // Fallback to EN if ID content is missing
     const displayTitle = (isId && service.title_id) ? service.title_id : service.title;
@@ -96,7 +96,7 @@ export function ServiceDetailContent({ service, isId, trustedAvatars = [] }: Ser
             <div className="fixed bottom-8 left-8 z-50">
                 <button
                     type="button"
-                    onClick={() => setIsOpen(true)}
+                    onClick={() => openChat('ai')}
                     className="flex items-center justify-center w-12 h-12 rounded-full bg-zinc-900 border border-white/10 text-brand-yellow shadow-2xl hover:bg-zinc-800 hover:scale-105 active:scale-95 transition-all group cursor-pointer"
                     title={isId ? "Konsultasi Gratis" : "Free Consultation"}
                     aria-label="Chat"
