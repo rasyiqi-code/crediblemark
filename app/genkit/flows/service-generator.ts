@@ -193,6 +193,54 @@ CRITICAL CONSTRAINTS — ANY VIOLATION WILL CAUSE A SYSTEM ERROR:
         if (!output) {
             throw new Error("Failed to generate service content");
         }
+
+        // VALIDASI & POST-PROCESSING (CRITICAL):
+        // Memastikan kepatuhan aturan bisnis yang ketat secara programatik jika LLM mengabaikan instruksi prompt.
+        if (output.addons && Array.isArray(output.addons)) {
+            // @ts-ignore
+            output.addons = output.addons.map((addon) => {
+                let price = addon.price;
+                const interval = addon.interval;
+                const currency = addon.currency;
+
+                // 1. Batasi harga bulanan (monthly) agar tidak melanggar batas psikologis (maks Rp 990.000 / $99)
+                if (interval === 'monthly') {
+                    if (currency === 'IDR' && price > 990000) {
+                        // Koreksi harga bulanan IDR yang terlalu mahal menjadi harga ganjil yang logis
+                        price = price >= 2000000 ? 790000 : 490000;
+                    } else if (currency === 'USD' && price > 99) {
+                        // Koreksi harga bulanan USD yang terlalu mahal menjadi harga ganjil yang logis
+                        price = price >= 200 ? 79 : 49;
+                    }
+                }
+
+                // 2. Paksa semua harga addon agar menggunakan strategi Charm Pricing (berakhiran ganjil)
+                if (currency === 'IDR') {
+                    // Jika harga berakhiran genap bulat (seperti kelipatan 500.000 atau 100.000), bulatkan ke akhiran ganjil yang menarik
+                    if (price % 100000 === 0) {
+                        price = price - 10000; // Contoh: 2.500.000 -> 2.490.000, 1.500.000 -> 1.490.000
+                    } else if (price % 10000 === 0) {
+                        // Pastikan berakhiran ganjil di digit ratusan/puluhan ribu
+                        const baseStr = price.toString();
+                        if (baseStr.endsWith('0000')) {
+                            price = price - 10000;
+                        }
+                    }
+                } else if (currency === 'USD') {
+                    // Pastikan harga USD diakhiri dengan angka 9, 7, atau 5
+                    const lastDigit = price % 10;
+                    if (lastDigit === 0 || lastDigit === 2 || lastDigit === 4 || lastDigit === 6 || lastDigit === 8) {
+                        price = price - 1; // Ubah ke angka ganjil di bawahnya (misal 50 -> 49)
+                    }
+                }
+
+                return {
+                    ...addon,
+                    price
+                };
+            });
+        }
+
         return output;
     }
 );
