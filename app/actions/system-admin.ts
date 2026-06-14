@@ -8,6 +8,8 @@ import { resetMidtransInstances } from "@/lib/integrations/midtrans";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { hexclaveServerApp } from "@/lib/config/hexclave";
 import { getResendClient, getAdminEmailTarget, getSenderConfig } from "@/lib/email/client";
+import { readFileSync } from "fs";
+import { join } from "path";
 
 export async function getCurrencyConfig() {
     if (!await isAdmin()) throw new Error("Unauthorized");
@@ -217,4 +219,19 @@ export async function getAgencyLogo() {
         where: { key: "AGENCY_LOGO" }
     });
     return setting?.value || null;
+}
+
+/**
+ * Membaca file stamp perusahaan dari folder public dan mengembalikan data URL base64.
+ * Stamp digunakan di dokumen PDF proposal untuk otentikasi resmi.
+ */
+export async function getCompanyStamp(): Promise<string | null> {
+    try {
+        const stampPath = join(process.cwd(), "public", "stamp.webp");
+        const stampBuffer = readFileSync(stampPath);
+        const base64 = stampBuffer.toString("base64");
+        return `data:image/webp;base64,${base64}`;
+    } catch {
+        return null;
+    }
 }

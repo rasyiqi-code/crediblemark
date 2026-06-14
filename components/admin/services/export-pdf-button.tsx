@@ -7,7 +7,7 @@ import { ServiceAddon } from "@/lib/shared/types";
 import { useLocale } from "next-intl";
 import idMessages from "@/messages/id.json";
 import enMessages from "@/messages/en.json";
-import { getAgencyLogo } from "@/app/actions/system-admin";
+import { getAgencyLogo, getCompanyStamp } from "@/app/actions/system-admin";
 
 interface ServiceData {
     id: string;
@@ -29,10 +29,12 @@ interface ServiceData {
 export function ExportPdfButton({ service }: { service: ServiceData }) {
     const [isGenerating, setIsGenerating] = useState(false);
     const [logoUrl, setLogoUrl] = useState<string | null>(null);
+    const [stampUrl, setStampUrl] = useState<string | null>(null);
     const locale = useLocale();
 
     useEffect(() => {
         getAgencyLogo().then(setLogoUrl).catch(console.error);
+        getCompanyStamp().then(setStampUrl).catch(console.error);
     }, []);
 
     const handleExport = () => {
@@ -1258,6 +1260,11 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
                     <span class="sig-name">M. Rasyiqi</span>
                     <span class="sig-title">Director, Crediblemark</span>
                 </div>
+                ${stampUrl ? `
+                <div style="display: flex; flex-direction: column; align-items: center; justify-content: flex-end;">
+                    <img src="${stampUrl}" alt="Stempel Resmi" style="width: 90px; height: 90px; object-fit: contain; opacity: 0.85;" />
+                </div>
+                ` : ''}
                 <div class="sig-box">
                     <div class="sig-line"></div>
                     <span class="sig-name">...................................................</span>
