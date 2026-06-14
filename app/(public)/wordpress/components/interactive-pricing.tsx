@@ -295,35 +295,40 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
                         </h5>
                         {addonsList.map((addon) => {
                             const selected = selectedAddons.includes(addon.id);
+                            const isDetailOpen = openAddonDetails.includes(addon.id);
                             return (
-                                <div
-                                    key={addon.id}
-                                    onClick={() => toggleAddon(addon.id)}
-                                    className={`group relative rounded-xl border p-3 flex items-start justify-between gap-3 cursor-pointer transition-all duration-300 ${
-                                        selected
-                                            ? "border-violet-500/50 bg-violet-500/5"
-                                            : "border-white/5 bg-zinc-900/10 hover:border-white/10 hover:bg-zinc-900/20"
-                                    }`}
-                                >
-                                    <div className="flex items-start gap-2.5">
-                                        <div
-                                            className={`mt-0.5 w-3.5 h-3.5 rounded border flex items-center justify-center shrink-0 transition-colors ${
-                                                selected
-                                                    ? "bg-violet-600 border-violet-600"
-                                                    : "border-zinc-700 bg-transparent group-hover:border-zinc-500"
-                                            }`}
-                                        >
-                                            {selected && <Check className="w-2.5 h-2.5 text-white stroke-[3]" />}
-                                        </div>
-                                        <div>
-                                            <h6 className="font-bold text-xs text-white group-hover:text-violet-300 transition-colors">
-                                                {isId ? addon.nameId : addon.nameEn}
-                                            </h6>
-                                            <button
-                                                type="button"
-                                                onClick={(e) => toggleAddonDetail(addon.id, e)}
-                                                className="text-[9px] text-violet-400 hover:text-violet-300 underline mt-1 block cursor-pointer"
+                                    <div
+                                        key={addon.id}
+                                        onClick={() => toggleAddon(addon.id)}
+                                        className={`group relative rounded-xl border p-3 flex justify-between gap-3 cursor-pointer transition-all duration-300 ${
+                                            isDetailOpen ? "items-start" : "items-center"
+                                        } ${
+                                            selected
+                                                ? "border-violet-500/50 bg-violet-500/5"
+                                                : "border-white/5 bg-zinc-900/10 hover:border-white/10 hover:bg-zinc-900/20"
+                                        }`}
+                                    >
+                                        <div className={`flex gap-2.5 ${isDetailOpen ? "items-start" : "items-center"}`}>
+                                            <div
+                                                className={`w-3.5 h-3.5 rounded border flex items-center justify-center shrink-0 transition-colors ${
+                                                    isDetailOpen ? "mt-0.5" : ""
+                                                } ${
+                                                    selected
+                                                        ? "bg-violet-600 border-violet-600"
+                                                        : "border-zinc-700 bg-transparent group-hover:border-zinc-500"
+                                                }`}
                                             >
+                                                {selected && <Check className="w-2.5 h-2.5 text-white stroke-[3]" />}
+                                            </div>
+                                            <div>
+                                                <h6 className="font-bold text-xs text-white group-hover:text-violet-300 transition-colors">
+                                                    {isId ? addon.nameId : addon.nameEn}
+                                                </h6>
+                                                <button
+                                                    type="button"
+                                                    onClick={(e) => toggleAddonDetail(addon.id, e)}
+                                                    className="text-[9px] text-violet-400 hover:text-violet-300 underline mt-1 block cursor-pointer"
+                                                >
                                                 {openAddonDetails.includes(addon.id)
                                                     ? (isId ? "Sembunyikan Detail" : "Hide Details")
                                                     : (isId ? "Lihat Detail" : "View Details")}
@@ -339,7 +344,7 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
                                         <span className="font-bold text-xs text-white block">
                                             {isId ? formatCurrency(addon.priceIdr, "IDR") : formatCurrency(addon.priceUsd, "USD")}
                                         </span>
-                                        <span className="text-[8px] uppercase tracking-wider text-zinc-500 block mt-0.5">
+                                        <span className="text-[8px] uppercase tracking-wider text-zinc-500 block mt-1">
                                             {addon.interval === "monthly" ? (isId ? "/ bln" : "/ mo") : (isId ? "sekali" : "once")}
                                         </span>
                                     </div>
@@ -397,35 +402,40 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
                         <div className="space-y-3">
                             {addonsList.map((addon) => {
                                 const selected = selectedAddons.includes(addon.id);
+                                const isDetailOpen = openAddonDetails.includes(addon.id);
                                 return (
-                                    <div
-                                        key={addon.id}
-                                        onClick={() => toggleAddon(addon.id)}
-                                        className={`group relative rounded-2xl border p-4 flex items-start justify-between gap-4 cursor-pointer transition-all duration-300 ${
-                                            selected
-                                                ? "border-violet-500/50 bg-violet-500/5 shadow-md"
-                                                : "border-white/5 bg-zinc-900/10 hover:border-white/10 hover:bg-zinc-900/20"
-                                        }`}
-                                    >
-                                        <div className="flex items-start gap-3">
-                                            <div
-                                                className={`mt-0.5 w-4 h-4 rounded border flex items-center justify-center shrink-0 transition-colors ${
-                                                    selected
-                                                        ? "bg-violet-600 border-violet-600"
-                                                        : "border-zinc-700 bg-transparent group-hover:border-zinc-500"
-                                                }`}
-                                            >
-                                                {selected && <Check className="w-3.5 h-3.5 text-white stroke-[3]" />}
-                                            </div>
-                                            <div>
-                                                <h5 className="font-bold text-xs sm:text-sm text-white group-hover:text-violet-300 transition-colors">
-                                                    {isId ? addon.nameId : addon.nameEn}
-                                                </h5>
-                                                <button
-                                                    type="button"
-                                                    onClick={(e) => toggleAddonDetail(addon.id, e)}
-                                                    className="text-[10px] text-violet-400 hover:text-violet-300 underline mt-1 block cursor-pointer"
+                                        <div
+                                            key={addon.id}
+                                            onClick={() => toggleAddon(addon.id)}
+                                            className={`group relative rounded-2xl border p-4 flex justify-between gap-4 cursor-pointer transition-all duration-300 ${
+                                                isDetailOpen ? "items-start" : "items-center"
+                                            } ${
+                                                selected
+                                                    ? "border-violet-500/50 bg-violet-500/5 shadow-md"
+                                                    : "border-white/5 bg-zinc-900/10 hover:border-white/10 hover:bg-zinc-900/20"
+                                            }`}
+                                        >
+                                            <div className={`flex gap-3 ${isDetailOpen ? "items-start" : "items-center"}`}>
+                                                <div
+                                                    className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 transition-colors ${
+                                                        isDetailOpen ? "mt-0.5" : ""
+                                                    } ${
+                                                        selected
+                                                            ? "bg-violet-600 border-violet-600"
+                                                            : "border-zinc-700 bg-transparent group-hover:border-zinc-500"
+                                                    }`}
                                                 >
+                                                    {selected && <Check className="w-3.5 h-3.5 text-white stroke-[3]" />}
+                                                </div>
+                                                <div>
+                                                    <h5 className="font-bold text-xs sm:text-sm text-white group-hover:text-violet-300 transition-colors">
+                                                        {isId ? addon.nameId : addon.nameEn}
+                                                    </h5>
+                                                    <button
+                                                        type="button"
+                                                        onClick={(e) => toggleAddonDetail(addon.id, e)}
+                                                        className="text-[10px] text-violet-400 hover:text-violet-300 underline mt-1 block cursor-pointer"
+                                                    >
                                                     {openAddonDetails.includes(addon.id)
                                                         ? (isId ? "Sembunyikan Detail" : "Hide Details")
                                                         : (isId ? "Lihat Detail" : "View Details")}
@@ -441,7 +451,7 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
                                             <span className="font-bold text-xs sm:text-sm text-white block">
                                                 {isId ? formatCurrency(addon.priceIdr, "IDR") : formatCurrency(addon.priceUsd, "USD")}
                                             </span>
-                                            <span className="text-[8px] uppercase tracking-wider text-zinc-500 block mt-0.5">
+                                            <span className="text-[8px] uppercase tracking-wider text-zinc-500 block mt-1">
                                                 {addon.interval === "monthly" ? (isId ? "/ bln" : "/ mo") : (isId ? "sekali" : "one-time")}
                                             </span>
                                         </div>
@@ -532,26 +542,26 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
                     />
                     
                     {/* Content Panel */}
-                    <div className="relative w-full max-h-[85vh] bg-zinc-950 border-t border-white/10 rounded-t-3xl p-6 overflow-y-auto space-y-6 shadow-2xl animate-in slide-in-from-bottom duration-300">
+                    <div className="relative w-full max-h-[85vh] bg-zinc-950 border-t border-white/10 rounded-t-3xl p-4 pb-5 overflow-y-auto space-y-4 shadow-2xl animate-in slide-in-from-bottom duration-300">
                         {/* Drag Handle Indicator */}
-                        <div className="mx-auto w-12 h-1.5 rounded-full bg-zinc-700/60" />
+                        <div className="mx-auto w-10 h-1 rounded-full bg-zinc-800" />
                         
                         <div className="flex items-center justify-between">
-                            <h4 className="text-sm font-bold uppercase tracking-widest text-zinc-400">
+                            <h4 className="text-xs font-bold uppercase tracking-widest text-zinc-400">
                                 {isId ? "Rincian Investasi" : "Investment Summary"}
                             </h4>
                             <button 
                                 type="button"
                                 onClick={() => setShowSummaryMobile(false)}
-                                className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-zinc-400 hover:text-white cursor-pointer"
+                                className="w-7 h-7 rounded-full bg-white/5 flex items-center justify-center text-zinc-400 hover:text-white cursor-pointer"
                             >
-                                <X className="w-4 h-4" />
+                                <X className="w-3.5 h-3.5" />
                             </button>
                         </div>
 
-                        <div className="space-y-4">
+                        <div className="space-y-3">
                             {/* Harga Paket Dasar */}
-                            <div className="flex items-center justify-between text-xs sm:text-sm text-zinc-400 border-b border-white/5 pb-3">
+                            <div className="flex items-center justify-between text-xs text-zinc-400 border-b border-white/5 pb-2">
                                 <span className="truncate">
                                     {isId ? activePackage.nameId : activePackage.nameEn} (Base)
                                 </span>
@@ -562,8 +572,8 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
 
                             {/* Daftar Add-ons */}
                             {selectedAddonObjects.length > 0 && (
-                                <div className="space-y-2 border-b border-white/5 pb-3">
-                                    <span className="text-[10px] uppercase font-mono font-bold tracking-wider text-zinc-500 block">
+                                <div className="space-y-1.5 border-b border-white/5 pb-2">
+                                    <span className="text-[9px] uppercase font-mono font-bold tracking-wider text-zinc-500 block">
                                         ADD-ONS:
                                     </span>
                                     {selectedAddonObjects.map((addon) => (
@@ -579,14 +589,14 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
                             )}
 
                             {/* Total Biaya */}
-                            <div className="flex items-baseline justify-between pt-2">
-                                <span className="text-sm font-bold text-white">Total</span>
+                            <div className="flex items-baseline justify-between pt-1">
+                                <span className="text-xs font-bold text-white">Total</span>
                                 <div className="text-right">
-                                    <span className="text-2xl sm:text-3xl font-black tracking-tight text-brand-yellow">
+                                    <span className="text-xl sm:text-2xl font-black tracking-tight text-brand-yellow">
                                         {isId ? formatCurrency(totalIdr, "IDR") : formatCurrency(totalUsd, "USD")}
                                     </span>
                                     {selectedAddonObjects.some((a) => a.interval === "monthly") && (
-                                        <span className="text-[9px] font-bold text-zinc-500 uppercase tracking-wider block mt-1">
+                                        <span className="text-[8px] font-bold text-zinc-500 uppercase tracking-wider block mt-0.5">
                                             {isId ? "*Termasuk biaya bulanan SLA" : "*Includes monthly SLA retainer"}
                                         </span>
                                     )}
@@ -601,13 +611,13 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
                                 setShowSummaryMobile(false);
                                 handleCTA();
                             }}
-                            className="w-full bg-violet-600 hover:bg-violet-500 text-white font-bold h-12 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 group cursor-pointer text-sm"
+                            className="w-full bg-violet-600 hover:bg-violet-500 text-white font-bold h-10 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 group cursor-pointer text-xs"
                         >
                             <span>{isId ? "Mulai Konsultasi Paket" : "Consult Selected Package"}</span>
-                            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                            <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
                         </button>
 
-                        <p className="text-[10px] text-zinc-500 text-center leading-normal">
+                        <p className="text-[9px] text-zinc-500 text-center leading-normal">
                             {isId
                                 ? "Pembayaran mengikuti termin milestone standar agensi (50% Down Payment + 50% Pelunasan)."
                                 : "Payments are structured in milestone increments (50% Deposit + 50% Sign-off)."}
