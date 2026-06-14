@@ -37,9 +37,17 @@ import { useFloatingChat } from "@/lib/store/floating-chat-store";
 
 export function FloatingChatWidget() {
     const t = useTranslations("FloatingChat");
-    const { isOpen, openChat, closeChat, isMenuOpen, setIsMenuOpen } = useFloatingChat();
+    const { isOpen, openChat, closeChat, isMenuOpen, setIsMenuOpen, defaultInput, setDefaultInput } = useFloatingChat();
     // Local state for expanded/collapsed only, visibility is global
     const [isExpanded, setIsExpanded] = useState(false);
+
+    // Sync defaultInput dari store ke state input chat lokal
+    useEffect(() => {
+        if (defaultInput) {
+            setInput(defaultInput);
+            setDefaultInput(""); // Reset default input di store setelah disalin
+        }
+    }, [defaultInput, setDefaultInput]);
 
     // Random CS Name Logic
     const [csName, setCsName] = useState("Sarah");

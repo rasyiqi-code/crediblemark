@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Check, ArrowRight, Sparkles } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useFloatingChat } from "@/lib/store/floating-chat-store";
 
 // Tipe data untuk Paket WordPress
 interface WPPackage {
@@ -36,6 +37,7 @@ interface InteractivePricingProps {
 export function InteractivePricing({ locale }: InteractivePricingProps) {
     const isId = locale === "id";
     const router = useRouter();
+    const { openChat } = useFloatingChat();
 
     // 1. Definisikan 3 Paket WordPress
     const packagesList: WPPackage[] = [
@@ -183,14 +185,13 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
     const handleCTA = () => {
         const packageName = isId ? activePackage.nameId : activePackage.nameEn;
         const addonNames = selectedAddonObjects.map(a => isId ? a.nameId : a.nameEn).join(", ");
+        const currentUrl = typeof window !== "undefined" ? window.location.href : "";
         
-        const subject = encodeURIComponent(isId ? `Pemesanan WordPress - Paket ${packageName}` : `WordPress Service Order - ${packageName}`);
         const bodyText = isId
-            ? `Halo, saya tertarik dengan layanan pembuatan WordPress.\n\nDetail Paket:\n- Paket Utama: Paket ${packageName}\n- Add-ons Terpilih: ${addonNames || "Tidak ada"}\n- Estimasi Investasi: ${formatCurrency(totalIdr, "IDR")}`
-            : `Hello, I'm interested in the WordPress Development Service.\n\nPackage Details:\n- Chosen Package: ${packageName} Package\n- Selected Addons: ${addonNames || "None"}\n- Estimated Investment: ${formatCurrency(totalUsd, "USD")}`;
+            ? `Halo, saya tertarik dengan layanan pembuatan WordPress.\n\nDetail Paket:\n- Paket Utama: Paket ${packageName}\n- Add-ons Terpilih: ${addonNames || "Tidak ada"}\n- Estimasi Investasi: ${formatCurrency(totalIdr, "IDR")}\n\nJalur Halaman: ${currentUrl}`
+            : `Hello, I'm interested in the WordPress Development Service.\n\nPackage Details:\n- Chosen Package: ${packageName} Package\n- Selected Addons: ${addonNames || "None"}\n- Estimated Investment: ${formatCurrency(totalUsd, "USD")}\n\nSource Page: ${currentUrl}`;
 
-        const message = encodeURIComponent(bodyText);
-        router.push(`/${locale}/contact?subject=${subject}&message=${message}`);
+        openChat("ai", bodyText);
     };
 
     return (
