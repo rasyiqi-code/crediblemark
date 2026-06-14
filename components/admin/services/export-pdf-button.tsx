@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { FileDown, Loader2 } from "lucide-react";
 import { ServiceAddon } from "@/lib/shared/types";
+import { useLocale } from "next-intl";
 
 interface ServiceData {
     id: string;
@@ -24,6 +25,7 @@ interface ServiceData {
 
 export function ExportPdfButton({ service }: { service: ServiceData }) {
     const [isGenerating, setIsGenerating] = useState(false);
+    const locale = useLocale();
 
     const handleExport = () => {
         setIsGenerating(true);
@@ -65,14 +67,19 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
 
         const formattedPrice = formatPriceHelper(finalPrice);
 
-        const intervalLabel = service.interval === 'one_time'
-            ? 'Sekali Bayar'
-            : (service.interval === 'monthly' ? 'Bulanan' : (service.interval === 'yearly' ? 'Tahunan' : service.interval));
+        const isEn = locale.startsWith("en");
 
-        const priceModel = service.priceType === 'STARTING_AT' ? 'Mulai dari' : 'Harga Pasti';
+        // Lokalisasi teks
+        const intervalLabel = service.interval === 'one_time'
+            ? (isEn ? 'One Time' : 'Sekali Bayar')
+            : (service.interval === 'monthly' ? (isEn ? 'Monthly' : 'Bulanan') : (service.interval === 'yearly' ? (isEn ? 'Yearly' : 'Tahunan') : service.interval));
+
+        const priceModel = service.priceType === 'STARTING_AT' 
+            ? (isEn ? 'Starting at' : 'Mulai dari') 
+            : (isEn ? 'Fixed Price' : 'Harga Pasti');
 
         // Tanggal pembuatan proposal hari ini
-        const dateStr = new Date().toLocaleDateString("id-ID", {
+        const dateStr = new Date().toLocaleDateString(isEn ? "en-US" : "id-ID", {
             day: "numeric",
             month: "long",
             year: "numeric"
@@ -117,7 +124,9 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
                 ? `Rp ${addPrice.toLocaleString("id-ID")}`
                 : `$${addPrice.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
-            const addInterval = addon.interval === "one_time" ? "Sekali Bayar" : (addon.interval === "monthly" ? "Bulanan" : (addon.interval === "yearly" ? "Tahunan" : addon.interval));
+            const addInterval = addon.interval === "one_time" 
+                ? (isEn ? "One Time" : "Sekali Bayar") 
+                : (addon.interval === "monthly" ? (isEn ? "Monthly" : "Bulanan") : (addon.interval === "yearly" ? (isEn ? "Yearly" : "Tahunan") : addon.interval));
 
             return `
                 <tr>
@@ -128,7 +137,26 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             `;
         }).join("");
 
-        // Template HTML Proposal A4 Premium (Murni data asli database dikemas layout mewah)
+        // Teks untuk section 'Semua yang Anda Butuhkan untuk Sukses' dari Landing/Detail page
+        const tEverything = isEn ? "Everything you need to succeed" : "Semua yang Anda butuhkan untuk sukses";
+        const tPremiumStandard = isEn ? "Premium quality deliverable included as standard in this package." : "Hasil kerja kualitas premium disertakan sebagai standar dalam paket ini.";
+        
+        const f1 = isEn ? "100% Full Ownership" : "100% Hak Milik Penuh";
+        const f2 = isEn ? "1-on-1 Strategy Session" : "Sesi Strategi 1-on-1";
+        const f3 = isEn ? "Dedicated Expert" : "Expert Berdedikasi";
+        const f4 = isEn ? "Post-release Support" : "Dukungan Pasca Rilis";
+        const f5 = isEn ? "Fast Delivery" : "Pengiriman Cepat";
+        const f6 = isEn ? "Clean & Scalable Code" : "Kode Rapi & Skalabel";
+
+        // Teks ornamen pilar Halaman 2
+        const p1Title = isEn ? "Security & Reliability" : "Keamanan & Keandalan";
+        const p1Desc = isEn ? "Built with modern encryption standards to guarantee safe data and long-term operations." : "Sistem dibangun dengan standar enkripsi modern guna menjamin keamanan data dan operasional jangka panjang.";
+        const p2Title = isEn ? "Performance & Speed" : "Performa & Kecepatan";
+        const p2Desc = isEn ? "Optimized for speed and responsiveness to ensure a smooth user experience across mobile devices." : "Optimalisasi performa tinggi untuk akses yang responsif, cepat, dan lancar di seluruh jenis perangkat mobile.";
+        const p3Title = isEn ? "Easy Maintenance" : "Kemudahan Kelola";
+        const p3Desc = isEn ? "Clean and modular architecture designed for easy updates, scaling, and feature expansions." : "Arsitektur modular yang dirancang secara clean agar sistem mudah dipelihara dan dikembangkan lebih lanjut.";
+
+        // Template HTML Proposal A4 Premium
         const htmlContent = `
 <!DOCTYPE html>
 <html>
@@ -449,6 +477,56 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             line-height: 1.4;
         }
 
+        /* Jaminan Premium Grid */
+        .success-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .success-card {
+            background: #fafbfc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+            display: flex;
+            align-items: start;
+            gap: 12px;
+        }
+
+        .success-icon-box {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #d97706;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .success-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .success-card-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 4px;
+        }
+
+        .success-card-desc {
+            font-size: 10px;
+            color: #64748b;
+            line-height: 1.4;
+        }
+
         /* Investasi Section */
         .pricing-banner {
             background: linear-gradient(135deg, #fafbfc 0%, #f8fafc 100%);
@@ -599,24 +677,24 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         <div class="pillars-container">
             <div class="pillar-card">
                 <div class="pillar-icon">🔒</div>
-                <div class="pillar-title">Keamanan & Keandalan</div>
-                <div class="pillar-desc">Sistem dibangun dengan standar enkripsi modern guna menjamin keamanan data dan operasional jangka panjang.</div>
+                <div class="pillar-title">${p1Title}</div>
+                <div class="pillar-desc">${p1Desc}</div>
             </div>
             <div class="pillar-card">
                 <div class="pillar-icon">⚡</div>
-                <div class="pillar-title">Performa & Kecepatan</div>
-                <div class="pillar-desc">Optimalisasi performa tinggi untuk akses yang responsif, cepat, dan lancar di seluruh jenis perangkat mobile.</div>
+                <div class="pillar-title">${p2Title}</div>
+                <div class="pillar-desc">${p2Desc}</div>
             </div>
             <div class="pillar-card">
                 <div class="pillar-icon">⚙️</div>
-                <div class="pillar-title">Kemudahan Kelola</div>
-                <div class="pillar-desc">Arsitektur modular yang dirancang secara clean agar sistem mudah dipelihara dan dikembangkan lebih lanjut.</div>
+                <div class="pillar-title">${p3Title}</div>
+                <div class="pillar-desc">${p3Desc}</div>
             </div>
         </div>
         
         <div class="page-footer">
             <span>CREDIBLEMARK &bull; Proposal ${title}</span>
-            <span>Halaman 2</span>
+            <span>Halaman 2 dari 5</span>
         </div>
     </div>
     
@@ -646,15 +724,79 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         
         <div class="page-footer">
             <span>CREDIBLEMARK &bull; Proposal ${title}</span>
-            <span>Halaman 3</span>
+            <span>Halaman 3 dari 5</span>
         </div>
     </div>
 
-    <!-- HALAMAN 4: INVESTASI, ADDONS ASLI, & OTORISASI -->
+    <!-- HALAMAN 4: JAMINAN STANDAR PREMIUM (EVERYTHING TO SUCCEED) -->
     <div class="page">
         <div class="section-header">
-            <h2 class="section-title">03 / Rencana Investasi & Persetujuan</h2>
+            <h2 class="section-title">03 / Jaminan Standar Premium</h2>
             <span class="section-subtitle-badge">Halaman 4</span>
+        </div>
+
+        <div class="body-section">
+            <p class="paragraph-text" style="font-size: 13px; color: #475569; margin-bottom: 20px; font-weight: 600;">
+                ${tEverything}
+            </p>
+            
+            <div class="success-grid">
+                <div class="success-card">
+                    <div class="success-icon-box">&check;</div>
+                    <div class="success-content">
+                        <span class="success-card-title">${f1}</span>
+                        <span class="success-card-desc">${tPremiumStandard}</span>
+                    </div>
+                </div>
+                <div class="success-card">
+                    <div class="success-icon-box">&check;</div>
+                    <div class="success-content">
+                        <span class="success-card-title">${f2}</span>
+                        <span class="success-card-desc">${tPremiumStandard}</span>
+                    </div>
+                </div>
+                <div class="success-card">
+                    <div class="success-icon-box">&check;</div>
+                    <div class="success-content">
+                        <span class="success-card-title">${f3}</span>
+                        <span class="success-card-desc">${tPremiumStandard}</span>
+                    </div>
+                </div>
+                <div class="success-card">
+                    <div class="success-icon-box">&check;</div>
+                    <div class="success-content">
+                        <span class="success-card-title">${f4}</span>
+                        <span class="success-card-desc">${tPremiumStandard}</span>
+                    </div>
+                </div>
+                <div class="success-card">
+                    <div class="success-icon-box">&check;</div>
+                    <div class="success-content">
+                        <span class="success-card-title">${f5}</span>
+                        <span class="success-card-desc">${tPremiumStandard}</span>
+                    </div>
+                </div>
+                <div class="success-card">
+                    <div class="success-icon-box">&check;</div>
+                    <div class="success-content">
+                        <span class="success-card-title">${f6}</span>
+                        <span class="success-card-desc">${tPremiumStandard}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="page-footer">
+            <span>CREDIBLEMARK &bull; Proposal ${title}</span>
+            <span>Halaman 4 dari 5</span>
+        </div>
+    </div>
+
+    <!-- HALAMAN 5: INVESTASI, ADDONS ASLI, & OTORISASI -->
+    <div class="page">
+        <div class="section-header">
+            <h2 class="section-title">04 / Rencana Investasi & Persetujuan</h2>
+            <span class="section-subtitle-badge">Halaman 5</span>
         </div>
 
         <div class="body-section">
@@ -710,7 +852,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         
         <div class="page-footer">
             <span>CREDIBLEMARK &bull; Proposal ${title}</span>
-            <span>Halaman 4</span>
+            <span>Halaman 5 dari 5</span>
         </div>
     </div>
 </body>
