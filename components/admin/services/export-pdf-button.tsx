@@ -205,6 +205,23 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         const tFinHireOld = isEn ? "Hiring In-House" : "Merekrut Karyawan Sendiri";
         const tFinHireNew = isEn ? "Crediblemark Partnership" : "Kemitraan Crediblemark";
 
+        // Data FAQ (Pertanyaan Umum)
+        const tFaqTitle = isEn ? "Frequently Asked Questions (FAQ)" : "Pertanyaan yang Sering Diajukan (FAQ)";
+        const faqQ1 = isEn ? "What if I want to add new features mid-project?" : "Bagaimana jika saya ingin menambahkan fitur baru di tengah proyek?";
+        const faqA1 = isEn 
+            ? "We will discuss the changes and transparently adjust the additional investment scope before the work on new features begins."
+            : "Kita akan mendiskusikan perubahan tersebut dan menyesuaikan investasi tambahan secara transparan sebelum fitur mulai dikerjakan.";
+            
+        const faqQ2 = isEn ? "Do I get full source code ownership?" : "Apakah saya mendapatkan akses kode sumber penuh?";
+        const faqA2 = isEn 
+            ? "Yes, once final payment is completed, 100% of the source code ownership and design assets belong to you."
+            : "Ya, setelah pelunasan dilakukan, seluruh hak milik kode sumber dan aset desain 100% diserahkan kepada Anda.";
+            
+        const faqQ3 = isEn ? "What is the post-release support policy?" : "Bagaimana skema bantuan dukungan setelah aplikasi dirilis?";
+        const faqA3 = isEn 
+            ? "We provide 30 days of free bug-fixing support to ensure your application runs smoothly without issues."
+            : "Kami menyediakan dukungan gratis selama 30 hari untuk perbaikan bug guna memastikan aplikasi berjalan lancar tanpa kendala.";
+
         // Template HTML Proposal A4 Premium
         const htmlContent = `
 <!DOCTYPE html>
@@ -881,6 +898,35 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             color: #ffffff;
         }
         
+        /* FAQ Section */
+        .faq-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .faq-item {
+            background: #18181b;
+            border: 1px solid #27272a;
+            border-radius: 6px;
+            padding: 12px 16px;
+        }
+        
+        .faq-question {
+            font-size: 14px;
+            font-weight: 700;
+            color: #fbbf24;
+            margin-bottom: 4px;
+        }
+        
+        .faq-answer {
+            font-size: 13px;
+            color: #ffffff;
+            line-height: 1.5;
+        }
+
         /* Footer Halaman */
         .page-footer {
             position: absolute;
@@ -934,7 +980,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
     <div class="page">
         <div class="section-header">
             <h2 class="section-title">01 / Deskripsi Solusi & Proses Kerja</h2>
-            <span class="section-subtitle-badge">Halaman 2 dari 5</span>
+            <span class="section-subtitle-badge">Halaman 2 dari 6</span>
         </div>
         
         <div class="body-section" style="margin-bottom: 20px;">
@@ -977,7 +1023,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         
         <div class="page-footer">
             <span>CREDIBLEMARK &bull; Proposal ${title}</span>
-            <span>Halaman 2 dari 5</span>
+            <span>Halaman 2 dari 6</span>
         </div>
     </div>
     
@@ -985,7 +1031,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
     <div class="page">
         <div class="section-header">
             <h2 class="section-title">02 / Fitur & Deliverables Utama</h2>
-            <span class="section-subtitle-badge">Halaman 3 dari 5</span>
+            <span class="section-subtitle-badge">Halaman 3 dari 6</span>
         </div>
 
         <div class="body-section">
@@ -1007,7 +1053,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         
         <div class="page-footer">
             <span>CREDIBLEMARK &bull; Proposal ${title}</span>
-            <span>Halaman 3 dari 5</span>
+            <span>Halaman 3 dari 6</span>
         </div>
     </div>
 
@@ -1015,7 +1061,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
     <div class="page">
         <div class="section-header">
             <h2 class="section-title">03 / Kemitraan & Jaminan Kualitas</h2>
-            <span class="section-subtitle-badge">Halaman 4 dari 5</span>
+            <span class="section-subtitle-badge">Halaman 4 dari 6</span>
         </div>
 
         <!-- Kenapa Pilih Kami (Comparison Section) -->
@@ -1118,15 +1164,15 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         
         <div class="page-footer">
             <span>CREDIBLEMARK &bull; Proposal ${title}</span>
-            <span>Halaman 4 dari 5</span>
+            <span>Halaman 4 dari 6</span>
         </div>
     </div>
 
-    <!-- HALAMAN 5: INVESTASI, LOGIKA FINANSIAL & PERSETUJUAN -->
+    <!-- HALAMAN 5: INVESTASI & LOGIKA FINANSIAL -->
     <div class="page">
         <div class="section-header">
-            <h2 class="section-title">04 / Rencana Investasi & Persetujuan</h2>
-            <span class="section-subtitle-badge">Halaman 5 dari 5</span>
+            <h2 class="section-title">04 / Rencana Investasi & Keuangan</h2>
+            <span class="section-subtitle-badge">Halaman 5 dari 6</span>
         </div>
 
         <!-- Yang Jarang Disadari (Logika Finansial) -->
@@ -1158,7 +1204,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         </div>
 
         <!-- Investasi Layanan -->
-        <div class="body-section" style="margin-bottom: 15px;">
+        <div class="body-section" style="margin-bottom: 25px;">
             <h3 class="body-section-title">Investasi Layanan</h3>
             <div class="pricing-banner">
                 <div class="pricing-info">
@@ -1188,16 +1234,48 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             </table>
         </div>
         ` : ''}
+        
+        <div class="page-footer">
+            <span>CREDIBLEMARK &bull; Proposal ${title}</span>
+            <span>Halaman 5 dari 6</span>
+        </div>
+    </div>
+
+    <!-- HALAMAN 6: FAQ & OTORISASI PERSETUJUAN -->
+    <div class="page">
+        <div class="section-header">
+            <h2 class="section-title">05 / FAQ & Persetujuan</h2>
+            <span class="section-subtitle-badge">Halaman 6 dari 6</span>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="body-section" style="margin-bottom: 20px;">
+            <h3 class="body-section-title">${tFaqTitle}</h3>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">${faqQ1}</div>
+                    <div class="faq-answer">${faqA1}</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">${faqQ2}</div>
+                    <div class="faq-answer">${faqA2}</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">${faqQ3}</div>
+                    <div class="faq-answer">${faqA3}</div>
+                </div>
+            </div>
+        </div>
 
         <!-- GARANSI UANG KEMBALI (Guarantee Box) -->
-        <div class="guarantee-box" style="margin-bottom: 20px;">
+        <div class="guarantee-box" style="margin-bottom: 25px;">
             <span class="guarantee-badge">&nbsp; ${tGuarTitle} &nbsp;</span>
             <div class="guarantee-title">${tGuarSubtitle}</div>
             <p class="guarantee-desc">${tGuarDesc}</p>
         </div>
 
         <div class="body-section">
-            <p class="paragraph-text" style="font-size: 13px; color: #ffffff; line-height: 1.5; margin-bottom: 12px;">
+            <p class="paragraph-text" style="font-size: 13px; color: #ffffff; line-height: 1.5; margin-bottom: 15px;">
                 Dengan menandatangani dokumen ini, kedua belah pihak menyepakati rincian fitur kerja, nilai investasi, serta skema pembayaran yang tertera di atas.
             </p>
             
@@ -1217,7 +1295,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         
         <div class="page-footer">
             <span>CREDIBLEMARK &bull; Proposal ${title}</span>
-            <span>Halaman 5 dari 5</span>
+            <span>Halaman 6 dari 6</span>
         </div>
     </div>
 </body>
