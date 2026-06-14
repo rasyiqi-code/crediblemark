@@ -1251,6 +1251,9 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         <!-- FAQ Section -->
         <div class="body-section" style="margin-bottom: 20px;">
             <h3 class="body-section-title">${tFaqTitle}</h3>
+            <p class="paragraph-text" style="font-size: 13px; color: #ffffff; margin-bottom: 12px; margin-top: -5px;">
+                ${isEn ? "For more info, visit" : "Info selengkapnya kunjungi"} <strong style="color: #fbbf24;">crediblemark.com</strong>
+            </p>
             <div class="faq-container">
                 <div class="faq-item">
                     <div class="faq-question">${faqQ1}</div>
