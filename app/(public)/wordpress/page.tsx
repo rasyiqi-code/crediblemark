@@ -79,7 +79,7 @@ export default async function WordPressLandingPage() {
     const brand = settings.find(s => s.key === "AGENCY_NAME")?.value || "Crediblemark";
 
     return (
-        <div className="flex flex-col min-h-screen bg-black overflow-hidden selection:bg-violet-500/30 selection:text-white">
+        <div className="flex flex-col min-h-screen bg-black overflow-hidden bg-grid-travel selection:bg-violet-500/30 selection:text-white relative">
             <BreadcrumbSchema
                 items={[
                     { name: isId ? 'Beranda' : 'Home', item: `${baseUrl}/${locale}` },
@@ -118,35 +118,47 @@ export default async function WordPressLandingPage() {
             {/* Hero Section */}
             <section className="relative pt-24 pb-20 md:pt-40 md:pb-32 flex flex-col items-center text-center px-4 sm:px-6">
                 {/* Background Glows */}
-                <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 h-96 w-96 rounded-full bg-violet-600/10 blur-[150px]" />
-                <div className="absolute top-1/3 left-1/3 -z-10 h-72 w-72 rounded-full bg-blue-500/5 blur-[120px]" />
+                <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 h-[500px] w-[500px] rounded-full bg-brand-yellow/5 blur-[150px] animate-nebula-slow" />
+                <div className="absolute top-1/3 left-1/3 -z-10 h-96 w-96 rounded-full bg-brand-yellow/2 blur-[120px] animate-nebula-reverse" />
 
                 {/* Floating WordPress Logos in Background */}
-                <div className="absolute top-1/4 left-[10%] opacity-[0.03] text-violet-500 animate-float-slow pointer-events-none hidden lg:block">
-                    <svg viewBox="0 0 24 24" className="w-32 h-32" fill="currentColor">
-                        <path d="M12.158 12.786l-2.698 7.84a9.755 9.755 0 005.08-.105l-2.382-7.735zm-.316-1.042l2.23-6.52a9.697 9.697 0 00-3.922 0l2.227 6.52h-0.535zm-2.072 1.042h-.01a9.742 9.742 0 00-.77 4.195c0 1.282.25 2.5.698 3.62L7.332 11.238a9.638 9.638 0 002.438 1.548zm5.556 0c1.077-.478 1.838-1.547 1.838-2.81 0-1.636-1.127-2.842-2.585-2.842-1.072 0-2.146.61-2.146 1.8 0 .937.69 1.573 1.284 2.138.535.508.953.905.953 1.55 0 .48-.22.848-.567 1.066a1.325 1.325 0 01-.676.19c-.538 0-.96-.285-1.32-.61l-.25-.213a9.719 9.719 0 003.468-.863zM12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22.8c-5.955 0-10.8-4.845-10.8-10.8S6.045 1.2 12 1.2 22.8 6.045 22.8 12 17.955 22.8 12 22.8z"/>
+                <div className="absolute top-1/4 left-[10%] opacity-[0.25] text-brand-yellow/20 filter drop-shadow-[0_0_30px_rgba(254,215,0,0.15)] animate-float-rotate pointer-events-none hidden lg:block">
+                    <svg viewBox="0 0 122.52 122.523" className="w-36 h-36" fill="currentColor">
+                        <path d="m8.708 61.26c0 20.802 12.089 38.779 29.619 47.298l-25.069-68.686c-2.916 6.536-4.55 13.769-4.55 21.388z"/>
+                        <path d="m96.74 58.608c0-6.495-2.333-10.993-4.334-14.494-2.664-4.329-5.161-7.995-5.161-12.324 0-4.831 3.664-9.328 8.825-9.328.233 0 .454.029.681.042-9.35-8.566-21.807-13.796-35.489-13.796-18.36 0-34.513 9.42-43.91 23.688 1.233.037 2.395.063 3.382.063 5.497 0 14.006-.667 14.006-.667 2.833-.167 3.167 3.994.337 4.329 0 0-2.847.335-6.015.501l19.138 56.925 11.501-34.493-8.188-22.434c-2.83-.166-5.511-.501-5.511-.501-2.832-.166-2.5-4.496.332-4.329 0 0 8.679.667 13.843.667 5.496 0 14.006-.667 14.006-.667 2.835-.167 3.168 3.994.337 4.329 0 0-2.853.335-6.015.501l18.992 56.494 5.242-17.517c2.272-7.269 4.001-12.49 4.001-16.989z"/>
+                        <path d="m62.184 65.857-15.768 45.819c4.708 1.384 9.687 2.141 14.846 2.141 6.12 0 11.989-1.058 17.452-2.979-.141-.225-.269-.464-.374-.724z"/>
+                        <path d="m107.376 36.046c.226 1.674.354 3.471.354 5.404 0 5.333-.996 11.328-3.996 18.824l-16.053 46.413c15.624-9.111 26.133-26.038 26.133-45.426.001-9.137-2.333-17.729-6.438-25.215z"/>
+                        <path d="m61.262 0c-33.779 0-61.262 27.481-61.262 61.26 0 33.783 27.483 61.263 61.262 61.263 33.778 0 61.265-27.48 61.265-61.263-.001-33.779-27.487-61.26-61.265-61.26zm0 119.715c-32.23 0-58.453-26.223-58.453-58.455 0-32.23 26.222-58.451 58.453-58.451 32.229 0 58.45 26.221 58.45 58.451 0 32.232-26.221 58.455-58.45 58.455z"/>
                     </svg>
                 </div>
-                <div className="absolute top-1/3 right-[12%] opacity-[0.02] text-blue-500 animate-float-reverse-slow pointer-events-none hidden lg:block">
-                    <svg viewBox="0 0 24 24" className="w-40 h-40" fill="currentColor">
-                        <path d="M12.158 12.786l-2.698 7.84a9.755 9.755 0 005.08-.105l-2.382-7.735zm-.316-1.042l2.23-6.52a9.697 9.697 0 00-3.922 0l2.227 6.52h-0.535zm-2.072 1.042h-.01a9.742 9.742 0 00-.77 4.195c0 1.282.25 2.5.698 3.62L7.332 11.238a9.638 9.638 0 002.438 1.548zm5.556 0c1.077-.478 1.838-1.547 1.838-2.81 0-1.636-1.127-2.842-2.585-2.842-1.072 0-2.146.61-2.146 1.8 0 .937.69 1.573 1.284 2.138.535.508.953.905.953 1.55 0 .48-.22.848-.567 1.066a1.325 1.325 0 01-.676.19c-.538 0-.96-.285-1.32-.61l-.25-.213a9.719 9.719 0 003.468-.863zM12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22.8c-5.955 0-10.8-4.845-10.8-10.8S6.045 1.2 12 1.2 22.8 6.045 22.8 12 17.955 22.8 12 22.8z"/>
+                <div className="absolute top-1/3 right-[12%] opacity-[0.20] text-brand-yellow/15 filter drop-shadow-[0_0_30px_rgba(254,215,0,0.1)] animate-float-rotate-reverse pointer-events-none hidden lg:block">
+                    <svg viewBox="0 0 122.52 122.523" className="w-44 h-44" fill="currentColor">
+                        <path d="m8.708 61.26c0 20.802 12.089 38.779 29.619 47.298l-25.069-68.686c-2.916 6.536-4.55 13.769-4.55 21.388z"/>
+                        <path d="m96.74 58.608c0-6.495-2.333-10.993-4.334-14.494-2.664-4.329-5.161-7.995-5.161-12.324 0-4.831 3.664-9.328 8.825-9.328.233 0 .454.029.681.042-9.35-8.566-21.807-13.796-35.489-13.796-18.36 0-34.513 9.42-43.91 23.688 1.233.037 2.395.063 3.382.063 5.497 0 14.006-.667 14.006-.667 2.833-.167 3.167 3.994.337 4.329 0 0-2.847.335-6.015.501l19.138 56.925 11.501-34.493-8.188-22.434c-2.83-.166-5.511-.501-5.511-.501-2.832-.166-2.5-4.496.332-4.329 0 0 8.679.667 13.843.667 5.496 0 14.006-.667 14.006-.667 2.835-.167 3.168 3.994.337 4.329 0 0-2.853.335-6.015.501l18.992 56.494 5.242-17.517c2.272-7.269 4.001-12.49 4.001-16.989z"/>
+                        <path d="m62.184 65.857-15.768 45.819c4.708 1.384 9.687 2.141 14.846 2.141 6.12 0 11.989-1.058 17.452-2.979-.141-.225-.269-.464-.374-.724z"/>
+                        <path d="m107.376 36.046c.226 1.674.354 3.471.354 5.404 0 5.333-.996 11.328-3.996 18.824l-16.053 46.413c15.624-9.111 26.133-26.038 26.133-45.426.001-9.137-2.333-17.729-6.438-25.215z"/>
+                        <path d="m61.262 0c-33.779 0-61.262 27.481-61.262 61.26 0 33.783 27.483 61.263 61.262 61.263 33.778 0 61.265-27.48 61.265-61.263-.001-33.779-27.487-61.26-61.265-61.26zm0 119.715c-32.23 0-58.453-26.223-58.453-58.455 0-32.23 26.222-58.451 58.453-58.451 32.229 0 58.45 26.221 58.45 58.451 0 32.232-26.221 58.455-58.45 58.455z"/>
                     </svg>
                 </div>
-                <div className="absolute top-1/2 left-[50%] -translate-x-1/2 opacity-[0.03] text-violet-500 animate-float-slow pointer-events-none block lg:hidden">
-                    <svg viewBox="0 0 24 24" className="w-24 h-24" fill="currentColor">
-                        <path d="M12.158 12.786l-2.698 7.84a9.755 9.755 0 005.08-.105l-2.382-7.735zm-.316-1.042l2.23-6.52a9.697 9.697 0 00-3.922 0l2.227 6.52h-0.535zm-2.072 1.042h-.01a9.742 9.742 0 00-.77 4.195c0 1.282.25 2.5.698 3.62L7.332 11.238a9.638 9.638 0 002.438 1.548zm5.556 0c1.077-.478 1.838-1.547 1.838-2.81 0-1.636-1.127-2.842-2.585-2.842-1.072 0-2.146.61-2.146 1.8 0 .937.69 1.573 1.284 2.138.535.508.953.905.953 1.55 0 .48-.22.848-.567 1.066a1.325 1.325 0 01-.676.19c-.538 0-.96-.285-1.32-.61l-.25-.213a9.719 9.719 0 003.468-.863zM12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22.8c-5.955 0-10.8-4.845-10.8-10.8S6.045 1.2 12 1.2 22.8 6.045 22.8 12 17.955 22.8 12 22.8z"/>
+                <div className="absolute top-1/2 left-[50%] -translate-x-1/2 opacity-[0.20] text-brand-yellow/20 filter drop-shadow-[0_0_20px_rgba(254,215,0,0.15)] animate-float-rotate pointer-events-none block lg:hidden">
+                    <svg viewBox="0 0 122.52 122.523" className="w-28 h-28" fill="currentColor">
+                        <path d="m8.708 61.26c0 20.802 12.089 38.779 29.619 47.298l-25.069-68.686c-2.916 6.536-4.55 13.769-4.55 21.388z"/>
+                        <path d="m96.74 58.608c0-6.495-2.333-10.993-4.334-14.494-2.664-4.329-5.161-7.995-5.161-12.324 0-4.831 3.664-9.328 8.825-9.328.233 0 .454.029.681.042-9.35-8.566-21.807-13.796-35.489-13.796-18.36 0-34.513 9.42-43.91 23.688 1.233.037 2.395.063 3.382.063 5.497 0 14.006-.667 14.006-.667 2.833-.167 3.167 3.994.337 4.329 0 0-2.847.335-6.015.501l19.138 56.925 11.501-34.493-8.188-22.434c-2.83-.166-5.511-.501-5.511-.501-2.832-.166-2.5-4.496.332-4.329 0 0 8.679.667 13.843.667 5.496 0 14.006-.667 14.006-.667 2.835-.167 3.168 3.994.337 4.329 0 0-2.853.335-6.015.501l18.992 56.494 5.242-17.517c2.272-7.269 4.001-12.49 4.001-16.989z"/>
+                        <path d="m62.184 65.857-15.768 45.819c4.708 1.384 9.687 2.141 14.846 2.141 6.12 0 11.989-1.058 17.452-2.979-.141-.225-.269-.464-.374-.724z"/>
+                        <path d="m107.376 36.046c.226 1.674.354 3.471.354 5.404 0 5.333-.996 11.328-3.996 18.824l-16.053 46.413c15.624-9.111 26.133-26.038 26.133-45.426.001-9.137-2.333-17.729-6.438-25.215z"/>
+                        <path d="m61.262 0c-33.779 0-61.262 27.481-61.262 61.26 0 33.783 27.483 61.263 61.262 61.263 33.778 0 61.265-27.48 61.265-61.263-.001-33.779-27.487-61.26-61.265-61.26zm0 119.715c-32.23 0-58.453-26.223-58.453-58.455 0-32.23 26.222-58.451 58.453-58.451 32.229 0 58.45 26.221 58.45 58.451 0 32.232-26.221 58.455-58.45 58.455z"/>
                     </svg>
                 </div>
 
-                <div className="container mx-auto max-w-4xl space-y-6 animate-hero-fade-in">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-violet-500/20 bg-violet-500/5 text-xs text-violet-400 font-mono tracking-wider uppercase animate-hero-fade-up">
+                <div className="container mx-auto max-w-4xl space-y-6 animate-hero-fade-in relative z-10">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-yellow/20 bg-brand-yellow/5 text-xs text-brand-yellow font-mono tracking-wider uppercase animate-hero-fade-up">
                         <Sparkles className="w-3.5 h-3.5 animate-pulse" />
                         {isId ? "Kinerja Tinggi • Bebas Bloatware" : "High Performance • Bloat-Free"}
                     </div>
 
                     <h1 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-white leading-[1.1] animate-hero-fade-up animation-delay-100">
                         {isId ? "Jasa Pembuatan Website " : "Premium Custom "}
-                        <span className="bg-gradient-to-r from-violet-400 via-fuchsia-300 to-indigo-400 bg-clip-text text-transparent">
+                        <span className="bg-gradient-to-r from-brand-yellow via-yellow-200 to-amber-500 bg-clip-text text-transparent animate-pulse-glow animate-text-shimmer">
                             WordPress
                         </span>
                         {isId ? " Premium" : " Development"}
@@ -161,10 +173,10 @@ export default async function WordPressLandingPage() {
                     <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4 animate-hero-fade-up animation-delay-300">
                         <a
                             href="#pricing"
-                            className="bg-violet-600 hover:bg-violet-500 text-white font-bold h-12 px-8 rounded-xl transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-violet-600/20 flex items-center justify-center gap-2 cursor-pointer w-full sm:w-auto text-sm"
+                            className="bg-brand-yellow hover:bg-yellow-400 text-black font-bold h-12 px-8 rounded-xl transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-brand-yellow/20 flex items-center justify-center gap-2 cursor-pointer w-full sm:w-auto text-sm"
                         >
                             <span>{isId ? "Lihat Paket & Harga" : "Configure Package"}</span>
-                            <ArrowDown className="w-4 h-4 animate-bounce" />
+                            <ArrowDown className="w-4 h-4 animate-bounce text-black" />
                         </a>
                         <a
                             href={`/${locale}/contact?subject=WordPress%20Inquiry`}
@@ -192,12 +204,12 @@ export default async function WordPressLandingPage() {
 
                     <div className="grid md:grid-cols-12 gap-6">
                         {/* Box 1: UI/UX Kustom (Size: 7/12) */}
-                        <div className="md:col-span-7 rounded-2xl border border-white/5 bg-zinc-900/10 p-6 sm:p-8 flex flex-col justify-between hover:border-white/10 transition-colors group">
+                        <div className="md:col-span-7 rounded-2xl border border-white/5 bg-zinc-900/10 p-6 sm:p-8 flex flex-col justify-between hover:border-brand-yellow/30 hover:shadow-[0_10px_30px_rgba(254,215,0,0.15)] hover:-translate-y-1 transition-all duration-300 group">
                             <div className="space-y-4">
-                                <div className="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center">
-                                    <Sparkles className="w-5 h-5 text-violet-400" />
+                                <div className="w-10 h-10 rounded-xl bg-brand-yellow/10 flex items-center justify-center">
+                                    <Sparkles className="w-5 h-5 text-brand-yellow group-hover:scale-125 group-hover:rotate-12 transition-transform duration-300" />
                                 </div>
-                                <h3 className="text-xl font-bold text-white group-hover:text-violet-300 transition-colors">
+                                <h3 className="text-xl font-bold text-white group-hover:text-brand-yellow transition-colors">
                                     {isId ? "Desain UI/UX Unik & Kustom" : "Bespoke UI/UX Design"}
                                 </h3>
                                 <p className="text-sm text-zinc-400 leading-relaxed">
@@ -209,10 +221,10 @@ export default async function WordPressLandingPage() {
                         </div>
 
                         {/* Box 2: Kecepatan Laju (Size: 5/12) */}
-                        <div className="md:col-span-5 rounded-2xl border border-white/5 bg-zinc-900/10 p-6 sm:p-8 flex flex-col justify-between hover:border-white/10 transition-colors group">
+                        <div className="md:col-span-5 rounded-2xl border border-white/5 bg-zinc-900/10 p-6 sm:p-8 flex flex-col justify-between hover:border-brand-yellow/30 hover:shadow-[0_10px_30px_rgba(254,215,0,0.15)] hover:-translate-y-1 transition-all duration-300 group">
                             <div className="space-y-4">
                                 <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center">
-                                    <Zap className="w-5 h-5 text-emerald-400" />
+                                    <Zap className="w-5 h-5 text-emerald-400 group-hover:scale-125 group-hover:-rotate-12 transition-transform duration-300" />
                                 </div>
                                 <h3 className="text-xl font-bold text-white group-hover:text-emerald-300 transition-colors">
                                     {isId ? "Optimasi Kecepatan Ekstrim" : "Extreme Speed Tuning"}
@@ -226,10 +238,10 @@ export default async function WordPressLandingPage() {
                         </div>
 
                         {/* Box 3: Keamanan (Size: 5/12) */}
-                        <div className="md:col-span-5 rounded-2xl border border-white/5 bg-zinc-900/10 p-6 sm:p-8 flex flex-col justify-between hover:border-white/10 transition-colors group">
+                        <div className="md:col-span-5 rounded-2xl border border-white/5 bg-zinc-900/10 p-6 sm:p-8 flex flex-col justify-between hover:border-brand-yellow/30 hover:shadow-[0_10px_30px_rgba(254,215,0,0.15)] hover:-translate-y-1 transition-all duration-300 group">
                             <div className="space-y-4">
                                 <div className="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center">
-                                    <Shield className="w-5 h-5 text-red-400" />
+                                    <Shield className="w-5 h-5 text-red-400 group-hover:scale-110 group-hover:animate-pulse transition-transform duration-300" />
                                 </div>
                                 <h3 className="text-xl font-bold text-white group-hover:text-red-300 transition-colors">
                                     {isId ? "Proteksi Keamanan Berlapis" : "Fortified Security Walls"}
@@ -243,10 +255,10 @@ export default async function WordPressLandingPage() {
                         </div>
 
                         {/* Box 4: E-commerce & Toko Online (Size: 7/12) */}
-                        <div className="md:col-span-7 rounded-2xl border border-white/5 bg-zinc-900/10 p-6 sm:p-8 flex flex-col justify-between hover:border-white/10 transition-colors group">
+                        <div className="md:col-span-7 rounded-2xl border border-white/5 bg-zinc-900/10 p-6 sm:p-8 flex flex-col justify-between hover:border-brand-yellow/30 hover:shadow-[0_10px_30px_rgba(254,215,0,0.15)] hover:-translate-y-1 transition-all duration-300 group">
                             <div className="space-y-4">
                                 <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center">
-                                    <ShoppingBag className="w-5 h-5 text-blue-400" />
+                                    <ShoppingBag className="w-5 h-5 text-blue-400 group-hover:scale-125 transition-transform duration-300" />
                                 </div>
                                 <h3 className="text-xl font-bold text-white group-hover:text-blue-300 transition-colors">
                                     {isId ? "Sistem E-Commerce Kustom" : "Bespoke E-Commerce Engine"}

@@ -168,4 +168,103 @@
   animation: float-reverse 18s ease-in-out infinite;
 }
 
+/* Animasi melayang + berputar lambat */
+@keyframes float-rotate {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg) scale(1);
+  }
+  50% {
+    transform: translateY(-30px) rotate(180deg) scale(1.05);
+  }
+}
+
+@keyframes float-rotate-reverse {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg) scale(1);
+  }
+  50% {
+    transform: translateY(30px) rotate(-180deg) scale(1.05);
+  }
+}
+
+.animate-float-rotate {
+  animation: float-rotate 20s ease-in-out infinite;
+}
+
+.animate-float-rotate-reverse {
+  animation: float-rotate-reverse 24s ease-in-out infinite;
+}
+
+/* Animasi bersinar lembut untuk teks brand */
+@keyframes pulse-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 8px rgba(254, 215, 0, 0.15)) brightness(1);
+  }
+  50% {
+    filter: drop-shadow(0 0 25px rgba(254, 215, 0, 0.5)) brightness(1.2);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+/* Animasi gradien mengalir untuk teks premium */
+@keyframes gradient-shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-text-shimmer {
+  background-size: 200% auto;
+  animation: gradient-shimmer 6s linear infinite;
+}
+
+/* Background Grid interaktif */
+@keyframes grid-travel {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 40px 40px;
+  }
+}
+
+.bg-grid-travel {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  animation: grid-travel 20s linear infinite;
+}
+
+/* Floating Orb berpendar di background */
+@keyframes nebula-pulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    opacity: 0.12;
+  }
+  50% {
+    transform: translate(-45%, -55%) scale(1.2) rotate(180deg);
+    opacity: 0.18;
+  }
+}
+
+.animate-nebula-slow {
+  animation: nebula-pulse 15s ease-in-out infinite;
+}
+
+.animate-nebula-reverse {
+  animation: nebula-pulse 20s ease-in-out infinite reverse;
+}
+
+
+
 

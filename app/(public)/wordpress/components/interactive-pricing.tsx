@@ -226,21 +226,26 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
                             <button
                                 key={pkg.id}
                                 onClick={() => setSelectedPackageId(pkg.id)}
-                                className={`relative text-left p-4 rounded-xl border transition-all duration-300 flex flex-col justify-between gap-2 focus:outline-none cursor-pointer w-[75vw] max-w-[240px] md:w-full md:max-w-full shrink-0 snap-align-start ${
+                                className={`relative text-left p-4 rounded-xl border transition-all duration-300 flex flex-col justify-between gap-2 focus:outline-none cursor-pointer w-[75vw] max-w-[240px] md:w-full md:max-w-full shrink-0 snap-align-start transform hover:scale-[1.02] active:scale-[0.98] ${
                                     isActive
-                                        ? "border-violet-500 bg-violet-600/10 shadow-lg shadow-violet-600/5 ring-1 ring-violet-500"
+                                        ? "border-violet-500 bg-violet-600/10 shadow-lg shadow-violet-600/10 ring-1 ring-violet-500"
                                         : "border-white/5 bg-zinc-900/10 hover:border-white/10 hover:bg-zinc-900/20"
                                 }`}
                             >
                                 {pkg.id === "eksklusif" && (
-                                    <div className="absolute top-0 right-4 -translate-y-1/2 bg-violet-600 text-white text-[8px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full">
+                                    <div className="absolute top-0 right-4 -translate-y-1/2 bg-violet-600 text-white text-[8px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full z-10">
                                         {isId ? "Rekomendasi" : "Recommended"}
                                     </div>
                                 )}
                                 <div className="min-w-0">
-                                    <h5 className="font-extrabold text-xs md:text-sm text-white truncate">
-                                        {isId ? pkg.nameId : pkg.nameEn}
-                                    </h5>
+                                    <div className="flex items-center gap-1.5 min-w-0">
+                                        {isActive && (
+                                            <span className="w-1.5 h-1.5 rounded-full bg-violet-400 animate-ping shrink-0" />
+                                        )}
+                                        <h5 className="font-extrabold text-xs md:text-sm text-white truncate">
+                                            {isId ? pkg.nameId : pkg.nameEn}
+                                        </h5>
+                                    </div>
                                     <span className="text-[8px] md:text-[9px] text-zinc-500 font-mono tracking-wider uppercase block mt-0.5 truncate">
                                         {pkg.id === "custom" && (isId ? "Fungsionalitas Builder" : "Standard Page Builder")}
                                         {pkg.id === "eksklusif" && (isId ? "Clean Code / Custom Theme" : "Clean Code / Custom Theme")}
@@ -267,13 +272,13 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
                         type="button"
                         onClick={() => setShowAddonsMobile(!showAddonsMobile)}
                         className={`flex items-center justify-between p-4 rounded-xl border transition-all duration-300 text-left cursor-pointer group ${
-                            showAddonsMobile ? "border-violet-500 bg-violet-600/5" : "border-white/5 bg-zinc-900/10"
+                            showAddonsMobile ? "border-brand-yellow bg-brand-yellow/5" : "border-white/5 bg-zinc-900/10"
                         }`}
                     >
                         <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 group-hover:text-zinc-300 transition-colors">
                             {isId ? "Tambah Add-on" : "Add-ons"}
                         </span>
-                        <ChevronDown className={`w-3.5 h-3.5 text-zinc-400 transition-transform duration-300 ${showAddonsMobile ? "rotate-180 text-violet-400" : ""}`} />
+                        <ChevronDown className={`w-3.5 h-3.5 text-zinc-400 transition-transform duration-300 ${showAddonsMobile ? "rotate-180 text-brand-yellow" : ""}`} />
                     </button>
 
                     {/* Tombol Lihat Rincian & Harga */}
@@ -300,34 +305,34 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
                                     <div
                                         key={addon.id}
                                         onClick={() => toggleAddon(addon.id)}
-                                        className={`group relative rounded-xl border p-3 flex justify-between gap-3 cursor-pointer transition-all duration-300 ${
+                                        className={`group relative rounded-xl border p-3 flex justify-between gap-3 cursor-pointer transition-all duration-300 transform active:scale-[0.99] ${
                                             isDetailOpen ? "items-start" : "items-center"
                                         } ${
                                             selected
-                                                ? "border-violet-500/50 bg-violet-500/5"
+                                                ? "border-brand-yellow/50 bg-brand-yellow/5"
                                                 : "border-white/5 bg-zinc-900/10 hover:border-white/10 hover:bg-zinc-900/20"
                                         }`}
                                     >
                                         <div className={`flex gap-2.5 ${isDetailOpen ? "items-start" : "items-center"}`}>
                                             <div
-                                                className={`w-3.5 h-3.5 rounded border flex items-center justify-center shrink-0 transition-colors ${
+                                                className={`w-3.5 h-3.5 rounded border flex items-center justify-center shrink-0 transition-all duration-200 ${
                                                     isDetailOpen ? "mt-0.5" : ""
                                                 } ${
                                                     selected
-                                                        ? "bg-violet-600 border-violet-600"
-                                                        : "border-zinc-700 bg-transparent group-hover:border-zinc-500"
+                                                        ? "bg-brand-yellow border-brand-yellow scale-110"
+                                                        : "border-zinc-700 bg-transparent group-hover:border-zinc-500 scale-100"
                                                 }`}
                                             >
-                                                {selected && <Check className="w-2.5 h-2.5 text-white stroke-[3]" />}
+                                                {selected && <Check className="w-2.5 h-2.5 text-black stroke-[3] animate-in zoom-in-50 duration-150" />}
                                             </div>
                                             <div>
-                                                <h6 className="font-bold text-xs text-white group-hover:text-violet-300 transition-colors">
+                                                <h6 className="font-bold text-xs text-white group-hover:text-yellow-200 transition-colors">
                                                     {isId ? addon.nameId : addon.nameEn}
                                                 </h6>
                                                 <button
                                                     type="button"
                                                     onClick={(e) => toggleAddonDetail(addon.id, e)}
-                                                    className="text-[9px] text-violet-400 hover:text-violet-300 underline mt-1 block cursor-pointer"
+                                                    className="text-[9px] text-brand-yellow hover:text-brand-yellow/80 underline mt-1 block cursor-pointer"
                                                 >
                                                 {openAddonDetails.includes(addon.id)
                                                     ? (isId ? "Sembunyikan Detail" : "Hide Details")
@@ -366,7 +371,7 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
                     {/* Deskripsi Paket Aktif */}
                     <div className="space-y-4">
                         <div className="flex items-center gap-3">
-                            <span className="text-xs font-mono font-bold text-violet-400 bg-violet-500/10 px-2 py-1 rounded">
+                            <span className="text-xs font-mono font-bold text-brand-yellow bg-brand-yellow/10 px-2 py-1 rounded">
                                 {isId ? "PAKET AKTIF" : "ACTIVE TIER"}
                             </span>
                             <h3 className="text-xl sm:text-2xl font-black text-white">
@@ -384,8 +389,8 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
                             <ul className="grid sm:grid-cols-2 gap-3">
                                 {(isId ? activePackage.featuresId : activePackage.featuresEn).map((feature, idx) => (
                                     <li key={idx} className="flex items-center gap-2.5 text-xs sm:text-sm text-zinc-300">
-                                        <div className="w-4 h-4 rounded-full bg-violet-500/15 flex items-center justify-center shrink-0">
-                                            <Check className="w-3 h-3 text-violet-400" />
+                                        <div className="w-4 h-4 rounded-full bg-brand-yellow/15 flex items-center justify-center shrink-0">
+                                            <Check className="w-3 h-3 text-brand-yellow" />
                                         </div>
                                         <span>{feature}</span>
                                     </li>
@@ -407,34 +412,34 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
                                         <div
                                             key={addon.id}
                                             onClick={() => toggleAddon(addon.id)}
-                                            className={`group relative rounded-2xl border p-4 flex justify-between gap-4 cursor-pointer transition-all duration-300 ${
+                                            className={`group relative rounded-2xl border p-4 flex justify-between gap-4 cursor-pointer transition-all duration-300 transform hover:scale-[1.01] active:scale-[0.99] ${
                                                 isDetailOpen ? "items-start" : "items-center"
                                             } ${
                                                 selected
-                                                    ? "border-violet-500/50 bg-violet-500/5 shadow-md"
+                                                    ? "border-brand-yellow/50 bg-brand-yellow/5 shadow-md"
                                                     : "border-white/5 bg-zinc-900/10 hover:border-white/10 hover:bg-zinc-900/20"
                                             }`}
                                         >
                                             <div className={`flex gap-3 ${isDetailOpen ? "items-start" : "items-center"}`}>
                                                 <div
-                                                    className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 transition-colors ${
+                                                    className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 transition-all duration-200 ${
                                                         isDetailOpen ? "mt-0.5" : ""
                                                     } ${
                                                         selected
-                                                            ? "bg-violet-600 border-violet-600"
-                                                            : "border-zinc-700 bg-transparent group-hover:border-zinc-500"
+                                                            ? "bg-brand-yellow border-brand-yellow scale-110"
+                                                            : "border-zinc-700 bg-transparent group-hover:border-zinc-500 scale-100"
                                                     }`}
                                                 >
-                                                    {selected && <Check className="w-3.5 h-3.5 text-white stroke-[3]" />}
+                                                    {selected && <Check className="w-3.5 h-3.5 text-black stroke-[3] animate-in zoom-in-50 duration-150" />}
                                                 </div>
                                                 <div>
-                                                    <h5 className="font-bold text-xs sm:text-sm text-white group-hover:text-violet-300 transition-colors">
+                                                    <h5 className="font-bold text-xs sm:text-sm text-white group-hover:text-yellow-200 transition-colors">
                                                         {isId ? addon.nameId : addon.nameEn}
                                                     </h5>
                                                     <button
                                                         type="button"
                                                         onClick={(e) => toggleAddonDetail(addon.id, e)}
-                                                        className="text-[10px] text-violet-400 hover:text-violet-300 underline mt-1 block cursor-pointer"
+                                                        className="text-[10px] text-brand-yellow hover:text-brand-yellow/80 underline mt-1 block cursor-pointer"
                                                     >
                                                     {openAddonDetails.includes(addon.id)
                                                         ? (isId ? "Sembunyikan Detail" : "Hide Details")
@@ -517,7 +522,7 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
                         {/* CTA Button */}
                         <button
                             onClick={handleCTA}
-                            className="w-full bg-violet-600 hover:bg-violet-500 text-white font-bold h-12 rounded-xl transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-violet-600/25 flex items-center justify-center gap-2 group cursor-pointer text-sm"
+                            className="w-full bg-brand-yellow hover:bg-yellow-400 text-black font-bold h-12 rounded-xl transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-brand-yellow/20 flex items-center justify-center gap-2 group cursor-pointer text-sm"
                         >
                             <span>{isId ? "Mulai Konsultasi Paket" : "Consult Selected Package"}</span>
                             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -611,7 +616,7 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
                                 setShowSummaryMobile(false);
                                 handleCTA();
                             }}
-                            className="w-full bg-violet-600 hover:bg-violet-500 text-white font-bold h-10 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 group cursor-pointer text-xs"
+                            className="w-full bg-brand-yellow hover:bg-yellow-400 text-black font-bold h-10 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 group cursor-pointer text-xs"
                         >
                             <span>{isId ? "Mulai Konsultasi Paket" : "Consult Selected Package"}</span>
                             <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
