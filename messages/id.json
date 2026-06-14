@@ -17,7 +17,7 @@
     },
     "Navigation": {
         "priceCalculator": "Kalkulator Harga",
-        "services": "Layanan",
+        "services": "Layanan Custom",
         "myAccount": "Akun Saya",
         "promo": "Promo",
         "wordpress": "Jasa WordPress",
@@ -728,7 +728,7 @@
         "dataIncomplete": "Data faktur tidak lengkap"
     },
     "FloatingChat": {
-        "needHelp": "Butuh Bantuan? 👋"
+        "needHelp": "Konsultasi Gratis 👋"
     },
     "Services": {
         "title": "Cari Solusi Digital Premium"

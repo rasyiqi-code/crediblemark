@@ -226,12 +226,16 @@ export function FloatingChatWidget() {
     const isProductPage = pathname?.match(/^\/[a-z]{2}\/products\/[^/]+$/) || pathname?.match(/^\/products\/[^/]+$/);
     const isCalcResultPage = pathname?.match(/^\/[a-z]{2}\/price-calculator\/[^/]+$/) || pathname?.match(/^\/price-calculator\/[^/]+$/);
     const isServicePage = pathname?.match(/^\/[a-z]{2}\/services\/[^/]+$/) || pathname?.match(/^\/services\/[^/]+$/);
+    const isWordPressPage = pathname?.match(/^\/[a-z]{2}\/wordpress$/) || pathname === "/wordpress";
 
     if (!isVisible || isProductPage || isCalcResultPage || isServicePage) return null;
 
     if (!isOpen) {
         return (
-            <div className="fixed bottom-8 right-8 z-50 flex flex-col items-end gap-4">
+            <div className={cn(
+                "fixed bottom-8 right-8 z-50 flex flex-col items-end gap-4",
+                isWordPressPage && !isMenuOpen && "hidden"
+            )}>
                 {/* Desktop Menu - Vertical Stack (Controlled by Click) */}
                 <div className={cn(
                     "hidden lg:flex flex-col items-end gap-3 mb-2 transition-all duration-300 ease-out",
