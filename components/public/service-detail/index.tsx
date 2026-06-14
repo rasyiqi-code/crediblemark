@@ -114,16 +114,19 @@ export function ServiceDetailContent({ service, isId, trustedAvatars = [] }: Ser
                 selectedAddons={selectedAddons}
             />
 
-            {/* Tombol Share di pojok kiri bawah */}
+            {/* Tombol Share di pojok kiri bawah dengan Efek Premium */}
             <div className="fixed bottom-8 left-8 z-50">
                 <button
                     type="button"
                     onClick={handleShare}
-                    className="flex items-center justify-center w-12 h-12 rounded-full bg-zinc-900 border border-white/10 text-zinc-400 hover:text-brand-yellow hover:border-brand-yellow/30 shadow-2xl active:scale-95 transition-all group cursor-pointer"
+                    className="relative flex items-center justify-center w-12 h-12 rounded-full bg-zinc-900/90 backdrop-blur-md border border-white/10 text-zinc-400 hover:text-brand-yellow hover:border-brand-yellow/40 active:scale-95 transition-all duration-300 group cursor-pointer shadow-2xl hover:shadow-[0_0_20px_rgba(254,215,0,0.25)]"
                     title={isId ? "Bagikan Layanan" : "Share Service"}
                     aria-label="Share"
                 >
-                    <Share2 className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                    {/* Ring Efek Berdenyut (Glow Pulse) */}
+                    <div className="absolute inset-0 rounded-full bg-brand-yellow/10 animate-ping opacity-30 group-hover:opacity-50 pointer-events-none transition-opacity duration-300" />
+                    
+                    <Share2 className="w-5 h-5 transition-all duration-300 transform group-hover:scale-110 group-hover:rotate-[15deg]" />
                 </button>
             </div>
         </div>
