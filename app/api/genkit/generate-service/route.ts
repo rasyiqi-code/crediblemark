@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { serviceGeneratorFlow } from "@/app/genkit";
+import { 
+    serviceContentGeneratorFlow, 
+    servicePricingGeneratorFlow, 
+    serviceAddonsGeneratorFlow 
+} from "@/app/genkit";
 import { isAdmin } from "@/lib/shared/auth-helpers";
 
 export async function POST(req: NextRequest) {
@@ -10,36 +14,89 @@ export async function POST(req: NextRequest) {
         }
 
         const body = await req.json();
-        const { description } = body;
+        const {
+            type,
+            prompt,
+            title,
+            title_id,
+            description,
+            description_id,
+            features,
+            features_id,
+            recommended_price,
+            discount,
+            currency,
+            priceType,
+            interval
+        } = body;
 
-        if (!description) {
-            return NextResponse.json({ error: "Description is required" }, { status: 400 });
+        if (!type) {
+            return NextResponse.json({ error: "Type is required" }, { status: 400 });
         }
 
-        const result = await serviceGeneratorFlow(description);
+        let result;
 
-        // Split unified addons into English (addons) and Indonesian (addons_id) arrays
-        const addons = result.addons?.map(a => ({
-            name: a.name,
-            price: a.price,
-            interval: a.interval,
-            currency: a.currency
-        })) || [];
+        if (type === 'content') {
+            if (!prompt) {
+                return NextResponse.json({ error: "Prompt is required for content generation" }, { status: 400 });
+            }
+            result = await serviceContentGeneratorFlow(prompt);
+        } else if (type === 'pricing') {
+            if (!title || !description) {
+                return NextResponse.json({ error: "Title and description are required for pricing generation" }, { status: 400 });
+            }
+            result = await servicePricingGeneratorFlow({
+                title,
+                title_id: title_id || title,
+                description,
+                description_id: description_id || description,
+                features: features || [],
+                features_id: features_id || features || [],
+            });
+        } else if (type === 'addons') {
+            if (!title || !description) {
+                return NextResponse.json({ error: "Title and description are required for addons generation" }, { status: 400 });
+            }
+            const addonsResult = await serviceAddonsGeneratorFlow({
+                title,
+                title_id: title_id || title,
+                description,
+                description_id: description_id || description,
+                features: features || [],
+                features_id: features_id || features || [],
+                recommended_price: recommended_price ? Number(recommended_price) : 0,
+                discount: discount !== undefined ? Number(discount) : 0,
+                currency: currency || 'USD',
+                priceType: priceType || 'FIXED',
+                interval: interval || 'one_time'
+            });
 
-        const addons_id = result.addons?.map(a => ({
-            name: a.name_id,
-            price: a.price,
-            interval: a.interval,
-            currency: a.currency
-        })) || [];
+            const addons = addonsResult.addons?.map((a: any) => ({
+                name: a.name,
+                price: a.price,
+                interval: a.interval,
+                currency: a.currency
+            })) || [];
 
-        const transformedData = {
-            ...result,
-            addons,
-            addons_id
-        };
+            const addons_id = addonsResult.addons?.map((a: any) => ({
+                name: a.name_id || a.name,
+                price: a.price,
+                interval: a.interval,
+                currency: a.currency
+            })) || [];
 
-        return NextResponse.json({ success: true, data: transformedData });
+            return NextResponse.json({
+                success: true,
+                data: {
+                    addons,
+                    addons_id
+                }
+            });
+        } else {
+            return NextResponse.json({ error: "Invalid type" }, { status: 400 });
+        }
+
+        return NextResponse.json({ success: true, data: result });
     } catch (error) {
         console.error("Service Generation Error:", error);
         const errorMessage = error instanceof Error ? error.message : "Failed to generate service content";
