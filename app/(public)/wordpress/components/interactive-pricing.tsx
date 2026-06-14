@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Check, ArrowRight } from "lucide-react";
+import { Check, ArrowRight, ChevronDown, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 // Tipe data untuk Paket WordPress
@@ -152,6 +152,8 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
 
     const [selectedPackageId, setSelectedPackageId] = useState<"custom" | "eksklusif" | "headless">("eksklusif");
     const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
+    const [showAddonsMobile, setShowAddonsMobile] = useState(false);
+    const [showSummaryMobile, setShowSummaryMobile] = useState(false);
 
     // Ambil detail paket terpilih
     const activePackage = packagesList.find((p) => p.id === selectedPackageId)!;
@@ -288,10 +290,18 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
 
                     {/* Selector Add-ons */}
                     <div className="space-y-4 border-t border-white/5 pt-6">
-                        <h4 className="text-xs font-bold uppercase tracking-widest text-zinc-500">
-                            {isId ? "2. Tambahkan Add-ons Opsional:" : "2. Select Optional Add-ons:"}
-                        </h4>
-                        <div className="space-y-3">
+                        <button
+                            type="button"
+                            onClick={() => setShowAddonsMobile(!showAddonsMobile)}
+                            className="w-full flex items-center justify-between p-4 rounded-xl border border-white/5 bg-zinc-900/10 md:bg-transparent md:border-none md:p-0 md:justify-start md:gap-2 text-left cursor-pointer group"
+                        >
+                            <h4 className="text-xs font-bold uppercase tracking-widest text-zinc-500 group-hover:text-zinc-400 transition-colors">
+                                {isId ? "2. Tambahkan Add-ons Opsional:" : "2. Select Optional Add-ons:"}
+                            </h4>
+                            <ChevronDown className={`w-4 h-4 text-zinc-500 transition-transform duration-300 md:hidden ${showAddonsMobile ? "rotate-180 text-violet-400" : ""}`} />
+                        </button>
+
+                        <div className={`space-y-3 transition-all duration-300 ${showAddonsMobile ? "block animate-in fade-in duration-200" : "hidden md:block"}`}>
                             {addonsList.map((addon) => {
                                 const selected = selectedAddons.includes(addon.id);
                                 return (
@@ -335,11 +345,23 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
                                 );
                             })}
                         </div>
+
+                        {/* Tombol Lihat Harga khusus Mobile */}
+                        <div className="pt-4 md:hidden">
+                            <button
+                                type="button"
+                                onClick={() => setShowSummaryMobile(true)}
+                                className="w-full bg-brand-yellow hover:bg-yellow-400 text-black font-extrabold h-12 rounded-xl transition-all duration-300 transform active:scale-[0.98] shadow-lg shadow-brand-yellow/10 flex items-center justify-center gap-2 cursor-pointer text-sm"
+                            >
+                                <span>{isId ? "Lihat Rincian & Harga" : "View Details & Pricing"}</span>
+                                <ArrowRight className="w-4 h-4" />
+                            </button>
+                        </div>
                     </div>
                 </div>
 
                 {/* Kolom Kanan: Rincian Harga & Panggilan Aksi */}
-                <div className="lg:col-span-5 border-t border-white/5 lg:border-t-0 lg:border-l lg:border-white/5 lg:pl-10 pt-8 lg:pt-0">
+                <div className="hidden md:block lg:col-span-5 border-t border-white/5 lg:border-t-0 lg:border-l lg:border-white/5 lg:pl-10 pt-8 lg:pt-0">
                     <div className="rounded-2xl bg-zinc-900/20 border border-white/5 p-6 space-y-6">
                         <h4 className="text-xs font-bold uppercase tracking-widest text-zinc-400">
                             {isId ? "3. Rincian Investasi" : "3. Investment Summary"}
@@ -407,6 +429,100 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
                     </div>
                 </div>
             </div>
+
+            {/* Modal Bottom Sheet untuk Rincian Investasi di Mobile */}
+            {showSummaryMobile && (
+                <div className="fixed inset-0 z-50 md:hidden flex items-end justify-center">
+                    {/* Backdrop */}
+                    <div 
+                        className="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity duration-300"
+                        onClick={() => setShowSummaryMobile(false)}
+                    />
+                    
+                    {/* Content Panel */}
+                    <div className="relative w-full max-h-[85vh] bg-zinc-950 border-t border-white/10 rounded-t-3xl p-6 overflow-y-auto space-y-6 shadow-2xl animate-in slide-in-from-bottom duration-300">
+                        {/* Drag Handle Indicator */}
+                        <div className="mx-auto w-12 h-1.5 rounded-full bg-zinc-700/60" />
+                        
+                        <div className="flex items-center justify-between">
+                            <h4 className="text-sm font-bold uppercase tracking-widest text-zinc-400">
+                                {isId ? "Rincian Investasi" : "Investment Summary"}
+                            </h4>
+                            <button 
+                                type="button"
+                                onClick={() => setShowSummaryMobile(false)}
+                                className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-zinc-400 hover:text-white cursor-pointer"
+                            >
+                                <X className="w-4 h-4" />
+                            </button>
+                        </div>
+
+                        <div className="space-y-4">
+                            {/* Harga Paket Dasar */}
+                            <div className="flex items-center justify-between text-xs sm:text-sm text-zinc-400 border-b border-white/5 pb-3">
+                                <span className="truncate">
+                                    {isId ? activePackage.nameId : activePackage.nameEn} (Base)
+                                </span>
+                                <span className="font-bold text-white">
+                                    {isId ? formatCurrency(activePackage.priceIdr, "IDR") : formatCurrency(activePackage.priceUsd, "USD")}
+                                </span>
+                            </div>
+
+                            {/* Daftar Add-ons */}
+                            {selectedAddonObjects.length > 0 && (
+                                <div className="space-y-2 border-b border-white/5 pb-3">
+                                    <span className="text-[10px] uppercase font-mono font-bold tracking-wider text-zinc-500 block">
+                                        ADD-ONS:
+                                    </span>
+                                    {selectedAddonObjects.map((addon) => (
+                                        <div key={addon.id} className="flex items-center justify-between text-xs text-zinc-400">
+                                            <span className="truncate max-w-[200px]">{isId ? addon.nameId : addon.nameEn}</span>
+                                            <span className="font-medium text-white">
+                                                {isId ? formatCurrency(addon.priceIdr, "IDR") : formatCurrency(addon.priceUsd, "USD")}
+                                                {addon.interval === "monthly" && (isId ? "/bln" : "/mo")}
+                                            </span>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+
+                            {/* Total Biaya */}
+                            <div className="flex items-baseline justify-between pt-2">
+                                <span className="text-sm font-bold text-white">Total</span>
+                                <div className="text-right">
+                                    <span className="text-2xl sm:text-3xl font-black tracking-tight text-brand-yellow">
+                                        {isId ? formatCurrency(totalIdr, "IDR") : formatCurrency(totalUsd, "USD")}
+                                    </span>
+                                    {selectedAddonObjects.some((a) => a.interval === "monthly") && (
+                                        <span className="text-[9px] font-bold text-zinc-500 uppercase tracking-wider block mt-1">
+                                            {isId ? "*Termasuk biaya bulanan SLA" : "*Includes monthly SLA retainer"}
+                                        </span>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* CTA Button */}
+                        <button
+                            type="button"
+                            onClick={() => {
+                                setShowSummaryMobile(false);
+                                handleCTA();
+                            }}
+                            className="w-full bg-violet-600 hover:bg-violet-500 text-white font-bold h-12 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 group cursor-pointer text-sm"
+                        >
+                            <span>{isId ? "Mulai Konsultasi Paket" : "Consult Selected Package"}</span>
+                            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                        </button>
+
+                        <p className="text-[10px] text-zinc-500 text-center leading-normal">
+                            {isId
+                                ? "Pembayaran mengikuti termin milestone standar agensi (50% Down Payment + 50% Pelunasan)."
+                                : "Payments are structured in milestone increments (50% Deposit + 50% Sign-off)."}
+                        </p>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
