@@ -91,7 +91,7 @@ Input Description: "${sanitizedPrompt}"
      * If the input is in Indonesian or mentions 'Rp', 'Rupiah', 'Juta', or large numbers (> 10000), set currency to 'IDR'.
    
    - PSYCHOLOGICAL ANCHOR & CHARM PRICING STRATEGY (CRITICAL):
-     * Klien harus merasa mendapatkan diskon besar (sekitar 2.5 hingga 3 kali lipat lebih murah) untuk menunjukkan profesionalitas premium agensi sambil tetap menjaga harga akhir yang terjangkau.
+     * Klien harus merasa mendapatkan diskon besar (sekitar 2.5 hingga 3 kali lipat lebih murah, bahkan bisa sampai diskon 89% untuk mencocokkan anggaran pasar target) untuk menunjukkan profesionalitas premium agensi sambil tetap menjaga harga akhir yang terjangkau.
      * Pertama, tentukan target Harga Akhir Konsumen (Consumer Price) yang menggunakan strategi Charm Pricing (angka ganjil/tidak bulat mulus) sesuai kerumitan proyek:
        - Indonesia (IDR) - HARUS berakhiran 990,000 atau 950,000 atau 490,000 atau 450,000 (JANGAN gunakan angka genap bulat seperti 3,000,000 atau 10,000,000):
          * Low Complexity / UKM / Landing Page: Harga Akhir Konsumen IDR 2,450,000 s.d. IDR 5,990,000.
@@ -101,22 +101,27 @@ Input Description: "${sanitizedPrompt}"
          * Low Complexity: Harga Akhir Konsumen USD 249 s.d. USD 599.
          * Medium Complexity: Harga Akhir Konsumen USD 799 s.d. USD 1,799.
          * High Complexity: Harga Akhir Konsumen USD 1,999 s.d. USD 5,999.
-     * Kedua, tentukan "discount" (diskon) berupa angka bulat GANJIL antara 51 hingga 69 (misal: 53, 55, 57, 59, 63, 65, 67, 69). JANGAN PERNAH gunakan diskon genap (seperti 50, 60, 70).
+     * Kedua, tentukan "discount" (diskon) berupa angka bulat GANJIL antara 51 hingga 89 (misal: 53, 55, 59, 65, 75, 85, 89). JANGAN PERNAH gunakan diskon genap (seperti 50, 60, 70, 80, 90).
      * Ketiga, hitung "recommended_price" (Harga Asli/Anchor Price) dengan rumus:
        recommended_price = Harga Akhir Konsumen / (1 - (discount / 100))
      * Contoh: Jika target Harga Akhir Konsumen adalah IDR 4,990,000 dan diskon ganjil 59%:
        recommended_price = 4,990,000 / 0.41 = IDR 12,170,731.
      * Bulatkan "recommended_price" secara cerdas agar tetap menggunakan angka ganjil/menarik (Charm Pricing) di digit signifikan (misalnya dibulatkan menjadi IDR 12,190,000 atau IDR 12,250,000, tanpa desimal, tanpa koma, dan tanpa simbol mata uang).
-     * Dengan begini, harga asli terlihat sangat mahal/premium (menunjukkan kualitas agensi profesional kelas atas), namun harga diskon ganjil yang diberikan ke konsumen terasa 3 kali lipat lebih murah dan berakhir dengan angka psikologis yang menarik.
+     * Dengan begini, harga asli terlihat sangat mahal/premium (menunjukkan kualitas agensi profesional kelas atas), namun harga diskon ganjil yang diberikan ke konsumen terasa jauh lebih murah dan berakhir dengan angka psikologis yang menarik.
    
    - "interval": MUST be exactly one of: "one_time", "monthly", or "yearly" (no other values).
      * Project development -> "one_time".
      * Support, retainer, or monthly maintenance -> "monthly".
      * Annual support -> "yearly".
-   - "discount": A plain ODD integer from 51 to 69 (e.g., 53, 55, 57, 59, 63, 65, 67, 69). NEVER use null or even integers.
+   - "discount": A plain ODD integer from 51 to 89 (e.g., 53, 55, 59, 75, 85, 89). NEVER use null or even integers.
 
 5. ADD-ONS ("addons") — (NICHE-SPECIFIC, LOGICAL MARKET, & CHARM PRICING):
-   - Generate 2-4 highly specific, high-value add-ons. 
+   - Generate as many highly specific, high-value add-ons as relevant to capture niche opportunities (no maximum limit, minimum 2-3).
+   - SCOPE SEGREGATION (CRITICAL):
+     * If the service requested is a simple or basic marketing website (e.g., Mosque/Mesjid, local brick-and-mortar stores, local building supplies/toko bangunan, small UKM):
+       - Keep the base package strictly limited to basic and essential features (e.g., simple profile pages, contact info, basic photo gallery).
+       - Move ALL advanced, specialized, or extra features (such as online reservation/booking, custom member portal, online donation system, advanced interactive calculator, custom API integrations, dynamic inventory management) into separate Add-ons.
+       - This ensures the base package remains highly affordable for tight budgets, while securing upsell opportunities via add-ons.
    - NICHE OPPORTUNITY MATCHING (CRITICAL):
      * Do NOT generate generic add-ons (like 'Basic SEO' or 'Extra Pages') unless they are highly tailored to the niche.
      * Analyze the specific niche/industry of the requested website and brainstorm industry-specific upsells that present high-value business opportunities.
@@ -134,7 +139,7 @@ Input Description: "${sanitizedPrompt}"
        - One-Time Features: IDR 490,000 to IDR 2,950,000 (One-time setup fee).
        - Monthly Services: IDR 249,000 to IDR 790,000 per month (NEVER exceed IDR 990,000/month as recurring fee, otherwise clients will reject it).
        - Yearly Services: IDR 1,950,000 to IDR 7,990,000 per year.
-     * Real-World Price Ranges (Global - USD) — STRICTLY ADHERE TO THESE LIMITS & USE ODD/CHARM ENDINGS (e.g., ending in 9, 7, or 5 like 49, 79, 95. JANGAN gunakan nominal genap bulat seperti 50 atau 100):
+     * Real-World Price Ranges (Global - USD) — STRICTLY ADHERE TO THESE LIMITS & USE ODD/CHARM ENDINGS (e.g., ending in 9, 7, or 5 like 49, 79, 95. JANGAN gunakan nominal genap bulat seperti 50 or 100):
        - One-Time Features: USD 49 to USD 299.
        - Monthly Services: USD 25 to USD 79 per month (NEVER exceed USD 99/month as recurring fee).
        - Yearly Services: USD 199 to USD 799 per year.
@@ -172,7 +177,7 @@ CRITICAL CONSTRAINTS — ANY VIOLATION WILL CAUSE A SYSTEM ERROR:
 - "currency" values must be exactly: "USD" or "IDR".
 - "priceType" must be exactly: "FIXED" or "STARTING_AT".
 - "recommended_price" and "price" must be plain numbers, NOT strings.
-- "discount" must be a plain ODD integer (51–69), NOT null or omitted.
+- "discount" must be a plain ODD integer (51–89), NOT null or omitted.
 - Every addon must have all 5 fields: name, name_id, price, interval, currency.
 - If an addon has "monthly" interval, its price MUST NOT exceed 990000 IDR (or 99 USD).
 - Do NOT add any extra fields not listed in the schema above.
