@@ -96,12 +96,13 @@ Service Profile:
    - "price" untuk addons harus berupa angka CHARM/ganjil. JANGAN gunakan angka genap bulat.
 
 4. ADD-ON NAME SPECIFICITY (CRITICAL — MANDATORY):
-   - "name" and "name_id" MUST be specific and self-explanatory — include quantity, frequency, or scope directly in the name.
-   - NEVER use short generic names.
+   - "name" and "name_id" MUST be specific and self-explanatory. Include details such as deliverables, scope, target integrations, or realistic frequency directly in the name.
+   - NEVER use short generic names (e.g. avoid plain "SEO" or "Maintenance").
+   - DO NOT invent arbitrary system limitations or maximum quotas (like "Up to 50 units" for a catalog or database) unless it is a standard usage tier (e.g., number of monthly blog posts or API event triggers).
    - Good examples:
      * "SEO Content Writing - 3 Articles/Month (500-800 Words Each)"
      * "WhatsApp & Email Notification Integration (Up to 3 Event Triggers)"
-     * "Monthly Performance Report + 1 On-Page SEO Fix"
+     * "Monthly Performance Report & Core Updates Verification"
      * "Custom Lead Capture Form with CRM Auto-Sync (HubSpot/Zoho)"
      * "Konten Blog SEO - 3 Artikel/Bulan (600-800 Kata)"
 
