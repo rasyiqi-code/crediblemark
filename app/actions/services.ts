@@ -6,11 +6,6 @@ import { hexclaveServerApp } from "@/lib/config/hexclave";
 import { slugify } from "@/lib/shared/utils";
 import { Prisma } from "@prisma/client";
 
-const billingPeriodMap: Record<string, string> = {
-    'monthly': 'every-month',
-    'yearly': 'every-year',
-    'one_time': 'once'
-};
 
 export async function createService(formData: FormData) {
     const user = await hexclaveServerApp.getUser();
@@ -41,8 +36,6 @@ export async function createService(formData: FormData) {
     const price = parseFloat(priceRaw);
     if (isNaN(price)) return { error: "Invalid price format" };
 
-    const discount = discountRaw ? parseInt(discountRaw, 10) : 0;
-    const finalPrice = discount > 0 ? (price * (1 - discount / 100)) : price;
 
     const features = featuresRaw.split('\n').map(f => f.trim()).filter(f => f !== '');
     const features_id = featuresIdRaw.split('\n').map(f => f.trim()).filter(f => f !== '');
@@ -127,8 +120,6 @@ export async function updateService(serviceId: string, formData: FormData) {
     const price = parseFloat(priceRaw);
     if (isNaN(price)) return { error: "Invalid price format" };
 
-    const discount = discountRaw ? parseInt(discountRaw, 10) : 0;
-    const finalPrice = discount > 0 ? (price * (1 - discount / 100)) : price;
 
     const features = featuresRaw.split('\n').map(f => f.trim()).filter(f => f !== '');
     const features_id = featuresIdRaw.split('\n').map(f => f.trim()).filter(f => f !== '');

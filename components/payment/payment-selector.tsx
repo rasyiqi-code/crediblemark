@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { toast } from "sonner";
-import { Loader2, Wallet, Lock, CreditCard, Building, Smartphone, Store } from "lucide-react";
+import { Loader2, Wallet, Lock, Building, Smartphone, Store } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useLocale, useTranslations } from "next-intl";

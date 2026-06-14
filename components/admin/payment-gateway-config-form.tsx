@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
-import { Save, Eye, EyeOff, Loader2, CreditCard, Store } from "lucide-react";
+import { Save, Eye, EyeOff, Loader2, CreditCard } from "lucide-react";
 import { toast } from "sonner";
 import { savePaymentConfig } from "@/app/actions/system-admin";
 
