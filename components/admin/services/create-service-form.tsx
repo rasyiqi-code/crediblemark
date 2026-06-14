@@ -52,6 +52,7 @@ export function CreateServiceForm() {
     const [priceType, setPriceType] = useState<string>(generatedData?.priceType || "FIXED");
     const [interval, setInterval] = useState<string>(generatedData?.interval || "one_time");
     const [businessScale, setBusinessScale] = useState<string>("AUTO");
+    const [currency, setCurrency] = useState<string>("USD");
 
     const handlePriceTypeChange = (value: string) => {
         setPriceType(value);
@@ -159,6 +160,7 @@ export function CreateServiceForm() {
                 // Update state lokal untuk sinkronisasi input Radix Select
                 if (pricing.priceType) setPriceType(pricing.priceType as string);
                 if (pricing.interval) setInterval(pricing.interval as string);
+                if (pricing.currency) setCurrency(pricing.currency as string);
 
                 // Update pendingDraft agar menyertakan data harga juga
                 setPendingDraft(prev => prev ? {
@@ -200,7 +202,7 @@ export function CreateServiceForm() {
             
             const recommended_price = formData.get("price") ? Number(formData.get("price")) : undefined;
             const discount = formData.get("discount") ? Number(formData.get("discount")) : undefined;
-            const currency = formData.get("currency") as "USD" | "IDR" || "USD";
+            const currencyValue = currency as "USD" | "IDR";
             
             const res = await fetch("/api/genkit/generate-service", {
                 method: "POST",
@@ -215,7 +217,7 @@ export function CreateServiceForm() {
                     features_id,
                     recommended_price,
                     discount,
-                    currency,
+                    currency: currencyValue,
                     priceType,
                     interval,
                     targetBusinessScale: businessScale
@@ -494,7 +496,7 @@ export function CreateServiceForm() {
                                             key={`addons-${keyAddons}`}
                                             name="addons"
                                             defaultValue={generatedData?.addons || []}
-                                            currency={generatedData?.currency || "USD"}
+                                            currency={currency}
                                         />
                                     </div>
                                 </div>
@@ -578,7 +580,7 @@ export function CreateServiceForm() {
                                             key={`addons-id-${keyAddons}`}
                                             name="addons_id"
                                             defaultValue={generatedData?.addons_id || []}
-                                            currency={generatedData?.currency || "USD"}
+                                            currency={currency}
                                         />
                                     </div>
                                 </div>
@@ -645,7 +647,7 @@ export function CreateServiceForm() {
                                 <div className="space-y-2">
                                     <label className="text-xs font-medium text-zinc-400 uppercase tracking-wider">{t("price")}</label>
                                     <div className="flex gap-2">
-                                        <Select name="currency" defaultValue={generatedData?.currency || "USD"}>
+                                        <Select name="currency" value={currency} onValueChange={setCurrency}>
                                             <SelectTrigger className="w-[100px] bg-black/20 border-white/10 text-zinc-200">
                                                 <SelectValue />
                                             </SelectTrigger>
