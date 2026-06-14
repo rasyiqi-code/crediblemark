@@ -43,6 +43,18 @@ export function WordPressFAQ({ locale }: WordPressFAQProps) {
             qEn: "How does the agency secure the WordPress site from hackers?",
             aEn: "We apply multi-layered security hardening, which includes shifting default admin paths, disabling XML-RPC interfaces, installing brute-force protection shields, enforcing SSL certificates, and configuring automated off-site daily backups to prevent data loss.",
         },
+        {
+            qId: "Apakah ada garansi atau dukungan setelah website selesai dibuat?",
+            aId: "Ya, kami memberikan garansi pemeliharaan gratis selama 90 hari setelah website diluncurkan. Garansi ini mencakup perbaikan bug, pembaruan keamanan, dan bantuan teknis jika terjadi kendala pada sistem yang kami bangun.",
+            qEn: "Is there a warranty or technical support after the site goes live?",
+            aEn: "Yes, we provide a 90-day free maintenance warranty after your website launches. This warranty covers bug fixes, security patch updates, and technical assistance if there are any issues with the systems we built.",
+        },
+        {
+            qId: "Apakah website yang dibuat sudah SEO-friendly dan mudah dikelola sendiri?",
+            aId: "Tentu saja. Kami mengoptimalkan struktur tag HTML, meta deskripsi, peta situs (sitemap), dan skema breadcrumb agar ramah mesin pencari. Kami juga menggunakan sistem editor WordPress Gutenberg yang sangat intuitif, sehingga Anda dapat dengan mudah menambah artikel blog atau mengubah konten sendiri tanpa bantuan programmer.",
+            qEn: "Is the website SEO-friendly and easy for me to manage myself?",
+            aEn: "Absolutely. We optimize the HTML tagging structure, meta descriptions, sitemaps, and breadcrumb schemas for search engines. We also implement the highly intuitive WordPress Gutenberg block editor so you can easily publish new blog posts or modify page contents yourself without needing a developer's help.",
+        },
     ];
 
     const toggleFAQ = (index: number) => {
