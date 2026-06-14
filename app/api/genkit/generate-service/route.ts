@@ -21,7 +21,6 @@ export async function POST(req: NextRequest) {
         // Split unified addons into English (addons) and Indonesian (addons_id) arrays
         const addons = result.addons?.map(a => ({
             name: a.name,
-            description: a.description,
             price: a.price,
             interval: a.interval,
             currency: a.currency
@@ -29,7 +28,6 @@ export async function POST(req: NextRequest) {
 
         const addons_id = result.addons?.map(a => ({
             name: a.name_id,
-            description: a.description_id,
             price: a.price,
             interval: a.interval,
             currency: a.currency
@@ -46,7 +44,7 @@ export async function POST(req: NextRequest) {
         console.error("Service Generation Error:", error);
         const errorMessage = error instanceof Error ? error.message : "Failed to generate service content";
         const isConfigError = errorMessage.includes("not configured") || errorMessage.includes("API key");
-        
+
         return NextResponse.json(
             { success: false, error: errorMessage },
             { status: isConfigError ? 412 : 500 }
