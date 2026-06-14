@@ -249,6 +249,86 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
                 </div>
             </div>
 
+            {/* Aksi Konfigurasi & Add-ons khusus Mobile (di bawah Selector Tipe Paket) */}
+            <div className="md:hidden space-y-4">
+                <div className="grid grid-cols-2 gap-3">
+                    {/* Tombol Toggle Add-ons */}
+                    <button
+                        type="button"
+                        onClick={() => setShowAddonsMobile(!showAddonsMobile)}
+                        className={`flex items-center justify-between p-4 rounded-xl border transition-all duration-300 text-left cursor-pointer group ${
+                            showAddonsMobile ? "border-violet-500 bg-violet-600/5" : "border-white/5 bg-zinc-900/10"
+                        }`}
+                    >
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 group-hover:text-zinc-300 transition-colors">
+                            {isId ? "Tambah Add-on" : "Add-ons"}
+                        </span>
+                        <ChevronDown className={`w-3.5 h-3.5 text-zinc-400 transition-transform duration-300 ${showAddonsMobile ? "rotate-180 text-violet-400" : ""}`} />
+                    </button>
+
+                    {/* Tombol Lihat Rincian & Harga */}
+                    <button
+                        type="button"
+                        onClick={() => setShowSummaryMobile(true)}
+                        className="bg-brand-yellow hover:bg-yellow-400 text-black font-extrabold p-4 rounded-xl transition-all duration-300 transform active:scale-[0.98] shadow-lg shadow-brand-yellow/10 flex items-center justify-center gap-1.5 cursor-pointer text-[10px] uppercase tracking-wider text-center"
+                    >
+                        <span>{isId ? "Lihat Harga" : "View Pricing"}</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                    </button>
+                </div>
+
+                {/* Daftar Add-ons Collapsible khusus Mobile */}
+                {showAddonsMobile && (
+                    <div className="space-y-3 pt-2 animate-in fade-in duration-200">
+                        <h5 className="text-[10px] font-bold uppercase tracking-wider text-zinc-500 mb-2">
+                            {isId ? "Pilih Add-ons Opsional:" : "Select Optional Add-ons:"}
+                        </h5>
+                        {addonsList.map((addon) => {
+                            const selected = selectedAddons.includes(addon.id);
+                            return (
+                                <div
+                                    key={addon.id}
+                                    onClick={() => toggleAddon(addon.id)}
+                                    className={`group relative rounded-xl border p-3 flex items-start justify-between gap-3 cursor-pointer transition-all duration-300 ${
+                                        selected
+                                            ? "border-violet-500/50 bg-violet-500/5"
+                                            : "border-white/5 bg-zinc-900/10 hover:border-white/10 hover:bg-zinc-900/20"
+                                    }`}
+                                >
+                                    <div className="flex items-start gap-2.5">
+                                        <div
+                                            className={`mt-0.5 w-3.5 h-3.5 rounded border flex items-center justify-center shrink-0 transition-colors ${
+                                                selected
+                                                    ? "bg-violet-600 border-violet-600"
+                                                    : "border-zinc-700 bg-transparent group-hover:border-zinc-500"
+                                            }`}
+                                        >
+                                            {selected && <Check className="w-2.5 h-2.5 text-white stroke-[3]" />}
+                                        </div>
+                                        <div>
+                                            <h6 className="font-bold text-xs text-white group-hover:text-violet-300 transition-colors">
+                                                {isId ? addon.nameId : addon.nameEn}
+                                            </h6>
+                                            <p className="text-[10px] text-zinc-500 mt-0.5 leading-snug">
+                                                {isId ? addon.descId : addon.descEn}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div className="text-right shrink-0">
+                                        <span className="font-bold text-xs text-white block">
+                                            {isId ? formatCurrency(addon.priceIdr, "IDR") : formatCurrency(addon.priceUsd, "USD")}
+                                        </span>
+                                        <span className="text-[8px] uppercase tracking-wider text-zinc-500 block mt-0.5">
+                                            {addon.interval === "monthly" ? (isId ? "/ bln" : "/ mo") : (isId ? "sekali" : "once")}
+                                        </span>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                )}
+            </div>
+
             <hr className="border-white/5" />
 
             {/* 2. Grid Konfigurasi & Total */}
@@ -288,20 +368,12 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
                         </div>
                     </div>
 
-                    {/* Selector Add-ons */}
-                    <div className="space-y-4 border-t border-white/5 pt-6">
-                        <button
-                            type="button"
-                            onClick={() => setShowAddonsMobile(!showAddonsMobile)}
-                            className="w-full flex items-center justify-between p-4 rounded-xl border border-white/5 bg-zinc-900/10 md:bg-transparent md:border-none md:p-0 md:justify-start md:gap-2 text-left cursor-pointer group"
-                        >
-                            <h4 className="text-xs font-bold uppercase tracking-widest text-zinc-500 group-hover:text-zinc-400 transition-colors">
-                                {isId ? "2. Tambahkan Add-ons Opsional:" : "2. Select Optional Add-ons:"}
-                            </h4>
-                            <ChevronDown className={`w-4 h-4 text-zinc-500 transition-transform duration-300 md:hidden ${showAddonsMobile ? "rotate-180 text-violet-400" : ""}`} />
-                        </button>
-
-                        <div className={`space-y-3 transition-all duration-300 ${showAddonsMobile ? "block animate-in fade-in duration-200" : "hidden md:block"}`}>
+                    {/* Selector Add-ons (Hanya muncul di Desktop) */}
+                    <div className="hidden md:block space-y-4 border-t border-white/5 pt-6">
+                        <h4 className="text-xs font-bold uppercase tracking-widest text-zinc-500">
+                            {isId ? "2. Tambahkan Add-ons Opsional:" : "2. Select Optional Add-ons:"}
+                        </h4>
+                        <div className="space-y-3">
                             {addonsList.map((addon) => {
                                 const selected = selectedAddons.includes(addon.id);
                                 return (
@@ -344,18 +416,6 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
                                     </div>
                                 );
                             })}
-                        </div>
-
-                        {/* Tombol Lihat Harga khusus Mobile */}
-                        <div className="pt-4 md:hidden">
-                            <button
-                                type="button"
-                                onClick={() => setShowSummaryMobile(true)}
-                                className="w-full bg-brand-yellow hover:bg-yellow-400 text-black font-extrabold h-12 rounded-xl transition-all duration-300 transform active:scale-[0.98] shadow-lg shadow-brand-yellow/10 flex items-center justify-center gap-2 cursor-pointer text-sm"
-                            >
-                                <span>{isId ? "Lihat Rincian & Harga" : "View Details & Pricing"}</span>
-                                <ArrowRight className="w-4 h-4" />
-                            </button>
                         </div>
                     </div>
                 </div>
