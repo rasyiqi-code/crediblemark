@@ -14,6 +14,7 @@ export async function POST(req: NextRequest) {
         }
 
         const body = await req.json();
+        console.log("=== API generate-service Request Body ===", JSON.stringify(body, null, 2));
         const {
             type,
             prompt,
