@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { FileDown, Loader2 } from "lucide-react";
 import { ServiceAddon } from "@/lib/shared/types";
 import { useLocale } from "next-intl";
+import idMessages from "@/messages/id.json";
+import enMessages from "@/messages/en.json";
 
 interface ServiceData {
     id: string;
@@ -179,23 +181,15 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             ? "If the initial work plan does not suit you after our initial discussion, we will refund your down payment (DP) 100%. No terms. You still get to keep the design draft as long as the project has not entered the development phase."
             : "Jika rencana kerja awal tidak sesuai setelah diskusi awal kita, uang muka (DP) Anda kami kembalikan 100%. Tanpa syarat. Anda tetap boleh menyimpan rancangan tersebut selama proyek belum masuk tahap pembuatan.";
 
-        // Data Workflow (Proses Kerja Jujur)
-        const tWorkflowTitle = isEn ? "Honest Work Process" : "Proses Kerja Jujur";
-        const tWorkflowSubtitle = isEn 
-            ? "Track your project's progress in real-time through the Client Dashboard. Transparent, fast, and outcome-focused."
-            : "Semua progres terpantau setiap saat melalui Dashboard Klien. Cara kerja yang transparan, cepat, dan fokus pada hasil nyata.";
-        const step1 = isEn ? "Plan & Structure" : "Rencana & Cara Kerja";
-        const step1Desc = isEn 
-            ? "Discuss your business goals with us. We will map out a detailed feature list and clear timeline for your project."
-            : "Diskusikan ide bisnis Anda bersama kami. Kami akan menyusun daftar fitur dan estimasi rencana kerja secara rinci.";
-        const step2 = isEn ? "Fixed Price Scope" : "Pengerjaan Bertahap";
-        const step2Desc = isEn 
-            ? "Receive a guaranteed fixed price with no hidden costs. Pay a secure initial deposit to start the work."
-            : "Anda mendapatkan penawaran harga tetap tanpa biaya tambahan tersembunyi. Pembayaran DP awal dilakukan secara aman.";
-        const step3 = isEn ? "Review & Launch" : "Serah Terima & Bantuan";
-        const step3Desc = isEn 
-            ? "Track progress on your dashboard. Need changes? Just click where you want to edit. We do the work, you launch."
-            : "Lihat progres di dashboard. Ada revisi? Cukup klik bagian yang ingin diubah. Saya kerjakan, Anda terima beres.";
+        // Data Filosofi & Slogan dari Landing Page / Lokalisasi
+        const messages = isEn ? enMessages : idMessages;
+        const quoteText = messages.About.quote;
+        const aboutDesc = messages.About.description;
+        const heroDesc = messages.Hero.description;
+
+        // Gabungkan deskripsi About dan Hero dengan tanda titik yang sesuai
+        const formattedAboutDesc = aboutDesc.endsWith(".") ? aboutDesc : `${aboutDesc}.`;
+        const combinedText = `${formattedAboutDesc} ${heroDesc}`;
 
         // Data Financial (Yang Jarang Disadari)
         const tFinTitle = isEn ? "What is Often Overlooked." : "Yang Jarang Disadari";
@@ -668,55 +662,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             text-align: justify;
         }
  
-        /* Workflow List Halaman 2 - Susunan Vertikal (Numbering List) */
-        .workflow-list {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-top: 15px;
-        }
- 
-        .workflow-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 14px;
-        }
- 
-        .workflow-number {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background: #fbbf24;
-            color: #000000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 13px;
-            font-weight: 800;
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
- 
-        .workflow-text {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
- 
-        .workflow-item-title {
-            font-size: 15.5px;
-            font-weight: 800;
-            color: #ffffff;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
- 
-        .workflow-item-desc {
-            font-size: 13.5px;
-            color: #ffffff;
-            line-height: 1.6;
-            text-align: justify;
-        }
+        /* CSS kosong untuk menggantikan style workflow */
  
         /* Financial Logic Grid Halaman 5 */
         .fin-container {
@@ -976,54 +922,39 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         </div>
     </div>
     
-    <!-- HALAMAN 2: DESKRIPSI LAYANAN ASLI & PROSES KERJA JUJUR -->
+    <!-- HALAMAN 2: DESKRIPSI LAYANAN ASLI & FILOSOFI SOLUSI -->
     <div class="page">
         <div class="section-header">
-            <h2 class="section-title">01 / Deskripsi Solusi & Proses Kerja</h2>
-            <span class="section-subtitle-badge">Halaman 2 dari 6</span>
+            <h2 class="section-title">${isEn ? "01 / Solution Description & Philosophy" : "01 / Deskripsi Solusi & Filosofi"}</h2>
+            <span class="section-subtitle-badge">${isEn ? "Page 2 of 6" : "Halaman 2 dari 6"}</span>
         </div>
         
-        <div class="body-section" style="margin-bottom: 20px;">
+        <div class="body-section" style="margin-bottom: 25px;">
             <div class="desc-content">
                 ${descriptionHtml}
             </div>
         </div>
 
-        <!-- PROSES KERJA JUJUR (Workflow Section) - Mengisi kekosongan Halaman 2 secara fungsional & mewah -->
-        <div class="body-section" style="margin-top: 25px; border-top: 1px solid #27272a; padding-top: 20px;">
-            <h3 class="body-section-title">${tWorkflowTitle}</h3>
-            <p class="paragraph-text" style="font-size: 14px; color: #ffffff; margin-bottom: 15px;">
-                ${tWorkflowSubtitle}
-            </p>
-            
-            <div class="workflow-list">
-                <div class="workflow-item">
-                    <div class="workflow-number">1</div>
-                    <div class="workflow-text">
-                        <div class="workflow-item-title">${step1}</div>
-                        <div class="workflow-item-desc">${step1Desc}</div>
-                    </div>
-                </div>
-                <div class="workflow-item">
-                    <div class="workflow-number">2</div>
-                    <div class="workflow-text">
-                        <div class="workflow-item-title">${step2}</div>
-                        <div class="workflow-item-desc">${step2Desc}</div>
-                    </div>
-                </div>
-                <div class="workflow-item">
-                    <div class="workflow-number">3</div>
-                    <div class="workflow-text">
-                        <div class="workflow-item-title">${step3}</div>
-                        <div class="workflow-item-desc">${step3Desc}</div>
-                    </div>
-                </div>
+        <!-- FILOSOFI SOLUSI -->
+        <div class="body-section" style="margin-top: 30px; border-top: 1px solid #27272a; padding-top: 25px;">
+            <div style="font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; font-style: italic; color: #fbbf24; margin-bottom: 15px; letter-spacing: 0.5px;">
+                Build to Scale, Design to Prevail
             </div>
+            
+            <div style="background: #09090b; border: 1px solid #27272a; border-left: 4px solid #fbbf24; border-radius: 8px; padding: 20px; margin-bottom: 15px;">
+                <p style="font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; font-style: italic; color: #ffffff; line-height: 1.5; margin: 0;">
+                    &ldquo;${quoteText}&rdquo;
+                </p>
+            </div>
+            
+            <p class="paragraph-text" style="font-size: 14.5px; color: #ffffff; line-height: 1.8; text-align: justify; font-weight: 400;">
+                ${combinedText}
+            </p>
         </div>
         
         <div class="page-footer">
             <span>CREDIBLEMARK &bull; Proposal ${title}</span>
-            <span>Halaman 2 dari 6</span>
+            <span>${isEn ? "Page 2 of 6" : "Halaman 2 dari 6"}</span>
         </div>
     </div>
     
