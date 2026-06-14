@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Image from "next/image";
 import { AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
@@ -9,8 +9,24 @@ import { PriceDisplay } from "@/components/providers/currency-provider";
 import { ServiceActionButtons } from "./service-action-buttons";
 import { useTranslations, useLocale } from "next-intl";
 
+interface ServiceData {
+    id: string;
+    title: string;
+    title_id?: string | null;
+    price: number;
+    discount?: number | null;
+    currency?: string | null;
+    interval: string;
+    priceType: string;
+    createdAt: Date | string;
+    visibility: string;
+    image?: string | null;
+    addons?: unknown;
+    addons_id?: unknown;
+}
+
 interface ServiceAccordionItemProps {
-    service: any;
+    service: ServiceData;
     index?: number;
 }
 
@@ -39,12 +55,12 @@ export function ServiceAccordionItem({ service, index }: ServiceAccordionItemPro
                             </span>
                             <div className="flex flex-wrap items-center gap-x-1.5 sm:gap-x-2 gap-y-1 text-[11px] text-zinc-500 mt-1">
                                 <span className="truncate font-semibold text-brand-yellow">
-                                    <PriceDisplay amount={service.discount && service.discount > 0 ? (service.price * (1 - service.discount / 100)) : service.price} baseCurrency={service.currency || 'USD'} />
+                                    <PriceDisplay amount={service.discount && service.discount > 0 ? (service.price * (1 - service.discount / 100)) : service.price} baseCurrency={(service.currency as 'USD' | 'IDR') || 'USD'} />
                                 </span>
                                 {service.discount && service.discount > 0 ? (
                                     <>
                                         <span className="line-through text-zinc-400 text-[10px]">
-                                            <PriceDisplay amount={service.price} baseCurrency={service.currency || 'USD'} />
+                                            <PriceDisplay amount={service.price} baseCurrency={(service.currency as 'USD' | 'IDR') || 'USD'} />
                                         </span>
                                         <span className="text-[10px] bg-red-500/10 text-red-400 border border-red-500/20 px-1 py-0.25 rounded font-bold">
                                             -{service.discount}%

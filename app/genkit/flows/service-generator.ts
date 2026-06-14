@@ -90,24 +90,32 @@ Input Description: "${sanitizedPrompt}"
    - "currency": MUST be exactly "USD" or "IDR" (uppercase, no other values).
      * If the input is in Indonesian or mentions 'Rp', 'Rupiah', 'Juta', or large numbers (> 10000), set currency to 'IDR'.
    
-   - PSYCHOLOGICAL ANCHOR & CHARM PRICING STRATEGY (CRITICAL):
-     * Klien harus merasa mendapatkan diskon besar (sekitar 2.5 hingga 3 kali lipat lebih murah, bahkan bisa sampai diskon 89% untuk mencocokkan anggaran pasar target) untuk menunjukkan profesionalitas premium agensi sambil tetap menjaga harga akhir yang terjangkau.
-     * Pertama, tentukan target Harga Akhir Konsumen (Consumer Price) yang menggunakan strategi Charm Pricing (angka ganjil/tidak bulat mulus) sesuai kerumitan proyek:
-       - Indonesia (IDR) - HARUS berakhiran 990,000 atau 950,000 atau 490,000 atau 450,000 (JANGAN gunakan angka genap bulat seperti 3,000,000 atau 10,000,000):
-         * Low Complexity / UKM / Landing Page: Harga Akhir Konsumen IDR 1,450,000 s.d. IDR 3,450,000.
-         * Medium Complexity / Standard Company Profile / SME E-commerce: Harga Akhir Konsumen IDR 3,950,000 s.d. IDR 14,990,000.
-         * High Complexity / Custom System / SaaS / Enterprise Portal: Harga Akhir Konsumen IDR 15,950,000 s.d. IDR 49,990,000.
-       - Global (USD) - HARUS berakhiran angka 9 atau 7 atau 5 di digit terakhir (JANGAN gunakan angka genap bulat seperti 300 atau 1000):
-         * Low Complexity: Harga Akhir Konsumen USD 249 s.d. USD 599.
-         * Medium Complexity: Harga Akhir Konsumen USD 799 s.d. USD 1,799.
-         * High Complexity: Harga Akhir Konsumen USD 1,999 s.d. USD 5,999.
-     * Kedua, tentukan "discount" (diskon) berupa angka bulat GANJIL antara 51 hingga 89 (misal: 53, 55, 59, 65, 75, 85, 89). JANGAN PERNAH gunakan diskon genap (seperti 50, 60, 70, 80, 90).
-     * Ketiga, hitung "recommended_price" (Harga Asli/Anchor Price) dengan rumus:
-       recommended_price = Harga Akhir Konsumen / (1 - (discount / 100))
-     * Contoh: Jika target Harga Akhir Konsumen adalah IDR 4,990,000 dan diskon ganjil 59%:
-       recommended_price = 4,990,000 / 0.41 = IDR 12,170,731.
-     * Bulatkan "recommended_price" secara cerdas agar tetap menggunakan angka ganjil/menarik (Charm Pricing) di digit signifikan (misalnya dibulatkan menjadi IDR 12,190,000 atau IDR 12,250,000, tanpa desimal, tanpa koma, dan tanpa simbol mata uang).
-     * Dengan begini, harga asli terlihat sangat mahal/premium (menunjukkan kualitas agensi profesional kelas atas), namun harga diskon ganjil yang diberikan ke konsumen terasa jauh lebih murah dan berakhir dengan angka psikologis yang menarik.
+    - PSYCHOLOGICAL ANCHOR & CHARM PRICING STRATEGY (CRITICAL):
+      * Klien harus merasa mendapatkan diskon besar (sekitar 2.5 hingga 3 kali lipat lebih murah, bahkan bisa sampai diskon 89% untuk mencocokkan anggaran pasar target) untuk menunjukkan profesionalitas premium agensi sambil tetap menjaga harga akhir yang terjangkau.
+      * TAHAP 1: Klasifikasikan Target Skala Bisnis (Business Scale Classification) dari deskripsi input ke dalam salah satu dari 5 level berikut:
+        1. Ultra Mikro (UMi): Profil mesjid lokal, warung kelontong rumahan, pedagang kaki lima, komunitas sosial kecil nirlaba.
+        2. Mikro: Bengkel motor lokal independen, barbershop lokal, laundry kiloan, kos-kosan, klinik/praktek mandiri kecil, UKM mikro perorangan.
+        3. Kecil: Cafe lokal, toko bahan bangunan, sekolah swasta lokal, CV lokal, klinik spesialis mandiri, dealer motor bekas.
+        4. Menengah (SME): Hotel/villa butik, e-commerce regional, perusahaan distributor, pabrik manufaktur lokal.
+        5. Besar (Enterprise): Portal korporasi multinasional, SaaS/platform kustom kompleks, marketplace multi-vendor.
+      * TAHAP 2: Berdasarkan hasil klasifikasi skala bisnis tersebut, tetapkan target Harga Akhir Konsumen (Consumer Price) yang menggunakan strategi Charm Pricing (angka ganjil berakhiran 990,000 atau 950,000 atau 490,000 atau 450,000):
+        - Indonesia (IDR) - HARUS berakhiran ganjil (JANGAN gunakan angka genap bulat seperti 3,000,000 atau 10,000,000):
+          * Ultra Mikro (UMi): Harga Akhir Konsumen IDR 1,450,000 s.d. IDR 1,950,000.
+          * Mikro: Harga Akhir Konsumen IDR 2,450,000 s.d. IDR 3,450,000.
+          * Kecil: Harga Akhir Konsumen IDR 3,950,000 s.d. IDR 8,950,000.
+          * Menengah (SME): Harga Akhir Konsumen IDR 9,950,000 s.d. IDR 19,950,000.
+          * Besar (Enterprise): Harga Akhir Konsumen IDR 24,950,000 s.d. IDR 49,990,000+.
+        - Global (USD) - HARUS berakhiran angka 9 atau 7 atau 5 di digit terakhir (JANGAN gunakan angka genap bulat seperti 300 atau 1000):
+          * Ultra Mikro (UMi): Harga Akhir Konsumen USD 149 s.d. USD 199.
+          * Mikro: Harga Akhir Konsumen USD 249 s.d. USD 349.
+          * Kecil: Harga Akhir Konsumen USD 399 s.d. USD 899.
+          * Menengah (SME): Harga Akhir Konsumen USD 999 s.d. USD 1,999.
+          * Besar (Enterprise): Harga Akhir Konsumen USD 2,499 s.d. USD 5,999+.
+      * TAHAP 3: Tentukan "discount" (diskon) berupa angka bulat GANJIL antara 51 hingga 89 (misal: 53, 55, 59, 65, 75, 85, 89). JANGAN PERNAH gunakan diskon genap (seperti 50, 60, 70, 80, 90).
+      * TAHAP 4: Hitung "recommended_price" (Harga Asli/Anchor Price) dengan rumus:
+        recommended_price = Harga Akhir Konsumen / (1 - (discount / 100))
+      * Bulatkan "recommended_price" secara cerdas agar tetap menggunakan angka ganjil/menarik (Charm Pricing) di digit signifikan (misalnya dibulatkan menjadi IDR 12,190,000 atau IDR 12,250,000, tanpa desimal, tanpa koma, dan tanpa simbol mata uang).
+      * Dengan begini, harga asli terlihat sangat mahal/premium (menunjukkan kualitas agensi profesional kelas atas), namun harga diskon ganjil yang diberikan ke konsumen terasa jauh lebih murah dan berakhir dengan angka psikologis yang menarik.
    
    - "interval": MUST be exactly one of: "one_time", "monthly", or "yearly" (no other values).
      * Project development -> "one_time".
@@ -118,32 +126,38 @@ Input Description: "${sanitizedPrompt}"
 5. ADD-ONS ("addons") — (NICHE-SPECIFIC, LOGICAL MARKET, & CHARM PRICING):
    - Generate as many highly specific, high-value add-ons as relevant to capture niche opportunities (no maximum limit, minimum 2-3).
    - SCOPE SEGREGATION (CRITICAL):
-     * If the service requested is a simple or basic marketing website (e.g., Mosque/Mesjid, local brick-and-mortar stores, local building supplies/toko bangunan, small UKM):
+     * If the business scale is UMi (Ultra Mikro) or Mikro (e.g., Mosque/Mesjid, local bengkel, local small UKM):
        - Keep the base package strictly limited to basic and essential features (e.g., simple profile pages, contact info, basic photo gallery).
        - Move ALL advanced, specialized, or extra features (such as online reservation/booking, custom member portal, online donation system, advanced interactive calculator, custom API integrations, dynamic inventory management) into separate Add-ons.
        - This ensures the base package remains highly affordable for tight budgets, while securing upsell opportunities via add-ons.
-   - NICHE OPPORTUNITY MATCHING (CRITICAL):
-     * Do NOT generate generic add-ons (like 'Basic SEO' or 'Extra Pages') unless they are highly tailored to the niche.
-     * Analyze the specific niche/industry of the requested website and brainstorm industry-specific upsells that present high-value business opportunities.
-     * Niche Examples (HARUS MENIRU POLA HARGA GANJIL DI BAWAH INI):
-       - For Car Dealerships: 'Simulasi Kredit & Angsuran Interaktif' (One-time, price: IDR 1,490,000), 'WhatsApp Auto-routing for Test Drive Booking' (Monthly, price: IDR 349,000).
-       - For Clinics/Dentists: 'Sistem Reservasi Jadwal Dokter Real-time' (One-time, price: IDR 2,450,000), 'Integrasi Whatsapp Reminder Jadwal Pasien' (Monthly, price: IDR 490,000).
-       - For Hotels/Villas: 'OTA Channel Manager Integration (Sync with Traveloka, Booking.com)' (Monthly, price: IDR 790,000), 'Sistem Reservasi Kamar & Manajemen Deposit' (One-time, price: IDR 2,950,000).
-       - For E-Commerce: 'Integrasi Kurir Lokal Otomatis & Cek Resi (RajaOngkir/Biteship)' (One-time, price: IDR 1,290,000), 'Inventory Sync & Multi-Warehouse Setup' (One-time, price: IDR 2,750,000).
-       - For Professional Services (Lawyers/Consultants): 'Online Consultation Booking & Invoice Automation' (One-time, price: IDR 1,990,000).
+   - BUSINESS SCALE ADD-ON PRICING (CRITICAL):
+     * Harga add-on ("price") wajib disesuaikan secara logis dengan skala bisnis yang telah diklasifikasikan pada TAHAP 1 agar terjangkau dan disetujui klien:
+       - Ultra Mikro (UMi):
+         * One-Time Add-ons: IDR 249,000 s.d. IDR 490,000.
+         * Monthly Add-ons: IDR 49,000 s.d. IDR 149,000 (JANGAN MELEBIHI IDR 149,000).
+       - Mikro:
+         * One-Time Add-ons: IDR 490,000 s.d. IDR 990,000.
+         * Monthly Add-ons: IDR 99,000 s.d. IDR 290,000 (JANGAN MELEBIHI IDR 290,000).
+       - Kecil:
+         * One-Time Add-ons: IDR 990,000 s.d. IDR 1,990,000.
+         * Monthly Add-ons: IDR 190,000 s.d. IDR 490,000 (JANGAN MELEBIHI IDR 490,000).
+       - Menengah (SME):
+         * One-Time Add-ons: IDR 1,990,000 s.d. IDR 3,990,000.
+         * Monthly Add-ons: IDR 390,000 s.d. IDR 790,000 (JANGAN MELEBIHI IDR 790,000).
+       - Besar (Enterprise):
+         * One-Time Add-ons: IDR 3,990,000 s.d. IDR 7,950,000.
+         * Monthly Add-ons: IDR 490,000 s.d. IDR 990,000 (JANGAN MELEBIHI IDR 990,000).
+     * Batas equivalen untuk Global (USD):
+       - UMi: One-Time max USD 49, Monthly max USD 15.
+       - Mikro: One-Time max USD 99, Monthly max USD 29.
+       - Kecil: One-Time max USD 199, Monthly max USD 49.
+       - Menengah (SME): One-Time max USD 399, Monthly max USD 79.
+       - Besar (Enterprise): One-Time max USD 799, Monthly max USD 99.
    
    - LOGICAL, ACCURATE MARKET, & CHARM PRICING (CRITICAL):
-     * Do NOT use a rigid percentage formula of the base price. Pricing must reflect real-world market rates for digital agency services while remaining highly attractive, affordable, and ended in charm numbers (odd digits).
+     * Pricing must reflect real-world market rates for digital agency services while remaining highly attractive, affordable, and ended in charm numbers (odd digits).
      * Add-on prices must match the base service currency (USD or IDR).
      * EVERY ADD-ON PRICE ("price") MUST BE AN ODD/CHARM NUMBER. JANGAN PERNAH gunakan angka bulat genap (seperti 500,000, 1,000,000, 1,500,000, 2,000,000, 2,500,000, 3,000,000, 4,500,000, atau 50, 100, 150).
-     * Real-World Price Ranges (Indonesia - IDR) — STRICTLY ADHERE TO THESE LIMITS & USE ODD/CHARM ENDINGS (e.g., ending in 90,000, 50,000, 490,000, etc. NEVER use round even numbers like 500,000 or 1,000,000):
-       - One-Time Features: IDR 490,000 to IDR 2,950,000 (One-time setup fee).
-       - Monthly Services: IDR 249,000 to IDR 790,000 per month (ABSOLUTE MAXIMUM: IDR 990,000/month as recurring fee. ANY higher will be rejected by client).
-       - Yearly Services: IDR 1,950,000 to IDR 7,990,000 per year.
-     * Real-World Price Ranges (Global - USD) — STRICTLY ADHERE TO THESE LIMITS & USE ODD/CHARM ENDINGS (e.g., ending in 9, 7, or 5 like 49, 79, 95. JANGAN gunakan nominal genap bulat seperti 50 or 100):
-       - One-Time Features: USD 49 to USD 299.
-       - Monthly Services: USD 25 to USD 79 per month (ABSOLUTE MAXIMUM: USD 99/month as recurring fee).
-       - Yearly Services: USD 199 to USD 799 per year.
      * Ensure every add-on has all 5 fields: "name" (string), "name_id" (string in Indonesian), "price" (number), "interval" ("one_time", "monthly", "yearly"), and "currency" ("USD" or "IDR").
 
 === REQUIRED JSON OUTPUT FORMAT ===
@@ -192,53 +206,6 @@ CRITICAL CONSTRAINTS — ANY VIOLATION WILL CAUSE A SYSTEM ERROR:
 
         if (!output) {
             throw new Error("Failed to generate service content");
-        }
-
-        // VALIDASI & POST-PROCESSING (CRITICAL):
-        // Memastikan kepatuhan aturan bisnis yang ketat secara programatik jika LLM mengabaikan instruksi prompt.
-        if (output.addons && Array.isArray(output.addons)) {
-            // @ts-ignore
-            output.addons = output.addons.map((addon) => {
-                let price = addon.price;
-                const interval = addon.interval;
-                const currency = addon.currency;
-
-                // 1. Batasi harga bulanan (monthly) agar tidak melanggar batas psikologis (maks Rp 990.000 / $99)
-                if (interval === 'monthly') {
-                    if (currency === 'IDR' && price > 990000) {
-                        // Koreksi harga bulanan IDR yang terlalu mahal menjadi harga ganjil yang logis
-                        price = price >= 2000000 ? 790000 : 490000;
-                    } else if (currency === 'USD' && price > 99) {
-                        // Koreksi harga bulanan USD yang terlalu mahal menjadi harga ganjil yang logis
-                        price = price >= 200 ? 79 : 49;
-                    }
-                }
-
-                // 2. Paksa semua harga addon agar menggunakan strategi Charm Pricing (berakhiran ganjil)
-                if (currency === 'IDR') {
-                    // Jika harga berakhiran genap bulat (seperti kelipatan 500.000 atau 100.000), bulatkan ke akhiran ganjil yang menarik
-                    if (price % 100000 === 0) {
-                        price = price - 10000; // Contoh: 2.500.000 -> 2.490.000, 1.500.000 -> 1.490.000
-                    } else if (price % 10000 === 0) {
-                        // Pastikan berakhiran ganjil di digit ratusan/puluhan ribu
-                        const baseStr = price.toString();
-                        if (baseStr.endsWith('0000')) {
-                            price = price - 10000;
-                        }
-                    }
-                } else if (currency === 'USD') {
-                    // Pastikan harga USD diakhiri dengan angka 9, 7, atau 5
-                    const lastDigit = price % 10;
-                    if (lastDigit === 0 || lastDigit === 2 || lastDigit === 4 || lastDigit === 6 || lastDigit === 8) {
-                        price = price - 1; // Ubah ke angka ganjil di bawahnya (misal 50 -> 49)
-                    }
-                }
-
-                return {
-                    ...addon,
-                    price
-                };
-            });
         }
 
         return output;
