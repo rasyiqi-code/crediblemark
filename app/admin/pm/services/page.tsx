@@ -48,10 +48,11 @@ export default async function ServicesPage() {
                     </div>
                 ) : (
                     <Accordion type="multiple" className="w-full space-y-2">
-                        {services.map((service) => (
+                        {services.map((service, index) => (
                             <ServiceAccordionItem
                                 key={service.id}
                                 service={service}
+                                index={index + 1}
                             />
                         ))}
                     </Accordion>

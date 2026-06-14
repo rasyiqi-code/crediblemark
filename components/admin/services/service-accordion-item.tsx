@@ -11,9 +11,10 @@ import { useTranslations, useLocale } from "next-intl";
 
 interface ServiceAccordionItemProps {
     service: any;
+    index?: number;
 }
 
-export function ServiceAccordionItem({ service }: ServiceAccordionItemProps) {
+export function ServiceAccordionItem({ service, index }: ServiceAccordionItemProps) {
     const t = useTranslations("Admin.Services");
     const locale = useLocale();
     const isId = locale === 'id' || locale === 'id-ID';
@@ -33,7 +34,9 @@ export function ServiceAccordionItem({ service }: ServiceAccordionItemProps) {
                 <div className="flex flex-1 items-center justify-between gap-4 min-w-0">
                     <div className="flex items-start gap-2 sm:gap-3 min-w-0 flex-1">
                         <div className="flex-1 min-w-0 pr-2">
-                            <span className="font-medium text-white text-sm truncate block">{displayTitle}</span>
+                            <span className="font-medium text-white text-sm truncate block">
+                                {index ? `${index}. ` : ""}{displayTitle}
+                            </span>
                             <div className="flex flex-wrap items-center gap-x-1.5 sm:gap-x-2 gap-y-1 text-[11px] text-zinc-500 mt-1">
                                 <span className="truncate font-semibold text-brand-yellow">
                                     <PriceDisplay amount={service.discount && service.discount > 0 ? (service.price * (1 - service.discount / 100)) : service.price} baseCurrency={service.currency || 'USD'} />
