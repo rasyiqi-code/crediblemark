@@ -228,7 +228,7 @@ export function FloatingChatWidget() {
     const isServicePage = pathname?.match(/^\/[a-z]{2}\/services\/[^/]+$/) || pathname?.match(/^\/services\/[^/]+$/);
     const isWordPressPage = pathname?.match(/^\/[a-z]{2}\/wordpress$/) || pathname === "/wordpress";
 
-    if (!isVisible || isProductPage || isCalcResultPage || isServicePage) return null;
+    if (!isVisible || isProductPage || isCalcResultPage) return null;
 
     if (!isOpen) {
         return (

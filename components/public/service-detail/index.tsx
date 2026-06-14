@@ -9,6 +9,8 @@ import { ServiceFeatures } from "./features";
 import { Deliverables } from "./deliverables";
 import { FooterInfo } from "./footer-info";
 import { StickyCTA } from "./sticky-cta";
+import { MessageSquare } from "lucide-react";
+import { useFloatingChat } from "@/lib/store/floating-chat-store";
 
 interface ServiceDetailContentProps
 {
@@ -21,6 +23,7 @@ interface ServiceDetailContentProps
 export function ServiceDetailContent({ service, isId, trustedAvatars = [] }: ServiceDetailContentProps)
 {
     const tService = useTranslations("Service");
+    const { setIsOpen } = useFloatingChat();
 
     // Fallback to EN if ID content is missing
     const displayTitle = (isId && service.title_id) ? service.title_id : service.title;
@@ -88,6 +91,19 @@ export function ServiceDetailContent({ service, isId, trustedAvatars = [] }: Ser
                 intervalLabel={intervalLabel}
                 selectedAddons={selectedAddons}
             />
+
+            {/* Tombol pemicu chat tambahan di pojok kiri bawah */}
+            <div className="fixed bottom-8 left-8 z-50">
+                <button
+                    type="button"
+                    onClick={() => setIsOpen(true)}
+                    className="flex items-center justify-center w-12 h-12 rounded-full bg-zinc-900 border border-white/10 text-brand-yellow shadow-2xl hover:bg-zinc-800 hover:scale-105 active:scale-95 transition-all group cursor-pointer"
+                    title={isId ? "Konsultasi Gratis" : "Free Consultation"}
+                    aria-label="Chat"
+                >
+                    <MessageSquare className="w-5 h-5 group-hover:animate-pulse" />
+                </button>
+            </div>
         </div>
     );
 }
