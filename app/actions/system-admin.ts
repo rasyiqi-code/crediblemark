@@ -211,3 +211,10 @@ export async function testResendConfiguration(targetEmail?: string) {
     
     return { success: true };
 }
+
+export async function getAgencyLogo() {
+    const setting = await prisma.systemSetting.findUnique({
+        where: { key: "AGENCY_LOGO" }
+    });
+    return setting?.value || null;
+}

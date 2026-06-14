@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { FileDown, Loader2 } from "lucide-react";
 import { ServiceAddon } from "@/lib/shared/types";
 import { useLocale } from "next-intl";
 import idMessages from "@/messages/id.json";
 import enMessages from "@/messages/en.json";
+import { getAgencyLogo } from "@/app/actions/system-admin";
 
 interface ServiceData {
     id: string;
@@ -27,7 +28,12 @@ interface ServiceData {
 
 export function ExportPdfButton({ service }: { service: ServiceData }) {
     const [isGenerating, setIsGenerating] = useState(false);
+    const [logoUrl, setLogoUrl] = useState<string | null>(null);
     const locale = useLocale();
+
+    useEffect(() => {
+        getAgencyLogo().then(setLogoUrl).catch(console.error);
+    }, []);
 
     const handleExport = () => {
         setIsGenerating(true);
@@ -931,6 +937,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         
         <div class="cover-content">
             <div class="logo-container">
+                ${logoUrl ? `<img src="${logoUrl}" alt="Logo" style="height: 32px; width: auto; object-fit: contain;" />` : ''}
                 <div class="logo-text">CREDIBLEMARK</div>
             </div>
             
