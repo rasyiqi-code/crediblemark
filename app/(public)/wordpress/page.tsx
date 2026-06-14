@@ -1,5 +1,5 @@
 import { Metadata, ResolvingMetadata } from "next";
-import { getLocale, getTranslations } from "next-intl/server";
+import { getLocale } from "next-intl/server";
 import { getPageSeo } from "@/lib/server/seo";
 import { getSystemSettings } from "@/lib/server/settings";
 import { BreadcrumbSchema } from "@/components/seo/breadcrumb-schema";

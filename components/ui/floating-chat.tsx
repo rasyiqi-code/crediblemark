@@ -225,7 +225,6 @@ export function FloatingChatWidget() {
     // Hide floating chat on specific pages to prevent overlapping with mobile sticky CTA
     const isProductPage = pathname?.match(/^\/[a-z]{2}\/products\/[^/]+$/) || pathname?.match(/^\/products\/[^/]+$/);
     const isCalcResultPage = pathname?.match(/^\/[a-z]{2}\/price-calculator\/[^/]+$/) || pathname?.match(/^\/price-calculator\/[^/]+$/);
-    const isServicePage = pathname?.match(/^\/[a-z]{2}\/services\/[^/]+$/) || pathname?.match(/^\/services\/[^/]+$/);
     const isWordPressPage = pathname?.match(/^\/[a-z]{2}\/wordpress$/) || pathname === "/wordpress";
 
     if (!isVisible || isProductPage || isCalcResultPage) return null;

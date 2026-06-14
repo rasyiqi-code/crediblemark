@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react";
 import { Check, ArrowRight, Sparkles, ChevronLeft, ChevronRight } from "lucide-react";
-import { useRouter } from "next/navigation";
+
 import { useFloatingChat } from "@/lib/store/floating-chat-store";
 
 // Tipe data untuk Paket WordPress
@@ -36,7 +36,6 @@ interface InteractivePricingProps {
 
 export function InteractivePricing({ locale }: InteractivePricingProps) {
     const isId = locale === "id";
-    const router = useRouter();
     const { setIsMenuOpen, setDefaultInput } = useFloatingChat();
 
     // 1. Definisikan 3 Paket WordPress
