@@ -1267,8 +1267,8 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
                         : ``
                     ) + `
                     <div class="sig-line"></div>
-                    <span class="sig-name">M. Rasyiqi</span>
-                    <span class="sig-title">Director, Crediblemark</span>
+                    <span class="sig-name">Rasyiqi</span>
+                    <span class="sig-title">Crediblemark</span>
                 </div>
                 <div class="sig-box">
                     <div class="sig-line"></div>
