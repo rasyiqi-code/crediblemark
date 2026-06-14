@@ -345,6 +345,9 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
             {/* 2. Grid Konfigurasi & Total */}
             <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 items-start pt-2 md:pt-3">
                 
+                {/* Kolom Kiri: Detail Paket Terpilih & Add-ons */}
+                <div className="lg:col-span-7 space-y-4 md:space-y-5">
+                    
                     {/* Deskripsi Paket Aktif */}
                     <div className="rounded-2xl border border-white/5 bg-zinc-900 p-5 sm:p-6 space-y-5">
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
