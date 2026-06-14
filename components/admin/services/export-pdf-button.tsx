@@ -226,7 +226,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             line-height: 1.6;
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
-            font-size: 17px;
+            font-size: 16px;
         }
         
         @page {
@@ -322,7 +322,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         }
         
         .logo-text {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 800;
             color: #ffffff;
             letter-spacing: 2px;
@@ -336,7 +336,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             display: inline-block;
             background: #d97706;
             color: #ffffff;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 2.5px;
@@ -347,7 +347,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         
         .main-title {
             font-family: 'Playfair Display', serif;
-            font-size: 48px;
+            font-size: 45px;
             font-weight: 700;
             color: #ffffff;
             line-height: 1.2;
@@ -362,7 +362,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         }
         
         .sub-title {
-            font-size: 18px;
+            font-size: 17px;
             color: #ffffff;
             font-weight: 400;
             max-width: 145mm;
@@ -379,7 +379,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         }
         
         .metadata-label {
-            font-size: 12px;
+            font-size: 11px;
             text-transform: uppercase;
             color: #ffffff;
             letter-spacing: 1px;
@@ -387,7 +387,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         }
         
         .metadata-value {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 600;
             color: #ffffff;
         }
@@ -404,13 +404,13 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         
         .section-title {
             font-family: 'Playfair Display', serif;
-            font-size: 32px;
+            font-size: 30px;
             font-weight: 700;
             color: #ffffff;
         }
         
         .section-subtitle-badge {
-            font-size: 12px;
+            font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 1.5px;
             color: #fbbf24;
@@ -422,7 +422,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         }
  
         .body-section-title {
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 700;
             color: #fbbf24;
             margin-bottom: 15px;
@@ -431,7 +431,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         }
  
         .desc-content {
-            font-size: 17px;
+            font-size: 16px;
             color: #ffffff;
             line-height: 1.8;
         }
@@ -487,7 +487,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         }
  
         .feature-card-text {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
             color: #ffffff;
             line-height: 1.5;
@@ -504,7 +504,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         .comp-box {
             border-radius: 8px;
             padding: 20px;
-            font-size: 15px;
+            font-size: 14.5px;
         }
  
         .comp-box.old {
@@ -518,7 +518,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         }
  
         .comp-title-bar {
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 800;
             margin-bottom: 14px;
             text-transform: uppercase;
@@ -545,7 +545,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         }
  
         .comp-icon {
-            font-size: 20px;
+            font-size: 19px;
             font-weight: bold;
             flex-shrink: 0;
             margin-top: 1px;
@@ -591,7 +591,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 15px;
+            font-size: 14.5px;
             font-weight: bold;
             flex-shrink: 0;
         }
@@ -602,14 +602,14 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         }
  
         .success-card-title {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 700;
             color: #ffffff;
             margin-bottom: 6px;
         }
  
         .success-card-desc {
-            font-size: 14px;
+            font-size: 13px;
             color: #ffffff;
             line-height: 1.5;
         }
@@ -628,7 +628,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             display: inline-block;
             background: #fbbf24;
             color: #000000;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1.5px;
@@ -638,14 +638,14 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         }
  
         .guarantee-title {
-            font-size: 17px;
+            font-size: 16px;
             font-weight: 800;
             color: #ffffff;
             margin-bottom: 8px;
         }
  
         .guarantee-desc {
-            font-size: 15px;
+            font-size: 14px;
             color: #ffffff;
             line-height: 1.6;
             text-align: justify;
@@ -674,7 +674,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 800;
             flex-shrink: 0;
             margin-top: 2px;
@@ -687,7 +687,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         }
  
         .workflow-item-title {
-            font-size: 16.5px;
+            font-size: 15.5px;
             font-weight: 800;
             color: #ffffff;
             text-transform: uppercase;
@@ -695,7 +695,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         }
  
         .workflow-item-desc {
-            font-size: 14.5px;
+            font-size: 13.5px;
             color: #ffffff;
             line-height: 1.6;
             text-align: justify;
@@ -712,7 +712,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         .fin-box {
             border-radius: 8px;
             padding: 14px 18px;
-            font-size: 14px;
+            font-size: 13.5px;
             display: flex;
             flex-direction: column;
         }
@@ -728,7 +728,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         }
  
         .fin-title-bar {
-            font-size: 14.5px;
+            font-size: 14px;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -743,7 +743,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         }
  
         .fin-sub-value {
-            font-size: 16.5px;
+            font-size: 15.5px;
             font-weight: 700;
             margin-top: 4px;
         }
@@ -757,7 +757,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         }
  
         .fin-desc {
-            font-size: 12.5px;
+            font-size: 12px;
             color: #ffffff;
             margin-top: 2px;
             margin-bottom: 10px;
@@ -780,7 +780,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             margin-bottom: 8px;
             line-height: 1.4;
             color: #ffffff;
-            font-size: 14px;
+            font-size: 13.5px;
         }
  
         .fin-icon {
@@ -815,7 +815,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         }
  
         .pricing-price {
-            font-size: 38px;
+            font-size: 35px;
             font-weight: 700;
             color: #fbbf24;
         }
@@ -831,7 +831,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         .proposal-table th {
             background: #18181b;
             color: #ffffff;
-            font-size: 13px;
+            font-size: 12.5px;
             font-weight: 600;
             text-align: left;
             padding: 12px 14px;
@@ -841,7 +841,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         
         .proposal-table td {
             padding: 12px 14px;
-            font-size: 15px;
+            font-size: 14.5px;
             border-bottom: 1px solid #27272a;
             color: #ffffff;
             vertical-align: middle;
@@ -871,13 +871,13 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         }
         
         .sig-name {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
             color: #ffffff;
         }
         
         .sig-title {
-            font-size: 14px;
+            font-size: 13px;
             color: #ffffff;
         }
         
@@ -892,7 +892,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 12px;
+            font-size: 11px;
             color: #ffffff;
         }
     </style>
@@ -946,7 +946,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         <!-- PROSES KERJA JUJUR (Workflow Section) - Mengisi kekosongan Halaman 2 secara fungsional & mewah -->
         <div class="body-section" style="margin-top: 25px; border-top: 1px solid #27272a; padding-top: 20px;">
             <h3 class="body-section-title">${tWorkflowTitle}</h3>
-            <p class="paragraph-text" style="font-size: 15px; color: #ffffff; margin-bottom: 15px;">
+            <p class="paragraph-text" style="font-size: 14px; color: #ffffff; margin-bottom: 15px;">
                 ${tWorkflowSubtitle}
             </p>
             
@@ -989,7 +989,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         </div>
 
         <div class="body-section">
-            <p class="paragraph-text" style="font-size: 17px; color: #ffffff; margin-bottom: 15px;">
+            <p class="paragraph-text" style="font-size: 16px; color: #ffffff; margin-bottom: 15px;">
                 Daftar lengkap fitur spesifik dan deliverables hasil kerja yang tercakup dalam solusi layanan ini:
             </p>
             
@@ -1021,7 +1021,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         <!-- Kenapa Pilih Kami (Comparison Section) -->
         <div class="body-section" style="margin-bottom: 25px;">
             <h3 class="body-section-title">${tCompTitle}</h3>
-            <p class="paragraph-text" style="font-size: 15px; color: #ffffff; margin-bottom: 8px;">
+            <p class="paragraph-text" style="font-size: 14px; color: #ffffff; margin-bottom: 8px;">
                 ${tCompSubtitle}
             </p>
             <div class="comp-container">
@@ -1132,7 +1132,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         <!-- Yang Jarang Disadari (Logika Finansial) -->
         <div class="body-section" style="margin-bottom: 20px;">
             <h3 class="body-section-title">${tFinTitle}</h3>
-            <p class="paragraph-text" style="font-size: 15px; color: #ffffff; margin-bottom: 8px;">
+            <p class="paragraph-text" style="font-size: 14px; color: #ffffff; margin-bottom: 8px;">
                 ${tFinSubtitle}
             </p>
             <div class="fin-container">
@@ -1162,12 +1162,12 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             <h3 class="body-section-title">Investasi Layanan</h3>
             <div class="pricing-banner">
                 <div class="pricing-info">
-                    <span style="font-size: 13px; text-transform: uppercase; color: #ffffff; letter-spacing: 0.5px;">Biaya Layanan Utama (${priceModel})</span>
+                    <span style="font-size: 12px; text-transform: uppercase; color: #ffffff; letter-spacing: 0.5px;">Biaya Layanan Utama (${priceModel})</span>
                     <span class="pricing-price">${formattedPrice}</span>
                 </div>
                 <div style="text-align: right;">
-                    <span style="font-size: 13px; text-transform: uppercase; color: #ffffff; letter-spacing: 0.5px;">Skema Pembayaran</span>
-                    <span style="font-size: 18px; font-weight: 600; color: #ffffff; display: block;">${intervalLabel}</span>
+                    <span style="font-size: 12px; text-transform: uppercase; color: #ffffff; letter-spacing: 0.5px;">Skema Pembayaran</span>
+                    <span style="font-size: 17px; font-weight: 600; color: #ffffff; display: block;">${intervalLabel}</span>
                 </div>
             </div>
         </div>
@@ -1197,7 +1197,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         </div>
 
         <div class="body-section">
-            <p class="paragraph-text" style="font-size: 14px; color: #ffffff; line-height: 1.5; margin-bottom: 12px;">
+            <p class="paragraph-text" style="font-size: 13px; color: #ffffff; line-height: 1.5; margin-bottom: 12px;">
                 Dengan menandatangani dokumen ini, kedua belah pihak menyepakati rincian fitur kerja, nilai investasi, serta skema pembayaran yang tertera di atas.
             </p>
             
