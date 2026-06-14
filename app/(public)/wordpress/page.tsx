@@ -121,13 +121,30 @@ export default async function WordPressLandingPage() {
                 <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 h-96 w-96 rounded-full bg-violet-600/10 blur-[150px]" />
                 <div className="absolute top-1/3 left-1/3 -z-10 h-72 w-72 rounded-full bg-blue-500/5 blur-[120px]" />
 
-                <div className="container mx-auto max-w-4xl space-y-6">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-violet-500/20 bg-violet-500/5 text-xs text-violet-400 font-mono tracking-wider uppercase">
+                {/* Floating WordPress Logos in Background */}
+                <div className="absolute top-1/4 left-[10%] opacity-[0.03] text-violet-500 animate-float-slow pointer-events-none hidden lg:block">
+                    <svg viewBox="0 0 24 24" className="w-32 h-32" fill="currentColor">
+                        <path d="M12.158 12.786l-2.698 7.84a9.755 9.755 0 005.08-.105l-2.382-7.735zm-.316-1.042l2.23-6.52a9.697 9.697 0 00-3.922 0l2.227 6.52h-0.535zm-2.072 1.042h-.01a9.742 9.742 0 00-.77 4.195c0 1.282.25 2.5.698 3.62L7.332 11.238a9.638 9.638 0 002.438 1.548zm5.556 0c1.077-.478 1.838-1.547 1.838-2.81 0-1.636-1.127-2.842-2.585-2.842-1.072 0-2.146.61-2.146 1.8 0 .937.69 1.573 1.284 2.138.535.508.953.905.953 1.55 0 .48-.22.848-.567 1.066a1.325 1.325 0 01-.676.19c-.538 0-.96-.285-1.32-.61l-.25-.213a9.719 9.719 0 003.468-.863zM12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22.8c-5.955 0-10.8-4.845-10.8-10.8S6.045 1.2 12 1.2 22.8 6.045 22.8 12 17.955 22.8 12 22.8z"/>
+                    </svg>
+                </div>
+                <div className="absolute top-1/3 right-[12%] opacity-[0.02] text-blue-500 animate-float-reverse-slow pointer-events-none hidden lg:block">
+                    <svg viewBox="0 0 24 24" className="w-40 h-40" fill="currentColor">
+                        <path d="M12.158 12.786l-2.698 7.84a9.755 9.755 0 005.08-.105l-2.382-7.735zm-.316-1.042l2.23-6.52a9.697 9.697 0 00-3.922 0l2.227 6.52h-0.535zm-2.072 1.042h-.01a9.742 9.742 0 00-.77 4.195c0 1.282.25 2.5.698 3.62L7.332 11.238a9.638 9.638 0 002.438 1.548zm5.556 0c1.077-.478 1.838-1.547 1.838-2.81 0-1.636-1.127-2.842-2.585-2.842-1.072 0-2.146.61-2.146 1.8 0 .937.69 1.573 1.284 2.138.535.508.953.905.953 1.55 0 .48-.22.848-.567 1.066a1.325 1.325 0 01-.676.19c-.538 0-.96-.285-1.32-.61l-.25-.213a9.719 9.719 0 003.468-.863zM12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22.8c-5.955 0-10.8-4.845-10.8-10.8S6.045 1.2 12 1.2 22.8 6.045 22.8 12 17.955 22.8 12 22.8z"/>
+                    </svg>
+                </div>
+                <div className="absolute top-1/2 left-[50%] -translate-x-1/2 opacity-[0.03] text-violet-500 animate-float-slow pointer-events-none block lg:hidden">
+                    <svg viewBox="0 0 24 24" className="w-24 h-24" fill="currentColor">
+                        <path d="M12.158 12.786l-2.698 7.84a9.755 9.755 0 005.08-.105l-2.382-7.735zm-.316-1.042l2.23-6.52a9.697 9.697 0 00-3.922 0l2.227 6.52h-0.535zm-2.072 1.042h-.01a9.742 9.742 0 00-.77 4.195c0 1.282.25 2.5.698 3.62L7.332 11.238a9.638 9.638 0 002.438 1.548zm5.556 0c1.077-.478 1.838-1.547 1.838-2.81 0-1.636-1.127-2.842-2.585-2.842-1.072 0-2.146.61-2.146 1.8 0 .937.69 1.573 1.284 2.138.535.508.953.905.953 1.55 0 .48-.22.848-.567 1.066a1.325 1.325 0 01-.676.19c-.538 0-.96-.285-1.32-.61l-.25-.213a9.719 9.719 0 003.468-.863zM12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22.8c-5.955 0-10.8-4.845-10.8-10.8S6.045 1.2 12 1.2 22.8 6.045 22.8 12 17.955 22.8 12 22.8z"/>
+                    </svg>
+                </div>
+
+                <div className="container mx-auto max-w-4xl space-y-6 animate-hero-fade-in">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-violet-500/20 bg-violet-500/5 text-xs text-violet-400 font-mono tracking-wider uppercase animate-hero-fade-up">
                         <Sparkles className="w-3.5 h-3.5 animate-pulse" />
                         {isId ? "Kinerja Tinggi • Bebas Bloatware" : "High Performance • Bloat-Free"}
                     </div>
 
-                    <h1 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-white leading-[1.1]">
+                    <h1 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-white leading-[1.1] animate-hero-fade-up animation-delay-100">
                         {isId ? "Jasa Pembuatan Website " : "Premium Custom "}
                         <span className="bg-gradient-to-r from-violet-400 via-fuchsia-300 to-indigo-400 bg-clip-text text-transparent">
                             WordPress
@@ -135,13 +152,13 @@ export default async function WordPressLandingPage() {
                         {isId ? " Premium" : " Development"}
                     </h1>
 
-                    <p className="text-zinc-400 text-sm sm:text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+                    <p className="text-zinc-400 text-sm sm:text-lg md:text-xl max-w-2xl mx-auto leading-relaxed animate-hero-fade-up animation-delay-200">
                         {isId
                             ? "Kami membangun arsitektur WordPress dari nol menggunakan core blocks yang ringan. Skor kecepatan 90+, sistem keamanan berlapis, dan 100% hak milik Anda."
                             : "We engineer WordPress architectures from scratch using lightweight core blocks. 90+ mobile speed scores, fortified security walls, and 100% full ownership."}
                     </p>
 
-                    <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4 animate-hero-fade-up animation-delay-300">
                         <a
                             href="#pricing"
                             className="bg-violet-600 hover:bg-violet-500 text-white font-bold h-12 px-8 rounded-xl transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-violet-600/20 flex items-center justify-center gap-2 cursor-pointer w-full sm:w-auto text-sm"
