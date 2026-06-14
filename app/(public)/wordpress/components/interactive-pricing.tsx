@@ -212,14 +212,14 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
     };
 
     return (
-        <div className="space-y-10">
+        <div className="space-y-4 md:space-y-6">
             
             {/* 1. Selector Tipe Paket (Tabs) */}
-            <div className="space-y-4">
+            <div className="space-y-3">
                 <h4 className="text-xs font-bold uppercase tracking-widest text-zinc-500 text-center md:text-left">
                     {isId ? "1. Pilih Tipe Paket Layanan:" : "1. Choose Your Package Tier:"}
                 </h4>
-                <div className="flex overflow-x-auto md:overflow-visible gap-3 pt-3 pb-3 snap-x snap-mandatory scroll-smooth no-scrollbar md:grid md:grid-cols-3 md:gap-4 md:pb-0 md:pt-4">
+                <div className="flex overflow-x-auto md:overflow-visible gap-3 pt-2 pb-2 snap-x snap-mandatory scroll-smooth no-scrollbar md:grid md:grid-cols-3 md:gap-4 md:pb-0 md:pt-3">
                     {packagesList.map((pkg) => {
                         const isActive = pkg.id === selectedPackageId;
                         return (
@@ -265,7 +265,7 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
             </div>
 
             {/* Aksi Konfigurasi & Add-ons khusus Mobile (di bawah Selector Tipe Paket) */}
-            <div className="md:hidden space-y-4">
+            <div className="md:hidden space-y-3">
                 <div className="grid grid-cols-2 gap-3">
                     {/* Tombol Toggle Add-ons */}
                     <button
@@ -360,17 +360,15 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
                 )}
             </div>
 
-            <hr className="border-white/5" />
-
             {/* 2. Grid Konfigurasi & Total */}
-            <div className="grid lg:grid-cols-12 gap-10 items-start">
+            <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 items-start pt-2 md:pt-3">
                 
                 {/* Kolom Kiri: Detail Paket Terpilih & Add-ons */}
-                <div className="lg:col-span-7 space-y-8">
+                <div className="lg:col-span-7 space-y-4 md:space-y-5">
                     
                     {/* Deskripsi Paket Aktif */}
-                    <div className="rounded-2xl border border-white/5 bg-zinc-900 p-6 space-y-6">
-                        <div className="flex items-center gap-3">
+                    <div className="rounded-2xl border border-white/5 bg-zinc-900 p-5 sm:p-6 space-y-5">
+                        <div className="flex items-center gap-2.5">
                             <span className="text-xs font-mono font-bold text-brand-yellow bg-brand-yellow/10 px-2 py-1 rounded">
                                 {isId ? "PAKET AKTIF" : "ACTIVE TIER"}
                             </span>
@@ -382,11 +380,11 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
                             {isId ? activePackage.descId : activePackage.descEn}
                         </p>
 
-                        <div className="pt-2">
-                            <h5 className="text-xs font-bold uppercase tracking-wider text-zinc-500 mb-3">
+                        <div className="pt-1">
+                            <h5 className="text-xs font-bold uppercase tracking-wider text-zinc-500 mb-2">
                                 {isId ? "Fitur Bawaan Paket:" : "Included Features:"}
                             </h5>
-                            <ul className="grid sm:grid-cols-2 gap-3">
+                            <ul className="grid sm:grid-cols-2 gap-x-4 gap-y-2">
                                 {(isId ? activePackage.featuresId : activePackage.featuresEn).map((feature, idx) => (
                                     <li key={idx} className="flex items-center gap-2.5 text-xs sm:text-sm text-zinc-300">
                                         <div className="w-4 h-4 rounded-full bg-brand-yellow/15 flex items-center justify-center shrink-0">
@@ -400,11 +398,11 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
                     </div>
 
                     {/* Selector Add-ons (Hanya muncul di Desktop) */}
-                    <div className="hidden md:block space-y-4 border-t border-white/5 pt-6">
+                    <div className="hidden md:block space-y-3 border-t border-white/5 pt-4">
                         <h4 className="text-xs font-bold uppercase tracking-widest text-zinc-500">
                             {isId ? "2. Tambahkan Add-ons Opsional:" : "2. Select Optional Add-ons:"}
                         </h4>
-                        <div className="space-y-3">
+                        <div className="space-y-2.5">
                             {addonsList.map((addon) => {
                                 const selected = selectedAddons.includes(addon.id);
                                 const isDetailOpen = openAddonDetails.includes(addon.id);
@@ -468,15 +466,15 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
                 </div>
 
                 {/* Kolom Kanan: Rincian Harga & Panggilan Aksi */}
-                <div className="hidden md:block lg:col-span-5 border-t border-white/5 lg:border-t-0 lg:border-l lg:border-white/5 lg:pl-10 pt-8 lg:pt-0">
-                    <div className="rounded-2xl bg-zinc-900 border border-white/5 p-6 space-y-6">
+                <div className="hidden md:block lg:col-span-5 border-t border-white/5 lg:border-t-0 lg:border-l lg:border-white/5 lg:pl-8 pt-6 lg:pt-0">
+                    <div className="rounded-2xl bg-zinc-900 border border-white/5 p-5 sm:p-6 space-y-5">
                         <h4 className="text-xs font-bold uppercase tracking-widest text-zinc-400">
                             {isId ? "3. Rincian Investasi" : "3. Investment Summary"}
                         </h4>
 
                         <div className="space-y-4">
                             {/* Harga Paket Dasar */}
-                            <div className="flex items-center justify-between text-xs sm:text-sm text-zinc-400 border-b border-white/5 pb-3">
+                            <div className="flex items-center justify-between text-xs sm:text-sm text-zinc-400 border-b border-white/5 pb-2">
                                 <span className="truncate max-w-[150px] sm:max-w-none">
                                     {isId ? activePackage.nameId : activePackage.nameEn} (Base)
                                 </span>
@@ -487,7 +485,7 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
 
                             {/* Daftar Add-ons */}
                             {selectedAddonObjects.length > 0 && (
-                                <div className="space-y-2 border-b border-white/5 pb-3">
+                                <div className="space-y-1.5 border-b border-white/5 pb-2">
                                     <span className="text-[10px] uppercase font-mono font-bold tracking-wider text-zinc-500 block">
                                         ADD-ONS:
                                     </span>

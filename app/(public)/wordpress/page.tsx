@@ -116,7 +116,7 @@ export default async function WordPressLandingPage() {
             />
 
             {/* Hero Section */}
-            <section className="relative pt-24 pb-20 md:pt-40 md:pb-32 flex flex-col items-center text-center px-4 sm:px-6">
+            <section className="relative pt-20 pb-12 md:pt-28 md:pb-16 flex flex-col items-center text-center px-4 sm:px-6">
                 {/* Background Glows */}
                 <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 h-[500px] w-[500px] rounded-full bg-brand-yellow/5 blur-[150px] animate-nebula-slow" />
                 <div className="absolute top-1/3 left-1/3 -z-10 h-96 w-96 rounded-full bg-brand-yellow/2 blur-[120px] animate-nebula-reverse" />
@@ -189,9 +189,9 @@ export default async function WordPressLandingPage() {
             </section>
 
             {/* Bento Grid: Keunggulan Layanan */}
-            <section className="py-16 bg-zinc-950/20 border-y border-white/5 relative">
-                <div className="container mx-auto px-6 max-w-6xl space-y-12">
-                    <div className="text-center space-y-4">
+            <section className="py-10 md:py-14 bg-zinc-950/20 border-y border-white/5 relative">
+                <div className="container mx-auto px-6 max-w-6xl space-y-8 md:space-y-10">
+                    <div className="text-center space-y-3">
                         <h2 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight">
                             {isId ? "Mengapa WordPress Kami Berbeda?" : "Why Our WordPress Sites Excel?"}
                         </h2>
@@ -202,9 +202,9 @@ export default async function WordPressLandingPage() {
                         </p>
                     </div>
 
-                    <div className="grid md:grid-cols-12 gap-6">
+                    <div className="grid md:grid-cols-12 gap-4 md:gap-5">
                         {/* Box 1: UI/UX Kustom (Size: 7/12) */}
-                        <div className="md:col-span-7 rounded-2xl border border-white/5 bg-zinc-900 p-6 sm:p-8 flex flex-col justify-between hover:border-brand-yellow/30 hover:shadow-[0_10px_30px_rgba(254,215,0,0.15)] hover:-translate-y-1 transition-all duration-300 group">
+                        <div className="md:col-span-7 rounded-2xl border border-white/5 bg-zinc-900 p-5 sm:p-6 flex flex-col justify-between hover:border-brand-yellow/30 hover:shadow-[0_10px_30px_rgba(254,215,0,0.15)] hover:-translate-y-1 transition-all duration-300 group">
                             <div className="space-y-4">
                                 <div className="w-10 h-10 rounded-xl bg-brand-yellow/10 flex items-center justify-center">
                                     <Sparkles className="w-5 h-5 text-brand-yellow group-hover:scale-125 group-hover:rotate-12 transition-transform duration-300" />
@@ -221,7 +221,7 @@ export default async function WordPressLandingPage() {
                         </div>
 
                         {/* Box 2: Kecepatan Laju (Size: 5/12) */}
-                        <div className="md:col-span-5 rounded-2xl border border-white/5 bg-zinc-900 p-6 sm:p-8 flex flex-col justify-between hover:border-brand-yellow/30 hover:shadow-[0_10px_30px_rgba(254,215,0,0.15)] hover:-translate-y-1 transition-all duration-300 group">
+                        <div className="md:col-span-5 rounded-2xl border border-white/5 bg-zinc-900 p-5 sm:p-6 flex flex-col justify-between hover:border-brand-yellow/30 hover:shadow-[0_10px_30px_rgba(254,215,0,0.15)] hover:-translate-y-1 transition-all duration-300 group">
                             <div className="space-y-4">
                                 <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center">
                                     <Zap className="w-5 h-5 text-emerald-400 group-hover:scale-125 group-hover:-rotate-12 transition-transform duration-300" />
@@ -238,7 +238,7 @@ export default async function WordPressLandingPage() {
                         </div>
 
                         {/* Box 3: Keamanan (Size: 5/12) */}
-                        <div className="md:col-span-5 rounded-2xl border border-white/5 bg-zinc-900 p-6 sm:p-8 flex flex-col justify-between hover:border-brand-yellow/30 hover:shadow-[0_10px_30px_rgba(254,215,0,0.15)] hover:-translate-y-1 transition-all duration-300 group">
+                        <div className="md:col-span-5 rounded-2xl border border-white/5 bg-zinc-900 p-5 sm:p-6 flex flex-col justify-between hover:border-brand-yellow/30 hover:shadow-[0_10px_30px_rgba(254,215,0,0.15)] hover:-translate-y-1 transition-all duration-300 group">
                             <div className="space-y-4">
                                 <div className="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center">
                                     <Shield className="w-5 h-5 text-red-400 group-hover:scale-110 group-hover:animate-pulse transition-transform duration-300" />
@@ -255,7 +255,7 @@ export default async function WordPressLandingPage() {
                         </div>
 
                         {/* Box 4: E-commerce & Toko Online (Size: 7/12) */}
-                        <div className="md:col-span-7 rounded-2xl border border-white/5 bg-zinc-900 p-6 sm:p-8 flex flex-col justify-between hover:border-brand-yellow/30 hover:shadow-[0_10px_30px_rgba(254,215,0,0.15)] hover:-translate-y-1 transition-all duration-300 group">
+                        <div className="md:col-span-7 rounded-2xl border border-white/5 bg-zinc-900 p-5 sm:p-6 flex flex-col justify-between hover:border-brand-yellow/30 hover:shadow-[0_10px_30px_rgba(254,215,0,0.15)] hover:-translate-y-1 transition-all duration-300 group">
                             <div className="space-y-4">
                                 <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center">
                                     <ShoppingBag className="w-5 h-5 text-blue-400 group-hover:scale-125 transition-transform duration-300" />
@@ -275,9 +275,9 @@ export default async function WordPressLandingPage() {
             </section>
 
             {/* Section pricing */}
-            <section id="pricing" className="py-20 md:py-32 relative">
-                <div className="container mx-auto px-6 max-w-6xl space-y-12">
-                    <div className="text-center space-y-4">
+            <section id="pricing" className="py-12 md:py-18 relative">
+                <div className="container mx-auto px-6 max-w-6xl space-y-8 md:space-y-10">
+                    <div className="text-center space-y-3">
                         <h2 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight">
                             {isId ? "Pilih Konfigurasi Investasi Anda" : "Configure Your Investment"}
                         </h2>
@@ -293,9 +293,9 @@ export default async function WordPressLandingPage() {
             </section>
 
             {/* Section FAQ */}
-            <section className="py-20 bg-zinc-950/40 border-t border-white/5 relative">
-                <div className="container mx-auto px-6 max-w-5xl space-y-12">
-                    <div className="text-center space-y-4">
+            <section className="py-12 md:py-18 bg-zinc-950/40 border-t border-white/5 relative">
+                <div className="container mx-auto px-6 max-w-5xl space-y-8 md:space-y-10">
+                    <div className="text-center space-y-3">
                         <h2 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight">
                             {isId ? "Pertanyaan Umum (FAQ)" : "Frequently Asked Questions"}
                         </h2>
