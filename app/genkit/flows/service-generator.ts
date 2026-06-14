@@ -162,11 +162,11 @@ Input Description: "${sanitizedPrompt}"
       * NEVER use short generic names that reveal nothing about the deliverable.
       * BAD examples: "SEO Service", "CRM Integration", "Content Writing", "Support Package"
       * GOOD examples:
-        - "SEO Content Writing – 3 Articles/Month (500–800 Words Each)"
+        - "SEO Content Writing - 3 Articles/Month (500-800 Words Each)"
         - "WhatsApp & Email Notification Integration (Up to 3 Event Triggers)"
         - "Monthly Performance Report + 1 On-Page SEO Fix"
         - "Custom Lead Capture Form with CRM Auto-Sync (HubSpot/Zoho)"
-        - "Konten Blog SEO – 3 Artikel/Bulan (600–800 Kata)"
+        - "Konten Blog SEO - 3 Artikel/Bulan (600-800 Kata)"
       * The name itself must answer: What exactly? How many? How often?
 
 === REQUIRED JSON OUTPUT FORMAT ===
