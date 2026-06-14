@@ -125,23 +125,24 @@ Input Description: "${sanitizedPrompt}"
    - NICHE OPPORTUNITY MATCHING (CRITICAL):
      * Do NOT generate generic add-ons (like 'Basic SEO' or 'Extra Pages') unless they are highly tailored to the niche.
      * Analyze the specific niche/industry of the requested website and brainstorm industry-specific upsells that present high-value business opportunities.
-     * Niche Examples:
-       - For Car Dealerships: 'Simulasi Kredit & Angsuran Interaktif' (One-time), 'WhatsApp Auto-routing for Test Drive Booking' (Monthly).
-       - For Clinics/Dentists: 'Sistem Reservasi Jadwal Dokter Real-time' (One-time), 'Integrasi Whatsapp Reminder Jadwal Pasien' (Monthly).
-       - For Hotels/Villas: 'OTA Channel Manager Integration (Sync with Traveloka, Booking.com)' (Monthly), 'Sistem Reservasi Kamar & Manajemen Deposit' (One-time).
-       - For E-Commerce: 'Integrasi Kurir Lokal Otomatis & Cek Resi (RajaOngkir/Biteship)' (One-time), 'Inventory Sync & Multi-Warehouse Setup' (One-time).
-       - For Professional Services (Lawyers/Consultants): 'Online Consultation Booking & Invoice Automation' (One-time).
+     * Niche Examples (HARUS MENIRU POLA HARGA GANJIL DI BAWAH INI):
+       - For Car Dealerships: 'Simulasi Kredit & Angsuran Interaktif' (One-time, price: IDR 1,490,000), 'WhatsApp Auto-routing for Test Drive Booking' (Monthly, price: IDR 349,000).
+       - For Clinics/Dentists: 'Sistem Reservasi Jadwal Dokter Real-time' (One-time, price: IDR 2,450,000), 'Integrasi Whatsapp Reminder Jadwal Pasien' (Monthly, price: IDR 490,000).
+       - For Hotels/Villas: 'OTA Channel Manager Integration (Sync with Traveloka, Booking.com)' (Monthly, price: IDR 790,000), 'Sistem Reservasi Kamar & Manajemen Deposit' (One-time, price: IDR 2,950,000).
+       - For E-Commerce: 'Integrasi Kurir Lokal Otomatis & Cek Resi (RajaOngkir/Biteship)' (One-time, price: IDR 1,290,000), 'Inventory Sync & Multi-Warehouse Setup' (One-time, price: IDR 2,750,000).
+       - For Professional Services (Lawyers/Consultants): 'Online Consultation Booking & Invoice Automation' (One-time, price: IDR 1,990,000).
    
    - LOGICAL, ACCURATE MARKET, & CHARM PRICING (CRITICAL):
      * Do NOT use a rigid percentage formula of the base price. Pricing must reflect real-world market rates for digital agency services while remaining highly attractive, affordable, and ended in charm numbers (odd digits).
      * Add-on prices must match the base service currency (USD or IDR).
+     * EVERY ADD-ON PRICE ("price") MUST BE AN ODD/CHARM NUMBER. JANGAN PERNAH gunakan angka bulat genap (seperti 500,000, 1,000,000, 1,500,000, 2,000,000, 2,500,000, 3,000,000, 4,500,000, atau 50, 100, 150).
      * Real-World Price Ranges (Indonesia - IDR) — STRICTLY ADHERE TO THESE LIMITS & USE ODD/CHARM ENDINGS (e.g., ending in 90,000, 50,000, 490,000, etc. NEVER use round even numbers like 500,000 or 1,000,000):
        - One-Time Features: IDR 490,000 to IDR 2,950,000 (One-time setup fee).
-       - Monthly Services: IDR 249,000 to IDR 790,000 per month (NEVER exceed IDR 990,000/month as recurring fee, otherwise clients will reject it).
+       - Monthly Services: IDR 249,000 to IDR 790,000 per month (ABSOLUTE MAXIMUM: IDR 990,000/month as recurring fee. ANY higher will be rejected by client).
        - Yearly Services: IDR 1,950,000 to IDR 7,990,000 per year.
      * Real-World Price Ranges (Global - USD) — STRICTLY ADHERE TO THESE LIMITS & USE ODD/CHARM ENDINGS (e.g., ending in 9, 7, or 5 like 49, 79, 95. JANGAN gunakan nominal genap bulat seperti 50 or 100):
        - One-Time Features: USD 49 to USD 299.
-       - Monthly Services: USD 25 to USD 79 per month (NEVER exceed USD 99/month as recurring fee).
+       - Monthly Services: USD 25 to USD 79 per month (ABSOLUTE MAXIMUM: USD 99/month as recurring fee).
        - Yearly Services: USD 199 to USD 799 per year.
      * Ensure every add-on has all 5 fields: "name" (string), "name_id" (string in Indonesian), "price" (number), "interval" ("one_time", "monthly", "yearly"), and "currency" ("USD" or "IDR").
 
@@ -179,7 +180,8 @@ CRITICAL CONSTRAINTS — ANY VIOLATION WILL CAUSE A SYSTEM ERROR:
 - "recommended_price" and "price" must be plain numbers, NOT strings.
 - "discount" must be a plain ODD integer (51–89), NOT null or omitted.
 - Every addon must have all 5 fields: name, name_id, price, interval, currency.
-- If an addon has "monthly" interval, its price MUST NOT exceed 990000 IDR (or 99 USD).
+- Every addon "price" MUST be an ODD/CHARM number. JANGAN gunakan angka bulat genap (seperti 500,000, 1,000,000, 1,500,000, 2,500,000, 4,500,000, 50, 100, 150).
+- If an addon has "monthly" interval, its price MUST NOT exceed 990000 IDR (or 99 USD). JANGAN pernah melanggar batas ini.
 - Do NOT add any extra fields not listed in the schema above.
 - Output ONLY the JSON object. No text before or after.
             `,
