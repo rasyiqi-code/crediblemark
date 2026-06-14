@@ -207,37 +207,37 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
                 <h4 className="text-xs font-bold uppercase tracking-widest text-zinc-500 text-center sm:text-left">
                     {isId ? "1. Pilih Tipe Paket Layanan:" : "1. Choose Your Package Tier:"}
                 </h4>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="flex overflow-x-auto gap-3 pb-3 snap-x snap-mandatory scroll-smooth no-scrollbar sm:grid sm:grid-cols-3 sm:gap-4 sm:pb-0">
                     {packagesList.map((pkg) => {
                         const isActive = pkg.id === selectedPackageId;
                         return (
                             <button
                                 key={pkg.id}
                                 onClick={() => setSelectedPackageId(pkg.id)}
-                                className={`relative text-left p-5 rounded-2xl border transition-all duration-300 flex flex-col justify-between gap-3 focus:outline-none cursor-pointer ${
+                                className={`relative text-left p-4 rounded-xl border transition-all duration-300 flex flex-col justify-between gap-2 focus:outline-none cursor-pointer w-[75vw] max-w-[240px] sm:w-auto shrink-0 snap-align-start ${
                                     isActive
                                         ? "border-violet-500 bg-violet-600/10 shadow-lg shadow-violet-600/5 ring-1 ring-violet-500"
                                         : "border-white/5 bg-zinc-900/10 hover:border-white/10 hover:bg-zinc-900/20"
                                 }`}
                             >
                                 {pkg.id === "eksklusif" && (
-                                    <div className="absolute top-0 right-4 -translate-y-1/2 bg-violet-600 text-white text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full">
+                                    <div className="absolute top-0 right-4 -translate-y-1/2 bg-violet-600 text-white text-[8px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full">
                                         {isId ? "Rekomendasi" : "Recommended"}
                                     </div>
                                 )}
-                                <div>
-                                    <h5 className="font-extrabold text-sm sm:text-base text-white">
+                                <div className="min-w-0">
+                                    <h5 className="font-extrabold text-xs sm:text-sm text-white truncate">
                                         {isId ? pkg.nameId : pkg.nameEn}
                                     </h5>
-                                    <span className="text-[10px] text-zinc-500 font-mono tracking-widest uppercase block mt-1">
+                                    <span className="text-[8px] sm:text-[9px] text-zinc-500 font-mono tracking-wider uppercase block mt-0.5 truncate">
                                         {pkg.id === "custom" && (isId ? "Fungsionalitas Builder" : "Standard Page Builder")}
                                         {pkg.id === "eksklusif" && (isId ? "Clean Code / Custom Theme" : "Clean Code / Custom Theme")}
                                         {pkg.id === "headless" && (isId ? "Isolasi / Next.js Stack" : "API Decoupled / Next.js")}
                                     </span>
                                 </div>
-                                <div className="mt-2 pt-2 border-t border-white/5 w-full flex items-baseline justify-between">
-                                    <span className="text-xs text-zinc-400">{isId ? "Mulai dari" : "Starts at"}</span>
-                                    <span className="font-black text-sm sm:text-lg text-brand-yellow">
+                                <div className="mt-1 pt-2 border-t border-white/5 w-full flex items-baseline justify-between">
+                                    <span className="text-[10px] text-zinc-500">{isId ? "Mulai dari" : "Starts at"}</span>
+                                    <span className="font-black text-xs sm:text-base text-brand-yellow">
                                         {isId ? formatCurrency(pkg.priceIdr, "IDR") : formatCurrency(pkg.priceUsd, "USD")}
                                     </span>
                                 </div>
