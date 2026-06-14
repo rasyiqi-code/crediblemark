@@ -354,7 +354,7 @@ export function CreateServiceForm() {
 
 
                 {/* Left Column: Primary Information (2/3 width) */}
-                <div className="lg:col-span-2 space-y-6" key={keyContent}>
+                <div className="lg:col-span-2 space-y-6" key={`content-${keyContent}`}>
 
 
 
@@ -536,7 +536,7 @@ export function CreateServiceForm() {
                 </div>
 
                 {/* Right Column: Configuration & Actions (1/3 width) */}
-                <div className="lg:col-span-1" key={keyPricing}>
+                <div className="lg:col-span-1" key={`pricing-${keyPricing}`}>
                     <div className="sticky top-8 space-y-6">
 
 
