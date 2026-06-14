@@ -17,6 +17,8 @@ const serviceOutputSchema = z.object({
     addons: z.array(z.object({
         name: z.string(),
         name_id: z.string(),
+        description: z.string(),
+        description_id: z.string(),
         price: z.number(),
         interval: z.enum(['one_time', 'monthly', 'yearly']),
         currency: z.enum(['USD', 'IDR'])
@@ -159,10 +161,19 @@ Input Description: "${sanitizedPrompt}"
        - Besar (Enterprise): One-Time max USD 799, Monthly max USD 99.
    
    - LOGICAL, ACCURATE MARKET, & CHARM PRICING (CRITICAL):
-     * Pricing must reflect real-world market rates for digital agency services while remaining highly attractive, affordable, and ended in charm numbers (odd digits).
-     * Add-on prices must match the base service currency (USD or IDR).
-     * EVERY ADD-ON PRICE ("price") MUST BE AN ODD/CHARM NUMBER. JANGAN PERNAH gunakan angka bulat genap (seperti 500,000, 1,000,000, 1,500,000, 2,000,000, 2,500,000, 3,000,000, 4,500,000, atau 50, 100, 150).
-     * Ensure every add-on has all 5 fields: "name" (string), "name_id" (string in Indonesian), "price" (number), "interval" ("one_time", "monthly", "yearly"), and "currency" ("USD" or "IDR").
+      * Pricing must reflect real-world market rates for digital agency services while remaining highly attractive, affordable, and ended in charm numbers (odd digits).
+      * Add-on prices must match the base service currency (USD or IDR).
+      * EVERY ADD-ON PRICE ("price") MUST BE AN ODD/CHARM NUMBER. JANGAN PERNAH gunakan angka bulat genap (seperti 500,000, 1,000,000, 1,500,000, 2,000,000, 2,500,000, 3,000,000, 4,500,000, atau 50, 100, 150).
+      * Ensure every add-on has all 7 fields: "name", "name_id", "description", "description_id", "price", "interval", and "currency".
+
+    - ADD-ON DESCRIPTION (CRITICAL — MANDATORY):
+      * Every add-on MUST have a "description" (English) and "description_id" (Indonesian).
+      * The description MUST be specific and concrete — explain exactly what the client gets: how many items, what functionality, what outcome.
+      * NEVER write vague descriptions like "Integration with CRM" or "Support service". These are useless to clients.
+      * BAD example: "Advanced Customer CRM Integration" with description "CRM integration service"
+      * GOOD example: "Advanced Customer CRM Integration" with description "Connects your website with HubSpot or similar CRM. Automatically captures lead data from your contact forms and stores them into your CRM pipeline. Includes 1-hour setup session and documentation."
+      * Another GOOD example: "Monthly SEO Report & Content" with description "Includes 2 SEO-optimized blog articles per month (500–800 words each), monthly keyword ranking report, and 1 on-page SEO fix. Designed to grow organic traffic over 3–6 months."
+      * Keep descriptions 1–2 concise sentences focused on deliverables and business outcomes.
 
 === REQUIRED JSON OUTPUT FORMAT ===
 You MUST return ONLY a raw JSON object with NO markdown, NO explanation, NO code block wrappers. The JSON must exactly match this structure:
@@ -183,6 +194,8 @@ You MUST return ONLY a raw JSON object with NO markdown, NO explanation, NO code
     {
       "name": "string",
       "name_id": "string dalam bahasa Indonesia",
+      "description": "string — specific deliverables in 1-2 sentences (English)",
+      "description_id": "string — deskripsi deliverables spesifik 1-2 kalimat (Indonesian)",
       "price": 0,
       "interval": "one_time",
       "currency": "USD"
@@ -197,7 +210,8 @@ CRITICAL CONSTRAINTS — ANY VIOLATION WILL CAUSE A SYSTEM ERROR:
 - "priceType" must be exactly: "FIXED" or "STARTING_AT".
 - "recommended_price" and "price" must be plain numbers, NOT strings.
 - "discount" must be a plain ODD integer (51–89), NOT null or omitted.
-- Every addon must have all 5 fields: name, name_id, price, interval, currency.
+- Every addon must have all 7 fields: name, name_id, description, description_id, price, interval, currency.
+- "description" and "description_id" must be concrete, specific, and mention actual deliverables — NEVER vague.
 - Every addon "price" MUST be an ODD/CHARM number. JANGAN gunakan angka bulat genap (seperti 500,000, 1,000,000, 1,500,000, 2,500,000, 4,500,000, 50, 100, 150).
 - If an addon has "monthly" interval, its price MUST NOT exceed 990000 IDR (or 99 USD). JANGAN pernah melanggar batas ini.
 - Do NOT add any extra fields not listed in the schema above.

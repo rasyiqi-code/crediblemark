@@ -21,6 +21,7 @@ export async function POST(req: NextRequest) {
         // Split unified addons into English (addons) and Indonesian (addons_id) arrays
         const addons = result.addons?.map(a => ({
             name: a.name,
+            description: a.description,
             price: a.price,
             interval: a.interval,
             currency: a.currency
@@ -28,6 +29,7 @@ export async function POST(req: NextRequest) {
 
         const addons_id = result.addons?.map(a => ({
             name: a.name_id,
+            description: a.description_id,
             price: a.price,
             interval: a.interval,
             currency: a.currency
