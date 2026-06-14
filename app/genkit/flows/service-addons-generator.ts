@@ -95,11 +95,12 @@ Service Profile:
    - "currency" untuk addons harus sama dengan currency dasar: "${currency}".
    - "price" untuk addons harus berupa angka CHARM/ganjil. JANGAN gunakan angka genap bulat.
 
-4. ADD-ON NAME SPECIFICITY (CRITICAL — MANDATORY):
-   - "name" and "name_id" MUST be specific and self-explanatory. Include details such as deliverables, scope, target integrations, or realistic frequency directly in the name.
-   - NEVER use short generic names (e.g. avoid plain "SEO" or "Maintenance").
-   - DO NOT invent arbitrary system/capacity limits on the client's business operations (such as limiting the number of physical inventory units, showroom items, products, or database entries). Our agency does NOT sell hosting, servers, or domains.
-   - Quotas/limits MUST ONLY apply to the agency's service deliverables (e.g., "3 Articles/Month", "Up to 3 API setups", "4 hours of support/month", "2 custom page designs").
+4. ADD-ON NAME SPECIFICITY & VALUE (CRITICAL — MANDATORY):
+   - Add-ons MUST represent high-value additions (e.g. third-party API integrations, copywriting/content creation service, dedicated custom design pages, ongoing monthly maintenance, or priority support).
+   - NEVER limit standard CMS/Admin Dashboard capabilities. Clients must have UNLIMITED access to create categories, upload products/items, add database records, create menus, or manage dynamic content.
+   - ABSOLUTELY DO NOT use restrictions like "Up to X Categories", "Max X Pages", "Up to X Images", "Limit X Products" in add-on names. These make the offer look bad and have zero value.
+   - Quotas/limits MUST ONLY apply to the agency's manual service deliverables (e.g. "3 Articles/Month", "Up to 3 API integrations set up", "4 hours of support/month").
+   - "name" and "name_id" must be specific and self-explanatory.
    - Good examples:
      * "SEO Content Writing - 3 Articles/Month (500-800 Words Each)"
      * "WhatsApp API Setup & Integration (Up to 3 Custom Event Triggers)"
