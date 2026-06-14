@@ -172,12 +172,12 @@
         "badge": "3-Step Launch.",
         "title": "Honest Work Process",
         "subtitle": "Track your project's progress in real-time through the Client Dashboard. Transparent, fast, and outcome-focused.",
-        "step1": "Written Plan",
-        "step1Desc": "Written agreement on features and pricing before any line of code is written.",
-        "step2": "Meet The Builders",
-        "step2Desc": "Direct communication with the system builders (no account managers or sales reps).",
-        "step3": "Single Tangible Outcome",
-        "step3Desc": "Focussed launch of a real solution for business operations."
+        "step1": "Plan & Structure",
+        "step1Desc": "Discuss your business goals with us. We will map out a detailed feature list and clear timeline for your project.",
+        "step2": "Fixed Price Scope",
+        "step2Desc": "Receive a guaranteed fixed price with no hidden costs. Pay a secure initial deposit to start the work.",
+        "step3": "Review & Launch",
+        "step3Desc": "Track progress on your dashboard. Need changes? Just click where you want to edit. We do the work, you launch."
     },
     "Financial": {
         "title": "What is Often Overlooked.",

@@ -184,18 +184,18 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         const tWorkflowSubtitle = isEn 
             ? "Track your project's progress in real-time through the Client Dashboard. Transparent, fast, and outcome-focused."
             : "Semua progres terpantau setiap saat melalui Dashboard Klien. Cara kerja yang transparan, cepat, dan fokus pada hasil nyata.";
-        const step1 = isEn ? "Written Plan" : "Rencana Tertulis";
+        const step1 = isEn ? "Plan & Structure" : "Rencana & Cara Kerja";
         const step1Desc = isEn 
-            ? "Written agreement on features and pricing before any line of code is written."
-            : "Kesepakatan fitur dan harga tertulis sebelum pengetikan kode.";
-        const step2 = isEn ? "Meet The Builders" : "Kenalkan Diri Kami";
+            ? "Discuss your business goals with us. We will map out a detailed feature list and clear timeline for your project."
+            : "Diskusikan ide bisnis Anda bersama kami. Kami akan menyusun daftar fitur dan estimasi rencana kerja secara rinci.";
+        const step2 = isEn ? "Fixed Price Scope" : "Pengerjaan Bertahap";
         const step2Desc = isEn 
-            ? "Direct communication with the system builders (no account managers or sales reps)."
-            : "Komunikasi langsung dengan pembuat sistem (tanpa account manager/sales).";
-        const step3 = isEn ? "Single Tangible Outcome" : "Hasil Tangible Tunggal";
+            ? "Receive a guaranteed fixed price with no hidden costs. Pay a secure initial deposit to start the work."
+            : "Anda mendapatkan penawaran harga tetap tanpa biaya tambahan tersembunyi. Pembayaran DP awal dilakukan secara aman.";
+        const step3 = isEn ? "Review & Launch" : "Serah Terima & Bantuan";
         const step3Desc = isEn 
-            ? "Focussed launch of a real solution for business operations."
-            : "Fokus peluncuran solusi nyata untuk operasional bisnis.";
+            ? "Track progress on your dashboard. Need changes? Just click where you want to edit. We do the work, you launch."
+            : "Lihat progres di dashboard. Ada revisi? Cukup klik bagian yang ingin diubah. Saya kerjakan, Anda terima beres.";
 
         // Data Financial (Yang Jarang Disadari)
         const tFinTitle = isEn ? "What is Often Overlooked." : "Yang Jarang Disadari";

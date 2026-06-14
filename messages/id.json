@@ -172,12 +172,12 @@
         "badge": "3 Langkah Peluncuran.",
         "title": "Proses Kerja Jujur",
         "subtitle": "Semua progres terpantau setiap saat melalui Dashboard Klien. Cara kerja yang transparan, cepat, dan fokus pada hasil nyata.",
-        "step1": "Rencana Tertulis",
-        "step1Desc": "Kesepakatan fitur dan harga tertulis sebelum pengetikan kode.",
-        "step2": "Kenalkan Diri Kami",
-        "step2Desc": "Komunikasi langsung dengan pembuat sistem (tanpa account manager/sales).",
-        "step3": "Hasil Tangible Tunggal",
-        "step3Desc": "Fokus peluncuran solusi nyata untuk operasional bisnis."
+        "step1": "Rencana & Cara Kerja",
+        "step1Desc": "Diskusikan ide bisnis Anda bersama kami. Kami akan menyusun daftar fitur dan estimasi rencana kerja secara rinci.",
+        "step2": "Pengerjaan Bertahap",
+        "step2Desc": "Anda mendapatkan penawaran harga tetap tanpa biaya tambahan tersembunyi. Pembayaran DP awal dilakukan secara aman.",
+        "step3": "Serah Terima & Bantuan",
+        "step3Desc": "Lihat progres di dashboard. Ada revisi? Cukup klik bagian yang ingin diubah. Saya kerjakan, Anda terima beres."
     },
     "Financial": {
         "title": "Yang Jarang Disadari",
