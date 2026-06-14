@@ -77,13 +77,12 @@ Rules:
    - Limit/quota fields MUST only apply to our manual deliverables (e.g. "3 Articles/Month", "Up to 3 Custom APIs Setup", "4 Hours/Month Support").
 3. PRICING:
    - Addon currency must be "${currency}". Price must be an ODD (charm pricing) number.
-   - Pricing ranges based on Consumer Price (${currency} ${consumerPrice}):
-     * IDR < 2M -> One-Time: 249k-490k | Monthly: 49k-149k
-     * IDR 2M-3.5M -> One-Time: 490k-990k | Monthly: 99k-290k
-     * IDR 3.5M-9M -> One-Time: 990k-1.99M | Monthly: 190k-490k
-     * IDR 9M-20M -> One-Time: 1.99M-3.99M | Monthly: 390k-790k
-     * IDR > 20M -> One-Time: 3.99M-7.95M | Monthly: 490k-990k
-     * USD ranges scale proportionally (max USD 799 one-time, max USD 99 monthly).
+   - Pricing must be based on development complexity, effort, and the industry's target market (NOT tied to the base package price):
+     * Low Complexity / Standard Setup (e.g. basic newsletter integration, WhatsApp click-to-chat setup): IDR 990k - 1.99M / USD 99 - 199.
+     * Medium Complexity / Automated Flow & Integrations (e.g. Google Calendar live sync, recurring payment setup, analytics conversion tracking): IDR 1.99M - 3.49M / USD 199 - 349.
+     * High Complexity / Client Portals & Dynamic Databases (e.g. Client Login Area, live inventory API sync with ERP, multi-role authorization): IDR 3.99M - 7.99M / USD 399 - 799.
+     * Monthly Retainer / Maintenance: IDR 390k - 990k/month / USD 39 - 99/month.
+   - Adjust these base ranges down for highly retail/micro markets (e.g. wedding websites) and up for enterprise/high-margin B2B industries (e.g. heavy machinery, custom corporate ERPs).
 
 Format Output: Raw JSON matching the schema. No markdown wrappers, no explanations.
             `,
