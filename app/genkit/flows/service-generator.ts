@@ -39,7 +39,11 @@ export const serviceGeneratorFlow = ai.defineFlow(
 
         const { output } = await ai.generate({
             model: `googleai/${model}`,
-            config: { apiKey },
+            config: { 
+                apiKey,
+                maxOutputTokens: 4096,
+                temperature: 0.7
+            },
             prompt: `
 You are an expert product manager and copywriter for a digital agency.
 Your task is to generate a comprehensive service offering (base package and add-ons) based on a rough description provided by the user.
