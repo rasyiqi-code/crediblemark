@@ -64,8 +64,6 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         };
 
         const formattedPrice = formatPriceHelper(finalPrice);
-        const starterPrice = formatPriceHelper(finalPrice * 0.6);
-        const scalePrice = formatPriceHelper(finalPrice * 1.5);
 
         const intervalLabel = service.interval === 'one_time'
             ? 'Sekali Bayar'
@@ -130,54 +128,13 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             `;
         }).join("");
 
-        // Rencana Otorisasi/Pengantar Bisnis yang Sulit Ditolak (Sebagai Bingkai Dokumen)
-        const targetSolutionText = `Tujuan proposal ini bukan sekadar membuat deliverables teknis, melainkan mengurangi risiko operasional, mengefisiensikan biaya, dan meningkatkan metrik bisnis utama Anda melalui implementasi solusi ${title} secara terukur.`;
-
-        const businessUnderstanding = {
-            target: "Pelanggan potensial dan audiens mobile-first yang mengutamakan kecepatan interaksi, kemudahan transaksi, dan aksesibilitas bebas hambatan.",
-            funnel: "Promosi / Kontak Awal &rarr; Formulir / WhatsApp Manual &rarr; Tindakan Admin &rarr; Eksekusi Layanan.",
-            bottleneck: "Respon waktu pelayanan yang berpotensi lambat di luar jam kerja operasional serta pencatatan prospek/kebutuhan yang kurang sistematis.",
-            consequence: "Calon pelanggan berpindah ke kompetitor lain dan nilai konversi kampanye digital menjadi kurang optimal."
-        };
-
-        const kpis = [
-            { goal: "Meningkatkan Lead & Konversi", kpi: "+20% hingga +40% peningkatan rasio konversi / qualified inquiry pelanggan" },
-            { goal: "Mempercepat Waktu Respon", kpi: "First-response time rata-rata di bawah 10 menit pada jam kerja operasional" },
-            { goal: "Optimasi Efisiensi Kerja", kpi: "Pengurangan hingga 30% tugas administratif berulang melalui automasi sistem" }
-        ];
-
-        const outScope = [
-            "Integrasi mendalam dengan sistem ERP/CRM eksternal kustom di luar cakupan API standar.",
-            "Penyediaan aset media mentah (seperti foto produk skala besar atau rekaman video profil korporat).",
-            "Manajemen anggaran iklan digital pihak ketiga (Ad-Spend budget) di luar setup integrasi tracking.",
-            "Lisensi berbayar pihak ketiga yang memerlukan langganan mandiri di luar paket penawaran."
-        ];
-
-        const timeline = [
-            { phase: "Fase 1: Discovery & Audit", duration: "3-5 Hari", output: "Audit kebutuhan alur kerja & penyelarasan baseline KPI" },
-            { phase: "Fase 2: UX & Wireframing", duration: "5-7 Hari", output: "Desain arsitektur visual alur interaksi & review prototype" },
-            { phase: "Fase 3: Development & Integrasi", duration: "10-15 Hari", output: "Pengembangan fungsionalitas sistem & integrasi formulir database" },
-            { phase: "Fase 4: QA & Tracking Setup", duration: "3-5 Hari", output: "Pengujian menyeluruh (debugging) & konfigurasi analitik" },
-            { phase: "Fase 5: Go-Live & Handover", duration: "1-2 Hari", output: "Peluncuran resmi, pelatihan tim internal, & penyerahan SOP" }
-        ];
-
-        const risks = [
-            { risk: "Keterlambatan penyediaan konten/aset", mitigation: "Penyediaan aset utama di awal kickoff atau penggunaan konten placeholder sementara agar development tidak tertahan." },
-            { risk: "Perubahan ruang lingkup (scope creep)", mitigation: "Evaluasi tertulis melalui Change Request formal dengan penyesuaian timeline dan investasi." },
-            { risk: "Kendala API pihak ketiga", mitigation: "Analisis kelayakan teknis di awal Fase 1 (Discovery) serta penyediaan solusi fallback sementara." }
-        ];
-
-        const roiEstimationText = baseCurrency === "IDR"
-            ? `Dengan estimasi transaksi rata-rata Rp 2.500.000, peningkatan konversi konvensional sebesar 15-30% setara dengan tambahan pendapatan kotor Rp 7.500.000 s/d Rp 15.000.000 per bulan. Investasi proyek diproyeksikan balik modal (ROI) dalam waktu 3 hingga 5 bulan.`
-            : `With an estimated average transaction value of $250, a conservative 15-30% increase in lead conversion equates to an additional gross revenue of $750 to $1,500 per month. The project investment is projected to achieve full ROI within 3 to 5 months.`;
-
-        // Template HTML Proposal A4 Premium
+        // Template HTML Proposal A4 Premium (Murni data asli database dikemas layout mewah)
         const htmlContent = `
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
-    <title>${title} - Proposal Bisnis</title>
+    <title>${title} - Proposal Layanan</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
     <style>
         * {
@@ -206,7 +163,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             position: relative;
             background: #ffffff;
             overflow: hidden;
-            padding: 22mm 20mm;
+            padding: 25mm 20mm;
         }
         
         /* Halaman Cover (Estetika Tinggi) */
@@ -268,7 +225,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             position: relative;
             z-index: 10;
             height: 100%;
-            padding: 40mm 20mm;
+            padding: 45mm 20mm;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -360,18 +317,18 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             justify-content: space-between;
             border-bottom: 2px solid #f1f5f9;
             padding-bottom: 8px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
         
         .section-title {
             font-family: 'Playfair Display', serif;
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 700;
             color: #0f172a;
         }
         
         .section-subtitle-badge {
-            font-size: 8px;
+            font-size: 9px;
             text-transform: uppercase;
             letter-spacing: 1px;
             color: #d97706;
@@ -379,66 +336,102 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         }
         
         .body-section {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .body-section-title {
             font-size: 13px;
             font-weight: 700;
             color: #1e3a8a;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
-        .paragraph-text {
-            font-size: 12px;
-            color: #334155;
-            text-align: justify;
-            margin-bottom: 12px;
-        }
-
         .desc-content {
-            font-size: 12px;
+            font-size: 13px;
             color: #334155;
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
         .desc-content p {
-            margin-bottom: 12px;
+            margin-bottom: 14px;
             text-align: justify;
         }
 
         .desc-content ul, .desc-content ol {
             margin-left: 20px;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
         }
 
         .desc-content li {
-            margin-bottom: 4px;
-        }
-
-        .highlight-quote {
-            background: #f8fafc;
-            border-left: 3.5px solid #d97706;
-            padding: 12px 16px;
-            margin-bottom: 18px;
-            font-size: 12px;
-            font-style: italic;
-            color: #334155;
-            line-height: 1.6;
-        }
-
-        /* Lists */
-        .bullet-list {
-            margin-left: 15px;
-            margin-bottom: 15px;
-        }
-
-        .bullet-list li {
-            font-size: 12px;
-            color: #334155;
             margin-bottom: 6px;
+        }
+
+        /* Scope / Fitur Grid */
+        .scope-container {
+            background: #fafbfc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 15px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .feature-card-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            background: #ffffff;
+            border: 1px solid #f1f5f9;
+            border-left: 4px solid #1e3a8a;
+            border-radius: 6px;
+            padding: 12px 15px;
+        }
+
+        .feature-card-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #d97706;
+            margin-top: 6px;
+            flex-shrink: 0;
+        }
+
+        .feature-card-text {
+            font-size: 12px;
+            font-weight: 600;
+            color: #334155;
+            line-height: 1.4;
+        }
+
+        /* Investasi Section */
+        .pricing-banner {
+            background: linear-gradient(135deg, #fafbfc 0%, #f8fafc 100%);
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .pricing-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pricing-price {
+            font-size: 26px;
+            font-weight: 700;
+            color: #1e3a8a;
         }
         
         /* Tables */
@@ -446,6 +439,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
+            margin-top: 10px;
         }
         
         .proposal-table th {
@@ -454,153 +448,26 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             font-size: 10px;
             font-weight: 600;
             text-align: left;
-            padding: 8px 12px;
+            padding: 10px 12px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
         
         .proposal-table td {
-            padding: 9px 12px;
-            font-size: 11px;
+            padding: 10px 12px;
+            font-size: 12px;
             border-bottom: 1px solid #e2e8f0;
             color: #334155;
-            vertical-align: top;
+            vertical-align: middle;
         }
         
         .proposal-table tr:nth-child(even) td {
             background: #f8fafc;
         }
 
-        /* Scope Columns */
-        .scope-container {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin-top: 10px;
-        }
-
-        .scope-column {
-            background: #fafbfc;
-            border: 1px solid #e2e8f0;
-            border-radius: 6px;
-            padding: 15px;
-        }
-
-        .scope-column-title {
-            font-size: 12px;
-            font-weight: 700;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .scope-column-title.in {
-            color: #1e3a8a;
-        }
-
-        .scope-column-title.out {
-            color: #64748b;
-        }
-
-        .scope-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-        }
-
-        .scope-dot.in {
-            background: #d97706;
-        }
-
-        .scope-dot.out {
-            background: #94a3b8;
-        }
-
-        .feature-card-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 8px;
-            margin-bottom: 8px;
-        }
-
-        .feature-card-dot {
-            width: 5px;
-            height: 5px;
-            border-radius: 50%;
-            background: #d97706;
-            margin-top: 6px;
-            shrink-0;
-        }
-
-        .feature-card-text {
-            font-size: 11px;
-            color: #334155;
-            line-height: 1.4;
-        }
-
-        /* Opsi Investasi Card */
-        .investment-cards-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin-bottom: 18px;
-        }
-
-        .investment-card {
-            border: 1px solid #e2e8f0;
-            border-radius: 6px;
-            padding: 15px 12px;
-            background: #fafbfc;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            position: relative;
-        }
-
-        .investment-card.recommended {
-            border: 2px solid #d97706;
-            background: #fffdf9;
-        }
-
-        .card-badge-rec {
-            position: absolute;
-            top: -9px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #d97706;
-            color: #ffffff;
-            font-size: 8px;
-            font-weight: 700;
-            padding: 2px 8px;
-            border-radius: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .inv-card-title {
-            font-size: 12px;
-            font-weight: 700;
-            color: #0f172a;
-            margin-bottom: 4px;
-        }
-
-        .inv-card-price {
-            font-size: 15px;
-            font-weight: 700;
-            color: #1e3a8a;
-            margin-bottom: 8px;
-        }
-
-        .inv-card-desc {
-            font-size: 9.5px;
-            color: #64748b;
-            line-height: 1.4;
-        }
-
         /* Tanda Tangan */
         .signatures-container {
-            margin-top: 15mm;
+            margin-top: 20mm;
             display: flex;
             justify-content: space-between;
         }
@@ -613,18 +480,18 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         
         .sig-line {
             border-bottom: 1px solid #94a3b8;
-            height: 12mm;
-            margin-bottom: 6px;
+            height: 15mm;
+            margin-bottom: 8px;
         }
         
         .sig-name {
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 600;
             color: #0f172a;
         }
         
         .sig-title {
-            font-size: 9px;
+            font-size: 10px;
             color: #64748b;
         }
         
@@ -658,10 +525,10 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             </div>
             
             <div class="main-title-box">
-                <span class="proposal-badge">Business Proposal & Plan</span>
+                <span class="proposal-badge">Business Proposal</span>
                 <h1 class="main-title">${title}</h1>
                 <div class="title-divider"></div>
-                <p class="sub-title">Dokumen penawaran dan rencana solusi digital taktis yang dirancang khusus untuk meminimalkan risiko operasional, mengotomasi proses kerja, serta memaksimalkan rasio konversi bisnis Anda.</p>
+                <p class="sub-title">Dokumen penawaran dan rencana solusi digital resmi yang diajukan untuk penyediaan serta implementasi layanan profesional.</p>
             </div>
             
             <div class="cover-footer">
@@ -670,116 +537,46 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
                     <div class="metadata-value">Valued Client / Klien Terhormat</div>
                 </div>
                 <div style="text-align: right;">
-                    <div class="metadata-label">Tanggal Terbit</div>
+                    <div class="metadata-label">Tanggal Proposal</div>
                     <div class="metadata-value">${dateStr}</div>
                 </div>
             </div>
         </div>
     </div>
     
-    <!-- HALAMAN 2: EXECUTIVE SUMMARY & DESKRIPSI LAYANAN ASLI -->
+    <!-- HALAMAN 2: DESKRIPSI LAYANAN ASLI -->
     <div class="page">
         <div class="section-header">
-            <h2 class="section-title">01 / Ringkasan Eksekutif & Solusi</h2>
+            <h2 class="section-title">01 / Deskripsi Solusi Layanan</h2>
             <span class="section-subtitle-badge">Halaman 2</span>
         </div>
         
         <div class="body-section">
-            <h3 class="body-section-title">Executive Summary</h3>
-            <div class="highlight-quote">
-                "${targetSolutionText}"
-            </div>
-            <p class="paragraph-text" style="font-weight: 600; margin-bottom: 8px;">
-                Rincian Deskripsi Solusi Layanan:
-            </p>
             <div class="desc-content">
                 ${descriptionHtml}
             </div>
         </div>
-
-        <div class="body-section" style="margin-top: 15px;">
-            <h3 class="body-section-title">Pemahaman Masalah & Alur Kerja</h3>
-            <table class="proposal-table">
-                <thead>
-                    <tr>
-                        <th style="width: 30%;">Aspek Funnel</th>
-                        <th>Kondisi & Pemahaman Realitas</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Target Pelanggan</strong></td>
-                        <td>${businessUnderstanding.target}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Alur Funnel Saat Ini</strong></td>
-                        <td>${businessUnderstanding.funnel}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Titik Hambat (Bottleneck)</strong></td>
-                        <td>${businessUnderstanding.bottleneck}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Konsekuensi Bisnis</strong></td>
-                        <td><span style="color: #b45309; font-weight: 600;">${businessUnderstanding.consequence}</span></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
         
         <div class="page-footer">
-            <span>CREDIBLEMARK &bull; Proposal Bisnis ${title}</span>
-            <span>Halaman 2 dari 5</span>
+            <span>CREDIBLEMARK &bull; Proposal ${title}</span>
+            <span>Halaman 2</span>
         </div>
     </div>
     
-    <!-- HALAMAN 3: TUJUAN, KPI, & RUANG LINGKUP (SCOPE ASLI) -->
+    <!-- HALAMAN 3: FITUR & DELIVERABLES ASLI -->
     <div class="page">
         <div class="section-header">
-            <h2 class="section-title">02 / Target Mutu & Ruang Lingkup</h2>
+            <h2 class="section-title">02 / Fitur & Deliverables Utama</h2>
             <span class="section-subtitle-badge">Halaman 3</span>
         </div>
 
         <div class="body-section">
-            <h3 class="body-section-title">Tujuan & Key Performance Indicator (KPI) Terukur</h3>
-            <p class="paragraph-text">
-                Untuk memastikan akuntabilitas kerja, kesuksesan implementasi akan dievaluasi menggunakan metrik keberhasilan berikut:
-            </p>
-            <table class="proposal-table">
-                <thead>
-                    <tr>
-                        <th style="width: 40%;">Tujuan Proyek</th>
-                        <th>Target KPI Terukur</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    ${kpis.map(item => `
-                        <tr>
-                            <td><strong>${item.goal}</strong></td>
-                            <td>${item.kpi}</td>
-                        </tr>
-                    `).join("")}
-                    <tr>
-                        <td colspan="2" style="font-size: 10px; color: #64748b; font-style: italic;">
-                            * Catatan: Target final metrik akan dikalibrasi bersama setelah tahap audit awal selama 7 hari kickoff dilakukan.
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="body-section">
-            <h3 class="body-section-title">Batasan Ruang Lingkup Proyek (Scope of Work)</h3>
-            <p class="paragraph-text">
-                Pembatasan ini dirancang agar pengerjaan fokus pada hal-hal yang memiliki dampak bisnis (ROI) terbesar secara instan serta meminimalkan risiko keterlambatan pengerjaan.
+            <p class="paragraph-text" style="font-size: 13px; color: #475569; margin-bottom: 15px;">
+                Daftar lengkap fitur spesifik dan deliverables hasil kerja yang tercakup dalam solusi layanan ini:
             </p>
             
             <div class="scope-container">
-                <div class="scope-column">
-                    <div class="scope-column-title in">
-                        <div class="scope-dot in"></div>
-                        <span>Termasuk dalam Scope (In-Scope)</span>
-                    </div>
+                <div class="features-grid">
                     ${featuresListHtml ? featuresListHtml : `
                         <div class="feature-card-item">
                             <div class="feature-card-dot"></div>
@@ -787,129 +584,40 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
                         </div>
                     `}
                 </div>
-                <div class="scope-column">
-                    <div class="scope-column-title out">
-                        <div class="scope-dot out"></div>
-                        <span>Di Luar Scope (Out-of-Scope)</span>
-                    </div>
-                    ${outScope.map(outItem => `
-                        <div class="feature-card-item">
-                            <div class="feature-card-dot" style="background: #94a3b8;"></div>
-                            <div class="feature-card-text" style="color: #64748b;">${outItem}</div>
-                        </div>
-                    `).join("")}
-                </div>
             </div>
         </div>
         
         <div class="page-footer">
-            <span>CREDIBLEMARK &bull; Proposal Bisnis ${title}</span>
-            <span>Halaman 3 dari 5</span>
+            <span>CREDIBLEMARK &bull; Proposal ${title}</span>
+            <span>Halaman 3</span>
         </div>
     </div>
-    
-    <!-- HALAMAN 4: IMPLEMENTASI TIMELINE & MITIGASI RISIKO -->
+
+    <!-- HALAMAN 4: INVESTASI, ADDONS ASLI, & OTORISASI -->
     <div class="page">
         <div class="section-header">
-            <h2 class="section-title">03 / Alur Kerja & Mitigasi Risiko</h2>
+            <h2 class="section-title">03 / Rencana Investasi & Persetujuan</h2>
             <span class="section-subtitle-badge">Halaman 4</span>
         </div>
 
         <div class="body-section">
-            <h3 class="body-section-title">Rencana Implementasi & Rincian Timeline</h3>
-            <p class="paragraph-text">
-                Fase pengerjaan diatur secara linear menggunakan pendekatan bertahap guna memastikan setiap milestone dapat divalidasi dengan matang sebelum melangkah ke tahap selanjutnya:
-            </p>
-            <table class="proposal-table">
-                <thead>
-                    <tr>
-                        <th style="width: 30%;">Fase / Tahapan</th>
-                        <th style="width: 20%;">Durasi Estimasi</th>
-                        <th>Output / Deliverable Kunci</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    ${timeline.map(item => `
-                        <tr>
-                            <td><strong>${item.phase}</strong></td>
-                            <td>${item.duration}</td>
-                            <td>${item.output}</td>
-                        </tr>
-                    `).join("")}
-                </tbody>
-            </table>
-        </div>
-
-        <div class="body-section" style="margin-top: 15px;">
-            <h3 class="body-section-title">Identifikasi Risiko Proyek & Tindakan Mitigasi</h3>
-            <p class="paragraph-text">
-                Kami tidak menjanjikan pengerjaan bebas dari kendala, namun kami menyiapkan rencana mitigasi sejak dini guna mengamankan timeline pengerjaan:
-            </p>
-            <table class="proposal-table">
-                <thead>
-                    <tr>
-                        <th style="width: 35%;">Risiko Potensial</th>
-                        <th>Rencana Tindakan Mitigasi Terukur</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    ${risks.map(item => `
-                        <tr>
-                            <td><strong>${item.risk}</strong></td>
-                            <td>${item.mitigation}</td>
-                        </tr>
-                    `).join("")}
-                </tbody>
-            </table>
-        </div>
-        
-        <div class="page-footer">
-            <span>CREDIBLEMARK &bull; Proposal Bisnis ${title}</span>
-            <span>Halaman 4 dari 5</span>
-        </div>
-    </div>
-
-    <!-- HALAMAN 5: STRATEGI INVESTASI ASLI, ROI, ADDONS ASLI, & PERSETUJUAN -->
-    <div class="page">
-        <div class="section-header">
-            <h2 class="section-title">04 / Rencana Investasi & Persetujuan</h2>
-            <span class="section-subtitle-badge">Halaman 5</span>
-        </div>
-
-        <div class="body-section">
-            <h3 class="body-section-title">Rencana Struktur Investasi & ROI</h3>
-            <p class="paragraph-text" style="margin-bottom: 10px;">
-                Kami menyediakan tiga opsi paket investasi dengan trade-off yang transparan sesuai kebutuhan eskalasi bisnis Anda:
-            </p>
-            
-            <div class="investment-cards-grid">
-                <div class="investment-card">
-                    <div class="inv-card-title">Paket Starter</div>
-                    <div class="inv-card-price">${starterPrice}</div>
-                    <div class="inv-card-desc">Fokus pada validasi pasar cepat dan peluncuran fungsionalitas esensial.</div>
+            <h3 class="body-section-title">Investasi Layanan</h3>
+            <div class="pricing-banner">
+                <div class="pricing-info">
+                    <span style="font-size: 10px; text-transform: uppercase; color: #64748b; letter-spacing: 0.5px;">Biaya Layanan Utama (${priceModel})</span>
+                    <span class="pricing-price">${formattedPrice}</span>
                 </div>
-                <div class="investment-card recommended">
-                    <div class="card-badge-rec">Rekomendasi</div>
-                    <div class="inv-card-title">Paket Growth</div>
-                    <div class="inv-card-price">${formattedPrice}</div>
-                    <div class="inv-card-desc">Paket lengkap mencakup integrasi CRM, pelacakan konversi, & automasi data (ROI Terbaik).</div>
-                </div>
-                <div class="investment-card">
-                    <div class="inv-card-title">Paket Scale</div>
-                    <div class="inv-card-price">${scalePrice}</div>
-                    <div class="inv-card-desc">Kustomisasi tingkat lanjut untuk kebutuhan volume besar dengan SLA prioritas.</div>
+                <div style="text-align: right;">
+                    <span style="font-size: 10px; text-transform: uppercase; color: #64748b; letter-spacing: 0.5px;">Skema Pembayaran</span>
+                    <span style="font-size: 14px; font-weight: 600; color: #0f172a; display: block;">${intervalLabel}</span>
                 </div>
             </div>
-
-            <p class="paragraph-text" style="font-size: 11px; background: #fafbfc; border: 1px dashed #e2e8f0; padding: 10px; border-radius: 4px; color: #1e3a8a;">
-                <strong>Proyeksi ROI Konservatif:</strong> ${roiEstimationText}
-            </p>
         </div>
 
         ${addonsHtml ? `
         <div class="body-section" style="margin-top: 10px;">
-            <h3 class="body-section-title" style="margin-bottom: 4px;">Pilihan Add-ons Opsional</h3>
-            <table class="proposal-table" style="margin-bottom: 10px;">
+            <h3 class="body-section-title">Add-ons Opsional</h3>
+            <table class="proposal-table">
                 <thead>
                     <tr>
                         <th>Modul Add-on</th>
@@ -924,9 +632,9 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         </div>
         ` : ''}
 
-        <div class="body-section" style="margin-top: 15px;">
-            <p class="paragraph-text" style="font-size: 10.5px; color: #64748b; line-height: 1.5;">
-                Dengan menandatangani dokumen ini, kedua belah pihak menyepakati lingkup kerja, skema rencana investasi ${intervalLabel} (${priceModel}: ${formattedPrice}), serta bersiap menjadwalkan agenda kickoff pengerjaan.
+        <div class="body-section" style="margin-top: 20px;">
+            <p class="paragraph-text" style="font-size: 11px; color: #64748b; line-height: 1.6;">
+                Dengan menandatangani dokumen ini, kedua belah pihak menyepakati rincian fitur kerja, nilai investasi, serta skema pembayaran yang tertera di atas.
             </p>
             
             <div class="signatures-container">
@@ -944,8 +652,8 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         </div>
         
         <div class="page-footer">
-            <span>CREDIBLEMARK &bull; Proposal Bisnis ${title}</span>
-            <span>Halaman 5 dari 5</span>
+            <span>CREDIBLEMARK &bull; Proposal ${title}</span>
+            <span>Halaman 4</span>
         </div>
     </div>
 </body>
