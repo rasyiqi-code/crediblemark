@@ -156,6 +156,37 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         const p3Title = isEn ? "Easy Maintenance" : "Kemudahan Kelola";
         const p3Desc = isEn ? "Clean and modular architecture designed for easy updates, scaling, and feature expansions." : "Arsitektur modular yang dirancang secara clean agar sistem mudah dipelihara dan dikembangkan lebih lanjut.";
 
+        // Data Comparison dari Landing Page
+        const tCompTitle = isEn ? "Why Choose Us?" : "Kenapa Pilih Kami?";
+        const tCompSubtitle = isEn ? "We deliver results and services above market standards." : "Kami memberikan hasil dan pelayanan di atas standar pasar.";
+        const tCompOldTitle = isEn ? "Traditional Agency" : "Agensi Tradisional";
+        const tCompNewTitle = "Crediblemark";
+        
+        const old1 = isEn ? "Hidden Fees:" : "Biaya Siluman:";
+        const old1Sub = isEn ? "Cheap at first, bloated at the end." : "Harga murah di awal, tagihan bengkak di akhir.";
+        const old2 = isEn ? "Closed Process:" : "Proses Tertutup:";
+        const old2Sub = isEn ? "You don't know what is being worked on." : "Anda tidak tahu apa yang sedang dikerjakan.";
+        const old3 = isEn ? "Vendor Lock-in:" : "Ketergantungan Vendor:";
+        const old3Sub = isEn ? "Code locked, forced to subscribe." : "Kode dikunci, Anda dipaksa langganan.";
+        const old4 = isEn ? "Template-based:" : "Template-based:";
+        const old4Sub = isEn ? "Hard to customize and prone to security leaks." : "Sangat sulit diubah sesuai kebutuhan dan rawan kebocoran data.";
+
+        const new1 = isEn ? "Fixed Price:" : "Harga Pasti:";
+        const new1Sub = isEn ? "The agreed price is the price you pay." : "Harga yang disepakati adalah harga yang Anda bayar.";
+        const new2 = isEn ? "Daily Reports:" : "Laporan Harian:";
+        const new2Sub = isEn ? "Monitor progress daily via Dashboard." : "Pantau progres setiap hari via Dashboard.";
+        const new3 = isEn ? "Full Ownership:" : "Hak Milik Penuh:";
+        const new3Sub = isEn ? "Code belongs to you 100% from day one." : "Kode aplikasi milik Anda 100% sejak hari pertama.";
+        const new4 = isEn ? "Custom Built:" : "Dibuat Khusus:";
+        const new4Sub = isEn ? "System built from scratch for your business needs." : "Sistem dibangun dari nol khusus untuk kebutuhan bisnis Anda.";
+
+        // Data Guarantee dari Landing Page
+        const tGuarTitle = isEn ? "Safe and Transparent." : "Aman dan Transparan.";
+        const tGuarSubtitle = isEn ? "100% Money Back Guarantee Before Work Begins" : "Garansi Uang Kembali 100% Sebelum Mulai Dikerjakan";
+        const tGuarDesc = isEn 
+            ? "If the initial work plan does not suit you after our initial discussion, we will refund your down payment (DP) 100%. No terms. You still get to keep the design draft as long as the project has not entered the development phase."
+            : "Jika rencana kerja awal tidak sesuai setelah diskusi awal kita, uang muka (DP) Anda kami kembalikan 100%. Tanpa syarat. Anda tetap boleh menyimpan rancangan tersebut selama proyek belum masuk tahap pembuatan.";
+
         // Template HTML Proposal A4 Premium
         const htmlContent = `
 <!DOCTYPE html>
@@ -477,6 +508,77 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             line-height: 1.4;
         }
 
+        /* Comparison Grid */
+        .comp-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .comp-box {
+            border-radius: 8px;
+            padding: 18px;
+            font-size: 12px;
+        }
+
+        .comp-box.old {
+            border: 1px solid #e2e8f0;
+            background: #f8fafc;
+        }
+
+        .comp-box.new {
+            border: 1px solid #d97706;
+            background: #fffdf9;
+        }
+
+        .comp-title-bar {
+            font-size: 13px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .comp-title-bar.old {
+            color: #64748b;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 6px;
+        }
+
+        .comp-title-bar.new {
+            color: #1e3a8a;
+            border-bottom: 1px solid #d97706;
+            padding-bottom: 6px;
+        }
+
+        .comp-item {
+            display: flex;
+            align-items: start;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .comp-icon {
+            font-size: 14px;
+            font-weight: bold;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .comp-icon.old {
+            color: #ef4444;
+        }
+
+        .comp-icon.new {
+            color: #d97706;
+        }
+
+        .comp-item-text {
+            line-height: 1.4;
+            color: #334155;
+        }
+
         /* Jaminan Premium Grid */
         .success-grid {
             display: grid;
@@ -525,6 +627,43 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             font-size: 10px;
             color: #64748b;
             line-height: 1.4;
+        }
+
+        /* Guarantee Box */
+        .guarantee-box {
+            background: #fffdf9;
+            border: 1.5px solid #d97706;
+            border-radius: 8px;
+            padding: 18px;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        .guarantee-badge {
+            display: inline-block;
+            background: #d97706;
+            color: #ffffff;
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 3px 10px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+
+        .guarantee-title {
+            font-size: 13px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 6px;
+        }
+
+        .guarantee-desc {
+            font-size: 11px;
+            color: #475569;
+            line-height: 1.5;
+            text-align: justify;
         }
 
         /* Investasi Section */
@@ -664,7 +803,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
     <div class="page">
         <div class="section-header">
             <h2 class="section-title">01 / Deskripsi Solusi Layanan</h2>
-            <span class="section-subtitle-badge">Halaman 2</span>
+            <span class="section-subtitle-badge">Halaman 2 dari 5</span>
         </div>
         
         <div class="body-section">
@@ -698,19 +837,16 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         </div>
     </div>
     
-    <!-- HALAMAN 3: FITUR & DELIVERABLES ASLI -->
+    <!-- HALAMAN 3: FITUR & PERBANDINGAN AGENSI (COMPARISON) -->
     <div class="page">
         <div class="section-header">
-            <h2 class="section-title">02 / Fitur & Deliverables Utama</h2>
-            <span class="section-subtitle-badge">Halaman 3</span>
+            <h2 class="section-title">02 / Fitur Layanan & Perbandingan</h2>
+            <span class="section-subtitle-badge">Halaman 3 dari 5</span>
         </div>
 
-        <div class="body-section">
-            <p class="paragraph-text" style="font-size: 13px; color: #475569; margin-bottom: 15px;">
-                Daftar lengkap fitur spesifik dan deliverables hasil kerja yang tercakup dalam solusi layanan ini:
-            </p>
-            
-            <div class="scope-container">
+        <div class="body-section" style="margin-bottom: 20px;">
+            <h3 class="body-section-title">Deliverables Utama</h3>
+            <div class="scope-container" style="margin-top: 5px; padding: 15px;">
                 <div class="features-grid">
                     ${featuresListHtml ? featuresListHtml : `
                         <div class="feature-card-item">
@@ -721,6 +857,54 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
                 </div>
             </div>
         </div>
+
+        <!-- PERBANDINGAN AGENSI (Comparison Section) -->
+        <div class="body-section">
+            <h3 class="body-section-title">${tCompTitle}</h3>
+            <p class="paragraph-text" style="font-size: 11px; color: #64748b; margin-bottom: 8px;">
+                ${tCompSubtitle}
+            </p>
+            <div class="comp-container">
+                <div class="comp-box old">
+                    <div class="comp-title-bar old">${tCompOldTitle}</div>
+                    <div class="comp-item">
+                        <div class="comp-icon old">&times;</div>
+                        <div class="comp-item-text"><strong>${old1}</strong> ${old1Sub}</div>
+                    </div>
+                    <div class="comp-item">
+                        <div class="comp-icon old">&times;</div>
+                        <div class="comp-item-text"><strong>${old2}</strong> ${old2Sub}</div>
+                    </div>
+                    <div class="comp-item">
+                        <div class="comp-icon old">&times;</div>
+                        <div class="comp-item-text"><strong>${old3}</strong> ${old3Sub}</div>
+                    </div>
+                    <div class="comp-item">
+                        <div class="comp-icon old">&times;</div>
+                        <div class="comp-item-text"><strong>${old4}</strong> ${old4Sub}</div>
+                    </div>
+                </div>
+                <div class="comp-box new">
+                    <div class="comp-title-bar new">${tCompNewTitle}</div>
+                    <div class="comp-item">
+                        <div class="comp-icon new">&check;</div>
+                        <div class="comp-item-text"><strong>${new1}</strong> ${new1Sub}</div>
+                    </div>
+                    <div class="comp-item">
+                        <div class="comp-icon new">&check;</div>
+                        <div class="comp-item-text"><strong>${new2}</strong> ${new2Sub}</div>
+                    </div>
+                    <div class="comp-item">
+                        <div class="comp-icon new">&check;</div>
+                        <div class="comp-item-text"><strong>${new3}</strong> ${new3Sub}</div>
+                    </div>
+                    <div class="comp-item">
+                        <div class="comp-icon new">&check;</div>
+                        <div class="comp-item-text"><strong>${new4}</strong> ${new4Sub}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
         
         <div class="page-footer">
             <span>CREDIBLEMARK &bull; Proposal ${title}</span>
@@ -728,15 +912,15 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         </div>
     </div>
 
-    <!-- HALAMAN 4: JAMINAN STANDAR PREMIUM (EVERYTHING TO SUCCEED) -->
+    <!-- HALAMAN 4: JAMINAN STANDAR PREMIUM & GARANSI UANG KEMBALI -->
     <div class="page">
         <div class="section-header">
-            <h2 class="section-title">03 / Jaminan Standar Premium</h2>
-            <span class="section-subtitle-badge">Halaman 4</span>
+            <h2 class="section-title">03 / Jaminan Mutu & Keamanan</h2>
+            <span class="section-subtitle-badge">Halaman 4 dari 5</span>
         </div>
 
-        <div class="body-section">
-            <p class="paragraph-text" style="font-size: 13px; color: #475569; margin-bottom: 20px; font-weight: 600;">
+        <div class="body-section" style="margin-bottom: 15px;">
+            <p class="paragraph-text" style="font-size: 13px; color: #475569; margin-bottom: 12px; font-weight: 600;">
                 ${tEverything}
             </p>
             
@@ -785,6 +969,13 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
                 </div>
             </div>
         </div>
+
+        <!-- GARANSI UANG KEMBALI (Guarantee Box) -->
+        <div class="guarantee-box">
+            <span class="guarantee-badge">&nbsp; ${tGuarTitle} &nbsp;</span>
+            <div class="guarantee-title">${tGuarSubtitle}</div>
+            <p class="guarantee-desc">${tGuarDesc}</p>
+        </div>
         
         <div class="page-footer">
             <span>CREDIBLEMARK &bull; Proposal ${title}</span>
@@ -796,7 +987,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
     <div class="page">
         <div class="section-header">
             <h2 class="section-title">04 / Rencana Investasi & Persetujuan</h2>
-            <span class="section-subtitle-badge">Halaman 5</span>
+            <span class="section-subtitle-badge">Halaman 5 dari 5</span>
         </div>
 
         <div class="body-section">
