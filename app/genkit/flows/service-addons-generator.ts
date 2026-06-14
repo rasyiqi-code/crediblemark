@@ -52,106 +52,40 @@ export const serviceAddonsGeneratorFlow = ai.defineFlow(
                 temperature: 0.7
             },
             prompt: `
-You are an expert product manager and upsell strategist for a digital agency.
-Your task is to analyze the service details and pricing provided below, and generate a list of highly specific, high-value add-ons that fit this offering.
+Role: Expert Product Manager & Upsell Strategist.
+Task: Generate 2-4 specific, high-value add-ons for the service below.
 
 Service Profile:
 - Title: "${sanitizedTitle}"
 - Description: "${sanitizedDesc}"
-- Base Price (Original): ${currency} ${basePrice}
-- Discount: ${discount}% (Consumer Price: ${currency} ${consumerPrice})
+- Base Price: ${currency} ${basePrice} (Consumer Price: ${currency} ${consumerPrice})
 - Interval: ${interval}
 
-=== ADD-ONS GENERATION RULES ===
-1. Quantity: Generate between 2 to 4 highly specific, high-value add-ons.
-2. SCOPE SEGREGATION & BUSINESS LOGIC COMPLEXITY (CRITICAL):
-   The separation between "Standard Features" (assumed to be in the base service) and "Add-on Features" (advanced) must be based on the Complexity of Business Logic, categorized by these 3 parameters:
+Rules:
+1. STANDARD VS ADD-ON SEPARATION:
+   Add-ons must be advanced features defined by business logic complexity:
+   - Customization: Custom conditional flows (e.g. B2B Tiered Pricing, branching forms). NOT standard carts or landing pages.
+   - Data Management: Interactive/relational (e.g. client portals, live inventory API sync). NOT static input forms.
+   - Automation: Full system-driven workflows replacing human tasks (e.g. auto-generated quote PDFs emailed).
+   - MATRIX:
+     * Payments: Add-on (Recurring billing, B2B tiered, Multi-currency) | Standard (Catalog, cart, basic payment gateways).
+     * Booking: Add-on (Google Calendar sync, seat picker, auto-block slots) | Standard (Static date picker, WhatsApp button).
+     * Content: Add-on (Paywalls, quiz generators, UGC directories) | Standard (Landing pages, blog, simple portfolio).
+     * Support/System: Add-on (AI Chatbots, Helpdesks, Client Portals, GPS tracking) | Standard (FAQ, WhatsApp floating chat, responsive design, SSL, basic analytics).
+2. NO CMS CAPACITY RESTRICTIONS:
+   - Never limit database/CMS features (e.g. DO NOT limit products, categories, or image uploads). The client must have unlimited CMS capability.
+   - Limit/quota fields MUST only apply to our manual deliverables (e.g. "3 Articles/Month", "Up to 3 Custom APIs Setup", "4 Hours/Month Support").
+3. PRICING:
+   - Addon currency must be "${currency}". Price must be an ODD (charm pricing) number.
+   - Pricing ranges based on Consumer Price (${currency} ${consumerPrice}):
+     * IDR < 2M -> One-Time: 249k-490k | Monthly: 49k-149k
+     * IDR 2M-3.5M -> One-Time: 490k-990k | Monthly: 99k-290k
+     * IDR 3.5M-9M -> One-Time: 990k-1.99M | Monthly: 190k-490k
+     * IDR 9M-20M -> One-Time: 1.99M-3.99M | Monthly: 390k-790k
+     * IDR > 20M -> One-Time: 3.99M-7.95M | Monthly: 490k-990k
+     * USD ranges scale proportionally (max USD 799 one-time, max USD 99 monthly).
 
-   a. Customization Scale (Default Flow vs. Business-Specific Flow):
-      - Standard: Uses template, default, or plug-and-play flow (e.g., standard e-commerce cart, basic payment checkout, standard landing pages).
-      - Add-on: Business-specific conditional logic (e.g., Dynamic Pricing based on B2B login role, branching multi-step custom forms).
-
-   b. Data Management (1-Way Input vs. Interactive Relational/Multi-Way):
-      - Standard: One-way static data collection (e.g., booking form that just sends an email, testimonial slider managed by admin, simple portfolio upload).
-      - Add-on: Real-time, interactive, relational processing (e.g., Client Login Portal for invoice downloads, real-time Live Inventory API Sync with warehouse, automated calendar slot booking/blocking upon payment).
-
-   c. Operational Execution (Manual Human Admin Tasks vs. Automated System Engine):
-      - Standard: Requires manual staff work behind the scenes (e.g., client requests a quote, and an admin manually calculates and emails the PDF).
-      - Add-on: Full end-to-end automation by the system (e.g., an automated quote calculator that calculates, renders, and emails a detailed PDF breakdown instantly).
-
-3. MATRIX GUIDELINE (STANDARD VS. ADD-ON):
-   Use this mapping to decide what goes into Add-ons (DO NOT suggest features from the 'Standard' column as add-ons):
-   - E-Commerce & Payments:
-     * Standard: Catalog, Cart, Checkout, Payment Gateway Integration (QRIS, VA).
-     * Add-on: Recurring Billing/Subscription, Tiered B2B Pricing, Multi-Currency.
-   - Booking & Reservations:
-     * Standard: Form with date picker, WhatsApp order button.
-     * Add-on: Real-time Calendar sync (Google Calendar), Seat/spot picker, Auto-blocking slots.
-   - Content & Marketing:
-     * Standard: Landing Page, Blog, Portfolio Gallery, Lead Magnet Pop-up.
-     * Add-on: Paywall/locked content, Dynamic Lead Magnet/Quiz Generator, User-Generated Content directories.
-   - Communication & Support:
-     * Standard: Contact form, Floating Chat/WA button, basic FAQ.
-     * Add-on: Automated Helpdesk/Ticketing, Live status tracking, AI Chatbot assistant.
-   - Tech Infrastructure:
-     * Standard: Mobile Responsive, SSL, Google Analytics/Meta Pixel.
-     * Add-on: Client Login Portal, Complex third-party API Integrations (Logistics GPS, Live Market Price).
-
-4. BUSINESS SCALE ADD-ON PRICING (CRITICAL):
-   - Harga add-on ("price") wajib disesuaikan secara logis dengan skala bisnis (dilihat dari Consumer Price ${currency} ${consumerPrice}) agar terjangkau dan disetujui klien:
-     * Indonesia (IDR):
-       - Jika Consumer Price < 2 Juta (Ultra Mikro):
-         * One-Time Add-ons: IDR 249,000 s.d. IDR 490,000.
-         * Monthly Add-ons: IDR 49,000 s.d. IDR 149,000.
-       - Jika Consumer Price 2 Juta - 3.5 Juta (Mikro):
-         * One-Time Add-ons: IDR 490,000 s.d. IDR 990,000.
-         * Monthly Add-ons: IDR 99,000 s.d. IDR 290,000.
-       - Jika Consumer Price 3.5 Juta - 9 Juta (Kecil):
-         * One-Time Add-ons: IDR 990,000 s.d. IDR 1,990,000.
-         * Monthly Add-ons: IDR 190,000 s.d. IDR 490,000.
-       - Jika Consumer Price 9 Juta - 20 Juta (Menengah/SME):
-         * One-Time Add-ons: IDR 1,990,000 s.d. IDR 3,990,000.
-         * Monthly Add-ons: IDR 390,000 s.d. IDR 790,000.
-       - Jika Consumer Price > 20 Juta (Besar/Enterprise):
-         * One-Time Add-ons: IDR 3,990,000 s.d. IDR 7,950,000.
-         * Monthly Add-ons: IDR 490,000 s.d. IDR 990,000.
-     * Global (USD):
-       - Jika Consumer Price < USD 200: One-Time max USD 49, Monthly max USD 15.
-       - Jika Consumer Price USD 200 - USD 350: One-Time max USD 99, Monthly max USD 29.
-       - Jika Consumer Price USD 350 - USD 900: One-Time max USD 199, Monthly max USD 49.
-       - Jika Consumer Price USD 900 - USD 2000: One-Time max USD 399, Monthly max USD 79.
-       - Jika Consumer Price > USD 2000: One-Time max USD 799, Monthly max USD 99.
-
-   - "currency" untuk addons harus sama dengan currency dasar: "${currency}".
-   - "price" untuk addons harus berupa angka CHARM/ganjil. JANGAN gunakan angka genap bulat.
-
-5. ADD-ON NAME SPECIFICITY & VALUE (CRITICAL — MANDATORY):
-   - Add-ons MUST represent high-value additions (e.g. third-party API integrations, copywriting/content creation service, dedicated custom design pages, ongoing monthly maintenance, or priority support).
-   - NEVER limit standard CMS/Admin Dashboard capabilities. Clients must have UNLIMITED access to create categories, upload products/items, add database records, create menus, or manage dynamic content.
-   - ABSOLUTELY DO NOT use restrictions like "Up to X Categories", "Max X Pages", "Up to X Images", "Limit X Products" in add-on names. These make the offer look bad and have zero value.
-   - Quotas/limits MUST ONLY apply to the agency's manual service deliverables (e.g. "3 Articles/Month", "Up to 3 API integrations set up", "4 hours of support/month").
-   - "name" and "name_id" must be specific and self-explanatory.
-   - Good examples:
-     * "SEO Content Writing - 3 Articles/Month (500-800 Words Each)"
-     * "WhatsApp API Setup & Integration (Up to 3 Custom Event Triggers)"
-     * "Monthly Performance Support - 4 Hours/Month Support Retainer"
-     * "Custom Lead Capture Form with CRM Auto-Sync (HubSpot/Zoho)"
-     * "Konten Blog SEO - 3 Artikel/Bulan (600-800 Kata)"
-
-=== REQUIRED JSON OUTPUT FORMAT ===
-You MUST return ONLY a raw JSON object with NO markdown, NO explanation, NO code block wrappers. The JSON must exactly match this structure:
-
-{
-  "addons": [
-    {
-      "name": "string (specific: include quantity/frequency/scope)",
-      "name_id": "string (spesifik dalam bahasa Indonesia)",
-      "price": 0,
-      "interval": "one_time",
-      "currency": "USD"
-    }
-  ]
-}
+Format Output: Raw JSON matching the schema. No markdown wrappers, no explanations.
             `,
             output: {
                 schema: serviceAddonsOutputSchema
