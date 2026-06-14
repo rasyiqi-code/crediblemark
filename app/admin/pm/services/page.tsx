@@ -24,8 +24,9 @@ export default async function ServicesPage() {
             <AdminHeaderSetter
                 title={
                     <span className="flex items-center gap-3">
-                        {t("catalogTitle")}
-                        <Package className="w-6 h-6 text-zinc-600" />
+                        <span className="hidden sm:inline">{t("catalogTitle")}</span>
+                        <span className="sm:hidden">{t("mobileTitle")}</span>
+                        <Package className="w-6 h-6 text-zinc-600 hidden sm:inline-block" />
                     </span>
                 }
                 actions={

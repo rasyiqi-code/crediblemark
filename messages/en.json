@@ -421,6 +421,7 @@
             "enDefault": "English (Default)",
             "idBahasa": "Bahasa Indonesia",
             "catalogTitle": "Service Catalog",
+            "mobileTitle": "Services",
             "createService": "Create Service",
             "noServices": "No services defined yet.",
             "interval": "Interval",
