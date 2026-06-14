@@ -63,6 +63,7 @@ export default async function AdminLayout({
                                     alt={agencyName}
                                     fill
                                     className="object-contain"
+                                    sizes="36px"
                                 />
                             </div>
                         ) : (

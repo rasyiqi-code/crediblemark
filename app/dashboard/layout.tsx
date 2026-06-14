@@ -41,6 +41,7 @@ export default async function DashboardLayout({
                                     alt={agencyName}
                                     fill
                                     className="object-contain"
+                                    sizes="32px"
                                 />
                             </div>
                         ) : (
