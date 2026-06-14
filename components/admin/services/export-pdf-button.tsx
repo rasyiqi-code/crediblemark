@@ -148,14 +148,6 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         const f5 = isEn ? "Fast Delivery" : "Pengiriman Cepat";
         const f6 = isEn ? "Clean & Scalable Code" : "Kode Rapi & Skalabel";
 
-        // Teks ornamen pilar Halaman 2
-        const p1Title = isEn ? "Security & Reliability" : "Keamanan & Keandalan";
-        const p1Desc = isEn ? "Built with modern encryption standards to guarantee safe data and long-term operations." : "Sistem dibangun dengan standar enkripsi modern guna menjamin keamanan data dan operasional jangka panjang.";
-        const p2Title = isEn ? "Performance & Speed" : "Performa & Kecepatan";
-        const p2Desc = isEn ? "Optimized for speed and responsiveness to ensure a smooth user experience across mobile devices." : "Optimalisasi performa tinggi untuk akses yang responsif, cepat, dan lancar di seluruh jenis perangkat mobile.";
-        const p3Title = isEn ? "Easy Maintenance" : "Kemudahan Kelola";
-        const p3Desc = isEn ? "Clean and modular architecture designed for easy updates, scaling, and feature expansions." : "Arsitektur modular yang dirancang secara clean agar sistem mudah dipelihara dan dikembangkan lebih lanjut.";
-
         // Data Comparison dari Landing Page
         const tCompTitle = isEn ? "Why Choose Us?" : "Kenapa Pilih Kami?";
         const tCompSubtitle = isEn ? "We deliver results and services above market standards." : "Kami memberikan hasil dan pelayanan di atas standar pasar.";
@@ -427,44 +419,6 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             margin-bottom: 6px;
         }
 
-        /* Pilar Komitmen Desain Halaman 2 */
-        .pillars-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-top: 35px;
-            border-top: 1px solid #e2e8f0;
-            padding-top: 25px;
-        }
-        
-        .pillar-card {
-            background: #fafbfc;
-            border: 1px solid #e2e8f0;
-            border-radius: 6px;
-            padding: 15px;
-            text-align: center;
-        }
-        
-        .pillar-icon {
-            font-size: 20px;
-            margin-bottom: 8px;
-        }
-        
-        .pillar-title {
-            font-size: 11px;
-            font-weight: 700;
-            color: #0f172a;
-            margin-bottom: 6px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .pillar-desc {
-            font-size: 10px;
-            color: #64748b;
-            line-height: 1.4;
-        }
-
         /* Scope / Fitur Grid */
         .scope-container {
             background: #fafbfc;
@@ -513,7 +467,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 20px;
-            margin-top: 15px;
+            margin-top: 10px;
         }
 
         .comp-box {
@@ -799,10 +753,10 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         </div>
     </div>
     
-    <!-- HALAMAN 2: DESKRIPSI LAYANAN ASLI & PILAR KOMITMEN DESAIN -->
+    <!-- HALAMAN 2: DESKRIPSI LAYANAN ASLI & PERBANDINGAN AGENSI (COMPARISON) -->
     <div class="page">
         <div class="section-header">
-            <h2 class="section-title">01 / Deskripsi Solusi Layanan</h2>
+            <h2 class="section-title">01 / Deskripsi Solusi & Kredibilitas</h2>
             <span class="section-subtitle-badge">Halaman 2 dari 5</span>
         </div>
         
@@ -812,54 +766,8 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             </div>
         </div>
 
-        <!-- PILAR KOMITMEN DESAIN (Mengisi kekosongan visual bagian bawah halaman 2) -->
-        <div class="pillars-container">
-            <div class="pillar-card">
-                <div class="pillar-icon">🔒</div>
-                <div class="pillar-title">${p1Title}</div>
-                <div class="pillar-desc">${p1Desc}</div>
-            </div>
-            <div class="pillar-card">
-                <div class="pillar-icon">⚡</div>
-                <div class="pillar-title">${p2Title}</div>
-                <div class="pillar-desc">${p2Desc}</div>
-            </div>
-            <div class="pillar-card">
-                <div class="pillar-icon">⚙️</div>
-                <div class="pillar-title">${p3Title}</div>
-                <div class="pillar-desc">${p3Desc}</div>
-            </div>
-        </div>
-        
-        <div class="page-footer">
-            <span>CREDIBLEMARK &bull; Proposal ${title}</span>
-            <span>Halaman 2 dari 5</span>
-        </div>
-    </div>
-    
-    <!-- HALAMAN 3: FITUR & PERBANDINGAN AGENSI (COMPARISON) -->
-    <div class="page">
-        <div class="section-header">
-            <h2 class="section-title">02 / Fitur Layanan & Perbandingan</h2>
-            <span class="section-subtitle-badge">Halaman 3 dari 5</span>
-        </div>
-
-        <div class="body-section" style="margin-bottom: 20px;">
-            <h3 class="body-section-title">Deliverables Utama</h3>
-            <div class="scope-container" style="margin-top: 5px; padding: 15px;">
-                <div class="features-grid">
-                    ${featuresListHtml ? featuresListHtml : `
-                        <div class="feature-card-item">
-                            <div class="feature-card-dot"></div>
-                            <div class="feature-card-text">Layanan implementasi fungsional ${title} lengkap.</div>
-                        </div>
-                    `}
-                </div>
-            </div>
-        </div>
-
-        <!-- PERBANDINGAN AGENSI (Comparison Section) -->
-        <div class="body-section">
+        <!-- PERBANDINGAN AGENSI (Comparison Section) - Mengisi kekosongan Halaman 2 secara fungsional & mewah -->
+        <div class="body-section" style="margin-top: 30px; border-top: 1px solid #e2e8f0; padding-top: 20px;">
             <h3 class="body-section-title">${tCompTitle}</h3>
             <p class="paragraph-text" style="font-size: 11px; color: #64748b; margin-bottom: 8px;">
                 ${tCompSubtitle}
@@ -902,6 +810,36 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
                         <div class="comp-icon new">&check;</div>
                         <div class="comp-item-text"><strong>${new4}</strong> ${new4Sub}</div>
                     </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="page-footer">
+            <span>CREDIBLEMARK &bull; Proposal ${title}</span>
+            <span>Halaman 2 dari 5</span>
+        </div>
+    </div>
+    
+    <!-- HALAMAN 3: FITUR & DELIVERABLES ASLI -->
+    <div class="page">
+        <div class="section-header">
+            <h2 class="section-title">02 / Fitur & Deliverables Utama</h2>
+            <span class="section-subtitle-badge">Halaman 3 dari 5</span>
+        </div>
+
+        <div class="body-section">
+            <p class="paragraph-text" style="font-size: 13px; color: #475569; margin-bottom: 15px;">
+                Daftar lengkap fitur spesifik dan deliverables hasil kerja yang tercakup dalam solusi layanan ini:
+            </p>
+            
+            <div class="scope-container">
+                <div class="features-grid">
+                    ${featuresListHtml ? featuresListHtml : `
+                        <div class="feature-card-item">
+                            <div class="feature-card-dot"></div>
+                            <div class="feature-card-text">Layanan implementasi fungsional ${title} lengkap.</div>
+                        </div>
+                    `}
                 </div>
             </div>
         </div>
