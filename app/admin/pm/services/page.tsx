@@ -74,7 +74,7 @@ export default async function ServicesPage() {
                                     id={`service-item-${service.id}`}
                                     className="border border-zinc-800/60 rounded-xl overflow-hidden transition-all duration-200 hover:border-zinc-700/80 bg-zinc-950/50 data-[state=open]:border-zinc-700/80 w-full max-w-full relative"
                                 >
-                                    <AccordionTrigger className="hover:no-underline px-4 py-3.5 cursor-pointer hover:bg-zinc-900/40 group pr-32">
+                                    <AccordionTrigger className="hover:no-underline px-4 py-3.5 cursor-pointer hover:bg-zinc-900/40 group">
                                         <div className="flex flex-1 items-center justify-between gap-4 min-w-0">
                                             <div className="flex items-start gap-2 sm:gap-3 min-w-0 flex-1">
                                                 {/* Status indicator dot — green if synced, amber if not */}
@@ -110,10 +110,6 @@ export default async function ServicesPage() {
                                         </div>
                                     </AccordionTrigger>
 
-                                    {/* Action buttons — moved outside to avoid nested <button> hydration error */}
-                                    <div className="absolute right-3 top-6 -translate-y-1/2 z-10 flex items-center gap-1.5">
-                                        <ServiceActionButtons serviceId={service.id} />
-                                    </div>
 
                                     <AccordionContent className="px-4 pb-4 pt-1 border-t border-zinc-800/40 overflow-hidden min-w-0">
                                         <div className="flex flex-col sm:flex-row items-start gap-4 mt-3">
@@ -130,36 +126,43 @@ export default async function ServicesPage() {
                                             )}
 
                                             <div className="flex-1 flex flex-col min-w-0">
-                                                {/* Detail grid — matching projects style */}
-                                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-3">
-                                                    <div className="flex items-center gap-2 group/detail">
-                                                        <span className="text-zinc-600"><Package className="w-3.5 h-3.5" /></span>
-                                                        <div className="flex-1 min-w-0">
-                                                            <span className="text-[10px] text-zinc-600 uppercase tracking-wider block">Creem ID</span>
-                                                            <span className={`text-xs font-mono truncate block ${isSynced ? 'text-zinc-400' : 'text-amber-500 italic'}`} title={service.creemProductId || undefined}>
-                                                                {service.creemProductId || (isId ? 'Belum Sinkron' : 'Not Synced')}
-                                                            </span>
+                                                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-3">
+                                                    {/* Detail grid — matching projects style */}
+                                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 flex-1 lg:pr-8">
+                                                        <div className="flex items-center gap-2 group/detail">
+                                                            <span className="text-zinc-600"><Package className="w-3.5 h-3.5" /></span>
+                                                            <div className="flex-1 min-w-0">
+                                                                <span className="text-[10px] text-zinc-600 uppercase tracking-wider block">Creem ID</span>
+                                                                <span className={`text-xs font-mono truncate block ${isSynced ? 'text-zinc-400' : 'text-amber-500 italic'}`} title={service.creemProductId || undefined}>
+                                                                    {service.creemProductId || (isId ? 'Belum Sinkron' : 'Not Synced')}
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div className="flex items-center gap-2 group/detail">
+                                                            <span className="text-zinc-600"><Zap className="w-3.5 h-3.5" /></span>
+                                                            <div className="flex-1 min-w-0">
+                                                                <span className="text-[10px] text-zinc-600 uppercase tracking-wider block">{isId ? 'Interval' : 'Interval'}</span>
+                                                                <span className="text-xs text-zinc-400 font-medium">
+                                                                    {intervalLabel}
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div className="flex items-center gap-2 group/detail">
+                                                            <span className="text-zinc-600"><CreditCard className="w-3.5 h-3.5" /></span>
+                                                            <div className="flex-1 min-w-0">
+                                                                <span className="text-[10px] text-zinc-600 uppercase tracking-wider block">{isId ? 'Model Harga' : 'Price Model'}</span>
+                                                                <span className="text-xs text-zinc-400 font-medium">
+                                                                    {service.priceType === 'STARTING_AT' 
+                                                                        ? (isId ? 'Investasi Dasar' : 'Starting At') 
+                                                                        : (isId ? 'Harga Tetap' : 'Fixed Price')}
+                                                                </span>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div className="flex items-center gap-2 group/detail">
-                                                        <span className="text-zinc-600"><Zap className="w-3.5 h-3.5" /></span>
-                                                        <div className="flex-1 min-w-0">
-                                                            <span className="text-[10px] text-zinc-600 uppercase tracking-wider block">{isId ? 'Interval' : 'Interval'}</span>
-                                                            <span className="text-xs text-zinc-400 font-medium">
-                                                                {intervalLabel}
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div className="flex items-center gap-2 group/detail">
-                                                        <span className="text-zinc-600"><CreditCard className="w-3.5 h-3.5" /></span>
-                                                        <div className="flex-1 min-w-0">
-                                                            <span className="text-[10px] text-zinc-600 uppercase tracking-wider block">{isId ? 'Model Harga' : 'Price Model'}</span>
-                                                            <span className="text-xs text-zinc-400 font-medium">
-                                                                {service.priceType === 'STARTING_AT' 
-                                                                    ? (isId ? 'Investasi Dasar' : 'Starting At') 
-                                                                    : (isId ? 'Harga Tetap' : 'Fixed Price')}
-                                                            </span>
-                                                        </div>
+
+                                                    {/* Tombol Aksi - sejajar vertikal dengan detail grid */}
+                                                    <div className="flex justify-start lg:justify-end shrink-0 pt-2 lg:pt-0">
+                                                        <ServiceActionButtons serviceId={service.id} />
                                                     </div>
                                                 </div>
 
