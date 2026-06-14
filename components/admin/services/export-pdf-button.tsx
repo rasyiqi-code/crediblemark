@@ -368,6 +368,44 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             margin-bottom: 6px;
         }
 
+        /* Pilar Komitmen Desain Halaman 2 */
+        .pillars-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 35px;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 25px;
+        }
+        
+        .pillar-card {
+            background: #fafbfc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .pillar-icon {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+        
+        .pillar-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .pillar-desc {
+            font-size: 10px;
+            color: #64748b;
+            line-height: 1.4;
+        }
+
         /* Scope / Fitur Grid */
         .scope-container {
             background: #fafbfc;
@@ -544,7 +582,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         </div>
     </div>
     
-    <!-- HALAMAN 2: DESKRIPSI LAYANAN ASLI -->
+    <!-- HALAMAN 2: DESKRIPSI LAYANAN ASLI & PILAR KOMITMEN DESAIN -->
     <div class="page">
         <div class="section-header">
             <h2 class="section-title">01 / Deskripsi Solusi Layanan</h2>
@@ -554,6 +592,25 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         <div class="body-section">
             <div class="desc-content">
                 ${descriptionHtml}
+            </div>
+        </div>
+
+        <!-- PILAR KOMITMEN DESAIN (Mengisi kekosongan visual bagian bawah halaman 2) -->
+        <div class="pillars-container">
+            <div class="pillar-card">
+                <div class="pillar-icon">🔒</div>
+                <div class="pillar-title">Keamanan & Keandalan</div>
+                <div class="pillar-desc">Sistem dibangun dengan standar enkripsi modern guna menjamin keamanan data dan operasional jangka panjang.</div>
+            </div>
+            <div class="pillar-card">
+                <div class="pillar-icon">⚡</div>
+                <div class="pillar-title">Performa & Kecepatan</div>
+                <div class="pillar-desc">Optimalisasi performa tinggi untuk akses yang responsif, cepat, dan lancar di seluruh jenis perangkat mobile.</div>
+            </div>
+            <div class="pillar-card">
+                <div class="pillar-icon">⚙️</div>
+                <div class="pillar-title">Kemudahan Kelola</div>
+                <div class="pillar-desc">Arsitektur modular yang dirancang secara clean agar sistem mudah dipelihara dan dikembangkan lebih lanjut.</div>
             </div>
         </div>
         
