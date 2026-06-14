@@ -33,10 +33,6 @@ interface DraftServiceData extends Partial<ServiceData> {
     original_price?: number | null;
 }
 
-// Tipe step untuk multi-step magic draft popover
-// input = textarea prompt, step2 = apply harga, step3 = apply add-ons
-type DraftStep = 'input' | 'step2' | 'step3';
-
 export function CreateServiceForm() {
     const router = useRouter();
     const t = useTranslations("Service");
@@ -46,8 +42,8 @@ export function CreateServiceForm() {
     // State AI Generation
     const [prompt, setPrompt] = useState("");
     const [isGenerating, setIsGenerating] = useState(false);
-    const [draftStep, setDraftStep] = useState<DraftStep>('input');
     const [pendingDraft, setPendingDraft] = useState<DraftServiceData | null>(null);
+    const [isPricingApplied, setIsPricingApplied] = useState(false);
     const [generatedData, setGeneratedData] = useState<DraftServiceData | null>(null);
 
     // 3 key terpisah agar force-remount hanya field yang relevan per step
@@ -64,7 +60,7 @@ export function CreateServiceForm() {
         setPriceType(value);
     };
 
-    // Generate AI: apply judul/deskripsi/fitur langsung ke form, lalu pindah ke step2
+    // Generate AI: apply judul/deskripsi/fitur langsung ke form
     async function handleGenerate() {
         if (!prompt.trim()) return;
         setIsGenerating(true);
@@ -112,9 +108,8 @@ export function CreateServiceForm() {
                 }));
                 if (draft.slug) setSlug(draft.slug as string);
                 setKeyContent(prev => prev + 1);
-
-                // Langsung ke step 2 (harga)
-                setDraftStep('step2');
+                setIsPricingApplied(false); // Reset status harga agar addon dinonaktifkan kembali
+                toast.success(tAdmin("aiDraftedSuccess"));
             } else {
                 toast.error(result.error || tAdmin("aiFail"));
             }
@@ -126,7 +121,7 @@ export function CreateServiceForm() {
         }
     }
 
-    // Step 2: apply harga & konfigurasi ke form
+    // Terapkan harga & konfigurasi ke form
     function applyStep2() {
         if (!pendingDraft) return;
         setGeneratedData(prev => ({
@@ -140,10 +135,11 @@ export function CreateServiceForm() {
         if (pendingDraft.priceType) setPriceType(pendingDraft.priceType as string);
         if (pendingDraft.interval) setInterval(pendingDraft.interval as string);
         setKeyPricing(prev => prev + 1);
-        setDraftStep('step3');
+        setIsPricingApplied(true);
+        toast.success("Harga & Konfigurasi dari AI berhasil diterapkan!");
     }
 
-    // Step 3: apply add-ons ke form
+    // Terapkan add-ons ke form
     function applyStep3() {
         if (!pendingDraft) return;
         setGeneratedData(prev => ({
@@ -153,9 +149,9 @@ export function CreateServiceForm() {
             currency: pendingDraft.currency,
         }));
         setKeyAddons(prev => prev + 1);
-        setDraftStep('input');
         setPendingDraft(null);
-        toast.success(tAdmin("aiDraftedSuccess"));
+        setIsPricingApplied(false);
+        toast.success("Add-ons dari AI berhasil diterapkan!");
     }
 
     async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -208,133 +204,6 @@ export function CreateServiceForm() {
                             {tAdmin("createNew")}
                         </h1>
 
-                        {/* AI Assistant Popover - Multi-step Magic Draft */}
-                        <Popover onOpenChange={(open) => { if (!open) { setDraftStep('input'); } }}>
-                            <PopoverTrigger asChild>
-                                <Button
-                                    variant="outline"
-                                    size="sm"
-                                    className="h-8 gap-2 bg-indigo-500/10 border-indigo-500/20 text-indigo-400 hover:bg-indigo-500/20 hover:text-indigo-300 transition-all hover:scale-105 active:scale-95"
-                                >
-                                    <Sparkles className="w-3.5 h-3.5 animate-pulse" />
-                                    <span className="text-xs font-semibold">{tAdmin("aiAssistant")}</span>
-                                </Button>
-                            </PopoverTrigger>
-                            <PopoverContent
-                                className="w-[calc(100vw-2rem)] sm:w-80 p-0 border-indigo-500/20 bg-zinc-900 shadow-2xl shadow-indigo-500/20"
-                                align="end"
-                                sideOffset={8}
-                            >
-                                {/* Header */}
-                                <div className="p-4 border-b border-white/5 bg-indigo-500/5">
-                                    <div className="flex items-center gap-2 mb-1">
-                                        <Sparkles className="w-4 h-4 text-indigo-400" />
-                                        <h4 className="font-semibold text-white text-sm">{tAdmin("magicDraft")}</h4>
-                                    </div>
-                                    <p className="text-[10px] text-indigo-300/80">
-                                        {draftStep === 'input' && tAdmin("magicDraftDesc")}
-                                        {draftStep === 'step2' && 'Step 2/3 — Harga & Konfigurasi'}
-                                        {draftStep === 'step3' && 'Step 3/3 — Add-ons'}
-                                    </p>
-                                    {/* Step progress bar */}
-                                    {draftStep !== 'input' && (
-                                        <div className="flex items-center gap-1.5 mt-2">
-                                            <div className="h-1 flex-1 rounded-full bg-indigo-600" />
-                                            <div className={`h-1 flex-1 rounded-full transition-all ${draftStep === 'step2' ? 'bg-indigo-400' : 'bg-indigo-600'}`} />
-                                            <div className={`h-1 flex-1 rounded-full transition-all ${draftStep === 'step3' ? 'bg-indigo-400' : 'bg-white/10'}`} />
-                                        </div>
-                                    )}
-                                </div>
-
-                                {/* Step 1: Input prompt + Generate */}
-                                {draftStep === 'input' && (
-                                    <div className="p-4 space-y-4">
-                                        <Textarea
-                                            value={prompt}
-                                            onChange={(e) => setPrompt(e.target.value)}
-                                            placeholder={tAdmin("promptPlaceholder")}
-                                            className="bg-black/40 border-indigo-500/20 text-zinc-200 focus:ring-indigo-500/40 min-h-[100px] text-xs resize-none"
-                                        />
-                                        <Button
-                                            type="button"
-                                            onClick={handleGenerate}
-                                            disabled={isGenerating || !prompt.trim()}
-                                            className="w-full bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-500/20 h-9 transition-all active:scale-95"
-                                        >
-                                            {isGenerating ? (
-                                                <>
-                                                    <Loader2 className="w-4 h-4 animate-spin mr-2" />
-                                                    {tAdmin("crafting")}
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <Sparkles className="w-4 h-4 mr-2" />
-                                                    {tAdmin("autoFill")}
-                                                </>
-                                            )}
-                                        </Button>
-                                    </div>
-                                )}
-
-                                {/* Step 2: Apply Harga */}
-                                {draftStep === 'step2' && pendingDraft && (
-                                    <div className="p-4 space-y-3">
-                                        <div className="rounded-lg bg-white/5 border border-white/5 p-3 grid grid-cols-2 gap-3">
-                                            <div>
-                                                <p className="text-[10px] text-zinc-500 uppercase tracking-wider mb-1">Harga</p>
-                                                <p className="text-sm text-white font-semibold">
-                                                    {pendingDraft.currency} {Number(pendingDraft.recommended_price).toLocaleString()}
-                                                </p>
-                                            </div>
-                                            <div>
-                                                <p className="text-[10px] text-zinc-500 uppercase tracking-wider mb-1">Diskon</p>
-                                                <p className="text-sm text-white font-semibold">{pendingDraft.discount as number}%</p>
-                                            </div>
-                                            <div>
-                                                <p className="text-[10px] text-zinc-500 uppercase tracking-wider mb-1">Tipe</p>
-                                                <p className="text-xs text-zinc-300">{pendingDraft.priceType as string}</p>
-                                            </div>
-                                            <div>
-                                                <p className="text-[10px] text-zinc-500 uppercase tracking-wider mb-1">Interval</p>
-                                                <p className="text-xs text-zinc-300">{pendingDraft.interval as string}</p>
-                                            </div>
-                                        </div>
-                                        <div className="flex gap-2">
-                                            <Button type="button" variant="ghost" size="sm" onClick={() => setDraftStep('input')} className="flex-1 text-xs text-zinc-500 hover:text-white h-8">
-                                                ← Ulang
-                                            </Button>
-                                            <Button type="button" onClick={applyStep2} className="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white h-8 text-xs">
-                                                Terapkan Harga →
-                                            </Button>
-                                        </div>
-                                    </div>
-                                )}
-
-                                {/* Step 3: Apply Add-ons */}
-                                {draftStep === 'step3' && pendingDraft && (
-                                    <div className="p-4 space-y-3">
-                                        <div className="space-y-1.5 max-h-44 overflow-y-auto pr-1">
-                                            {(pendingDraft.addons as ServiceAddonDraft[] || []).map((addon, i) => (
-                                                <div key={i} className="flex items-center justify-between gap-2 text-xs py-1 border-b border-white/5 last:border-0">
-                                                    <span className="text-zinc-300 leading-snug truncate">{addon.name}</span>
-                                                    <span className="text-indigo-400 font-medium whitespace-nowrap">
-                                                        {addon.currency} {Number(addon.price).toLocaleString()}
-                                                    </span>
-                                                </div>
-                                            ))}
-                                        </div>
-                                        <div className="flex gap-2">
-                                            <Button type="button" variant="ghost" size="sm" onClick={() => setDraftStep('step2')} className="flex-1 text-xs text-zinc-500 hover:text-white h-8">
-                                                ← Back
-                                            </Button>
-                                            <Button type="button" onClick={applyStep3} className="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white h-8 text-xs">
-                                                Terapkan Add-ons ✓
-                                            </Button>
-                                        </div>
-                                    </div>
-                                )}
-                            </PopoverContent>
-                        </Popover>
                     </div>
                     <p className="text-zinc-400 mt-1 text-sm max-w-2xl">
                         {tAdmin("pageDescCreate")}
@@ -355,6 +224,43 @@ export function CreateServiceForm() {
 
                 {/* Left Column: Primary Information (2/3 width) */}
                 <div className="lg:col-span-2 space-y-6" key={`content-${keyContent}`}>
+
+                    {/* AI Magic Draft - Box Generator */}
+                    <div className="rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-6 space-y-4">
+                        <div className="flex items-center gap-2">
+                            <Sparkles className="w-5 h-5 text-indigo-400 animate-pulse" />
+                            <h3 className="text-sm font-semibold text-white">AI Magic Draft</h3>
+                        </div>
+                        <p className="text-xs text-indigo-300/80 leading-normal">
+                            {tAdmin("magicDraftDesc")}
+                        </p>
+                        <div className="space-y-3">
+                            <Textarea
+                                value={prompt}
+                                onChange={(e) => setPrompt(e.target.value)}
+                                placeholder={tAdmin("promptPlaceholder")}
+                                className="bg-black/40 border-indigo-500/20 text-zinc-200 focus:ring-indigo-500/40 min-h-[100px] text-xs resize-none"
+                            />
+                            <Button
+                                type="button"
+                                onClick={handleGenerate}
+                                disabled={isGenerating || !prompt.trim()}
+                                className="w-full bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-500/20 h-10 transition-all active:scale-95 text-xs font-semibold"
+                            >
+                                {isGenerating ? (
+                                    <>
+                                        <Loader2 className="w-4 h-4 animate-spin mr-2" />
+                                        {tAdmin("crafting")}
+                                    </>
+                                ) : (
+                                    <>
+                                        <Sparkles className="w-4 h-4 mr-2" />
+                                        {tAdmin("autoFill")}
+                                    </>
+                                )}
+                            </Button>
+                        </div>
+                    </div>
 
 
 
@@ -448,9 +354,22 @@ export function CreateServiceForm() {
                             </div>
 
                             <div className="space-y-6">
-                                <div className="flex items-center gap-2 pb-3 border-b border-white/5">
-                                    <Plus className="w-4 h-4 text-purple-400" />
-                                    <h3 className="text-sm font-semibold text-white">Add-ons (Optional)</h3>
+                                <div className="flex items-center justify-between pb-3 border-b border-white/5">
+                                    <div className="flex items-center gap-2">
+                                        <Plus className="w-4 h-4 text-purple-400" />
+                                        <h3 className="text-sm font-semibold text-white">Add-ons (Optional)</h3>
+                                    </div>
+                                    <Button
+                                        type="button"
+                                        onClick={applyStep3}
+                                        disabled={!pendingDraft || !isPricingApplied}
+                                        variant="outline"
+                                        size="sm"
+                                        className="h-7 px-2.5 text-[10px] gap-1 bg-indigo-500/10 border-indigo-500/20 text-indigo-400 hover:bg-indigo-500/20 hover:text-indigo-300 disabled:opacity-40 disabled:hover:bg-indigo-500/10 disabled:hover:text-indigo-400"
+                                    >
+                                        <Sparkles className="w-3 h-3" />
+                                        Isi dari AI
+                                    </Button>
                                 </div>
                                 <div className="space-y-6">
                                     <div className="space-y-2">
@@ -515,9 +434,22 @@ export function CreateServiceForm() {
                             </div>
 
                             <div className="space-y-6">
-                                <div className="flex items-center gap-2 pb-3 border-b border-white/5">
-                                    <Plus className="w-4 h-4 text-purple-400" />
-                                    <h3 className="text-sm font-semibold text-white">Add-ons (Opsional)</h3>
+                                <div className="flex items-center justify-between pb-3 border-b border-white/5">
+                                    <div className="flex items-center gap-2">
+                                        <Plus className="w-4 h-4 text-purple-400" />
+                                        <h3 className="text-sm font-semibold text-white">Add-ons (Opsional)</h3>
+                                    </div>
+                                    <Button
+                                        type="button"
+                                        onClick={applyStep3}
+                                        disabled={!pendingDraft || !isPricingApplied}
+                                        variant="outline"
+                                        size="sm"
+                                        className="h-7 px-2.5 text-[10px] gap-1 bg-indigo-500/10 border-indigo-500/20 text-indigo-400 hover:bg-indigo-500/20 hover:text-indigo-300 disabled:opacity-40 disabled:hover:bg-indigo-500/10 disabled:hover:text-indigo-400"
+                                    >
+                                        <Sparkles className="w-3 h-3" />
+                                        Isi dari AI
+                                    </Button>
                                 </div>
                                 <div className="space-y-6">
                                     <div className="space-y-2">
@@ -541,9 +473,22 @@ export function CreateServiceForm() {
 
 
                         <div className="rounded-xl border border-white/5 bg-zinc-900/40 overflow-hidden">
-                            <div className="px-6 py-4 border-b border-white/5 bg-zinc-900/20 flex items-center gap-2">
-                                <CreditCard className="w-4 h-4 text-violet-400" />
-                                <h3 className="text-sm font-semibold text-white">{tAdmin("pricingConfig")}</h3>
+                            <div className="px-6 py-4 border-b border-white/5 bg-zinc-900/20 flex items-center justify-between">
+                                <div className="flex items-center gap-2">
+                                    <CreditCard className="w-4 h-4 text-violet-400" />
+                                    <h3 className="text-sm font-semibold text-white">{tAdmin("pricingConfig")}</h3>
+                                </div>
+                                <Button
+                                    type="button"
+                                    onClick={applyStep2}
+                                    disabled={!pendingDraft}
+                                    variant="outline"
+                                    size="sm"
+                                    className="h-7 px-2.5 text-[10px] gap-1 bg-indigo-500/10 border-indigo-500/20 text-indigo-400 hover:bg-indigo-500/20 hover:text-indigo-300 disabled:opacity-40 disabled:hover:bg-indigo-500/10 disabled:hover:text-indigo-400"
+                                >
+                                    <Sparkles className="w-3 h-3" />
+                                    Isi dari AI
+                                </Button>
                             </div>
                             <div className="p-6 space-y-6">
 
