@@ -175,7 +175,7 @@ export default async function WordPressLandingPage() {
 
                     <div className="grid md:grid-cols-12 gap-6">
                         {/* Box 1: UI/UX Kustom (Size: 7/12) */}
-                        <div className="md:col-span-7 rounded-2xl border border-white/5 bg-zinc-900/10 p-8 flex flex-col justify-between hover:border-white/10 transition-colors group">
+                        <div className="md:col-span-7 rounded-2xl border border-white/5 bg-zinc-900/10 p-6 sm:p-8 flex flex-col justify-between hover:border-white/10 transition-colors group">
                             <div className="space-y-4">
                                 <div className="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center">
                                     <Sparkles className="w-5 h-5 text-violet-400" />
@@ -192,7 +192,7 @@ export default async function WordPressLandingPage() {
                         </div>
 
                         {/* Box 2: Kecepatan Laju (Size: 5/12) */}
-                        <div className="md:col-span-5 rounded-2xl border border-white/5 bg-zinc-900/10 p-8 flex flex-col justify-between hover:border-white/10 transition-colors group">
+                        <div className="md:col-span-5 rounded-2xl border border-white/5 bg-zinc-900/10 p-6 sm:p-8 flex flex-col justify-between hover:border-white/10 transition-colors group">
                             <div className="space-y-4">
                                 <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center">
                                     <Zap className="w-5 h-5 text-emerald-400" />
@@ -209,7 +209,7 @@ export default async function WordPressLandingPage() {
                         </div>
 
                         {/* Box 3: Keamanan (Size: 5/12) */}
-                        <div className="md:col-span-5 rounded-2xl border border-white/5 bg-zinc-900/10 p-8 flex flex-col justify-between hover:border-white/10 transition-colors group">
+                        <div className="md:col-span-5 rounded-2xl border border-white/5 bg-zinc-900/10 p-6 sm:p-8 flex flex-col justify-between hover:border-white/10 transition-colors group">
                             <div className="space-y-4">
                                 <div className="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center">
                                     <Shield className="w-5 h-5 text-red-400" />
@@ -226,18 +226,18 @@ export default async function WordPressLandingPage() {
                         </div>
 
                         {/* Box 4: E-commerce & Toko Online (Size: 7/12) */}
-                        <div className="md:col-span-7 rounded-2xl border border-white/5 bg-zinc-900/10 p-8 flex flex-col justify-between hover:border-white/10 transition-colors group">
+                        <div className="md:col-span-7 rounded-2xl border border-white/5 bg-zinc-900/10 p-6 sm:p-8 flex flex-col justify-between hover:border-white/10 transition-colors group">
                             <div className="space-y-4">
                                 <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center">
                                     <ShoppingBag className="w-5 h-5 text-blue-400" />
                                 </div>
                                 <h3 className="text-xl font-bold text-white group-hover:text-blue-300 transition-colors">
-                                    {isId ? "Skalabilitas WooCommerce" : "WooCommerce Scalability"}
+                                    {isId ? "Sistem E-Commerce Kustom" : "Bespoke E-Commerce Engine"}
                                 </h3>
                                 <p className="text-sm text-zinc-400 leading-relaxed">
                                     {isId
-                                        ? "Integrasikan sistem kasir e-commerce handal dengan pelacakan inventaris, diskon kupon otomatis, dan koneksi gerbang pembayaran lokal (Midtrans) maupun global."
-                                        : "Integrate powerful e-commerce shopping systems with inventory checks, discount coupon generators, and payment gateway (Midtrans/Stripe) connections."}
+                                        ? "Integrasikan sistem toko online kustom buatan kami sendiri yang super ringan, kebal terhadap celah keamanan (exploit) umum WooCommerce, serta siap terhubung dengan gerbang pembayaran lokal (Midtrans) maupun global."
+                                        : "Integrate our light and secure custom-built e-commerce engine, immune to standard WooCommerce security exploits, and ready to hook into local and global payment gateways."}
                                 </p>
                             </div>
                         </div>

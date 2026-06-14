@@ -93,7 +93,7 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
             id: "headless",
             nameEn: "Headless Enterprise",
             nameId: "Headless Enterprise",
-            descEn: "WordPress murni sebagai Headless API backend, dipasangkan dengan frontend Next.js/React yang dihosting terpisah. Menjamin keamanan mutlak dan performa tak tertandingi.",
+            descEn: "WordPress murni as Headless API backend, dipasangkan dengan frontend Next.js/React yang dihosting terpisah. Menjamin keamanan mutlak dan performa tak tertandingi.",
             descId: "WordPress murni sebagai backend Headless API, dipadukan dengan frontend Next.js/React yang dihosting secara terpisah. Keamanan mutlak dan performa puncak.",
             priceIdr: 27500000,
             priceUsd: 1800,
@@ -116,16 +116,16 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
         }
     ];
 
-    // 2. Definisikan Add-ons
+    // 2. Definisikan Add-ons (Menghilangkan WooCommerce, menggantinya dengan Bespoke E-Commerce)
     const addonsList: Addon[] = [
         {
-            id: "woocommerce",
-            nameEn: "WooCommerce E-Commerce",
-            nameId: "E-Commerce WooCommerce",
-            descEn: "Full online store capabilities with product catalog and secure payment gateway integration.",
-            descId: "Fitur toko online lengkap dengan katalog produk dan integrasi gerbang pembayaran aman.",
-            priceIdr: 4500000,
-            priceUsd: 300,
+            id: "bespoke-ecommerce",
+            nameEn: "Bespoke E-Commerce Engine",
+            nameId: "Sistem Toko Online Kustom",
+            descEn: "Bespoke transactional and cart system built from scratch (no WooCommerce) with secure checkout and local gateway integrations.",
+            descId: "Sistem keranjang belanja dan transaksi kustom yang dirancang dari nol (tanpa WooCommerce) dengan checkout aman dan integrasi payment gateway lokal.",
+            priceIdr: 10000000,
+            priceUsd: 700,
             interval: "one_time",
         },
         {
@@ -312,7 +312,7 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
                                                         : "border-zinc-700 bg-transparent group-hover:border-zinc-500"
                                                 }`}
                                             >
-                                                {selected && <Check className="w-3 h-3 text-white stroke-[3]" />}
+                                                {selected && <Check className="w-3.5 h-3.5 text-white stroke-[3]" />}
                                             </div>
                                             <div>
                                                 <h5 className="font-bold text-xs sm:text-sm text-white group-hover:text-violet-300 transition-colors">
@@ -339,7 +339,7 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
                 </div>
 
                 {/* Kolom Kanan: Rincian Harga & Panggilan Aksi */}
-                <div className="lg:col-span-5 border-l border-white/5 lg:pl-10 pt-6 lg:pt-0">
+                <div className="lg:col-span-5 border-t border-white/5 lg:border-t-0 lg:border-l lg:border-white/5 lg:pl-10 pt-8 lg:pt-0">
                     <div className="rounded-2xl bg-zinc-900/20 border border-white/5 p-6 space-y-6">
                         <h4 className="text-xs font-bold uppercase tracking-widest text-zinc-400">
                             {isId ? "3. Rincian Investasi" : "3. Investment Summary"}
