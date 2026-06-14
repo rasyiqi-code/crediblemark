@@ -85,26 +85,35 @@ Input Description: "${sanitizedPrompt}"
    - "features_id" MUST be a flat array of strings in Indonesian. Example: ["Fitur A dalam bahasa Indonesia", "Fitur B dalam bahasa Indonesia"]
    - NEVER use array of objects for features. Each item must be a plain string.
 
-4. BASE PRICING & INTERVAL (NICHE-SPECIFIC & TARGET MARKET MATCHING):
+4. BASE PRICING & INTERVAL (NICHE-SPECIFIC, ANCHOR PRICING, & DISCOUNT STRATEGY):
    - "priceType": MUST be exactly "FIXED" or "STARTING_AT" (uppercase, no other values).
    - "currency": MUST be exactly "USD" or "IDR" (uppercase, no other values).
      * If the input is in Indonesian or mentions 'Rp', 'Rupiah', 'Juta', or large numbers (> 10000), set currency to 'IDR'.
-     * If currency is 'IDR', set recommended_price to a realistic Indonesian price based on the web niche and target market:
-       - Low Complexity / Small Business / UKM / Personal Portfolio / Simple Landing Page: IDR 2,500,000 to IDR 6,000,000.
-       - Medium Complexity / Mid-Market / Standard Company Profile / SME E-commerce: IDR 7,000,000 to IDR 15,000,000.
-       - High Complexity / Custom System / Marketplace / SaaS / Enterprise Portal: IDR 18,000,000 to IDR 50,000,000+.
-     * If currency is 'USD', set recommended_price to a realistic global price based on the web niche and target market:
-       - Low Complexity / Personal Portfolio / Simple Landing Page: USD 250 to USD 600.
-       - Medium Complexity / Standard Business Site / Basic E-commerce: USD 800 to USD 1,800.
-       - High Complexity / SaaS / Enterprise App / Custom Platform: USD 2,000 to USD 6,000+.
-     * Adjust the price dynamically matching the user's intent. If the prompt explicitly mentions budget constraints or high-end enterprise requirements, prioritize the user's stated target.
-     * NEVER mix large Indonesian numbers with USD currency.
-   - "interval": MUST be exactly one of: "one_time", "monthly", or "yearly" (no other values, no spaces, no hyphens).
+   
+   - PSYCHOLOGICAL ANCHOR PRICING STRATEGY (CRITICAL):
+     * Klien harus merasa mendapatkan diskon besar (sekitar 2.5 hingga 3 kali lipat lebih murah) untuk menunjukkan profesionalitas premium agensi sambil tetap menjaga harga akhir yang terjangkau.
+     * Pertama, tentukan target Harga Akhir Konsumen (Consumer Price) yang sesuai dengan kerumitan proyek:
+       - Indonesia (IDR):
+         * Low Complexity / UKM / Landing Page: Harga Akhir Konsumen IDR 2,500,000 s.d. IDR 6,000,000.
+         * Medium Complexity / Standard Company Profile / SME E-commerce: Harga Akhir Konsumen IDR 7,000,000 s.d. IDR 15,000,000.
+         * High Complexity / Custom System / SaaS / Enterprise Portal: Harga Akhir Konsumen IDR 18,000,000 s.d. IDR 50,000,000+.
+       - Global (USD):
+         * Low Complexity: Harga Akhir Konsumen USD 250 s.d. USD 600.
+         * Medium Complexity: Harga Akhir Konsumen USD 800 s.d. USD 1,800.
+         * High Complexity: Harga Akhir Konsumen USD 2,000 s.d. USD 6,000+.
+     * Kedua, tentukan "discount" (diskon) berupa angka bulat antara 50 hingga 70 (misal: 60 untuk diskon 60%). Jangan pernah gunakan 0 kecuali tidak ada promo.
+     * Ketiga, hitung "recommended_price" (Harga Asli/Anchor Price) agar bernilai tinggi dengan rumus:
+       recommended_price = Harga Akhir Konsumen / (1 - (discount / 100))
+     * Contoh: Jika target Harga Akhir Konsumen adalah IDR 5,000,000 dan diskon 60%:
+       recommended_price = 5,000,000 / 0.4 = IDR 12,500,000.
+     * Bulatkan "recommended_price" secara bersih (misal: 12500000 atau 6000000, tanpa desimal, tanpa koma, dan tanpa simbol mata uang).
+     * Dengan begini, harga asli terlihat sangat mahal/premium (menunjukkan kualitas agensi profesional kelas atas), namun harga diskon yang diberikan ke konsumen terasa 3 kali lipat lebih murah.
+   
+   - "interval": MUST be exactly one of: "one_time", "monthly", or "yearly" (no other values).
      * Project development -> "one_time".
      * Support, retainer, or monthly maintenance -> "monthly".
      * Annual support -> "yearly".
-   - "recommended_price": A plain number (integer or float). The base price (original price) matching the currency before any discount is applied. NO currency symbols or commas.
-   - "discount": A plain integer from 0 to 60. If no discount, use 0. NEVER use null or omit this field.
+   - "discount": A plain integer from 50 to 70. NEVER use null.
 
 5. ADD-ONS ("addons") — (NICHE-SPECIFIC & LOGICAL MARKET PRICING):
    - Generate 2-4 highly specific, high-value add-ons. 
@@ -164,7 +173,7 @@ CRITICAL CONSTRAINTS — ANY VIOLATION WILL CAUSE A SYSTEM ERROR:
 - "currency" values must be exactly: "USD" or "IDR".
 - "priceType" must be exactly: "FIXED" or "STARTING_AT".
 - "recommended_price" and "price" must be plain numbers, NOT strings.
-- "discount" must be a plain integer (0–60), NOT null or omitted.
+- "discount" must be a plain integer (50–70), NOT null or omitted.
 - Every addon must have all 5 fields: name, name_id, price, interval, currency.
 - Do NOT add any extra fields not listed in the schema above.
 - Output ONLY the JSON object. No text before or after.
