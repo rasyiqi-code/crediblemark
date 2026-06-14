@@ -214,50 +214,32 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
     return (
         <div className="space-y-4 md:space-y-6">
             
-            {/* 1. Selector Tipe Paket (Tabs) */}
+            {/* 1. Selector Tipe Paket (Segmented Control iOS/Tesla Style) */}
             <div className="space-y-3">
                 <h4 className="text-xs font-bold uppercase tracking-widest text-zinc-500 text-center md:text-left">
                     {isId ? "1. Pilih Tipe Paket Layanan:" : "1. Choose Your Package Tier:"}
                 </h4>
-                <div className="flex overflow-x-auto md:overflow-visible gap-3 pt-2 pb-2 snap-x snap-mandatory scroll-smooth no-scrollbar md:grid md:grid-cols-3 md:gap-4 md:pb-0 md:pt-3">
+                <div className="bg-zinc-950 border border-white/5 p-1 rounded-xl flex w-full relative z-10 gap-1">
                     {packagesList.map((pkg) => {
                         const isActive = pkg.id === selectedPackageId;
                         return (
                             <button
                                 key={pkg.id}
                                 onClick={() => setSelectedPackageId(pkg.id)}
-                                className={`relative text-left p-4 rounded-xl border transition-all duration-300 flex flex-col justify-between gap-2 focus:outline-none cursor-pointer w-[75vw] max-w-[240px] md:w-full md:max-w-full shrink-0 snap-align-start transform hover:scale-[1.02] active:scale-[0.98] ${
+                                className={`relative flex-1 text-center py-2.5 rounded-lg text-xs md:text-sm font-bold transition-all duration-300 focus:outline-none cursor-pointer flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 ${
                                     isActive
-                                        ? "border-brand-yellow bg-zinc-900 shadow-lg shadow-brand-yellow/10 ring-1 ring-brand-yellow"
-                                        : "border-white/5 bg-zinc-950 hover:border-white/10 hover:bg-zinc-900"
+                                        ? "bg-brand-yellow text-black shadow-md shadow-brand-yellow/10"
+                                        : "text-zinc-400 hover:text-white hover:bg-zinc-900"
                                 }`}
                             >
+                                <span>{isId ? pkg.nameId : pkg.nameEn}</span>
                                 {pkg.id === "eksklusif" && (
-                                    <div className="absolute top-0 right-4 -translate-y-1/2 bg-brand-yellow text-black text-[8px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full z-10">
+                                    <span className={`text-[7px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded-full ${
+                                        isActive ? "bg-black text-brand-yellow" : "bg-brand-yellow text-black"
+                                    }`}>
                                         {isId ? "Rekomendasi" : "Recommended"}
-                                    </div>
+                                    </span>
                                 )}
-                                <div className="min-w-0">
-                                    <div className="flex items-center gap-1.5 min-w-0">
-                                        {isActive && (
-                                            <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow animate-ping shrink-0" />
-                                        )}
-                                        <h5 className="font-extrabold text-xs md:text-sm text-white truncate">
-                                            {isId ? pkg.nameId : pkg.nameEn}
-                                        </h5>
-                                    </div>
-                                    <span className="text-[8px] md:text-[9px] text-zinc-500 font-mono tracking-wider uppercase block mt-0.5 truncate">
-                                        {pkg.id === "custom" && (isId ? "Fungsionalitas Builder" : "Standard Page Builder")}
-                                        {pkg.id === "eksklusif" && (isId ? "Clean Code / Custom Theme" : "Clean Code / Custom Theme")}
-                                        {pkg.id === "headless" && (isId ? "Isolasi / Next.js Stack" : "API Decoupled / Next.js")}
-                                    </span>
-                                </div>
-                                <div className="mt-1 pt-2 border-t border-white/5 w-full flex items-baseline justify-between">
-                                    <span className="text-[10px] text-zinc-500">{isId ? "Mulai dari" : "Starts at"}</span>
-                                    <span className="font-black text-xs md:text-base text-brand-yellow">
-                                        {isId ? formatCurrency(pkg.priceIdr, "IDR") : formatCurrency(pkg.priceUsd, "USD")}
-                                    </span>
-                                </div>
                             </button>
                         );
                     })}
@@ -363,20 +345,27 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
             {/* 2. Grid Konfigurasi & Total */}
             <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 items-start pt-2 md:pt-3">
                 
-                {/* Kolom Kiri: Detail Paket Terpilih & Add-ons */}
-                <div className="lg:col-span-7 space-y-4 md:space-y-5">
-                    
                     {/* Deskripsi Paket Aktif */}
                     <div className="rounded-2xl border border-white/5 bg-zinc-900 p-5 sm:p-6 space-y-5">
-                        <div className="flex items-center gap-2.5">
-                            <span className="text-xs font-mono font-bold text-brand-yellow bg-brand-yellow/10 px-2 py-1 rounded">
-                                {isId ? "PAKET AKTIF" : "ACTIVE TIER"}
-                            </span>
-                            <h3 className="text-xl sm:text-2xl font-black text-white">
-                                {isId ? activePackage.nameId : activePackage.nameEn}
-                            </h3>
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                            <div className="flex items-center gap-2.5">
+                                <span className="text-xs font-mono font-bold text-brand-yellow bg-brand-yellow/10 px-2 py-1 rounded">
+                                    {isId ? "PAKET AKTIF" : "ACTIVE TIER"}
+                                </span>
+                                <h3 className="text-xl sm:text-2xl font-black text-white">
+                                    {isId ? activePackage.nameId : activePackage.nameEn}
+                                </h3>
+                            </div>
+                            <div className="text-left sm:text-right shrink-0">
+                                <span className="text-[10px] text-zinc-500 uppercase font-bold tracking-wider block">
+                                    {isId ? "Investasi Dasar:" : "Base Investment:"}
+                                </span>
+                                <span className="text-xl font-black text-brand-yellow">
+                                    {isId ? formatCurrency(activePackage.priceIdr, "IDR") : formatCurrency(activePackage.priceUsd, "USD")}
+                                </span>
+                            </div>
                         </div>
-                        <p className="text-zinc-400 text-sm leading-relaxed">
+                        <p className="text-zinc-400 text-sm leading-relaxed border-t border-white/5 pt-4">
                             {isId ? activePackage.descId : activePackage.descEn}
                         </p>
 
@@ -402,7 +391,7 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
                         <h4 className="text-xs font-bold uppercase tracking-widest text-zinc-500">
                             {isId ? "2. Tambahkan Add-ons Opsional:" : "2. Select Optional Add-ons:"}
                         </h4>
-                        <div className="space-y-2.5">
+                        <div className="grid sm:grid-cols-2 gap-3">
                             {addonsList.map((addon) => {
                                 const selected = selectedAddons.includes(addon.id);
                                 const isDetailOpen = openAddonDetails.includes(addon.id);
@@ -410,7 +399,7 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
                                         <div
                                             key={addon.id}
                                             onClick={() => toggleAddon(addon.id)}
-                                            className={`group relative rounded-2xl border p-4 flex justify-between gap-4 cursor-pointer transition-all duration-300 transform hover:scale-[1.01] active:scale-[0.99] ${
+                                            className={`group relative rounded-2xl border p-3.5 flex justify-between gap-4 cursor-pointer transition-all duration-300 transform hover:scale-[1.01] active:scale-[0.99] ${
                                                 isDetailOpen ? "items-start" : "items-center"
                                             } ${
                                                 selected
@@ -466,7 +455,7 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
                 </div>
 
                 {/* Kolom Kanan: Rincian Harga & Panggilan Aksi */}
-                <div className="hidden md:block lg:col-span-5 border-t border-white/5 lg:border-t-0 lg:border-l lg:border-white/5 lg:pl-8 pt-6 lg:pt-0">
+                <div className="hidden md:block lg:col-span-5 border-t border-white/5 lg:border-t-0 lg:border-l lg:border-white/5 lg:pl-8 pt-6 lg:pt-0 sticky top-24">
                     <div className="rounded-2xl bg-zinc-900 border border-white/5 p-5 sm:p-6 space-y-5">
                         <h4 className="text-xs font-bold uppercase tracking-widest text-zinc-400">
                             {isId ? "3. Rincian Investasi" : "3. Investment Summary"}
