@@ -10,23 +10,31 @@ export const ai = genkit({
 });
 
 // Safe cache wrapper to support running in CLI/testing environment outside Next.js server
-function safeCache<T extends (...args: any[]) => any>(
-    fn: T,
+function safeCache<Args extends unknown[], Return>(
+    fn: (...args: Args) => Promise<Return>,
     keys: string[],
-    options?: any
-): T {
+    options?: {
+        revalidate?: number | false;
+        tags?: string[];
+    }
+): (...args: Args) => Promise<Return> {
     try {
-        const cachedFn = unstable_cache(fn, keys, options);
-        return (async (...args: any[]) => {
+        const cachedFn = unstable_cache(
+            fn as unknown as (...args: unknown[]) => Promise<unknown>,
+            keys,
+            options
+        ) as unknown as (...args: Args) => Promise<Return>;
+        return async (...args: Args): Promise<Return> => {
             try {
                 return await cachedFn(...args);
-            } catch (error: any) {
-                if (error?.message?.includes("incrementalCache missing") || error?.message?.includes("unstable_cache")) {
+            } catch (error: unknown) {
+                const errorMessage = error instanceof Error ? error.message : String(error);
+                if (errorMessage.includes("incrementalCache missing") || errorMessage.includes("unstable_cache")) {
                     return await fn(...args);
                 }
                 throw error;
             }
-        }) as unknown as T;
+        };
     } catch {
         return fn;
     }

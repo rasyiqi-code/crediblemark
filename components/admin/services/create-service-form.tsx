@@ -16,17 +16,8 @@ import { slugify } from "@/lib/shared/utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Flag, Sparkles, Loader2, ArrowLeft, Package, Plus } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import Link from "next/link";
 import { ServiceData } from "./edit-service-form";
-
-interface ServiceAddonDraft {
-    name: string;
-    name_id: string;
-    price: number;
-    interval: "one_time" | "monthly" | "yearly";
-    currency: "USD" | "IDR";
-}
 
 interface DraftServiceData extends Partial<ServiceData> {
     recommended_price?: number;
