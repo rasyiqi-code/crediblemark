@@ -59,18 +59,18 @@ export function WordPressFAQ({ locale }: WordPressFAQProps) {
                 return (
                     <div
                         key={idx}
-                        className="rounded-2xl border border-white/5 bg-zinc-950/20 backdrop-blur-sm overflow-hidden transition-colors duration-300 hover:border-white/10"
+                        className="rounded-2xl border border-white/5 bg-zinc-950 overflow-hidden transition-colors duration-300 hover:border-white/10"
                     >
                         <button
                             onClick={() => toggleFAQ(idx)}
                             className="w-full flex items-center justify-between gap-4 p-5 sm:p-6 text-left focus:outline-none"
                         >
-                            <span className="font-bold text-sm sm:text-base text-white hover:text-violet-300 transition-colors">
+                            <span className="font-bold text-sm sm:text-base text-white hover:text-brand-yellow transition-colors">
                                 {question}
                             </span>
                             <ChevronDown
                                 className={`w-5 h-5 text-zinc-500 shrink-0 transition-transform duration-300 ${
-                                    isOpen ? "rotate-180 text-violet-400" : ""
+                                    isOpen ? "rotate-180 text-brand-yellow" : ""
                                 }`}
                             />
                         </button>

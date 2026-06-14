@@ -228,19 +228,19 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
                                 onClick={() => setSelectedPackageId(pkg.id)}
                                 className={`relative text-left p-4 rounded-xl border transition-all duration-300 flex flex-col justify-between gap-2 focus:outline-none cursor-pointer w-[75vw] max-w-[240px] md:w-full md:max-w-full shrink-0 snap-align-start transform hover:scale-[1.02] active:scale-[0.98] ${
                                     isActive
-                                        ? "border-violet-500 bg-violet-600/10 shadow-lg shadow-violet-600/10 ring-1 ring-violet-500"
-                                        : "border-white/5 bg-zinc-900/10 hover:border-white/10 hover:bg-zinc-900/20"
+                                        ? "border-brand-yellow bg-zinc-900 shadow-lg shadow-brand-yellow/10 ring-1 ring-brand-yellow"
+                                        : "border-white/5 bg-zinc-950 hover:border-white/10 hover:bg-zinc-900"
                                 }`}
                             >
                                 {pkg.id === "eksklusif" && (
-                                    <div className="absolute top-0 right-4 -translate-y-1/2 bg-violet-600 text-white text-[8px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full z-10">
+                                    <div className="absolute top-0 right-4 -translate-y-1/2 bg-brand-yellow text-black text-[8px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full z-10">
                                         {isId ? "Rekomendasi" : "Recommended"}
                                     </div>
                                 )}
                                 <div className="min-w-0">
                                     <div className="flex items-center gap-1.5 min-w-0">
                                         {isActive && (
-                                            <span className="w-1.5 h-1.5 rounded-full bg-violet-400 animate-ping shrink-0" />
+                                            <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow animate-ping shrink-0" />
                                         )}
                                         <h5 className="font-extrabold text-xs md:text-sm text-white truncate">
                                             {isId ? pkg.nameId : pkg.nameEn}
@@ -272,7 +272,7 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
                         type="button"
                         onClick={() => setShowAddonsMobile(!showAddonsMobile)}
                         className={`flex items-center justify-between p-4 rounded-xl border transition-all duration-300 text-left cursor-pointer group ${
-                            showAddonsMobile ? "border-brand-yellow bg-brand-yellow/5" : "border-white/5 bg-zinc-900/10"
+                            showAddonsMobile ? "border-brand-yellow bg-zinc-900" : "border-white/5 bg-zinc-950 hover:bg-zinc-900"
                         }`}
                     >
                         <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 group-hover:text-zinc-300 transition-colors">
@@ -309,8 +309,8 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
                                             isDetailOpen ? "items-start" : "items-center"
                                         } ${
                                             selected
-                                                ? "border-brand-yellow/50 bg-brand-yellow/5"
-                                                : "border-white/5 bg-zinc-900/10 hover:border-white/10 hover:bg-zinc-900/20"
+                                                ? "border-brand-yellow/50 bg-zinc-900"
+                                                : "border-white/5 bg-zinc-950 hover:border-white/10 hover:bg-zinc-900"
                                         }`}
                                     >
                                         <div className={`flex gap-2.5 ${isDetailOpen ? "items-start" : "items-center"}`}>
@@ -416,8 +416,8 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
                                                 isDetailOpen ? "items-start" : "items-center"
                                             } ${
                                                 selected
-                                                    ? "border-brand-yellow/50 bg-brand-yellow/5 shadow-md"
-                                                    : "border-white/5 bg-zinc-900/10 hover:border-white/10 hover:bg-zinc-900/20"
+                                                    ? "border-brand-yellow/50 bg-zinc-900 shadow-md"
+                                                    : "border-white/5 bg-zinc-950 hover:border-white/10 hover:bg-zinc-900"
                                             }`}
                                         >
                                             <div className={`flex gap-3 ${isDetailOpen ? "items-start" : "items-center"}`}>
@@ -469,7 +469,7 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
 
                 {/* Kolom Kanan: Rincian Harga & Panggilan Aksi */}
                 <div className="hidden md:block lg:col-span-5 border-t border-white/5 lg:border-t-0 lg:border-l lg:border-white/5 lg:pl-10 pt-8 lg:pt-0">
-                    <div className="rounded-2xl bg-zinc-900/20 border border-white/5 p-6 space-y-6">
+                    <div className="rounded-2xl bg-zinc-900 border border-white/5 p-6 space-y-6">
                         <h4 className="text-xs font-bold uppercase tracking-widest text-zinc-400">
                             {isId ? "3. Rincian Investasi" : "3. Investment Summary"}
                         </h4>
