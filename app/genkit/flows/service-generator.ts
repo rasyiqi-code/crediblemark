@@ -90,32 +90,32 @@ Input Description: "${sanitizedPrompt}"
    - "currency": MUST be exactly "USD" or "IDR" (uppercase, no other values).
      * If the input is in Indonesian or mentions 'Rp', 'Rupiah', 'Juta', or large numbers (> 10000), set currency to 'IDR'.
    
-   - PSYCHOLOGICAL ANCHOR PRICING STRATEGY (CRITICAL):
+   - PSYCHOLOGICAL ANCHOR & CHARM PRICING STRATEGY (CRITICAL):
      * Klien harus merasa mendapatkan diskon besar (sekitar 2.5 hingga 3 kali lipat lebih murah) untuk menunjukkan profesionalitas premium agensi sambil tetap menjaga harga akhir yang terjangkau.
-     * Pertama, tentukan target Harga Akhir Konsumen (Consumer Price) yang sesuai dengan kerumitan proyek:
-       - Indonesia (IDR):
-         * Low Complexity / UKM / Landing Page: Harga Akhir Konsumen IDR 2,500,000 s.d. IDR 6,000,000.
-         * Medium Complexity / Standard Company Profile / SME E-commerce: Harga Akhir Konsumen IDR 7,000,000 s.d. IDR 15,000,000.
-         * High Complexity / Custom System / SaaS / Enterprise Portal: Harga Akhir Konsumen IDR 18,000,000 s.d. IDR 50,000,000+.
-       - Global (USD):
-         * Low Complexity: Harga Akhir Konsumen USD 250 s.d. USD 600.
-         * Medium Complexity: Harga Akhir Konsumen USD 800 s.d. USD 1,800.
-         * High Complexity: Harga Akhir Konsumen USD 2,000 s.d. USD 6,000+.
-     * Kedua, tentukan "discount" (diskon) berupa angka bulat antara 50 hingga 70 (misal: 60 untuk diskon 60%). Jangan pernah gunakan 0 kecuali tidak ada promo.
-     * Ketiga, hitung "recommended_price" (Harga Asli/Anchor Price) agar bernilai tinggi dengan rumus:
+     * Pertama, tentukan target Harga Akhir Konsumen (Consumer Price) yang menggunakan strategi Charm Pricing (angka ganjil/tidak bulat mulus) sesuai kerumitan proyek:
+       - Indonesia (IDR) - HARUS berakhiran 990,000 atau 950,000 atau 490,000 atau 450,000 (JANGAN gunakan angka genap bulat seperti 3,000,000 atau 10,000,000):
+         * Low Complexity / UKM / Landing Page: Harga Akhir Konsumen IDR 2,450,000 s.d. IDR 5,990,000.
+         * Medium Complexity / Standard Company Profile / SME E-commerce: Harga Akhir Konsumen IDR 6,950,000 s.d. IDR 14,990,000.
+         * High Complexity / Custom System / SaaS / Enterprise Portal: Harga Akhir Konsumen IDR 17,950,000 s.d. IDR 49,990,000.
+       - Global (USD) - HARUS berakhiran angka 9 atau 7 atau 5 di digit terakhir (JANGAN gunakan angka genap bulat seperti 300 atau 1000):
+         * Low Complexity: Harga Akhir Konsumen USD 249 s.d. USD 599.
+         * Medium Complexity: Harga Akhir Konsumen USD 799 s.d. USD 1,799.
+         * High Complexity: Harga Akhir Konsumen USD 1,999 s.d. USD 5,999.
+     * Kedua, tentukan "discount" (diskon) berupa angka bulat GANJIL antara 51 hingga 69 (misal: 53, 55, 57, 59, 63, 65, 67, 69). JANGAN PERNAH gunakan diskon genap (seperti 50, 60, 70).
+     * Ketiga, hitung "recommended_price" (Harga Asli/Anchor Price) dengan rumus:
        recommended_price = Harga Akhir Konsumen / (1 - (discount / 100))
-     * Contoh: Jika target Harga Akhir Konsumen adalah IDR 5,000,000 dan diskon 60%:
-       recommended_price = 5,000,000 / 0.4 = IDR 12,500,000.
-     * Bulatkan "recommended_price" secara bersih (misal: 12500000 atau 6000000, tanpa desimal, tanpa koma, dan tanpa simbol mata uang).
-     * Dengan begini, harga asli terlihat sangat mahal/premium (menunjukkan kualitas agensi profesional kelas atas), namun harga diskon yang diberikan ke konsumen terasa 3 kali lipat lebih murah.
+     * Contoh: Jika target Harga Akhir Konsumen adalah IDR 4,990,000 dan diskon ganjil 59%:
+       recommended_price = 4,990,000 / 0.41 = IDR 12,170,731.
+     * Bulatkan "recommended_price" secara cerdas agar tetap menggunakan angka ganjil/menarik (Charm Pricing) di digit signifikan (misalnya dibulatkan menjadi IDR 12,190,000 atau IDR 12,250,000, tanpa desimal, tanpa koma, dan tanpa simbol mata uang).
+     * Dengan begini, harga asli terlihat sangat mahal/premium (menunjukkan kualitas agensi profesional kelas atas), namun harga diskon ganjil yang diberikan ke konsumen terasa 3 kali lipat lebih murah dan berakhir dengan angka psikologis yang menarik.
    
    - "interval": MUST be exactly one of: "one_time", "monthly", or "yearly" (no other values).
      * Project development -> "one_time".
      * Support, retainer, or monthly maintenance -> "monthly".
      * Annual support -> "yearly".
-   - "discount": A plain integer from 50 to 70. NEVER use null.
+   - "discount": A plain ODD integer from 51 to 69 (e.g., 53, 55, 57, 59, 63, 65, 67, 69). NEVER use null or even integers.
 
-5. ADD-ONS ("addons") — (NICHE-SPECIFIC & LOGICAL MARKET PRICING):
+5. ADD-ONS ("addons") — (NICHE-SPECIFIC, LOGICAL MARKET, & CHARM PRICING):
    - Generate 2-4 highly specific, high-value add-ons. 
    - NICHE OPPORTUNITY MATCHING (CRITICAL):
      * Do NOT generate generic add-ons (like 'Basic SEO' or 'Extra Pages') unless they are highly tailored to the niche.
@@ -127,18 +127,17 @@ Input Description: "${sanitizedPrompt}"
        - For E-Commerce: 'Integrasi Kurir Lokal Otomatis & Cek Resi (RajaOngkir/Biteship)' (One-time), 'Inventory Sync & Multi-Warehouse Setup' (One-time).
        - For Professional Services (Lawyers/Consultants): 'Online Consultation Booking & Invoice Automation' (One-time).
    
-   - LOGICAL & ACCURATE MARKET PRICING (CRITICAL):
-     * Do NOT use a rigid percentage formula of the base price. Pricing must reflect real-world market rates for digital agency services while remaining highly attractive and affordable (upsell-friendly).
+   - LOGICAL, ACCURATE MARKET, & CHARM PRICING (CRITICAL):
+     * Do NOT use a rigid percentage formula of the base price. Pricing must reflect real-world market rates for digital agency services while remaining highly attractive, affordable, and ended in charm numbers (odd digits).
      * Add-on prices must match the base service currency (USD or IDR).
-     * Real-World Price Ranges (Indonesia - IDR) — STRICTLY ADHERE TO THESE LIMITS:
-       - One-Time Features (e.g., Setup WhatsApp API/Notification, Custom API integration, Credit calculator, Payment setup): IDR 500,000 to IDR 3,000,000 (One-time setup fee).
-       - Monthly Services (e.g., WhatsApp gateway/API cloud maintenance, Technical support retainer, Monthly content updates): IDR 250,000 to IDR 800,000 per month (NEVER exceed IDR 1,000,000/month as recurring fee, otherwise clients will reject it).
-       - Yearly Services: IDR 2,000,000 to IDR 8,000,000 per year.
-     * Real-World Price Ranges (Global - USD) — STRICTLY ADHERE TO THESE LIMITS:
-       - One-Time Features: USD 50 to USD 300.
-       - Monthly Services: USD 25 to USD 80 per month (NEVER exceed USD 100/month as recurring fee).
-       - Yearly Services: USD 200 to USD 800 per year.
-     * Round all prices cleanly (e.g., IDR 350,000, IDR 1,500,000, or USD 49, USD 120).
+     * Real-World Price Ranges (Indonesia - IDR) — STRICTLY ADHERE TO THESE LIMITS & USE ODD/CHARM ENDINGS (e.g., ending in 90,000, 50,000, 490,000, etc. NEVER use round even numbers like 500,000 or 1,000,000):
+       - One-Time Features: IDR 490,000 to IDR 2,950,000 (One-time setup fee).
+       - Monthly Services: IDR 249,000 to IDR 790,000 per month (NEVER exceed IDR 990,000/month as recurring fee, otherwise clients will reject it).
+       - Yearly Services: IDR 1,950,000 to IDR 7,990,000 per year.
+     * Real-World Price Ranges (Global - USD) — STRICTLY ADHERE TO THESE LIMITS & USE ODD/CHARM ENDINGS (e.g., ending in 9, 7, or 5 like 49, 79, 95. JANGAN gunakan nominal genap bulat seperti 50 atau 100):
+       - One-Time Features: USD 49 to USD 299.
+       - Monthly Services: USD 25 to USD 79 per month (NEVER exceed USD 99/month as recurring fee).
+       - Yearly Services: USD 199 to USD 799 per year.
      * Ensure every add-on has all 5 fields: "name" (string), "name_id" (string in Indonesian), "price" (number), "interval" ("one_time", "monthly", "yearly"), and "currency" ("USD" or "IDR").
 
 === REQUIRED JSON OUTPUT FORMAT ===
@@ -173,9 +172,9 @@ CRITICAL CONSTRAINTS — ANY VIOLATION WILL CAUSE A SYSTEM ERROR:
 - "currency" values must be exactly: "USD" or "IDR".
 - "priceType" must be exactly: "FIXED" or "STARTING_AT".
 - "recommended_price" and "price" must be plain numbers, NOT strings.
-- "discount" must be a plain integer (50–70), NOT null or omitted.
+- "discount" must be a plain ODD integer (51–69), NOT null or omitted.
 - Every addon must have all 5 fields: name, name_id, price, interval, currency.
-- If an addon has "monthly" interval, its price MUST NOT exceed 1000000 IDR (or 100 USD).
+- If an addon has "monthly" interval, its price MUST NOT exceed 990000 IDR (or 99 USD).
 - Do NOT add any extra fields not listed in the schema above.
 - Output ONLY the JSON object. No text before or after.
             `,
