@@ -111,7 +111,7 @@ export default async function ServicesPage() {
                                     </AccordionTrigger>
 
                                     {/* Action buttons — moved outside to avoid nested <button> hydration error */}
-                                    <div className="absolute right-3 top-1/2 -translate-y-1/2 z-10 flex items-center gap-1.5">
+                                    <div className="absolute right-3 top-6 -translate-y-1/2 z-10 flex items-center gap-1.5">
                                         <ServiceActionButtons serviceId={service.id} />
                                     </div>
 
