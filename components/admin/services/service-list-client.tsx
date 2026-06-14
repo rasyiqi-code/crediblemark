@@ -44,17 +44,46 @@ export function ServiceListClient({ services }: ServiceListClientProps) {
     const [sortBy, setSortBy] = useState<SortOption>("latest");
     const [isPending, startTransition] = useTransition();
 
-    // Menyaring layanan berdasarkan teks pencarian (searchQuery)
-    const filteredServices = services.filter((service) => {
+    // Tambahkan nomor urut asli ke setiap layanan berdasarkan urutan props aslinya
+    const servicesWithIndex = services.map((service, idx) => ({
+        ...service,
+        displayIndex: services.length - idx
+    }));
+
+    // Menyaring layanan berdasarkan teks pencarian (searchQuery) atau nomor urut (displayIndex)
+    const filteredServices = servicesWithIndex.filter((service) => {
         const query = searchQuery.toLowerCase().trim();
         if (!query) return true;
 
+        // Jika query mengandung tanda koma, kita pecah menjadi beberapa token untuk pencarian multi-item/multi-angka
+        if (query.includes(",")) {
+            const tokens = query.split(",").map(t => t.trim()).filter(t => t !== "");
+            
+            // Mencocokkan apakah minimal salah satu token cocok dengan item layanan ini
+            return tokens.some((token) => {
+                // Jika token adalah angka murni, cocokkan secara persis dengan displayIndex
+                if (/^\d+$/.test(token)) {
+                    return service.displayIndex.toString() === token;
+                }
+                // Jika token teks, cocokkan secara parsial dengan judul atau deskripsi
+                const matchesTitle = service.title.toLowerCase().includes(token);
+                const matchesTitleId = service.title_id?.toLowerCase().includes(token) || false;
+                const matchesDesc = service.description.toLowerCase().includes(token);
+                const matchesDescId = service.description_id?.toLowerCase().includes(token) || false;
+
+                return matchesTitle || matchesTitleId || matchesDesc || matchesDescId;
+            });
+        }
+
+        // Pencarian standar jika tidak menggunakan pemisah koma
+        const matchesIndex = service.displayIndex.toString() === query || 
+                             service.displayIndex.toString().includes(query);
         const matchesTitle = service.title.toLowerCase().includes(query);
         const matchesTitleId = service.title_id?.toLowerCase().includes(query) || false;
         const matchesDesc = service.description.toLowerCase().includes(query);
         const matchesDescId = service.description_id?.toLowerCase().includes(query) || false;
 
-        return matchesTitle || matchesTitleId || matchesDesc || matchesDescId;
+        return matchesIndex || matchesTitle || matchesTitleId || matchesDesc || matchesDescId;
     });
 
     // Mengurutkan layanan berdasarkan opsi pengurutan (sortBy)
@@ -241,11 +270,11 @@ export function ServiceListClient({ services }: ServiceListClientProps) {
                 </div>
             ) : (
                 <Accordion type="multiple" className="w-full space-y-2">
-                    {sortedServices.map((service, index) => (
+                    {sortedServices.map((service) => (
                         <ServiceAccordionItem
                             key={service.id}
                             service={service}
-                            index={services.length - index}
+                            index={service.displayIndex}
                             showCheckbox={isSelectionMode}
                             isSelected={selectedIds.includes(service.id)}
                             onSelectChange={(selected) => handleSelectChange(service.id, selected)}
