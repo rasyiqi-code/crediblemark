@@ -7,25 +7,21 @@ import { Badge } from "@/components/ui/badge";
 import { Zap, CreditCard, Percent, Plus } from "lucide-react";
 import { PriceDisplay } from "@/components/providers/currency-provider";
 import { ServiceActionButtons } from "./service-action-buttons";
+import { useTranslations, useLocale } from "next-intl";
 
 interface ServiceAccordionItemProps {
     service: any;
-    displayTitle: string;
-    intervalLabel: string;
-    isId: boolean;
 }
 
-export function ServiceAccordionItem({ service, displayTitle, intervalLabel, isId }: ServiceAccordionItemProps) {
-    const [isMobile, setIsMobile] = useState(false);
+export function ServiceAccordionItem({ service }: ServiceAccordionItemProps) {
+    const t = useTranslations("Admin.Services");
+    const locale = useLocale();
+    const isId = locale === 'id' || locale === 'id-ID';
 
-    useEffect(() => {
-        const checkMobile = () => {
-            setIsMobile(window.matchMedia("(max-width: 1023px)").matches);
-        };
-        checkMobile();
-        window.addEventListener("resize", checkMobile);
-        return () => window.removeEventListener("resize", checkMobile);
-    }, []);
+    const displayTitle = isId ? (service.title_id || service.title) : service.title;
+    const intervalLabel = service.interval === 'one_time'
+        ? t("oneTime")
+        : (service.interval === 'monthly' ? t("monthly") : (service.interval === 'yearly' ? t("yearly") : service.interval));
 
     return (
         <AccordionItem
@@ -64,7 +60,7 @@ export function ServiceAccordionItem({ service, displayTitle, intervalLabel, isI
                                         : 'bg-blue-500/10 text-blue-400 border-blue-500/20'
                                         }`}
                                 >
-                                    {service.visibility === 'PRIVATE' ? 'Private' : 'Public'}
+                                    {service.visibility === 'PRIVATE' ? t("visibilityPrivate") : t("visibilityPublic")}
                                 </Badge>
                             </div>
                         </div>
@@ -92,7 +88,7 @@ export function ServiceAccordionItem({ service, displayTitle, intervalLabel, isI
                                 <div className="flex items-start gap-2 group/detail">
                                     <span className="text-zinc-600 mt-0.5"><Zap className="w-3.5 h-3.5" /></span>
                                     <div className="flex-1 min-w-0">
-                                        <span className="text-[10px] text-zinc-600 uppercase tracking-wider block">{isId ? 'Interval' : 'Interval'}</span>
+                                        <span className="text-[10px] text-zinc-600 uppercase tracking-wider block">{t("interval")}</span>
                                         <span className="text-xs text-zinc-400 font-medium">
                                             {intervalLabel}
                                         </span>
@@ -101,20 +97,20 @@ export function ServiceAccordionItem({ service, displayTitle, intervalLabel, isI
                                 <div className="flex items-start gap-2 group/detail">
                                     <span className="text-zinc-600 mt-0.5"><CreditCard className="w-3.5 h-3.5" /></span>
                                     <div className="flex-1 min-w-0">
-                                        <span className="text-[10px] text-zinc-600 uppercase tracking-wider block">{isId ? 'Model Harga' : 'Price Model'}</span>
+                                        <span className="text-[10px] text-zinc-600 uppercase tracking-wider block">{t("priceModel")}</span>
                                         <span className="text-xs text-zinc-400 font-medium">
                                             {service.priceType === 'STARTING_AT'
-                                                ? (isId ? 'Investasi Dasar' : 'Starting At')
-                                                : (isId ? 'Harga Tetap' : 'Fixed Price')}
+                                                ? t("startingAt")
+                                                : t("fixedPrice")}
                                         </span>
                                     </div>
                                 </div>
                                 <div className="flex items-start gap-2 group/detail">
                                     <span className="text-zinc-600 mt-0.5"><Percent className="w-3.5 h-3.5" /></span>
                                     <div className="flex-1 min-w-0">
-                                        <span className="text-[10px] text-zinc-600 uppercase tracking-wider block">{isId ? 'Diskon' : 'Discount'}</span>
+                                        <span className="text-[10px] text-zinc-600 uppercase tracking-wider block">{t("discount")}</span>
                                         <span className="text-xs text-zinc-400 font-medium">
-                                            {service.discount && service.discount > 0 ? `${service.discount}%` : (isId ? 'Tidak ada' : 'None')}
+                                            {service.discount && service.discount > 0 ? `${service.discount}%` : t("noDiscount")}
                                         </span>
                                     </div>
                                 </div>
@@ -138,7 +134,7 @@ export function ServiceAccordionItem({ service, displayTitle, intervalLabel, isI
                             return (
                                 <div className="mt-3 pt-3 border-t border-zinc-800/40">
                                     <span className="text-[10px] text-zinc-600 uppercase tracking-wider font-semibold block mb-2">
-                                        {isId ? 'Add-on Tersedia' : 'Available Add-ons'}
+                                        {t("addonsAvailable")}
                                     </span>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                                         {addons.map((addon, idx) => (
@@ -152,7 +148,7 @@ export function ServiceAccordionItem({ service, displayTitle, intervalLabel, isI
                                                     <span className="text-[10px] text-brand-yellow font-mono font-bold">
                                                         <PriceDisplay amount={addon.price} baseCurrency={(addon.currency as 'USD' | 'IDR') || service.currency as 'USD' | 'IDR' || 'USD'} />
                                                         {addon.interval && addon.interval !== 'one_time' && (
-                                                            <span className="text-zinc-600 ml-0.5">/{addon.interval === 'monthly' ? (isId ? 'bln' : 'mo') : (isId ? 'thn' : 'yr')}</span>
+                                                            <span className="text-zinc-600 ml-0.5">/{addon.interval === 'monthly' ? t("mo") : (addon.interval === 'yearly' ? t("yr") : addon.interval)}</span>
                                                         )}
                                                     </span>
                                                 </div>
