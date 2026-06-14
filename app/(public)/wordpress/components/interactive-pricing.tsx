@@ -154,6 +154,16 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
     const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
     const [showAddonsMobile, setShowAddonsMobile] = useState(false);
     const [showSummaryMobile, setShowSummaryMobile] = useState(false);
+    const [openAddonDetails, setOpenAddonDetails] = useState<string[]>([]);
+
+    const toggleAddonDetail = (addonId: string, e: React.MouseEvent) => {
+        e.stopPropagation();
+        setOpenAddonDetails((prev) =>
+            prev.includes(addonId)
+                ? prev.filter((id) => id !== addonId)
+                : [...prev, addonId]
+        );
+    };
 
     // Ambil detail paket terpilih
     const activePackage = packagesList.find((p) => p.id === selectedPackageId)!;
@@ -309,9 +319,20 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
                                             <h6 className="font-bold text-xs text-white group-hover:text-violet-300 transition-colors">
                                                 {isId ? addon.nameId : addon.nameEn}
                                             </h6>
-                                            <p className="text-[10px] text-zinc-500 mt-0.5 leading-snug">
-                                                {isId ? addon.descId : addon.descEn}
-                                            </p>
+                                            <button
+                                                type="button"
+                                                onClick={(e) => toggleAddonDetail(addon.id, e)}
+                                                className="text-[9px] text-violet-400 hover:text-violet-300 underline mt-1 block cursor-pointer"
+                                            >
+                                                {openAddonDetails.includes(addon.id)
+                                                    ? (isId ? "Sembunyikan Detail" : "Hide Details")
+                                                    : (isId ? "Lihat Detail" : "View Details")}
+                                            </button>
+                                            {openAddonDetails.includes(addon.id) && (
+                                                <p className="text-[10px] text-zinc-500 mt-1.5 leading-snug animate-in fade-in slide-in-from-top-1 duration-200">
+                                                    {isId ? addon.descId : addon.descEn}
+                                                </p>
+                                            )}
                                         </div>
                                     </div>
                                     <div className="text-right shrink-0">
@@ -400,9 +421,20 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
                                                 <h5 className="font-bold text-xs sm:text-sm text-white group-hover:text-violet-300 transition-colors">
                                                     {isId ? addon.nameId : addon.nameEn}
                                                 </h5>
-                                                <p className="text-[11px] text-zinc-500 mt-0.5 leading-normal max-w-md">
-                                                    {isId ? addon.descId : addon.descEn}
-                                                </p>
+                                                <button
+                                                    type="button"
+                                                    onClick={(e) => toggleAddonDetail(addon.id, e)}
+                                                    className="text-[10px] text-violet-400 hover:text-violet-300 underline mt-1 block cursor-pointer"
+                                                >
+                                                    {openAddonDetails.includes(addon.id)
+                                                        ? (isId ? "Sembunyikan Detail" : "Hide Details")
+                                                        : (isId ? "Lihat Detail" : "View Details")}
+                                                </button>
+                                                {openAddonDetails.includes(addon.id) && (
+                                                    <p className="text-[11px] text-zinc-500 mt-1.5 leading-normal max-w-md animate-in fade-in slide-in-from-top-1 duration-200">
+                                                        {isId ? addon.descId : addon.descEn}
+                                                    </p>
+                                                )}
                                             </div>
                                         </div>
                                         <div className="text-right shrink-0">
