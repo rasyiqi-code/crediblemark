@@ -63,11 +63,41 @@ Service Profile:
 - Interval: ${interval}
 
 === ADD-ONS GENERATION RULES ===
-1. Quantity: Generate between 2 to 4 highly specific add-ons.
-2. SCOPE SEGREGATION (CRITICAL):
-   - Keep the base package features simple and essential.
-   - Add-ons should represent advanced, specialized, or extra features (such as online reservation/booking, custom integrations, analytics dashboard, performance optimizations, or monthly maintenance/retainer).
-3. BUSINESS SCALE ADD-ON PRICING (CRITICAL):
+1. Quantity: Generate between 2 to 4 highly specific, high-value add-ons.
+2. SCOPE SEGREGATION & BUSINESS LOGIC COMPLEXITY (CRITICAL):
+   The separation between "Standard Features" (assumed to be in the base service) and "Add-on Features" (advanced) must be based on the Complexity of Business Logic, categorized by these 3 parameters:
+
+   a. Customization Scale (Default Flow vs. Business-Specific Flow):
+      - Standard: Uses template, default, or plug-and-play flow (e.g., standard e-commerce cart, basic payment checkout, standard landing pages).
+      - Add-on: Business-specific conditional logic (e.g., Dynamic Pricing based on B2B login role, branching multi-step custom forms).
+
+   b. Data Management (1-Way Input vs. Interactive Relational/Multi-Way):
+      - Standard: One-way static data collection (e.g., booking form that just sends an email, testimonial slider managed by admin, simple portfolio upload).
+      - Add-on: Real-time, interactive, relational processing (e.g., Client Login Portal for invoice downloads, real-time Live Inventory API Sync with warehouse, automated calendar slot booking/blocking upon payment).
+
+   c. Operational Execution (Manual Human Admin Tasks vs. Automated System Engine):
+      - Standard: Requires manual staff work behind the scenes (e.g., client requests a quote, and an admin manually calculates and emails the PDF).
+      - Add-on: Full end-to-end automation by the system (e.g., an automated quote calculator that calculates, renders, and emails a detailed PDF breakdown instantly).
+
+3. MATRIX GUIDELINE (STANDARD VS. ADD-ON):
+   Use this mapping to decide what goes into Add-ons (DO NOT suggest features from the 'Standard' column as add-ons):
+   - E-Commerce & Payments:
+     * Standard: Catalog, Cart, Checkout, Payment Gateway Integration (QRIS, VA).
+     * Add-on: Recurring Billing/Subscription, Tiered B2B Pricing, Multi-Currency.
+   - Booking & Reservations:
+     * Standard: Form with date picker, WhatsApp order button.
+     * Add-on: Real-time Calendar sync (Google Calendar), Seat/spot picker, Auto-blocking slots.
+   - Content & Marketing:
+     * Standard: Landing Page, Blog, Portfolio Gallery, Lead Magnet Pop-up.
+     * Add-on: Paywall/locked content, Dynamic Lead Magnet/Quiz Generator, User-Generated Content directories.
+   - Communication & Support:
+     * Standard: Contact form, Floating Chat/WA button, basic FAQ.
+     * Add-on: Automated Helpdesk/Ticketing, Live status tracking, AI Chatbot assistant.
+   - Tech Infrastructure:
+     * Standard: Mobile Responsive, SSL, Google Analytics/Meta Pixel.
+     * Add-on: Client Login Portal, Complex third-party API Integrations (Logistics GPS, Live Market Price).
+
+4. BUSINESS SCALE ADD-ON PRICING (CRITICAL):
    - Harga add-on ("price") wajib disesuaikan secara logis dengan skala bisnis (dilihat dari Consumer Price ${currency} ${consumerPrice}) agar terjangkau dan disetujui klien:
      * Indonesia (IDR):
        - Jika Consumer Price < 2 Juta (Ultra Mikro):
@@ -95,7 +125,7 @@ Service Profile:
    - "currency" untuk addons harus sama dengan currency dasar: "${currency}".
    - "price" untuk addons harus berupa angka CHARM/ganjil. JANGAN gunakan angka genap bulat.
 
-4. ADD-ON NAME SPECIFICITY & VALUE (CRITICAL — MANDATORY):
+5. ADD-ON NAME SPECIFICITY & VALUE (CRITICAL — MANDATORY):
    - Add-ons MUST represent high-value additions (e.g. third-party API integrations, copywriting/content creation service, dedicated custom design pages, ongoing monthly maintenance, or priority support).
    - NEVER limit standard CMS/Admin Dashboard capabilities. Clients must have UNLIMITED access to create categories, upload products/items, add database records, create menus, or manage dynamic content.
    - ABSOLUTELY DO NOT use restrictions like "Up to X Categories", "Max X Pages", "Up to X Images", "Limit X Products" in add-on names. These make the offer look bad and have zero value.
