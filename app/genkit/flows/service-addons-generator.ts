@@ -53,7 +53,7 @@ export const serviceAddonsGeneratorFlow = ai.defineFlow(
             },
             prompt: `
 Role: Expert Product Manager & Upsell Strategist.
-Task: Generate 2-4 specific, high-value add-ons for the service below.
+Task: Generate 4-6 specific, high-value add-ons for the service below.
 
 Service Profile:
 - Title: "${sanitizedTitle}"
@@ -62,57 +62,57 @@ Service Profile:
 - Interval: ${interval}
 
 Rules:
-1. STANDARD VS ADD-ON SEPARATION:
-   Add-ons must be advanced features defined by business logic complexity:
-   - Customization: Custom conditional flows (e.g. B2B Tiered Pricing, branching forms). NOT standard carts or landing pages.
-   - Data Management: Interactive/relational (e.g. client portals, live inventory API sync). NOT static input forms.
-   - Automation: Full system-driven workflows replacing human tasks (e.g. auto-generated quote PDFs emailed).
-   - MATRIX:
-     * Payments: Add-on (Recurring billing, B2B tiered, Multi-currency) | Standard (Catalog, cart, basic payment gateways).
-     * Booking: Add-on (Google Calendar sync, seat picker, auto-block slots) | Standard (Static date picker, WhatsApp button).
-     * Content: Add-on (Paywalls, quiz generators, UGC directories) | Standard (Landing pages, blog, simple portfolio).
-     * Support/System: Add-on (AI Chatbots, Helpdesks, Client Portals, GPS tracking) | Standard (FAQ, WhatsApp floating chat, responsive design, SSL, basic analytics).
-2. NO CMS CAPACITY RESTRICTIONS:
+1. MANDATORY ADD-ONS REQUIREMENT (CRITICAL):
+   You MUST always include the following three standard add-ons in the output array, listed separately (NEVER combine hosting and domain into a single add-on):
+   - **Maintenance & Support**: Services to monitor uptime, fix bugs, and perform minor adjustments. Interval should be 'monthly' or 'yearly'. (English name: "Premium Maintenance & Support", Indonesian name_id: "Pemeliharaan & Dukungan Premium").
+   - **Web/Cloud Hosting**: Server allocation and infrastructure setup. Interval should be 'monthly' or 'yearly'. (English name: "High-Performance Cloud Hosting", Indonesian name_id: "Hosting Cloud Performa Tinggi").
+   - **Domain Registration**: Domain name acquisition (.com, .id, etc.). Interval MUST be 'yearly'. (English name: "Domain Name Registration", Indonesian name_id: "Pendaftaran Nama Domain").
+
+2. CUSTOM FUNCTIONAL ADD-ONS:
+   In addition to the three mandatory add-ons above, you MUST generate 1-3 custom functional add-ons tailored specifically to the service's industry context (e.g. B2B Tiered Pricing, live API integrations, booking systems, custom client portals, AI chatbots).
+
+3. NO CMS CAPACITY RESTRICTIONS:
    - Never limit database/CMS features (e.g. DO NOT limit products, categories, or image uploads). The client must have unlimited CMS capability.
    - Limit/quota fields MUST only apply to our manual deliverables (e.g. "3 Articles/Month", "Up to 3 Custom APIs Setup", "4 Hours/Month Support").
-3. PRICING & TARGET BUSINESS SCALE ADJUSTMENT:
+
+4. PRICING & TARGET BUSINESS SCALE ADJUSTMENT:
    - Addon currency must be "${currency}".
    - First, identify the Target Business Scale of the service based on its title, description, and base/consumer price.
    - Scale the pricing of the addons to match the client's business scale:
 
      * **For Ultra Mikro (UMi)** (informal/individual target market):
-       - Low Complexity: IDR 290k - 490k / USD 29 - 49.
-       - Medium Complexity: IDR 490k - 890k / USD 49 - 89.
-       - High Complexity: IDR 890k - 1,490,000 / USD 89 - 149.
-       - Monthly Retainer: IDR 99k - 199k / USD 9 - 19.
+       - Hosting: IDR 49k - 95k/month OR IDR 490k - 950k/year (USD 5 - 9/month OR USD 49 - 95/year).
+       - Domain: IDR 149k - 245k/year (USD 15 - 25/year) (interval: yearly).
+       - Maintenance: IDR 99k - 195k/month (USD 9 - 19/month).
+       - Custom Low/Med/High Complexity Addons: IDR 290k - 990k / USD 29 - 99.
 
      * **For Usaha Mikro** (small businesses with 1-5 employees):
-       - Low Complexity: IDR 490k - 890k / USD 49 - 89.
-       - Medium Complexity: IDR 890k - 1,490,000 / USD 89 - 149.
-       - High Complexity: IDR 1,490,000 - 2,450,000 / USD 149 - 245.
-       - Monthly Retainer: IDR 190k - 390k / USD 19 - 39.
+       - Hosting: IDR 95k - 195k/month OR IDR 950k - 1.95M/year (USD 9 - 19/month OR USD 95 - 195/year).
+       - Domain: IDR 149k - 245k/year (USD 15 - 25/year) (interval: yearly).
+       - Maintenance: IDR 190k - 390k/month (USD 19 - 39/month).
+       - Custom Low/Med/High Complexity Addons: IDR 490k - 1.99M / USD 49 - 199.
 
      * **For Usaha Kecil** (growing local businesses with 6-19 employees):
-       - Low Complexity: IDR 990k - 1,990,000 / USD 99 - 199.
-       - Medium Complexity: IDR 1,990,000 - 3,490,000 / USD 199 - 349.
-       - High Complexity: IDR 3,990,000 - 6,990,000 / USD 399 - 699.
-       - Monthly Retainer: IDR 390k - 990k / USD 39 - 99.
+       - Hosting: IDR 195k - 395k/month OR IDR 1.95M - 3.95M/year (USD 19 - 39/month OR USD 195 - 395/year).
+       - Domain: IDR 245k - 395k/year (USD 25 - 39/year) (interval: yearly).
+       - Maintenance: IDR 390k - 990k/month (USD 39 - 99/month).
+       - Custom Low/Med/High Complexity Addons: IDR 990k - 4.95M / USD 99 - 495.
 
      * **For Usaha Menengah (SME)** (regional companies with 20-99 employees):
-       - Low Complexity: IDR 1,990,000 - 3,490,000 / USD 199 - 349.
-       - Medium Complexity: IDR 3,490,000 - 5,990,000 / USD 349 - 599.
-       - High Complexity: IDR 5,990,000 - 9,950,000 / USD 599 - 995.
-       - Monthly Retainer: IDR 990k - 1,990,000 / USD 99 - 199.
+       - Hosting: IDR 490k - 990k/month OR IDR 4.9M - 9.9M/year (USD 49 - 99/month OR USD 499 - 990/year).
+       - Domain: IDR 390k - 590k/year (USD 39 - 59/year) (interval: yearly).
+       - Maintenance: IDR 990k - 1.95M/month (USD 99 - 195/month).
+       - Custom Low/Med/High Complexity Addons: IDR 1.99M - 9.95M / USD 199 - 995.
 
      * **For Besar/Enterprise** (national corporates or tech platforms):
-       - Low Complexity: IDR 3,950,000 - 6,950,000 / USD 399 - 699.
-       - Medium Complexity: IDR 6,950,000 - 11,950,000 / USD 699 - 1,195.
-       - High Complexity: IDR 11,950,000 - 19,950,000+ / USD 1,195 - 1,995+.
-       - Monthly Retainer: IDR 1,950,000 - 4,950,000 / USD 195 - 495.
+       - Hosting: IDR 1.49M - 3.49M/month OR IDR 14.9M - 34.9M/year (USD 149 - 349/month OR USD 1,490 - 3,490/year).
+       - Domain: IDR 590k - 1.49M/year (USD 59 - 149/year) (interval: yearly).
+       - Maintenance: IDR 1.95M - 4.95M/month (USD 195 - 495/month).
+       - Custom Low/Med/High Complexity Addons: IDR 3.95M - 19.95M+ / USD 399 - 1,995+.
 
    - Ensure addon pricing uses charm pricing numbers (e.g. ending in 90k, 95k, 99k for IDR, or .99 / .95 for USD).
 
-4. STRICT SCHEMA ADHERENCE:
+5. STRICT SCHEMA ADHERENCE:
    - Your output MUST match the output schema EXACTLY.
    - For each addon, you MUST include:
      * "name": Name of the addon in English.

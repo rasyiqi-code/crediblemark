@@ -50,26 +50,26 @@ Service details:
 Rules for Pricing Instinct and Strategy:
 1. CURRENCY: 'IDR' if title/description has Indonesian words, references Indonesian places, or uses IDR/Rp symbols; otherwise 'USD'.
 2. PRICE TYPE: 'FIXED' or 'STARTING_AT'.
-3. INTERVAL: 'one_time' for project builds; 'monthly'/'yearly' for retainers/support.
+3. INTERVAL: Always set 'interval' to 'one_time'. ALL service packages generated must be one-time payments.
 4. TARGET BUSINESS SCALE PROFILING (CRITICAL):
    Analyze the service context, industry, and complexity to identify the target client's business scale:
    - **Ultra Mikro (UMi)**:
      * Profile: Informal, self-run businesses, or individuals (e.g. food stall/warung kelontong kecil, street vendors, local mosque/masjid, personal portfolio, digital wedding invitation).
      * Budget Constraint: Extremely price sensitive. High pricing is completely unaffordable.
-     * Target Consumer Price Range: IDR 1,450,000 - IDR 1,950,000 (or USD 149 - 199).
+     * Target Consumer Price Range (One-time payment): IDR 1,450,000 - IDR 1,950,000 (or USD 149 - 199).
    - **Usaha Mikro**:
      * Profile: Micro-scale sole proprietorship/small shop with 1-5 employees (e.g. local barbershop, local laundry, kost-kostan, independent medical clinic, small local cafe).
-     * Target Consumer Price Range: IDR 2,450,000 - IDR 3,450,000 (or USD 249 - 349).
+     * Target Consumer Price Range (One-time payment): IDR 2,450,000 - IDR 3,450,000 (or USD 249 - 349).
    - **Usaha Kecil**:
      * Profile: Growing local business with structured operations and 6-19 employees (e.g. popular local cafe with multiple branches, local private school, builder shop, clothing distro/boutique).
-     * Target Consumer Price Range: IDR 3,950,000 - IDR 8,950,000 (or USD 399 - 899).
+     * Target Consumer Price Range (One-time payment): IDR 3,950,000 - IDR 8,950,000 (or USD 399 - 899).
    - **Usaha Menengah (SME)**:
      * Profile: Regional structured companies with 20-99 employees. Requires dynamic operations, payment gateway integration, or booking/inventory management (e.g. regional car showroom/dealer, small factory, province distributor).
-     * Target Consumer Price Range: IDR 9,950,000 - IDR 19,950,000 (or USD 999 - 1,999).
+     * Target Consumer Price Range (One-time payment): IDR 9,950,000 - IDR 19,950,000 (or USD 999 - 1,999).
    - **Besar/Enterprise**:
      * Profile: Corporates, national brands, SaaS platform, ERP, heavy machinery B2B, large scale exporters, staff >= 100.
      * Value Perception: High price represents premium quality. Cheap pricing devalues the brand.
-     * Target Consumer Price Range: IDR 24,950,000 - IDR 49,990,000+ (or USD 2,499 - 5,999+).
+     * Target Consumer Price Range (One-time payment): IDR 24,950,000 - IDR 49,990,000+ (or USD 2,499 - 5,999+).
 
 5. CHARM PRICING & ANCHOR PRICE CALCULATION:
    - Determine "Consumer Price" (the final price the client actually pays after discount) within the chosen range above.
@@ -94,3 +94,4 @@ Format Output: Raw JSON matching the schema. No markdown wrappers, no explanatio
         return output;
     }
 );
+
