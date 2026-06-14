@@ -46,8 +46,9 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             return;
         }
 
-        // Teks dan judul layanan berdasarkan opsi lokalisasi yang tersedia
+        // Teks dan judul layanan asli dari database berdasarkan opsi lokalisasi yang aktif
         const title = service.title_id || service.title;
+        const descriptionHtml = service.description_id || service.description;
 
         // Hitung harga final diskon
         const finalPrice = service.discount && service.discount > 0 
@@ -79,7 +80,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             year: "numeric"
         });
 
-        // Format fitur (features)
+        // Format fitur asli dari database (features)
         let featuresList: string[] = [];
         try {
             const rawFeatures = service.features_id || service.features || [];
@@ -99,7 +100,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             </div>
         `).join("");
 
-        // Format Addons
+        // Format Addons asli dari database (addons)
         let addonsList: ServiceAddon[] = [];
         try {
             const rawAddons = service.addons_id || service.addons || [];
@@ -129,56 +130,46 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             `;
         }).join("");
 
-        // Definisi Teks Persuasif Default "Sulit Ditolak Client"
-        const situationText = "Berdasarkan hasil analisis kebutuhan awal, hambatan terbesar saat ini adalah minimnya infrastruktur digital yang terintegrasi secara optimal untuk menangkap dan mengonversi peluang pasar baru secara efisien. Klien memerlukan solusi terstruktur yang matang untuk meminimalkan potensi kebocoran prospek.";
-        
-        const problems = [
-            "Rendahnya tingkat konversi calon pelanggan akibat hambatan (friction) pada alur interaksi awal.",
-            "Kebocoran peluang bisnis (leads) akibat proses pencatatan dan follow-up prospek yang masih manual.",
-            "Tingginya beban administratif operasional harian tim internal untuk melayani kueri pelanggan secara manual."
-        ];
-
-        const impactText = "Kehilangan potensi omzet bulanan secara konsisten, waktu respon pelayanan klien yang lambat di luar jam kerja, serta pembengkakan biaya operasional internal.";
-
-        const targetSolutionText = `Tujuan utama dari proposal ini bukan sekadar menyediakan layanan ${title}, melainkan menurunkan risiko operasional bisnis Anda, meminimalkan hilangnya peluang transaksi, serta melipatgandakan metrik konversi prospek utama secara signifikan dalam rentang waktu yang disepakati secara realistis.`;
+        // Rencana Otorisasi/Pengantar Bisnis yang Sulit Ditolak (Sebagai Bingkai Dokumen)
+        const targetSolutionText = `Tujuan proposal ini bukan sekadar membuat deliverables teknis, melainkan mengurangi risiko operasional, mengefisiensikan biaya, dan meningkatkan metrik bisnis utama Anda melalui implementasi solusi ${title} secara terukur.`;
 
         const businessUnderstanding = {
-            target: "Pelanggan potensial dan audiens mobile-first yang menginginkan respon informasi yang instan, interaktif, dan bebas dari kendala administrasi berbelit.",
-            funnel: "Iklan Digital / Media Sosial &rarr; WhatsApp / Formulir Kontak Manual &rarr; Tindakan Admin &rarr; Follow-up Manual.",
-            bottleneck: "Waktu respon terhambat di luar jam kerja operasional serta tidak adanya pencatatan prospek tersistem.",
-            consequence: "Calon pelanggan berpindah ke kompetitor lain dan nilai ROI (Return on Investment) pemasaran digital menjadi kurang maksimal."
+            target: "Pelanggan potensial dan audiens mobile-first yang mengutamakan kecepatan interaksi, kemudahan transaksi, dan aksesibilitas bebas hambatan.",
+            funnel: "Promosi / Kontak Awal &rarr; Formulir / WhatsApp Manual &rarr; Tindakan Admin &rarr; Eksekusi Layanan.",
+            bottleneck: "Respon waktu pelayanan yang berpotensi lambat di luar jam kerja operasional serta pencatatan prospek/kebutuhan yang kurang sistematis.",
+            consequence: "Calon pelanggan berpindah ke kompetitor lain dan nilai konversi kampanye digital menjadi kurang optimal."
         };
 
         const kpis = [
-            { goal: "Meningkatkan Lead Berkualitas", kpi: "+20% hingga +40% konversi formulir pendaftaran / kueri prospek potensial" },
-            { goal: "Mempercepat Respon Interaksi", kpi: "First-response time rata-rata di bawah 10 menit pada jam operasional kerja" },
-            { goal: "Optimasi Efisiensi Tim", kpi: "Menghemat hingga 30% waktu kerja administratif tim melalui automasi alur data" }
+            { goal: "Meningkatkan Lead & Konversi", kpi: "+20% hingga +40% peningkatan rasio konversi / qualified inquiry pelanggan" },
+            { goal: "Mempercepat Waktu Respon", kpi: "First-response time rata-rata di bawah 10 menit pada jam kerja operasional" },
+            { goal: "Optimasi Efisiensi Kerja", kpi: "Pengurangan hingga 30% tugas administratif berulang melalui automasi sistem" }
         ];
 
         const outScope = [
-            "Integrasi mendalam dengan sistem ERP/CRM pihak ketiga di luar paket modul standar.",
-            "Pembuatan konten multimedia berskala besar (seperti photoshoot produk profesional atau video profil korporasi).",
-            "Manajemen anggaran iklan berbayar (Ad-Spend) di luar konfigurasi setup tracking awal.",
-            "Penyediaan lisensi komersial pihak ketiga di luar paket lisensi standar yang telah ditentukan."
+            "Integrasi mendalam dengan sistem ERP/CRM eksternal kustom di luar cakupan API standar.",
+            "Penyediaan aset media mentah (seperti foto produk skala besar atau rekaman video profil korporat).",
+            "Manajemen anggaran iklan digital pihak ketiga (Ad-Spend budget) di luar setup integrasi tracking.",
+            "Lisensi berbayar pihak ketiga yang memerlukan langganan mandiri di luar paket penawaran."
         ];
 
         const timeline = [
-            { phase: "Fase 1: Discovery & Audit", duration: "3-5 Hari", output: "Audit alur funnel operasional & kalibrasi baseline KPI" },
-            { phase: "Fase 2: UX & Wireframe", duration: "5-7 Hari", output: "Arsitektur informasi visual & alur mobile-first yang efisien" },
-            { phase: "Fase 3: Development & Integrasi", duration: "10-15 Hari", output: "Pengembangan sistem utama, integrasi database, & form capture" },
-            { phase: "Fase 4: QA & Setup Tracking", duration: "3-5 Hari", output: "Pengujian menyeluruh (bug testing) & dashboard analitik" },
+            { phase: "Fase 1: Discovery & Audit", duration: "3-5 Hari", output: "Audit kebutuhan alur kerja & penyelarasan baseline KPI" },
+            { phase: "Fase 2: UX & Wireframing", duration: "5-7 Hari", output: "Desain arsitektur visual alur interaksi & review prototype" },
+            { phase: "Fase 3: Development & Integrasi", duration: "10-15 Hari", output: "Pengembangan fungsionalitas sistem & integrasi formulir database" },
+            { phase: "Fase 4: QA & Tracking Setup", duration: "3-5 Hari", output: "Pengujian menyeluruh (debugging) & konfigurasi analitik" },
             { phase: "Fase 5: Go-Live & Handover", duration: "1-2 Hari", output: "Peluncuran resmi, pelatihan tim internal, & penyerahan SOP" }
         ];
 
         const risks = [
             { risk: "Keterlambatan penyediaan konten/aset", mitigation: "Penyediaan aset utama di awal kickoff atau penggunaan konten placeholder sementara agar development tidak tertahan." },
             { risk: "Perubahan ruang lingkup (scope creep)", mitigation: "Evaluasi tertulis melalui Change Request formal dengan penyesuaian timeline dan investasi." },
-            { risk: "Kendala API pihak ketiga", mitigation: "Analisis teknis kelayakan di awal Fase 1 (Discovery) serta penyediaan solusi fallback sementara." }
+            { risk: "Kendala API pihak ketiga", mitigation: "Analisis kelayakan teknis di awal Fase 1 (Discovery) serta penyediaan solusi fallback sementara." }
         ];
 
         const roiEstimationText = baseCurrency === "IDR"
-            ? `Dengan estimasi transaksi rata-rata Rp 2.500.000 per layanan, peningkatan konversi konvensional sebesar 15-30% setara dengan tambahan pendapatan kotor Rp 7.500.000 s/d Rp 15.000.000 per bulan. Investasi proyek ini diproyeksikan mencapai Return on Investment (ROI) penuh dalam waktu 3 hingga 5 bulan pasca-implementasi.`
-            : `With an estimated average transaction value of $250, a conservative 15-30% increase in lead conversion equates to an additional gross revenue of $750 to $1,500 per month. The project investment is projected to achieve full Return on Investment (ROI) within 3 to 5 months post-launch.`;
+            ? `Dengan estimasi transaksi rata-rata Rp 2.500.000, peningkatan konversi konvensional sebesar 15-30% setara dengan tambahan pendapatan kotor Rp 7.500.000 s/d Rp 15.000.000 per bulan. Investasi proyek diproyeksikan balik modal (ROI) dalam waktu 3 hingga 5 bulan.`
+            : `With an estimated average transaction value of $250, a conservative 15-30% increase in lead conversion equates to an additional gross revenue of $750 to $1,500 per month. The project investment is projected to achieve full ROI within 3 to 5 months.`;
 
         // Template HTML Proposal A4 Premium
         const htmlContent = `
@@ -405,6 +396,26 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             color: #334155;
             text-align: justify;
             margin-bottom: 12px;
+        }
+
+        .desc-content {
+            font-size: 12px;
+            color: #334155;
+            line-height: 1.6;
+        }
+
+        .desc-content p {
+            margin-bottom: 12px;
+            text-align: justify;
+        }
+
+        .desc-content ul, .desc-content ol {
+            margin-left: 20px;
+            margin-bottom: 12px;
+        }
+
+        .desc-content li {
+            margin-bottom: 4px;
         }
 
         .highlight-quote {
@@ -666,10 +677,10 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         </div>
     </div>
     
-    <!-- HALAMAN 2: EXECUTIVE SUMMARY & PEMAHAMAN BISNIS -->
+    <!-- HALAMAN 2: EXECUTIVE SUMMARY & DESKRIPSI LAYANAN ASLI -->
     <div class="page">
         <div class="section-header">
-            <h2 class="section-title">01 / Rencana Taktis & Summary</h2>
+            <h2 class="section-title">01 / Ringkasan Eksekutif & Solusi</h2>
             <span class="section-subtitle-badge">Halaman 2</span>
         </div>
         
@@ -678,22 +689,16 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
             <div class="highlight-quote">
                 "${targetSolutionText}"
             </div>
-            <p class="paragraph-text">
-                <strong>Situasi Saat Ini:</strong> ${situationText}
+            <p class="paragraph-text" style="font-weight: 600; margin-bottom: 8px;">
+                Rincian Deskripsi Solusi Layanan:
             </p>
-            <p class="paragraph-text" style="margin-bottom: 6px;">
-                <strong>Identifikasi Masalah Utama:</strong>
-            </p>
-            <ul class="bullet-list">
-                ${problems.map(prob => `<li>${prob}</li>`).join("")}
-            </ul>
-            <p class="paragraph-text">
-                <strong>Dampak Terhadap Bisnis:</strong> ${impactText}
-            </p>
+            <div class="desc-content">
+                ${descriptionHtml}
+            </div>
         </div>
 
         <div class="body-section" style="margin-top: 15px;">
-            <h3 class="body-section-title">Pemahaman Proses Bisnis Klien</h3>
+            <h3 class="body-section-title">Pemahaman Masalah & Alur Kerja</h3>
             <table class="proposal-table">
                 <thead>
                     <tr>
@@ -728,7 +733,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         </div>
     </div>
     
-    <!-- HALAMAN 3: TUJUAN, KPI, & RUANG LINGKUP (SCOPE) -->
+    <!-- HALAMAN 3: TUJUAN, KPI, & RUANG LINGKUP (SCOPE ASLI) -->
     <div class="page">
         <div class="section-header">
             <h2 class="section-title">02 / Target Mutu & Ruang Lingkup</h2>
@@ -864,7 +869,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         </div>
     </div>
 
-    <!-- HALAMAN 5: STRATEGI INVESTASI, ROI, ADDONS, & PERSETUJUAN -->
+    <!-- HALAMAN 5: STRATEGI INVESTASI ASLI, ROI, ADDONS ASLI, & PERSETUJUAN -->
     <div class="page">
         <div class="section-header">
             <h2 class="section-title">04 / Rencana Investasi & Persetujuan</h2>
