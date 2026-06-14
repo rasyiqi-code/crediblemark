@@ -219,7 +219,7 @@ export function InteractivePricing({ locale }: InteractivePricingProps) {
                 <h4 className="text-xs font-bold uppercase tracking-widest text-zinc-500 text-center md:text-left">
                     {isId ? "1. Pilih Tipe Paket Layanan:" : "1. Choose Your Package Tier:"}
                 </h4>
-                <div className="flex overflow-x-auto gap-3 pb-3 snap-x snap-mandatory scroll-smooth no-scrollbar md:grid md:grid-cols-3 md:gap-4 md:pb-0">
+                <div className="flex overflow-x-auto md:overflow-visible gap-3 pt-3 pb-3 snap-x snap-mandatory scroll-smooth no-scrollbar md:grid md:grid-cols-3 md:gap-4 md:pb-0 md:pt-4">
                     {packagesList.map((pkg) => {
                         const isActive = pkg.id === selectedPackageId;
                         return (
