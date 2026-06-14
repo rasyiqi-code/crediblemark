@@ -854,7 +854,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
  
         /* Tanda Tangan */
         .signatures-container {
-            margin-top: 20mm;
+            margin-top: 8mm;
             display: flex;
             justify-content: space-between;
         }
@@ -867,7 +867,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         
         .sig-line {
             border-bottom: 1px solid #27272a;
-            height: 15mm;
+            height: 10mm;
             margin-bottom: 8px;
         }
         
@@ -886,16 +886,16 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         .faq-container {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
             margin-top: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         
         .faq-item {
             background: #18181b;
             border: 1px solid #27272a;
             border-radius: 6px;
-            padding: 12px 16px;
+            padding: 10px 14px;
         }
         
         .faq-question {
@@ -1219,7 +1219,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         </div>
  
         <!-- FAQ Section -->
-        <div class="body-section" style="margin-bottom: 20px;">
+        <div class="body-section" style="margin-bottom: 12px;">
             <h3 class="body-section-title">${tFaqTitle}</h3>
             <p class="paragraph-text" style="font-size: 13px; color: #ffffff; margin-bottom: 12px; margin-top: -5px;">
                 ${tMoreInfoAt} <strong style="color: #fbbf24;">crediblemark.com</strong>
@@ -1241,7 +1241,7 @@ export function ExportPdfButton({ service }: { service: ServiceData }) {
         </div>
  
         <!-- GARANSI UANG KEMBALI (Guarantee Box) -->
-        <div class="guarantee-box" style="margin-bottom: 25px;">
+        <div class="guarantee-box" style="margin-bottom: 15px; padding: 16px;">
             <span class="guarantee-badge">&nbsp; ${tGuarTitle} &nbsp;</span>
             <div class="guarantee-title">${tGuarSubtitle}</div>
             <p class="guarantee-desc">${tGuarDesc}</p>
