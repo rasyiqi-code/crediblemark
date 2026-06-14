@@ -71,14 +71,22 @@ export async function POST(req: NextRequest) {
                 interval: interval || 'one_time'
             });
 
-            const addons = addonsResult.addons?.map((a: any) => ({
+            interface AddonItem {
+                name: string;
+                name_id?: string;
+                price: number;
+                interval: 'one_time' | 'monthly' | 'yearly';
+                currency: 'USD' | 'IDR';
+            }
+
+            const addons = addonsResult.addons?.map((a: AddonItem) => ({
                 name: a.name,
                 price: a.price,
                 interval: a.interval,
                 currency: a.currency
             })) || [];
 
-            const addons_id = addonsResult.addons?.map((a: any) => ({
+            const addons_id = addonsResult.addons?.map((a: AddonItem) => ({
                 name: a.name_id || a.name,
                 price: a.price,
                 interval: a.interval,
