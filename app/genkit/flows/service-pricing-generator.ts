@@ -71,7 +71,7 @@ Service details:
 - Features: "${sanitizedFeatures}"
 
 Rules for Pricing Instinct and Strategy:
-1. CURRENCY: 'IDR' if title/description has Indonesian words, references Indonesian places, or uses IDR/Rp symbols; otherwise 'USD'.
+1. CURRENCY: Always set 'currency' to 'IDR' by default to target the Indonesian market, unless 'USD' is explicitly requested in the title or description.
 2. PRICE TYPE: 'FIXED' or 'STARTING_AT'.
 3. INTERVAL: Always set 'interval' to 'one_time'. ALL service packages generated must be one-time payments.
 4. TARGET BUSINESS SCALE & PRICE RANGE:

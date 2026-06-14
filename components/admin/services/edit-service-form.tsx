@@ -86,7 +86,7 @@ export function EditServiceForm({
     const [priceType, setPriceType] = useState<string>(service.priceType || "FIXED");
     const [interval, setInterval] = useState<string>(service.interval || "one_time");
     const [businessScale, setBusinessScale] = useState<string>("AUTO");
-    const [currency, setCurrency] = useState<string>(service.currency || "USD");
+    const [currency, setCurrency] = useState<string>(service.currency || "IDR");
 
     const formRef = useRef<HTMLFormElement>(null);
 

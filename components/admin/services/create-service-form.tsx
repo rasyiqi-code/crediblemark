@@ -52,7 +52,7 @@ export function CreateServiceForm() {
     const [priceType, setPriceType] = useState<string>(generatedData?.priceType || "FIXED");
     const [interval, setInterval] = useState<string>(generatedData?.interval || "one_time");
     const [businessScale, setBusinessScale] = useState<string>("AUTO");
-    const [currency, setCurrency] = useState<string>("USD");
+    const [currency, setCurrency] = useState<string>("IDR");
 
     const handlePriceTypeChange = (value: string) => {
         setPriceType(value);
