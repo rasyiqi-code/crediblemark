@@ -1204,15 +1204,12 @@ export function ExportPdfButton({
                         ${isEn ? `Original Price: ${formatPriceHelper(service.price)}` : `Harga Normal: ${formatPriceHelper(service.price)}`}
                     </span>
                 </div>
-                <p style="font-size: 12.5px; color: #ffffff; font-weight: 600; margin: 0 0 6px 0; line-height: 1.5; letter-spacing: 0.2px;">
+                <p style="font-size: 12.5px; color: #fbbf24; font-weight: 700; margin: 0; line-height: 1.6; letter-spacing: 0.2px;">
                     ${isEn 
-                        ? `✨ Secure this special value & instantly keep an extra ${formatPriceHelper(service.price - finalPrice)} in your growth budget` 
-                        : `✨ Amankan penawaran bernilai tinggi ini & simpan langsung surplus ${formatPriceHelper(service.price - finalPrice)} untuk anggaran pertumbuhan Anda`
+                        ? `✨ Secure this special value & instantly keep an extra ${formatPriceHelper(service.price - finalPrice)} in your growth budget. <br> * GUARANTEED PROMOTIONAL RATE AFTER DIRECT DISCOUNT.` 
+                        : `✨ Amankan penawaran bernilai tinggi ini & simpan langsung surplus ${formatPriceHelper(service.price - finalPrice)} untuk anggaran pertumbuhan Anda. <br> * NOMINAL INI MERUPAKAN HARGA INVESTASI EKSKLUSIF SETELAH POTONGAN LANGSUNG.`
                     }
                 </p>
-                <div style="font-size: 11px; color: #fbbf24; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 700;">
-                    ${isEn ? "* Guaranteed promotional rate after direct discount" : "* Nominal ini merupakan harga investasi eksklusif setelah potongan langsung"}
-                </div>
             </div>
             ` : ''}
 
