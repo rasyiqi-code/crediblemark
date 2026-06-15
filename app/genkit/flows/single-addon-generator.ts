@@ -29,20 +29,16 @@ export const singleAddonGeneratorFlow = ai.defineFlow(
         const requestedScale = input.targetBusinessScale || 'AUTO';
         const isEn = input.isEn ?? false;
 
-        let pricingRangeRule = "";
-        if (requestedScale === "ULTRA_MICRO") {
-            pricingRangeRule = `The target business scale is \`ULTRA_MICRO\` (\`UMi\`). Select the pricing of this custom addon from range: IDR 290,000 - 990,000 / USD 29 - 99.`;
-        } else if (requestedScale === "MICRO") {
-            pricingRangeRule = `The target business scale is \`MICRO\` (\`Mikro\`). Select the pricing of this custom addon from range: IDR 490,000 - 1,990,000 / USD 49 - 199.`;
-        } else if (requestedScale === "SMALL") {
-            pricingRangeRule = `The target business scale is \`SMALL\` (\`Kecil\`). Select the pricing of this custom addon from range: IDR 990,000 - 4,950,000 / USD 99 - 495.`;
-        } else if (requestedScale === "MEDIUM") {
-            pricingRangeRule = `The target business scale is \`MEDIUM\` (\`SME\`). Select the pricing of this custom addon from range: IDR 1,990,000 - 9,950,000 / USD 199 - 995.`;
-        } else if (requestedScale === "ENTERPRISE") {
-            pricingRangeRule = `The target business scale is \`ENTERPRISE\`. Select the pricing of this custom addon from range: IDR 3,950,000 - 19,950,000+ / USD 399 - 1,995+.`;
-        } else {
-            pricingRangeRule = `Determine a reasonable price for this custom addon matching a standard business scale. Minimum price: IDR 290,000 / USD 29. Maximum price: IDR 19,950,000 / USD 1,995.`;
-        }
+        // Menentukan aturan harga berdasarkan kompleksitas teknis dari addon yang diminta
+        const pricingRangeRule = `Determine the pricing of this custom addon based on its technical complexity:
+- **Low Complexity** (misal: widget sederhana, link sosial media, form kontak dasar, setup tracking pixel):
+  * Rentang Harga: IDR 190,000 - 490,000 / USD 19 - 49.
+- **Medium Complexity** (misal: integrasi WhatsApp gateway/API kustom, sistem multi-bahasa, kalender/sistem booking, filter pencarian kustom):
+  * Rentang Harga: IDR 490,000 - 1,490,000 / USD 49 - 149.
+- **High Complexity** (misal: integrasi payment gateway penuh, chatbot AI kustom 24/7, sinkronisasi CRM lanjutan, sistem membership/poin loyalitas, dashboard analitik penjualan):
+  * Rentang Harga: IDR 1,490,000 - 3,990,000 / USD 149 - 399.
+
+Pilih harga realistis yang sesuai dengan kategori kompleksitas tersebut. Jangan menaikkan harga secara tidak wajar.`;
 
         const { output } = await ai.generate({
             model: `googleai/${model}`,
