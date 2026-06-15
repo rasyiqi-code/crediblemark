@@ -1227,10 +1227,10 @@ export function ExportPdfButton({
             <!-- Catatan Negosiasi & Kualitas -->
             <div style="margin-top: 12px; padding: 12px 16px; border-left: 3px solid #fbbf24; background: #09090b; border-radius: 0 6px 6px 0;">
                 <p style="font-size: 12px; color: #a1a1aa; line-height: 1.6; margin: 0;">
-                    <strong>${isEn ? "Flexible Investment & Value Guarantee:" : "Fleksibilitas Investasi & Garansi Hasil:"}</strong> 
+                    <strong>${isEn ? "Let's Talk & Partner Up:" : "Diskusikan dengan Kami:"}</strong> 
                     ${isEn 
-                        ? "This investment is highly flexible and fully adaptable to your business priorities. Every dollar invested here returns to you as a high-performance, bug-free system, 100% full code ownership, and custom engineering designed to generate real profits."
-                        : "Nilai investasi di atas sangat fleksibel dan siap disesuaikan dengan skala prioritas bisnis Anda. Setiap Rupiah yang Anda investasikan di sini kembali dalam bentuk sistem berkinerja tinggi yang bebas dari error, hak milik kode 100%, dan performa yang mendatangkan profit nyata."
+                        ? "Your business needs are unique, which is why we are completely open to discussing this investment to perfectly align with your budget and priorities. Rest assured, every dollar you invest here returns to you as a high-performance system that is 100% yours, entirely bug-free, and engineered to help your business scale profits faster!"
+                        : "Kebutuhan bisnis Anda unik, karena itu nilai investasi ini sangat terbuka untuk kita diskusikan agar pas dengan anggaran dan prioritas Anda saat ini. Tenang saja, setiap rupiah yang Anda percayakan di sini akan kembali dalam bentuk sistem berkinerja tinggi yang 100% jadi hak milik Anda, bebas error, dan siap membantu bisnis Anda cetak profit lebih cepat!"
                     }
                 </p>
             </div>
