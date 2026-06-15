@@ -34,7 +34,7 @@ export function ExportPdfButton({
 }: {
     service: ServiceData;
     variant?: "icon" | "button";
-    globalAddons?: any[];
+    globalAddons?: ServiceAddon[];
 }) {
     const { user } = useSafeUser();
     const [isGenerating, setIsGenerating] = useState(false);
@@ -139,16 +139,16 @@ export function ExportPdfButton({
         `).join("");
 
         // Format Addons dari database global (atau fallback ke addons lama jika kosong)
-        let addonsList: any[] = [];
+        let addonsList: ServiceAddon[] = [];
         if (globalAddons && globalAddons.length > 0) {
             addonsList = globalAddons;
         } else {
             try {
                 const rawAddons = service.addons_id || service.addons || [];
                 if (typeof rawAddons === "string") {
-                    addonsList = JSON.parse(rawAddons) as any[];
+                    addonsList = JSON.parse(rawAddons) as ServiceAddon[];
                 } else if (Array.isArray(rawAddons)) {
-                    addonsList = rawAddons as any[];
+                    addonsList = rawAddons as ServiceAddon[];
                 }
             } catch {
                 addonsList = [];
