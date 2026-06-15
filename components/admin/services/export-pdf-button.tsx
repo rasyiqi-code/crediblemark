@@ -339,7 +339,7 @@ export function ExportPdfButton({
             width: 420px;
             height: 420px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #facc15 0%, #d97706 100%);
+            background: linear-gradient(135deg, #facc15 0%, #fbbf24 100%);
             z-index: 1;
             opacity: 0.85;
             filter: blur(1px);
@@ -364,7 +364,7 @@ export function ExportPdfButton({
             width: 380px;
             height: 380px;
             border-radius: 50%;
-            background: linear-gradient(45deg, #d97706 0%, #000000 100%);
+            background: linear-gradient(45deg, #fbbf24 0%, #000000 100%);
             z-index: 1;
             opacity: 0.6;
             filter: blur(10px);
@@ -413,8 +413,8 @@ export function ExportPdfButton({
         
         .proposal-badge {
             display: inline-block;
-            background: #d97706;
-            color: #ffffff;
+            background: #fbbf24;
+            color: #000000;
             font-size: 12px;
             font-weight: 700;
             text-transform: uppercase;
