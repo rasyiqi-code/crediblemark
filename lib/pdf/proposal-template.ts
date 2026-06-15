@@ -432,9 +432,8 @@ export function generateProposalHtml({
             position: absolute;
             top: 48mm;
             right: 20mm;
-            width: 65mm;
-            height: 95mm;
-            object-fit: cover;
+            width: 75mm;
+            height: auto;
             filter: grayscale(10%) contrast(1.02) brightness(0.95);
             z-index: 5;
         }
