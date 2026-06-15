@@ -4,12 +4,11 @@ import React from "react";
 import Image from "next/image";
 import { AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
-import { Zap, CreditCard, Percent, Plus } from "lucide-react";
+import { Zap, CreditCard, Percent } from "lucide-react";
 import { PriceDisplay } from "@/components/providers/currency-provider";
 import { ServiceActionButtons } from "./service-action-buttons";
-import { useTranslations, useLocale } from "next-intl";
 import { ServiceAddon } from "@/lib/shared/types";
-
+import { useTranslations, useLocale } from "next-intl";
 interface ServiceData {
     id: string;
     title: string;
@@ -171,42 +170,7 @@ export function ServiceAccordionItem({
                             </div>
                         </div>
 
-                        {(() => {
-                            const addons = (globalAddons && globalAddons.length > 0)
-                                ? globalAddons
-                                : ((isId ? service.addons_id : service.addons) as Array<{ name: string; name_id?: string | null; description?: string; price: number; currency?: string; interval?: string }> | null);
-                                
-                            if (!addons || addons.length === 0) return null;
-                            return (
-                                <div className="mt-3 pt-3 border-t border-zinc-800/40">
-                                    <span className="text-[10px] text-zinc-600 uppercase tracking-wider font-semibold block mb-2">
-                                        {t("addonsAvailable")}
-                                    </span>
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-                                        {addons.map((addon, idx) => {
-                                            const displayName = isId ? (addon.name_id || addon.name) : addon.name;
-                                            return (
-                                                <div key={idx} className="flex items-start gap-2 p-2 rounded-lg bg-zinc-900/50 border border-zinc-800/30">
-                                                    <Plus className="w-3.5 h-3.5 text-brand-yellow mt-0.5 shrink-0" />
-                                                    <div className="min-w-0">
-                                                        <span className="text-xs text-zinc-300 font-medium block truncate">{displayName}</span>
-                                                        {addon.description && (
-                                                            <span className="text-[10px] text-zinc-600 block truncate">{addon.description}</span>
-                                                        )}
-                                                        <span className="text-[10px] text-brand-yellow font-mono font-bold">
-                                                            <PriceDisplay amount={addon.price} baseCurrency={(addon.currency as 'USD' | 'IDR') || service.currency as 'USD' | 'IDR' || 'USD'} />
-                                                            {addon.interval && addon.interval !== 'one_time' && (
-                                                                <span className="text-zinc-600 ml-0.5">/{addon.interval === 'monthly' ? t("mo") : (addon.interval === 'yearly' ? t("yr") : addon.interval)}</span>
-                                                            )}
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            );
-                                        })}
-                                    </div>
-                                </div>
-                            );
-                        })()}
+
                     </div>
                 </div>
             </AccordionContent>

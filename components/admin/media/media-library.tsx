@@ -1,36 +1,19 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
-import { Upload, Loader2, Search, LayoutGrid, List, Trash2 } from "lucide-react";
+import { Loader2, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { MediaGrid } from "./media-grid";
 import { MediaList } from "./media-list";
-import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/shared/utils";
+import { MediaToolbar } from "./media-toolbar";
+import { getFolderLabel, formatFileSize, SYSTEM_FOLDERS } from "./media-helpers";
 
 interface MediaFile {
     key: string;
     size: number;
     lastModified: Date;
     url: string;
-}
-
-const SYSTEM_FOLDERS = ["objects"];
-
-const FOLDER_LABELS: Record<string, string> = {
-    "logos": "Logo & Branding",
-    "marketing": "Materi Marketing",
-    "products": "Gambar Produk",
-    "projects": "Aset Proyek",
-    "proofs": "Bukti Pembayaran",
-    "services": "Gambar Layanan",
-    "tickets": "Lampiran Tiket",
-    "uploads": "Unggahan User",
-};
-
-function getFolderLabel(folderName: string): string {
-    return FOLDER_LABELS[folderName.toLowerCase()] || folderName.charAt(0).toUpperCase() + folderName.slice(1);
 }
 
 export function MediaLibrary() {
@@ -186,107 +169,20 @@ export function MediaLibrary() {
         }
     }
 
-    function formatFileSize(bytes: number): string {
-        if (bytes === 0) return '0 Bytes';
-        const k = 1024;
-        const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-        const i = Math.floor(Math.log(bytes) / Math.log(k));
-        return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
-    }
-
-
-
     return (
         <div className="space-y-6 min-w-0 max-w-full">
             {/* Toolbar */}
-            <div className="flex flex-col lg:flex-row gap-4 items-stretch lg:items-center justify-between min-w-0">
-                <div className="flex flex-col sm:flex-row items-center gap-3 w-full lg:max-w-2xl min-w-0">
-                    <div className="relative w-full min-w-0">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
-                        <Input
-                            placeholder="Cari media..."
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            className="bg-zinc-900/40 border-white/5 pl-10 h-11 lg:h-10 ring-offset-zinc-950 focus-visible:ring-violet-500/50 w-full min-w-0"
-                        />
-                    </div>
-                    <div className="flex items-center bg-zinc-900/40 border border-white/5 rounded-lg p-0.5 shrink-0 w-full sm:w-auto justify-center">
-                        <button
-                            onClick={() => setViewType("grid")}
-                            className={cn(
-                                "flex-1 sm:flex-none px-3 sm:px-1.5 py-1.5 rounded-md transition-colors flex items-center justify-center gap-2",
-                                viewType === "grid" ? "bg-white/10 text-white" : "text-zinc-500 hover:text-zinc-300"
-                            )}
-                        >
-                            <LayoutGrid className="w-4 h-4" />
-                            <span className="xs:inline hidden sm:hidden text-[9px] font-bold uppercase tracking-wider">Grid</span>
-                        </button>
-                        <button
-                            onClick={() => setViewType("list")}
-                            className={cn(
-                                "flex-1 sm:flex-none px-3 sm:px-1.5 py-1.5 rounded-md transition-colors flex items-center justify-center gap-2",
-                                viewType === "list" ? "bg-white/10 text-white" : "text-zinc-500 hover:text-zinc-300"
-                            )}
-                        >
-                            <List className="w-4 h-4" />
-                            <span className="xs:inline hidden sm:hidden text-[9px] font-bold uppercase tracking-wider">List</span>
-                        </button>
-                    </div>
-                </div>
-
-                <div className="flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto">
-                    {selectedKeys.size > 0 && (
-                        <div className="flex items-center gap-2 w-full sm:w-auto">
-                            <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={() => setSelectedKeys(new Set())}
-                                className="flex-1 sm:flex-none h-11 lg:h-10 border-white/5 bg-zinc-900/40 text-zinc-400 hover:text-white px-4"
-                            >
-                                Batal ({selectedKeys.size})
-                            </Button>
-                            <Button
-                                variant="destructive"
-                                size="sm"
-                                onClick={handleBulkDelete}
-                                className="flex-1 sm:flex-none h-11 lg:h-10 px-4 font-semibold"
-                            >
-                                <Trash2 className="w-4 h-4 mr-2" />
-                                Hapus
-                            </Button>
-                        </div>
-                    )}
-                    <label className="relative w-full sm:w-auto">
-                        <input
-                            type="file"
-                            multiple
-                            accept="image/*"
-                            onChange={handleUpload}
-                            disabled={uploading}
-                            className="hidden"
-                        />
-                        <Button
-                            asChild
-                            disabled={uploading}
-                            className="w-full bg-violet-600 hover:bg-violet-700 text-white h-11 lg:h-10 px-6 font-semibold"
-                        >
-                            <span>
-                                {uploading ? (
-                                    <>
-                                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                                        Uploading...
-                                    </>
-                                ) : (
-                                    <>
-                                        <Upload className="w-4 h-4 mr-2" />
-                                        Upload Media
-                                    </>
-                                )}
-                            </span>
-                        </Button>
-                    </label>
-                </div>
-            </div>
+            <MediaToolbar
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
+                viewType={viewType}
+                setViewType={setViewType}
+                selectedCount={selectedKeys.size}
+                onCancelSelection={() => setSelectedKeys(new Set())}
+                onBulkDelete={handleBulkDelete}
+                onUpload={handleUpload}
+                uploading={uploading}
+            />
 
             {/* Content Area */}
             <div className="min-h-[400px]">
