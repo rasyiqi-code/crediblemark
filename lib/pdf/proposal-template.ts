@@ -146,8 +146,19 @@ export function generateProposalHtml({
         }).join("");
     };
 
+    // Helper function to chunk array
+    const chunkArray = <T>(arr: T[], size: number): T[][] => {
+        const chunks: T[][] = [];
+        for (let i = 0; i < arr.length; i += size) {
+            chunks.push(arr.slice(i, i + size));
+        }
+        return chunks;
+    };
+
+    // Chunk list addon per 6 item untuk mencegah overflow halaman
+    const addonChunks = chunkArray(addonsList, 6);
     const addonsNeedNewPage = addonsList.length > 3;
-    const addonPageCount = addonsNeedNewPage ? 1 : 0;
+    const addonPageCount = addonsNeedNewPage ? addonChunks.length : 0;
 
     // Data Filosofi & Slogan dari Landing Page / Lokalisasi
     const quoteText = messages.About.quote;
@@ -262,41 +273,52 @@ export function generateProposalHtml({
     const tAgreementText = messages.ProposalExport.agreementText;
     const tClientRepresentative = messages.ProposalExport.clientRepresentative;
 
-    const addonsPagesHtml = addonsNeedNewPage ? `
-    <!-- HALAMAN RINCIAN MODUL ADD-ON (AUTO PAGE BREAK) -->
-    <div class="page-addons">
-        <div class="section-header">
-            <h2 class="section-title">${isEn ? "04.2 / Optional Add-on Modules" : "04.2 / Modul Add-on Opsional"}</h2>
-            <span class="section-subtitle-badge">${getPageFooterHtml(6)}</span>
+    const addonsPagesHtml = addonsNeedNewPage ? addonChunks.map((chunk, chunkIdx) => {
+        const pageNum = 6 + chunkIdx;
+        
+        const pageTitle = chunkIdx === 0
+            ? (isEn ? "04.2 / Optional Add-on Modules" : "04.2 / Modul Add-on Opsional")
+            : (isEn ? "04.2 / Optional Add-on Modules (Continued)" : "04.2 / Modul Add-on Opsional (Lanjutan)");
+
+        const pageIntro = isEn
+            ? "Detailed breakdown of the selected optional add-on modules configured to customize the scalability of your infrastructure and digital system:"
+            : "Rincian modul tambahan pilihan yang dikonfigurasi untuk menyesuaikan kebutuhan skalabilitas infrastruktur dan sistem digital Anda:";
+
+        return `
+        <!-- HALAMAN ADD-ON: HALAMAN ${chunkIdx + 1} -->
+        <div class="page">
+            <div class="section-header">
+                <h2 class="section-title">${pageTitle}</h2>
+                <span class="section-subtitle-badge">${getPageFooterHtml(pageNum)}</span>
+            </div>
+     
+            <div class="body-section" style="margin-top: 10px;">
+                ${chunkIdx === 0 ? `
+                <p class="paragraph-text" style="font-size: 14px; color: #ffffff; margin-bottom: 20px;">
+                    ${pageIntro}
+                </p>
+                ` : ''}
+                <table class="proposal-table">
+                    <thead>
+                        <tr>
+                            <th>${tAddonHeaderModule}</th>
+                            <th>${tAddonHeaderScheme}</th>
+                            <th style="text-align: right;">${tAddonHeaderInvest}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${generateAddonsTableRows(chunk)}
+                    </tbody>
+                </table>
+            </div>
+     
+            <div class="page-footer">
+                <span>CREDIBLEMARK &bull; Proposal ${title}</span>
+                <span>${getPageFooterHtml(pageNum)}</span>
+            </div>
         </div>
- 
-        <div class="body-section" style="margin-top: 10px;">
-            <p class="paragraph-text" style="font-size: 14px; color: #ffffff; margin-bottom: 20px;">
-                ${isEn
-                    ? "Detailed breakdown of the selected optional add-on modules configured to customize the scalability of your infrastructure and digital system:"
-                    : "Rincian modul tambahan pilihan yang dikonfigurasi untuk menyesuaikan kebutuhan skalabilitas infrastruktur dan sistem digital Anda:"
-                }
-            </p>
-            <table class="proposal-table">
-                <thead>
-                    <tr>
-                        <th>${tAddonHeaderModule}</th>
-                        <th>${tAddonHeaderScheme}</th>
-                        <th style="text-align: right;">${tAddonHeaderInvest}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    ${generateAddonsTableRows(addonsList)}
-                </tbody>
-            </table>
-        </div>
- 
-        <div class="page-footer-dynamic">
-            <span>CREDIBLEMARK &bull; Proposal ${title}</span>
-            <span>${getPageFooterHtml(6)}</span>
-        </div>
-    </div>
-    ` : "";
+        `;
+    }).join("") : "";
 
     return `
 <!DOCTYPE html>
