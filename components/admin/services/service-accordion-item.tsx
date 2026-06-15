@@ -8,6 +8,7 @@ import { Zap, CreditCard, Percent, Plus } from "lucide-react";
 import { PriceDisplay } from "@/components/providers/currency-provider";
 import { ServiceActionButtons } from "./service-action-buttons";
 import { useTranslations, useLocale } from "next-intl";
+import { ServiceAddon } from "@/lib/shared/types";
 
 interface ServiceData {
     id: string;
@@ -33,7 +34,7 @@ interface ServiceAccordionItemProps {
     showCheckbox?: boolean;
     isSelected?: boolean;
     onSelectChange?: (selected: boolean) => void;
-    globalAddons?: any[];
+    globalAddons?: ServiceAddon[];
 }
 
 export function ServiceAccordionItem({ 
