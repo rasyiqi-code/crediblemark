@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Edit } from "lucide-react";
 import type { AddonData } from "./edit-addon-dialog";
+import { PriceDisplay } from "@/components/providers/currency-provider";
 
 interface AddonDesktopTableProps {
     addons: AddonData[];
@@ -66,9 +67,7 @@ export function AddonDesktopTable({
                                     </div>
                                 </td>
                                 <td className="py-3.5 px-4 font-medium text-sm">
-                                    {addon.currency === "IDR" 
-                                        ? `Rp ${Number(addon.price).toLocaleString("id-ID")}` 
-                                        : `$${Number(addon.price).toFixed(2)}`}
+                                    <PriceDisplay amount={addon.price} baseCurrency={(addon.currency as 'USD' | 'IDR') || 'USD'} />
                                 </td>
                                 <td className="py-3.5 px-4 text-xs text-zinc-400 uppercase tracking-wide">
                                     {addon.interval === "monthly" 

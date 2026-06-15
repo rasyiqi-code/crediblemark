@@ -132,7 +132,7 @@ export function AddonListClient({ addons }: AddonListClientProps) {
                 cancelSelectModeLabel={t("cancelSelectMode")}
                 customAction={<CreateBulkAddonsDialog existingAddonNames={addons.map((a) => a.name)} />}
                 sortBy={sortBy}
-                onSortByChange={setSortBy}
+                onSortByChange={(val) => setSortBy(val as SortOption)}
                 sortOptions={[
                     { value: "latest", label: "Terbaru" },
                     { value: "oldest", label: "Terlama" },

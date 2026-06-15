@@ -5,6 +5,7 @@ import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { Edit } from "lucide-react";
 import type { AddonData } from "./edit-addon-dialog";
+import { PriceDisplay } from "@/components/providers/currency-provider";
 
 interface AddonMobileListProps {
     addons: AddonData[];
@@ -72,9 +73,7 @@ export function AddonMobileList({
                                 <div className="flex items-center justify-between gap-4 pt-2.5 px-1.5 w-full text-xs">
                                     {/* Harga */}
                                     <div className="font-bold text-amber-500 text-sm shrink-0">
-                                        {addon.currency === "IDR" 
-                                            ? `Rp ${Number(addon.price).toLocaleString("id-ID")}` 
-                                            : `$${Number(addon.price).toFixed(2)}`}
+                                        <PriceDisplay amount={addon.price} baseCurrency={(addon.currency as 'USD' | 'IDR') || 'USD'} />
                                     </div>
 
                                     {/* Interval */}

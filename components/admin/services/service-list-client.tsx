@@ -168,7 +168,7 @@ export function ServiceListClient({ services, addons = [] }: ServiceListClientPr
                 selectModeLabel={t("selectMode")}
                 cancelSelectModeLabel={t("cancelSelectMode")}
                 sortBy={sortBy}
-                onSortByChange={setSortBy}
+                onSortByChange={(val) => setSortBy(val as SortOption)}
                 sortOptions={[
                     { value: "latest", label: t("sortLatest") },
                     { value: "oldest", label: t("sortOldest") },
