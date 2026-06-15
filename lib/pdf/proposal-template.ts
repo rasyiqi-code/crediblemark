@@ -421,7 +421,7 @@ export function generateProposalHtml({
             position: relative;
             z-index: 10;
             height: 100%;
-            padding: 45mm 20mm 25mm 20mm;
+            padding: 45mm 20mm 10mm 20mm;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
