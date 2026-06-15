@@ -18,7 +18,7 @@ interface ServiceDetailContentProps
     isId: boolean;
     showBack?: boolean;
     trustedAvatars?: string[];
-    globalAddons?: any[];
+    globalAddons?: AddonType[];
 }
 
 export function ServiceDetailContent({ service, isId, trustedAvatars = [], globalAddons = [] }: ServiceDetailContentProps)
