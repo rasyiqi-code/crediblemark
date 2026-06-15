@@ -121,9 +121,9 @@ export function CreateBulkAddonsDialog({ existingAddonNames }: CreateBulkAddonsD
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button className="w-auto bg-zinc-900 border border-zinc-800 text-zinc-300 hover:bg-zinc-800/80 hover:text-white h-9 text-xs font-bold px-3 flex items-center justify-center gap-1.5 transition-all duration-300 shadow-sm shadow-black/20 rounded-lg">
-                    <Sparkles className="w-4 h-4 text-amber-400" />
-                    <span>AI Magic Draft</span>
+                <Button className="w-9 h-8 p-0 bg-zinc-900 border border-zinc-800 text-zinc-300 hover:bg-zinc-800/80 hover:text-white flex items-center justify-center gap-1.5 transition-all duration-300 shadow-sm shadow-black/20 rounded-lg sm:w-auto sm:px-3">
+                    <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                    <span className="hidden sm:inline text-xs font-bold">AI Magic Draft</span>
                 </Button>
             </DialogTrigger>
             <DialogContent className={`bg-zinc-950 border-zinc-800 text-zinc-200 transition-all duration-300 ${drafts.length > 0 ? "sm:max-w-[750px] md:max-w-[850px] lg:max-w-[950px] w-full" : "sm:max-w-[500px]"}`}>
