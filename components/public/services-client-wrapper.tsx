@@ -157,7 +157,7 @@ export function ServicesClientWrapper({ services, pageTitle }: ServicesClientWra
                             </div>
                             <input
                                 type="text"
-                                placeholder={isId ? "Ketik layanan yang Anda butuhkan..." : "Type the service you need..."}
+                                placeholder={isId ? `${services.length} layanan tersedia, ketik untuk cari.` : `${services.length} services available, type to search.`}
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 className="w-full bg-transparent py-4 sm:py-5 pl-4 pr-20 text-white placeholder-zinc-500 focus:outline-none text-base font-medium"
