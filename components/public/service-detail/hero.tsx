@@ -4,6 +4,7 @@ import { PriceDisplay } from "@/components/providers/currency-provider";
 import { PurchaseButton } from "@/components/store/purchase-button";
 import { Service, AddonType } from "./types";
 import { useTranslations } from "next-intl";
+import { ExportPdfButton } from "@/components/admin/services/export-pdf-button";
 
 interface ServiceHeroProps {
     service: Service;
@@ -21,10 +22,13 @@ export function ServiceHero({ service, displayTitle, intervalLabel, selectedAddo
 
             <div className="max-w-7xl mx-auto px-6 md:px-8 relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6 md:gap-12 p-6 md:p-10 lg:p-12">
                 {/* Kolom Kiri: Nama Jasa */}
-                <div className="flex-1 space-y-2 md:space-y-4">
+                <div className="flex-1 space-y-3 md:space-y-4">
                     <h1 className="text-xl md:text-2xl lg:text-4xl font-black text-brand-yellow tracking-tighter leading-tight break-words max-w-2xl">
                         {displayTitle}
                     </h1>
+                    <div className="pt-1">
+                        <ExportPdfButton service={service} variant="button" />
+                    </div>
                 </div>
 
                 {/* Kolom Kanan: Harga & Tombol Order */}
