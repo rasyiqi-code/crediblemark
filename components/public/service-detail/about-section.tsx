@@ -51,7 +51,7 @@ export function AboutSection({ service, displayDescription, displayAddons, selec
                             placeholder={locale === 'id' ? "Cari add-on..." : "Search add-ons..."}
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full bg-white/[0.02] border border-white/5 rounded-xl pl-8 pr-8 py-2.5 text-xs text-zinc-300 placeholder:text-zinc-600 focus:outline-none focus:border-brand-yellow/30 focus:bg-white/[0.04] transition-all"
+                            className="w-full bg-zinc-900 border border-zinc-800 rounded-xl pl-8 pr-8 py-2.5 text-xs text-zinc-300 placeholder:text-zinc-500 focus:outline-none focus:border-brand-yellow/30 focus:bg-zinc-900 transition-all"
                         />
                         {searchQuery && (
                             <button
