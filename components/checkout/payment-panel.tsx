@@ -30,7 +30,8 @@ export function PaymentPanel({
     onPaymentClosed,
     onPaymentStatusChange,
     shouldSubscribe,
-    onToggleSubscribe
+    onToggleSubscribe,
+    _leftHeight
 }: {
     estimate: ExtendedEstimate,
     bankDetails?: { bank_name?: string, bank_account?: string, bank_holder?: string } | null,
@@ -53,7 +54,8 @@ export function PaymentPanel({
     onPaymentClosed?: () => void,
     onPaymentStatusChange?: (status: string) => void,
     shouldSubscribe?: boolean,
-    onToggleSubscribe?: () => void
+    onToggleSubscribe?: () => void,
+    _leftHeight?: number | null
 }) {
     const t = useTranslations("Checkout");
     const ti = useTranslations("Invoice");
@@ -117,10 +119,10 @@ export function PaymentPanel({
 
     // 2. Tampilan Form & Konfigurasi Aktif (Minecraft Server Style Redesign)
     return (
-        <div className="h-full flex flex-col justify-between px-0 pt-0 pb-6 sm:p-8 sm:pr-0 lg:pl-12 lg:py-4 bg-transparent border-0">
+        <div className="h-full lg:h-[var(--left-height)] flex flex-col justify-between px-0 pt-0 pb-6 sm:p-8 sm:pr-0 lg:pl-12 lg:py-4 bg-transparent border-0 lg:overflow-hidden">
             
             {/* Scrollable Main Area */}
-            <div className="space-y-6 flex-grow">
+            <div className="space-y-6 flex-grow flex flex-col min-h-0">
 
                 {/* Tombol Kembali ke step sebelumnya (hanya muncul saat sudah di step payment method) */}
                 {activeOrderId && (
@@ -282,12 +284,12 @@ export function PaymentPanel({
 
                 {/* Konfigurasi Add-ons (Pemilihan checkbox dengan scroll independen) */}
                 {!activeOrderId && serviceAddons && serviceAddons.length > 0 && (
-                    <div className="space-y-2.5">
+                    <div className="space-y-2.5 flex-1 min-h-0 flex flex-col">
                         <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest block">
                             {t("configureAddons")}
                         </span>
-                        {/* Memberikan scroll independen dengan batas tinggi agar layout tidak terlalu panjang */}
-                        <div className="grid grid-cols-1 gap-2.5 max-h-[280px] overflow-y-auto pr-1">
+                        {/* Memberikan scroll independen dengan tinggi yang otomatis menyesuaikan kolom kiri pada desktop (lg) */}
+                        <div className="grid grid-cols-1 gap-2.5 overflow-y-auto pr-1 max-h-[250px] lg:max-h-none flex-grow min-h-0">
                             {serviceAddons.map((addon, i) => {
                                 const isSelected = selectedAddons.some(a => a.name === addon.name);
                                 return (

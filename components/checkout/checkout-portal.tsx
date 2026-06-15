@@ -43,6 +43,22 @@ export function CheckoutPortal({
     initialOrderStatus?: string;
 }) {
     const invoiceRef = useRef<HTMLDivElement>(null);
+    const leftRef = useRef<HTMLDivElement>(null);
+    const [leftHeight, setLeftHeight] = useState<number | null>(null);
+
+    // Memantau tinggi kolom kiri secara dinamis untuk menyesuaikan tinggi area addon di kolom kanan
+    useEffect(() => {
+        const element = leftRef.current;
+        if (!element) return;
+        const observer = new ResizeObserver((entries) => {
+            for (const entry of entries) {
+                setLeftHeight(entry.target.clientHeight);
+            }
+        });
+        observer.observe(element);
+        return () => observer.disconnect();
+    }, []);
+
     const { currency, rate } = useCurrency();
     const locale = useLocale();
     const isId = locale === 'id';
@@ -234,12 +250,15 @@ export function CheckoutPortal({
     };
 
     return (
-        <div className="max-w-7xl mx-auto w-full">
+        <div 
+            style={{ "--left-height": leftHeight ? `${leftHeight}px` : "auto" } as React.CSSProperties}
+            className="max-w-7xl mx-auto w-full"
+        >
             {/* Main Portal Container: Menyatu langsung dengan latar belakang (borderless & backgroundless) */}
             <div className="grid grid-cols-1 lg:grid-cols-12 relative z-10 min-h-[500px]">
                 
                 {/* Left Side: Product Showcase (lg:col-span-5) */}
-                <div className="lg:col-span-6 border-b lg:border-b-0 lg:border-r border-white/5">
+                <div ref={leftRef} className="lg:col-span-6 border-b lg:border-b-0 lg:border-r border-white/5">
                     <ProductShowcase 
                         estimate={estimate}
                         selectedAddons={selectedAddons}
@@ -277,6 +296,7 @@ export function CheckoutPortal({
                         agencySettings={agencySettings}
                         shouldSubscribe={shouldSubscribe}
                         onToggleSubscribe={() => setShouldSubscribe(prev => !prev)}
+                        _leftHeight={leftHeight}
                     />
                 </div>
             </div>
