@@ -223,6 +223,15 @@ export function InteractivePricingRepair({ locale }: InteractivePricingRepairPro
         setIsMenuOpen(true);
     };
 
+    const handleConsultation = (pkgName: string) => {
+        const currentUrl = typeof window !== "undefined" ? window.location.href : "";
+        const bodyText = isId
+            ? `Halo, saya ingin konsultasi gratis terkait perbaikan website untuk paket "${pkgName}". Website saya saat ini mengalami kendala...`
+            : `Hello, I would like a free consultation regarding web repair for the "${pkgName}" tier. My current website is having issues...`;
+        setDefaultInput(bodyText);
+        setIsMenuOpen(true);
+    };
+
     return (
         <div className="space-y-12 pb-24 relative">
             
@@ -327,7 +336,7 @@ export function InteractivePricingRepair({ locale }: InteractivePricingRepairPro
                                 </div>
  
                                 {/* Tombol Pilih / Indikator Aktif */}
-                                <div className="mt-6">
+                                <div className="mt-6 space-y-2">
                                     <button
                                         type="button"
                                         className={`w-full py-2.5 rounded-xl text-xs font-bold transition-all duration-300 flex items-center justify-center gap-1.5 ${
@@ -338,6 +347,17 @@ export function InteractivePricingRepair({ locale }: InteractivePricingRepairPro
                                     >
                                         <span>{isActive ? (isId ? "Paket Terpilih" : "Active Package") : (isId ? "Pilih Paket" : "Select Package")}</span>
                                         {isActive && <Check className="w-3.5 h-3.5 stroke-[3]" />}
+                                    </button>
+                                    
+                                    <button
+                                        type="button"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            handleConsultation(isId ? pkg.nameId : pkg.nameEn);
+                                        }}
+                                        className="w-full text-center text-[11px] font-bold text-zinc-500 hover:text-amber-500 hover:underline transition-colors duration-200 py-1"
+                                    >
+                                        {isId ? "Konsultasi Gratis" : "Free Consultation"}
                                     </button>
                                 </div>
                             </div>

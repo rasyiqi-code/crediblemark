@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { Service, AddonType } from "./types";
 import { PriceDisplay } from "@/components/providers/currency-provider";
 import { PurchaseButton } from "@/components/store/purchase-button";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
+import { useFloatingChat } from "@/lib/store/floating-chat-store";
 
 interface StickyCTAProps {
     service: Service;
@@ -15,6 +16,18 @@ interface StickyCTAProps {
 export function StickyCTA({ service, intervalLabel, selectedAddons }: StickyCTAProps) {
     const [isVisible, setIsVisible] = useState(false);
     const tService = useTranslations("Service");
+    const locale = useLocale();
+    const { setIsMenuOpen, setDefaultInput } = useFloatingChat();
+
+    const handleConsultation = () => {
+        const currentUrl = typeof window !== "undefined" ? window.location.href : "";
+        const displayTitle = locale === 'id' ? (service.title_id || service.title) : service.title;
+        const bodyText = locale === "id"
+            ? `Halo, saya ingin konsultasi gratis mengenai layanan "${displayTitle}".\n\n${currentUrl}`
+            : `Hello, I would like a free consultation regarding the "${displayTitle}" service.\n\n${currentUrl}`;
+        setDefaultInput(bodyText);
+        setIsMenuOpen(true);
+    };
 
     useEffect(() => {
         const handleScroll = () => {
@@ -69,12 +82,21 @@ export function StickyCTA({ service, intervalLabel, selectedAddons }: StickyCTAP
                         </div>
 
                         {/* Tombol Pilih - Persegi seperti di hero */}
-                        <PurchaseButton
-                            serviceId={service.id}
-                            interval={service.interval}
-                            selectedAddons={selectedAddons}
-                            className="bg-brand-yellow hover:bg-brand-yellow/90 text-black px-5 md:px-6 py-2 md:py-2.5 rounded-none font-black text-[10px] md:text-[11px] uppercase tracking-widest shadow-lg shadow-brand-yellow/20 transition-all hover:scale-[1.05] active:scale-[0.95] shrink-0 !w-auto"
-                        />
+                        <div className="flex flex-col items-center md:items-end gap-1">
+                            <PurchaseButton
+                                serviceId={service.id}
+                                interval={service.interval}
+                                selectedAddons={selectedAddons}
+                                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black px-5 md:px-6 py-2 md:py-2.5 rounded-none font-black text-[10px] md:text-[11px] uppercase tracking-widest shadow-lg shadow-brand-yellow/20 transition-all hover:scale-[1.05] active:scale-[0.95] shrink-0 !w-auto"
+                            />
+                            <button
+                                type="button"
+                                onClick={handleConsultation}
+                                className="text-[10px] font-bold text-zinc-500 hover:text-brand-yellow hover:underline transition-colors duration-200"
+                            >
+                                {locale === "id" ? "Konsultasi Gratis" : "Free Consultation"}
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

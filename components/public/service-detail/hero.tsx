@@ -3,8 +3,9 @@
 import { PriceDisplay } from "@/components/providers/currency-provider";
 import { PurchaseButton } from "@/components/store/purchase-button";
 import { Service, AddonType } from "./types";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { ExportPdfButton } from "@/components/admin/services/export-pdf-button";
+import { useFloatingChat } from "@/lib/store/floating-chat-store";
 
 interface ServiceHeroProps {
     service: Service;
@@ -16,6 +17,17 @@ interface ServiceHeroProps {
 
 export function ServiceHero({ service, displayTitle, intervalLabel, selectedAddons, displayAddons }: ServiceHeroProps) {
     const tService = useTranslations("Service");
+    const locale = useLocale();
+    const { setIsMenuOpen, setDefaultInput } = useFloatingChat();
+
+    const handleConsultation = () => {
+        const currentUrl = typeof window !== "undefined" ? window.location.href : "";
+        const bodyText = locale === "id"
+            ? `Halo, saya ingin konsultasi gratis mengenai layanan "${displayTitle}".\n\n${currentUrl}`
+            : `Hello, I would like a free consultation regarding the "${displayTitle}" service.\n\n${currentUrl}`;
+        setDefaultInput(bodyText);
+        setIsMenuOpen(true);
+    };
 
     return (
         <div className="relative border-b border-white/5 bg-zinc-900/10 backdrop-blur-3xl mb-12 md:mb-20 overflow-hidden">
@@ -72,6 +84,13 @@ export function ServiceHero({ service, displayTitle, intervalLabel, selectedAddo
                         selectedAddons={selectedAddons}
                         className="bg-brand-yellow hover:bg-brand-yellow/90 text-black px-6 py-2.5 rounded-none font-black text-[11px] uppercase tracking-widest shadow-xl shadow-brand-yellow/20 transition-all hover:scale-[1.05] active:scale-95 whitespace-nowrap"
                     />
+                    <button
+                        type="button"
+                        onClick={handleConsultation}
+                        className="w-full text-center md:text-right text-[11px] font-bold text-zinc-500 hover:text-brand-yellow hover:underline transition-colors duration-200"
+                    >
+                        {locale === "id" ? "Konsultasi Gratis" : "Free Consultation"}
+                    </button>
                 </div>
             </div>
         </div>

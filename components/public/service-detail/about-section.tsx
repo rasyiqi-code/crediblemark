@@ -7,6 +7,7 @@ import { PurchaseButton } from "@/components/store/purchase-button";
 import { sanitizeHtml } from "@/lib/utils/sanitize";
 import { Service, AddonType } from "./types";
 import { useTranslations, useLocale } from "next-intl";
+import { useFloatingChat } from "@/lib/store/floating-chat-store";
 
 interface AboutSectionProps {
     service: Service;
@@ -20,6 +21,17 @@ export function AboutSection({ service, displayDescription, displayAddons, selec
     const t = useTranslations("Cards");
     const locale = useLocale();
     const [searchQuery, setSearchQuery] = useState("");
+    const { setIsMenuOpen, setDefaultInput } = useFloatingChat();
+
+    const handleConsultation = () => {
+        const currentUrl = typeof window !== "undefined" ? window.location.href : "";
+        const displayTitle = locale === 'id' ? (service.title_id || service.title) : service.title;
+        const bodyText = locale === "id"
+            ? `Halo, saya ingin konsultasi gratis mengenai layanan "${displayTitle}".\n\n${currentUrl}`
+            : `Hello, I would like a free consultation regarding the "${displayTitle}" service.\n\n${currentUrl}`;
+        setDefaultInput(bodyText);
+        setIsMenuOpen(true);
+    };
 
     const filteredAddons = displayAddons.filter(addon =>
         addon.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -110,7 +122,13 @@ export function AboutSection({ service, displayDescription, displayAddons, selec
                             selectedAddons={selectedAddons}
                             className="w-full bg-brand-yellow hover:bg-brand-yellow/90 text-black py-3 rounded-none font-black text-[11px] uppercase tracking-widest shadow-xl shadow-brand-yellow/20 transition-all hover:scale-[1.02] active:scale-95 group"
                         />
-                        <p className="text-[9px] text-center text-zinc-600 font-medium tracking-wide">{t("secureCheckout")}</p>
+                        <button
+                            type="button"
+                            onClick={handleConsultation}
+                            className="w-full text-center text-[11px] font-bold text-zinc-500 hover:text-brand-yellow hover:underline transition-colors duration-200 mt-2"
+                        >
+                            {locale === "id" ? "Konsultasi Gratis" : "Free Consultation"}
+                        </button>
                     </div>
                 </div>
             ) : (
@@ -122,7 +140,13 @@ export function AboutSection({ service, displayDescription, displayAddons, selec
                             selectedAddons={[]}
                             className="w-full bg-brand-yellow hover:bg-brand-yellow/90 text-black py-3 rounded-none font-black text-[11px] uppercase tracking-widest shadow-xl shadow-brand-yellow/20 transition-all hover:scale-[1.02] active:scale-95"
                         />
-                        <p className="text-[9px] text-center text-zinc-600 font-medium tracking-wide mt-4">{t("secureCheckout")}</p>
+                        <button
+                            type="button"
+                            onClick={handleConsultation}
+                            className="w-full text-center text-[11px] font-bold text-zinc-500 hover:text-brand-yellow hover:underline transition-colors duration-200 mt-2"
+                        >
+                            {locale === "id" ? "Konsultasi Gratis" : "Free Consultation"}
+                        </button>
                     </div>
                 </div>
             )}
