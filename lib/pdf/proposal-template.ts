@@ -430,7 +430,7 @@ export function generateProposalHtml({
         
         .cover-hero-image {
             position: absolute;
-            top: 48mm;
+            bottom: 35.6mm;
             right: 20mm;
             width: 75mm;
             height: auto;
