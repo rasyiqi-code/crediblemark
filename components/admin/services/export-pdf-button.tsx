@@ -1196,19 +1196,19 @@ export function ExportPdfButton({
             ${service.discount && service.discount > 0 ? `
             <!-- Card Penawaran Eksklusif Terpisah -->
             <div style="margin-bottom: 12px; padding: 12px 16px; border: 1.5px dashed #fbbf24; background: rgba(251, 191, 36, 0.02); border-radius: 8px;">
-                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
-                    <span style="font-size: 11px; font-weight: 800; color: #000000; background: #fbbf24; padding: 3px 8px; border-radius: 4px; letter-spacing: 0.5px; text-transform: uppercase; display: inline-block;">
-                        ${isEn ? `SPECIAL OFFER: SAVE ${service.discount}%` : `PENAWARAN EKSKLUSIF: HEMAT ${service.discount}%`}
-                    </span>
-                    <span style="font-size: 13px; text-decoration: line-through; color: #71717a; font-weight: 500;">
-                        ${isEn ? `Original Price: ${formatPriceHelper(service.price)}` : `Harga Normal: ${formatPriceHelper(service.price)}`}
-                    </span>
-                </div>
                 <p style="font-size: 12.5px; color: #fbbf24; font-weight: 700; margin: 0; line-height: 1.6; letter-spacing: 0.2px;">
-                    ${isEn 
-                        ? `✨ Secure this special value today & instantly keep an extra ${formatPriceHelper(service.price - finalPrice)} in your growth budget — SPECIAL VALUE RATE APPLIED DIRECTLY AS A STRATEGIC PARTNER APPRECIATION.` 
-                        : `✨ Amankan harga investasi spesial ini sekarang & kunci hemat langsung ${formatPriceHelper(service.price - finalPrice)} untuk dialokasikan ke strategi pertumbuhan bisnis Anda — JAMINAN HARGA TERBAIK SEBAGAI APRESIASI MITRA STRATEGIS.`
-                    }
+                    <span style="font-size: 11px; font-weight: 800; color: #000000; background: #fbbf24; padding: 2px 8px; border-radius: 4px; letter-spacing: 0.5px; text-transform: uppercase; display: inline-block; vertical-align: middle; margin-right: 8px; margin-top: -2px;">
+                        ${isEn ? `SAVE ${service.discount}%` : `HEMAT ${service.discount}%`}
+                    </span>
+                    <span style="font-size: 13px; text-decoration: line-through; color: #71717a; font-weight: 500; margin-right: 10px; vertical-align: middle;">
+                        ${formatPriceHelper(service.price)}
+                    </span>
+                    <span style="vertical-align: middle;">
+                        ${isEn 
+                            ? `✨ Secure this special value today & instantly keep an extra ${formatPriceHelper(service.price - finalPrice)} in your growth budget — SPECIAL VALUE RATE APPLIED DIRECTLY AS A STRATEGIC PARTNER APPRECIATION.` 
+                            : `✨ Amankan harga investasi spesial ini sekarang & kunci hemat langsung ${formatPriceHelper(service.price - finalPrice)} untuk dialokasikan ke strategi pertumbuhan bisnis Anda — JAMINAN HARGA TERBAIK SEBAGAI APRESIASI MITRA STRATEGIS.`
+                        }
+                    </span>
                 </p>
             </div>
             ` : ''}
