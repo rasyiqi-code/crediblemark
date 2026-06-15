@@ -7,7 +7,7 @@ import { ServiceAddon } from "@/lib/shared/types";
 import { useLocale } from "next-intl";
 import idMessages from "@/messages/id.json";
 import enMessages from "@/messages/en.json";
-import { getAgencyLogo, getCompanyStamp, getDirectorSignature } from "@/app/actions/system-admin";
+import { getAgencyLogo, getCompanyStamp, getDirectorSignature, getContactInfo } from "@/app/actions/system-admin";
 
 interface ServiceData {
     id: string;
@@ -37,12 +37,20 @@ export function ExportPdfButton({
     const [logoUrl, setLogoUrl] = useState<string | null>(null);
     const [stampUrl, setStampUrl] = useState<string | null>(null);
     const [signatureUrl, setSignatureUrl] = useState<string | null>(null);
+    const [contactInfo, setContactInfo] = useState<{
+        email: string;
+        phone: string;
+        telegram: string;
+        address: string;
+        hours: string;
+    } | null>(null);
     const locale = useLocale();
 
     useEffect(() => {
         getAgencyLogo().then(setLogoUrl).catch(console.error);
         getCompanyStamp().then(setStampUrl).catch(console.error);
         getDirectorSignature().then(setSignatureUrl).catch(console.error);
+        getContactInfo().then(setContactInfo).catch(console.error);
     }, []);
 
     const handleExport = () => {
@@ -180,7 +188,7 @@ export function ExportPdfButton({
         const tSec5Title = messages.ProposalExport.sec5Title;
 
         const addonsNeedNewPage = addonsList.length > 3;
-        const totalPages = addonsNeedNewPage ? 7 : 6;
+        const totalPages = addonsNeedNewPage ? 8 : 7;
 
         const getPageFooterHtml = (page: number) => {
             const template = messages.ProposalExport.pageFooter;
@@ -942,6 +950,87 @@ export function ExportPdfButton({
             font-size: 11px;
             color: #ffffff;
         }
+
+        /* Contact Page Styles */
+        .contact-container {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .contact-header-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .contact-header-desc {
+            font-size: 16px;
+            color: #a1a1aa;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .contact-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: #09090b;
+            border: 1px solid #27272a;
+            padding: 16px 20px;
+            border-radius: 12px;
+        }
+
+        .contact-icon-box {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            background: #18181b;
+            border: 1px solid #27272a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fbbf24;
+            flex-shrink: 0;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .contact-label {
+            font-size: 15px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .contact-value {
+            font-size: 14.5px;
+            color: #a1a1aa;
+            line-height: 1.5;
+        }
+        
+        .contact-value a {
+            color: #fbbf24;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .contact-subvalue {
+            font-size: 12.5px;
+            color: #71717a;
+        }
     </style>
 </head>
 <body>
@@ -1368,6 +1457,71 @@ export function ExportPdfButton({
         <div class="page-footer">
             <span>CREDIBLEMARK &bull; Proposal ${title}</span>
             <span>${getPageFooterHtml(addonsNeedNewPage ? 7 : 6)}</span>
+        </div>
+    </div>
+
+    <!-- HALAMAN BARU: KONTAK -->
+    <div class="page" style="background: radial-gradient(circle at bottom left, rgba(250, 204, 21, 0.05) 0%, transparent 50%), #000000;">
+        <div class="section-header">
+            <h2 class="section-title">${isEn ? "06 / Contact Us" : "06 / Hubungi Kami"}</h2>
+            <span class="section-subtitle-badge">${getPageFooterHtml(addonsNeedNewPage ? 8 : 7)}</span>
+        </div>
+
+        <div class="contact-container">
+            <div>
+                <h1 class="contact-header-title">${isEn ? "Get in Touch" : "Hubungi kami"}</h1>
+                <p class="contact-header-desc">
+                    ${isEn 
+                        ? "Have a project in mind or want to know more about our services? We would love to hear from you. Reach out and our team will get back to you shortly."
+                        : "Punya proyek atau ingin tahu lebih banyak tentang layanan kami? Kami ingin mendengar dari Anda. Hubungi kami dan tim kami akan segera menghubungi Anda."
+                    }
+                </p>
+            </div>
+
+            <div class="contact-list">
+                <!-- Email Item -->
+                <div class="contact-item">
+                    <div class="contact-icon-box">
+                        <svg viewBox="0 0 24 24" style="width: 22px; height: 22px; fill: currentColor;"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    </div>
+                    <div class="contact-details">
+                        <div class="contact-label">${isEn ? "Email" : "Email"}</div>
+                        <div class="contact-value">
+                            <a href="mailto:${contactInfo?.email || 'hello@crediblemark.com'}">${contactInfo?.email || 'hello@crediblemark.com'}</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Alamat Kantor Item -->
+                <div class="contact-item">
+                    <div class="contact-icon-box">
+                        <svg viewBox="0 0 24 24" style="width: 22px; height: 22px; fill: currentColor;"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                    </div>
+                    <div class="contact-details">
+                        <div class="contact-label">${isEn ? "Office" : "Kantor"}</div>
+                        <div class="contact-value">${contactInfo?.address || 'Jl Raya Batang-Batang, No 12, Darmaayu, Andulang, Gapura, Sumenep, Indonesia'}</div>
+                    </div>
+                </div>
+
+                <!-- Telepon Item -->
+                <div class="contact-item">
+                    <div class="contact-icon-box">
+                        <svg viewBox="0 0 24 24" style="width: 22px; height: 22px; fill: currentColor;"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                    </div>
+                    <div class="contact-details">
+                        <div class="contact-label">${isEn ? "Phone" : "Telepon"}</div>
+                        <div class="contact-value">
+                            <a href="tel:${contactInfo?.phone || '+6285183131249'}">${contactInfo?.phone || '+6285183131249'}</a>
+                        </div>
+                        <div class="contact-subvalue">(${contactInfo?.hours || 'Senin - Jumat, 08.00 - 17.00 WIB'})</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-footer">
+            <span>CREDIBLEMARK &bull; Proposal ${title}</span>
+            <span>${getPageFooterHtml(addonsNeedNewPage ? 8 : 7)}</span>
         </div>
     </div>
 </body>
