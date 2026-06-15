@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Sparkles, Loader2, CheckSquare, Square, Save } from "lucide-react";
 import { createAddons } from "@/app/actions/addons";
+import { generateBulkAddonsAction } from "@/app/actions/genkit";
 
 interface DraftAddon {
     name: string;
@@ -43,19 +44,13 @@ export function CreateBulkAddonsDialog({ existingAddonNames }: CreateBulkAddonsD
         setSelectedIndexes([]);
         
         try {
-            const response = await fetch("/api/genkit/generate-service", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    type: "bulk-addons",
-                    prompt: prompt.trim(),
-                    currency,
-                    existingAddons: existingAddonNames,
-                    count: 10
-                }),
+            const result = await generateBulkAddonsAction({
+                prompt: prompt.trim(),
+                currency,
+                existingAddons: existingAddonNames,
+                count: 10
             });
 
-            const result = await response.json();
             if (result.success && result.data?.addons) {
                 const generated: DraftAddon[] = result.data.addons;
                 setDrafts(generated);

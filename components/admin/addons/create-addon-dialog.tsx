@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Switch } from "@/components/ui/switch";
 import { Plus, Sparkles, Loader2 } from "lucide-react";
 import { createAddon } from "@/app/actions/addons";
+import { generateSingleAddonAction } from "@/app/actions/genkit";
 import { useRouter } from "next/navigation";
 
 export function CreateAddonDialog() {
@@ -39,18 +40,12 @@ export function CreateAddonDialog() {
 
         setIsGeneratingAI(true);
         try {
-            const response = await fetch("/api/genkit/generate-service", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    type: "single-addon",
-                    prompt: trimmedName,
-                    currency,
-                    isEn: true,
-                }),
+            const result = await generateSingleAddonAction({
+                prompt: trimmedName,
+                currency,
+                isEn: true,
             });
 
-            const result = await response.json();
             if (result.success && result.data) {
                 const generated = result.data;
                 setName(generated.name);

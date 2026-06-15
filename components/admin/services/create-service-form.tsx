@@ -87,9 +87,7 @@ export function CreateServiceForm() {
                     features_id: draft.features_id,
                 });
 
-                if (draft.slug) {
-                    setSlug(draft.slug as string);
-                } else if (draft.title) {
+                if (draft.title) {
                     setSlug(slugify(draft.title));
                 }
 
