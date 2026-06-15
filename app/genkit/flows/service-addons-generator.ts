@@ -151,13 +151,13 @@ Rules:
    - The price for "All-in-One Managed Website Care" MUST be calculated as a yearly cost:
      * Step A: Convert any monthly costs to yearly costs (e.g. Hosting_Yearly = Hosting_Monthly * 12; Maintenance_Yearly = Maintenance_Monthly * 12).
      * Step B: Sum the yearly components: Total_Base_Yearly = Hosting_Yearly + Domain_Yearly + Maintenance_Yearly.
-     * Step C: Apply the 20% upgrade overhead: All_In_One_Price_Yearly = Total_Base_Yearly * 1.2.
+     * Step C: Apply a 10% bundling discount to reward the client: All_In_One_Price_Yearly = Total_Base_Yearly * 0.9.
    - Example mathematical logic:
      If the generated Hosting is IDR 250,000/monthly (Yearly = IDR 3,000,000), Domain is IDR 250,000/yearly, and Maintenance is IDR 500,000/monthly (Yearly = IDR 6,000,000):
      * Total Base Yearly = 3,000,000 (hosting) + 250,000 (domain) + 6,000,000 (maintenance) = IDR 9,250,000.
-     * All-in-One price = 9,250,000 * 1.2 = IDR 11,100,000.
-     * Final charm rounded price: IDR 10,990,000/yearly or IDR 11,150,000/yearly.
-   - CRITICAL: The yearly All-in-One price MUST be a large yearly sum (typically IDR 2.5M - 4.5M for UMi, IDR 4M - 8M for Mikro, IDR 8M - 19M for Small, IDR 20M - 49M for SME, and IDR 50M - 199M for Enterprise). Never output low monthly-like numbers (such as IDR 7,799,000) for Enterprise All-in-One yearly packages!
+     * All-in-One price (with 10% discount) = 9,250,000 * 0.9 = IDR 8,325,000.
+     * Final charm rounded price: IDR 8,290,000/yearly or IDR 8,350,000/yearly.
+   - CRITICAL: The yearly All-in-One price MUST be a large yearly sum (typically IDR 2.5M - 4.5M for UMi, IDR 4M - 8M for Mikro, IDR 8M - 19M for Small, IDR 20M - 49M for SME, and IDR 50M - 199M for Enterprise). Never output low monthly-like numbers for Enterprise All-in-One yearly packages!
 
 3. CUSTOM FUNCTIONAL & BUSINESS ADD-ONS (MANDATORY 3-6 ITEMS):
    In addition to the four mandatory infrastructure add-ons above, you MUST generate 3-6 custom, highly valuable, and essential business/functional add-ons tailored specifically to the service's industry context. These add-ons must solve practical business pain points, drive revenue, or automate operations for the client.
