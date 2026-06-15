@@ -23,11 +23,11 @@ export function ServiceHero({ service, displayTitle, intervalLabel, selectedAddo
             <div className="max-w-7xl mx-auto px-6 md:px-8 relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6 md:gap-12 p-6 md:p-10 lg:p-12">
                 {/* Kolom Kiri: Nama Jasa dan Tombol Unduh Proposal */}
                 <div className="flex-1">
-                    <h1 className="text-xl md:text-2xl lg:text-4xl font-black text-brand-yellow tracking-tighter leading-tight break-words max-w-3xl flex flex-wrap items-center gap-x-3 gap-y-2">
+                    <h1 className="text-xl md:text-2xl lg:text-4xl font-black text-brand-yellow tracking-tighter leading-tight break-words max-w-3xl">
                         <span>{displayTitle}</span>
                         {/* Batas pemisah vertikal antara judul dan tombol unduh proposal */}
-                        <span className="text-zinc-600 font-light select-none text-base md:text-lg lg:text-xl">|</span>
-                        <span className="inline-flex">
+                        <span className="inline-flex items-center gap-x-3 ml-3 align-middle">
+                            <span className="text-zinc-600 font-light select-none text-base md:text-lg lg:text-xl">|</span>
                             <ExportPdfButton service={service} variant="button" />
                         </span>
                     </h1>
