@@ -93,7 +93,7 @@ export function AboutSection({ service, displayDescription, displayAddons, selec
                         })}
                     </div>
 
-                    <div className="pt-6 border-t border-white/10 mt-6 space-y-4 hidden lg:block lg:pr-1.5">
+                    <div className="mt-4 space-y-4 hidden lg:block lg:pr-1.5">
                         <div className="justify-between items-end mb-2 flex">
                             <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">{t("totalInvestment")}</span>
                             <div className="text-xl font-black text-white tracking-tighter">
