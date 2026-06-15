@@ -42,13 +42,6 @@ export function AboutSection({ service, displayDescription, displayAddons, selec
             {/* Kolom Kanan: Add-ons (1/3 lebar) sebagai Sidebar */}
             {displayAddons && displayAddons.length > 0 ? (
                 <div className="space-y-6 sticky top-24">
-                    <div className="space-y-1">
-                        <h2 className="text-[10px] font-bold text-zinc-500 uppercase tracking-[0.2em] flex items-center gap-2">
-                            <div className="w-1 h-3 bg-brand-yellow rounded-full" />
-                            {t("optionalAddons")}
-                        </h2>
-                        <p className="text-[10px] text-zinc-500 font-medium">{t("personalize")}</p>
-                    </div>
 
                     {/* Search Field */}
                     <div className="relative">
