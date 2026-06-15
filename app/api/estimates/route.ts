@@ -4,6 +4,7 @@ import { NextResponse, NextRequest } from 'next/server';
 import { getCurrentUser } from '@/lib/shared/auth-helpers';
 import { notifyNewEstimate } from '@/lib/email/admin-notifications';
 import { paymentService } from '@/lib/server/payment-service';
+import { ServiceAddon } from '@/lib/shared/types';
 
 export async function GET(req: NextRequest) {
     // Endpoint publik: hanya menampilkan data ringkasan non-sensitif
@@ -87,7 +88,7 @@ export async function POST(req: Request) {
             const isServiceIdr = service.currency === 'IDR';
 
             let addonsTotal = 0;
-            dbAddons.forEach((addon) => {
+            dbAddons.forEach((addon: ServiceAddon) => {
                 let addonPriceInServiceCurrency = addon.price;
                 if (isServiceIdr && addon.currency === 'USD') {
                     addonPriceInServiceCurrency = addon.price * rate;
@@ -102,7 +103,7 @@ export async function POST(req: Request) {
             // Bangun summary — simpan marker addon (nama EN) untuk deteksi di checkout
             let summary = service.description;
             if (dbAddons.length > 0) {
-                const addonLines = dbAddons.map((a) => `+ ${a.name}`).join('\n');
+                const addonLines = dbAddons.map((a: ServiceAddon) => `+ ${a.name}`).join('\n');
                 summary = `${service.description}\n\nAdd-ons Selected at Checkout:\n${addonLines}`;
             }
 
