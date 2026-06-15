@@ -7,7 +7,7 @@ import { ServiceAddon } from "@/lib/shared/types";
 import { useLocale } from "next-intl";
 import idMessages from "@/messages/id.json";
 import enMessages from "@/messages/en.json";
-import { getAgencyLogo, getCompanyStamp, getDirectorSignature, getContactInfo } from "@/app/actions/system-admin";
+import { getAgencyLogo, getCompanyStamp, getDirectorSignature } from "@/app/actions/system-admin";
 
 interface ServiceData {
     id: string;
@@ -50,7 +50,10 @@ export function ExportPdfButton({
         getAgencyLogo().then(setLogoUrl).catch(console.error);
         getCompanyStamp().then(setStampUrl).catch(console.error);
         getDirectorSignature().then(setSignatureUrl).catch(console.error);
-        getContactInfo().then(setContactInfo).catch(console.error);
+        fetch("/api/system/contact")
+            .then(res => res.json())
+            .then(setContactInfo)
+            .catch(console.error);
     }, []);
 
     const handleExport = () => {

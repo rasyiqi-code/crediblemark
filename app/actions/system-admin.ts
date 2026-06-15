@@ -251,40 +251,4 @@ export async function getDirectorSignature(): Promise<string | null> {
     }
 }
 
-/**
- * Mengambil informasi kontak agensi dari pengaturan sistem (database).
- * Digunakan secara dinamis di halaman proposal PDF dan bagian publik lainnya.
- */
-export async function getContactInfo() {
-    try {
-        const keys = ["CONTACT_EMAIL", "CONTACT_PHONE", "CONTACT_TELEGRAM", "CONTACT_ADDRESS", "CONTACT_HOURS"];
-        const settings = await prisma.systemSetting.findMany({
-            where: {
-                key: { in: keys }
-            }
-        });
-        
-        const info: Record<string, string> = {};
-        settings.forEach(s => {
-            info[s.key] = s.value;
-        });
-        
-        return {
-            email: info["CONTACT_EMAIL"] || "hello@crediblemark.com",
-            phone: info["CONTACT_PHONE"] || "+6285183131249",
-            telegram: info["CONTACT_TELEGRAM"] || "crediblemark",
-            address: info["CONTACT_ADDRESS"] || "Jl Raya Batang-Batang, No 12, Darmaayu, Andulang, Gapura, Sumenep, Indonesia",
-            hours: info["CONTACT_HOURS"] || "Senin - Jumat, 08.00 - 17.00 WIB"
-        };
-    } catch (error) {
-        console.error("[SystemAdmin] Failed to fetch contact info:", error);
-        return {
-            email: "hello@crediblemark.com",
-            phone: "+6285183131249",
-            telegram: "crediblemark",
-            address: "Jl Raya Batang-Batang, No 12, Darmaayu, Andulang, Gapura, Sumenep, Indonesia",
-            hours: "Senin - Jumat, 08.00 - 17.00 WIB"
-        };
-    }
-}
 
