@@ -124,7 +124,7 @@ export function AddonListClient({ addons }: AddonListClientProps) {
     return (
         <div className="w-full space-y-4">
             {/* Toolbar Panel */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-zinc-900/20 border border-zinc-800/60 rounded-xl p-3 w-full">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-transparent sm:bg-zinc-900/20 border-none sm:border sm:border-zinc-800/60 rounded-none sm:rounded-xl p-0 sm:p-3 w-full">
                 {/* 4 Pengaturan Sebaris */}
                 <div className="flex items-center gap-2 w-full sm:w-auto flex-1">
                     {/* 1. Select Mode */}
