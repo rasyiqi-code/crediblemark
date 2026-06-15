@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/config/db";
 import { Prisma } from "@prisma/client";
-import { ServiceAddon } from "@/lib/shared/types";
 import { hexclaveServerApp } from "@/lib/config/hexclave";
+import { ServiceAddon } from "@/lib/shared/types";
 import { NextResponse } from "next/server";
 import { paymentService } from "@/lib/server/payment-service";
 import { createSubscriber } from "@/lib/server/marketing";
@@ -58,9 +58,9 @@ export async function POST(req: Request) {
                 let addonsSummaryText = "";
 
                 if (selectedAddons && selectedAddons.length > 0) {
-                    // Ambil detail addon dari database global
-                    const addonIds = selectedAddons.map((a: any) => typeof a === 'string' ? a : a.id).filter(Boolean);
-                    const addonNames = selectedAddons.map((a: any) => typeof a === 'string' ? '' : a.name).filter(Boolean);
+                    const addonsInput = selectedAddons as (string | { id?: string; name?: string })[];
+                    const addonIds = addonsInput.map((a) => typeof a === 'string' ? a : a.id).filter((id): id is string => !!id);
+                    const addonNames = addonsInput.map((a) => typeof a === 'string' ? '' : a.name).filter((name): name is string => !!name);
                     
                     const dbAddons = await prisma.addon.findMany({
                         where: {
@@ -77,7 +77,7 @@ export async function POST(req: Request) {
                         const rate = await paymentService.getExchangeRate();
                         const isServiceIdr = estimate.service.currency === 'IDR';
 
-                        dbAddons.forEach((addon: any) => {
+                        dbAddons.forEach((addon: ServiceAddon) => {
                             let addonPriceInServiceCurrency = addon.price;
                             
                             if (isServiceIdr && addon.currency === 'USD') {
