@@ -29,10 +29,12 @@ interface ServiceData {
 
 export function ExportPdfButton({
     service,
-    variant = "icon"
+    variant = "icon",
+    globalAddons = []
 }: {
     service: ServiceData;
     variant?: "icon" | "button";
+    globalAddons?: any[];
 }) {
     const { user } = useSafeUser();
     const [isGenerating, setIsGenerating] = useState(false);
@@ -136,17 +138,21 @@ export function ExportPdfButton({
             </div>
         `).join("");
 
-        // Format Addons asli dari database (addons)
-        let addonsList: ServiceAddon[] = [];
-        try {
-            const rawAddons = service.addons_id || service.addons || [];
-            if (typeof rawAddons === "string") {
-                addonsList = JSON.parse(rawAddons) as ServiceAddon[];
-            } else if (Array.isArray(rawAddons)) {
-                addonsList = rawAddons as ServiceAddon[];
+        // Format Addons dari database global (atau fallback ke addons lama jika kosong)
+        let addonsList: any[] = [];
+        if (globalAddons && globalAddons.length > 0) {
+            addonsList = globalAddons;
+        } else {
+            try {
+                const rawAddons = service.addons_id || service.addons || [];
+                if (typeof rawAddons === "string") {
+                    addonsList = JSON.parse(rawAddons) as any[];
+                } else if (Array.isArray(rawAddons)) {
+                    addonsList = rawAddons as any[];
+                }
+            } catch {
+                addonsList = [];
             }
-        } catch {
-            addonsList = [];
         }
 
         const addonsHtml = addonsList.map(addon => {
@@ -159,9 +165,12 @@ export function ExportPdfButton({
                 ? (isEn ? "One Time" : "Sekali Bayar")
                 : (addon.interval === "monthly" ? (isEn ? "Monthly" : "Bulanan") : (addon.interval === "yearly" ? (isEn ? "Yearly" : "Tahunan") : addon.interval));
 
+            // Lokalkan nama addon jika Bahasa Indonesia
+            const displayName = !isEn ? (addon.name_id || addon.name) : addon.name;
+
             return `
                 <tr>
-                    <td><strong>${addon.name}</strong><br><small style="color: #a1a1aa; font-size: 12px;">${addon.description || ''}</small></td>
+                    <td><strong>${displayName}</strong><br><small style="color: #a1a1aa; font-size: 12px;">${addon.description || ''}</small></td>
                     <td>${addInterval}</td>
                     <td style="text-align: right; font-weight: 600; color: #fbbf24;">${addonFormattedPrice}</td>
                 </tr>

@@ -16,6 +16,11 @@ export default async function ServicesPage() {
         orderBy: { createdAt: 'desc' }
     });
 
+    const addons = await prisma.addon.findMany({
+        where: { isActive: true },
+        orderBy: { name: 'asc' }
+    });
+
     const t = await getTranslations("Admin.Services");
 
     return (
@@ -47,7 +52,7 @@ export default async function ServicesPage() {
                     </div>
                 ) : (
                     /* Menggunakan komponen Client-side ServiceListClient untuk fitur bulk delete */
-                    <ServiceListClient services={services} />
+                    <ServiceListClient services={services} addons={addons} />
                 )}
             </div>
         </div>

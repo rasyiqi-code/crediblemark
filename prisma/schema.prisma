@@ -385,3 +385,17 @@ model Promotion {
   @@index([isActive])
 }
 
+model Addon {
+  id          String   @id @default(cuid())
+  name        String
+  name_id     String?  // Terjemahan Bahasa Indonesia
+  price       Float
+  currency    String   @default("USD")
+  interval    String   @default("one_time") // one_time, monthly, yearly
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([isActive])
+}
+

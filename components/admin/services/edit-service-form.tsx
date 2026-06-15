@@ -12,7 +12,7 @@ import { DynamicListInput } from "@/components/ui/dynamic-list-input";
 import { Button } from "@/components/ui/button";
 import { FileText, ListChecks, CreditCard, Sparkles, ArrowLeft, CheckCircle2, Plus, Link as LinkIcon, Loader2 } from "lucide-react";
 import { slugify } from "@/lib/shared/utils";
-import { DynamicAddonInput, type ServiceAddon } from "@/components/ui/dynamic-addon-input";
+import { type ServiceAddon } from "@/components/ui/dynamic-addon-input";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Flag } from "lucide-react";
@@ -63,9 +63,8 @@ export function EditServiceForm({
     const [prompt, setPrompt] = useState("");
     const [isGenerating, setIsGenerating] = useState(false);
     const [isGeneratingPricing, setIsGeneratingPricing] = useState(false);
-    const [isGeneratingAddons, setIsGeneratingAddons] = useState(false);
     
-    // Inisialisasi pendingDraft dengan data awal layanan agar tombol Pricing dan Addons langsung aktif
+    // Inisialisasi pendingDraft dengan data awal layanan agar tombol Pricing langsung aktif
     const [pendingDraft, setPendingDraft] = useState<DraftServiceData | null>({
         title: service.title,
         title_id: service.title_id || "",
@@ -77,10 +76,9 @@ export function EditServiceForm({
     const [isPricingApplied, setIsPricingApplied] = useState(true);
     const [generatedData, setGeneratedData] = useState<DraftServiceData | null>(null);
 
-    // 3 key terpisah agar force-remount hanya field yang relevan per step
+    // Key terpisah agar force-remount hanya field yang relevan per step
     const [keyContent, setKeyContent] = useState(0);
     const [keyPricing, setKeyPricing] = useState(0);
-    const [keyAddons, setKeyAddons] = useState(0);
 
     const [slug, setSlug] = useState(service.slug || "");
     const [priceType, setPriceType] = useState<string>(service.priceType || "FIXED");
@@ -227,69 +225,7 @@ export function EditServiceForm({
         }
     }
 
-    // Generate AI Step 3: Terapkan add-ons ke form berdasarkan konten dan harga teraktual dari form
-    async function applyStep3() {
-        if (!formRef.current) return;
-        setIsGeneratingAddons(true);
-
-        try {
-            const formData = new FormData(formRef.current);
-            const title = formData.get("title") as string;
-            const title_id = formData.get("title_id") as string;
-            const description = formData.get("description") as string;
-            const description_id = formData.get("description_id") as string;
-            const features = formData.get("features") ? (formData.get("features") as string).split('\n').filter(Boolean) : [];
-            const features_id = formData.get("features_id") ? (formData.get("features_id") as string).split('\n').filter(Boolean) : [];
-            
-            const recommended_price = formData.get("price") ? Number(formData.get("price")) : undefined;
-            const discount = formData.get("discount") ? Number(formData.get("discount")) : undefined;
-            const currencyValue = currency as "USD" | "IDR";
-            
-            const res = await fetch("/api/genkit/generate-service", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    type: "addons",
-                    title,
-                    title_id,
-                    description,
-                    description_id,
-                    features,
-                    features_id,
-                    recommended_price,
-                    discount,
-                    currency: currencyValue,
-                    priceType,
-                    interval,
-                    targetBusinessScale: businessScale
-                })
-            });
-            const result = await res.json();
-
-            if (result.success && result.data) {
-                const { addons, addons_id } = result.data;
-
-                // Terapkan addons ke form
-                setGeneratedData(prev => ({
-                    ...prev,
-                    addons,
-                    addons_id
-                }));
-
-                setKeyAddons(prev => prev + 1);
-                setPendingDraft(null); // Selesai
-                setIsPricingApplied(false);
-                toast.success("Daftar add-ons berhasil dibuat oleh AI!");
-            } else {
-                toast.error(result.error || "Gagal membuat add-ons.");
-            }
-        } catch (error) {
-            console.error("AI Add-ons Generation error:", error);
-            toast.error("Terjadi kesalahan saat memproses add-ons.");
-        } finally {
-            setIsGeneratingAddons(false);
-        }
-    }
+    // Langkah 3 untuk addon dinonaktifkan karena addon dikelola secara global
 
     async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -483,41 +419,7 @@ export function EditServiceForm({
                                 </div>
                             </div>
 
-                            <div className="space-y-6">
-                                <div className="flex items-center justify-between pb-3 border-b border-white/5">
-                                    <div className="flex items-center gap-2">
-                                        <Plus className="w-4 h-4 text-blue-400" />
-                                        <h3 className="text-sm font-semibold text-white">Add-ons (English)</h3>
-                                    </div>
-                                    <Button
-                                        type="button"
-                                        onClick={applyStep3}
-                                        disabled={!pendingDraft || !isPricingApplied || isGeneratingAddons}
-                                        variant="outline"
-                                        size="sm"
-                                        className="h-7 px-2.5 text-[10px] gap-1 bg-indigo-500/10 border-indigo-500/20 text-indigo-400 hover:bg-indigo-500/20 hover:text-indigo-300 disabled:opacity-40 disabled:hover:bg-indigo-500/10 disabled:hover:text-indigo-400"
-                                    >
-                                        {isGeneratingAddons ? (
-                                            <Loader2 className="w-3 h-3 animate-spin" />
-                                        ) : (
-                                            <Sparkles className="w-3 h-3" />
-                                        )}
-                                        Isi dari AI
-                                    </Button>
-                                </div>
-                                <div className="space-y-6">
-                                    <div className="space-y-2">
-                                        <label className="text-xs font-medium text-zinc-400 uppercase tracking-wider">Configure optional upsells</label>
-                                        <DynamicAddonInput
-                                            key={`addons-en-${keyAddons}`}
-                                            name="addons"
-                                            defaultValue={generatedData?.addons ?? service.addons ?? []}
-                                            currency={currency}
-                                            targetBusinessScale={businessScale}
-                                        />
-                                    </div>
-                                </div>
-                            </div>
+                            {/* Addons individual dinonaktifkan */}
                         </TabsContent>
 
                         {/* INDONESIAN CONTENT */}
@@ -568,41 +470,7 @@ export function EditServiceForm({
                                 </div>
                             </div>
 
-                            <div className="space-y-6">
-                                <div className="flex items-center justify-between pb-3 border-b border-white/5">
-                                    <div className="flex items-center gap-2">
-                                        <Plus className="w-4 h-4 text-red-500" />
-                                        <h3 className="text-sm font-semibold text-white">Add-ons (Bahasa Indonesia)</h3>
-                                    </div>
-                                    <Button
-                                        type="button"
-                                        onClick={applyStep3}
-                                        disabled={!pendingDraft || !isPricingApplied || isGeneratingAddons}
-                                        variant="outline"
-                                        size="sm"
-                                        className="h-7 px-2.5 text-[10px] gap-1 bg-indigo-500/10 border-indigo-500/20 text-indigo-400 hover:bg-indigo-500/20 hover:text-indigo-300 disabled:opacity-40 disabled:hover:bg-indigo-500/10 disabled:hover:text-indigo-400"
-                                    >
-                                        {isGeneratingAddons ? (
-                                            <Loader2 className="w-3 h-3 animate-spin" />
-                                        ) : (
-                                            <Sparkles className="w-3 h-3" />
-                                        )}
-                                        Isi dari AI
-                                    </Button>
-                                </div>
-                                <div className="space-y-6">
-                                    <div className="space-y-2">
-                                        <label className="text-xs font-medium text-zinc-400 uppercase tracking-wider">Konfigurasi add-on opsional</label>
-                                        <DynamicAddonInput
-                                            key={`addons-id-${keyAddons}`}
-                                            name="addons_id"
-                                            defaultValue={generatedData?.addons_id ?? service.addons_id ?? []}
-                                            currency={currency}
-                                            targetBusinessScale={businessScale}
-                                        />
-                                    </div>
-                                </div>
-                            </div>
+                            {/* Addons individual dinonaktifkan */}
                         </TabsContent>
                     </Tabs>
                 </div>

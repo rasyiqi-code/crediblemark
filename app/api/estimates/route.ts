@@ -3,6 +3,7 @@ import { prisma } from '@/lib/config/db';
 import { NextResponse, NextRequest } from 'next/server';
 import { getCurrentUser } from '@/lib/shared/auth-helpers';
 import { notifyNewEstimate } from '@/lib/email/admin-notifications';
+import { paymentService } from '@/lib/server/payment-service';
 
 export async function GET(req: NextRequest) {
     // Endpoint publik: hanya menampilkan data ringkasan non-sensitif
@@ -66,24 +67,42 @@ export async function POST(req: Request) {
                 return NextResponse.json({ error: "Service not found or inactive" }, { status: 404 });
             }
 
-            // Hitung total harga termasuk addon yang dipilih
+            // Hitung total harga termasuk addon yang dipilih dari database global
             const selectedAddons = Array.isArray(body.selectedAddons) ? body.selectedAddons : [];
-            const addonsTotal = selectedAddons.reduce((sum: number, addon: { price?: number }) => sum + (addon.price || 0), 0);
+            const addonIds = selectedAddons.map((a: any) => typeof a === 'string' ? a : a.id).filter(Boolean);
+            const addonNames = selectedAddons.map((a: any) => typeof a === 'string' ? '' : a.name).filter(Boolean);
+            
+            const dbAddons = await prisma.addon.findMany({
+                where: {
+                    OR: [
+                        { id: { in: addonIds } },
+                        { name: { in: addonNames } }
+                    ],
+                    isActive: true
+                }
+            });
+
+            const rate = await paymentService.getExchangeRate();
+            const isServiceIdr = service.currency === 'IDR';
+
+            let addonsTotal = 0;
+            dbAddons.forEach((addon) => {
+                let addonPriceInServiceCurrency = addon.price;
+                if (isServiceIdr && addon.currency === 'USD') {
+                    addonPriceInServiceCurrency = addon.price * rate;
+                } else if (!isServiceIdr && addon.currency === 'IDR') {
+                    addonPriceInServiceCurrency = addon.price / rate;
+                }
+                addonsTotal += addonPriceInServiceCurrency;
+            });
+
             const totalPrice = service.price + addonsTotal;
 
             // Bangun summary — simpan marker addon (nama EN) untuk deteksi di checkout
             let summary = service.description;
-            if (selectedAddons.length > 0) {
-                // Ambil nama EN dari service.addons sebagai referensi matching
-                const enAddons = Array.isArray(service.addons) ? (service.addons as Array<{ name: string }>) : [];
-                const addonLines = selectedAddons.map((a: { name: string }) => {
-                    // Cari padanan nama EN berdasarkan index/posisi
-                    const idAddons = Array.isArray(service.addons_id) ? (service.addons_id as Array<{ name: string }>) : [];
-                    const idx = idAddons.findIndex(ia => ia.name === a.name);
-                    const enName = idx >= 0 && enAddons[idx] ? enAddons[idx].name : a.name;
-                    return `+ ${enName}`;
-                }).join('\n');
-                summary = `${service.description}\n${addonLines}`;
+            if (dbAddons.length > 0) {
+                const addonLines = dbAddons.map((a) => `+ ${a.name}`).join('\n');
+                summary = `${service.description}\n\nAdd-ons Selected at Checkout:\n${addonLines}`;
             }
 
             // Buat Estimate untuk pembelian langsung service ini

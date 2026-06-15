@@ -30,11 +30,22 @@ interface ServiceData {
     addons_id?: unknown;
 }
 
-interface ServiceListClientProps {
-    services: ServiceData[];
+interface AddonData {
+    id: string;
+    name: string;
+    name_id?: string | null;
+    price: number;
+    currency: string;
+    interval: string;
+    isActive: boolean;
 }
 
-export function ServiceListClient({ services }: ServiceListClientProps) {
+interface ServiceListClientProps {
+    services: ServiceData[];
+    addons?: AddonData[];
+}
+
+export function ServiceListClient({ services, addons = [] }: ServiceListClientProps) {
     const t = useTranslations("Admin.Services");
     const router = useRouter();
     const [selectedIds, setSelectedIds] = useState<string[]>([]);
@@ -278,6 +289,7 @@ export function ServiceListClient({ services }: ServiceListClientProps) {
                             showCheckbox={isSelectionMode}
                             isSelected={selectedIds.includes(service.id)}
                             onSelectChange={(selected) => handleSelectChange(service.id, selected)}
+                            globalAddons={addons}
                         />
                     ))}
                 </Accordion>

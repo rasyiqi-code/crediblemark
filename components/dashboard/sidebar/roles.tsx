@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { LayoutDashboard, Layers, ShoppingCart, Settings, Package, Mail, Users, Megaphone, ShieldCheck, MessageSquare, Images, Repeat, UserPlus, Sparkles } from "lucide-react";
+import { LayoutDashboard, Layers, ShoppingCart, Settings, Package, Mail, Users, Megaphone, ShieldCheck, MessageSquare, Images, Repeat, UserPlus, Sparkles, Puzzle } from "lucide-react";
 import { useSidebarStore } from "@/lib/store/sidebar-store";
 import { cn } from "@/lib/shared/utils";
 import { useSyncExternalStore, type ComponentType } from "react";
@@ -62,6 +62,7 @@ export function SidebarSuperAdmin() {
             <SidebarSectionHeader>Agency Ops</SidebarSectionHeader>
             <SidebarLink href="/admin/pm/projects" icon={Layers} label={t("missionBoard")} />
             <SidebarLink href="/admin/pm/services" icon={Package} label={t("serviceCatalog")} />
+            <SidebarLink href="/admin/pm/addons" icon={Puzzle} label={t("addons")} />
             <SidebarLink href="/admin/clients" icon={Users} label={t("clients")} />
             <SidebarLink href="/admin/support" icon={Mail} label={t("supportInbox")} />
 
@@ -110,6 +111,7 @@ export function SidebarPM() {
             <SidebarLink href="/admin/pm" icon={LayoutDashboard} label={t("dashboard")} />
             <SidebarLink href="/admin/pm/projects" icon={Layers} label={t("missionBoard")} />
             <SidebarLink href="/admin/pm/services" icon={Package} label={t("serviceCatalog")} />
+            <SidebarLink href="/admin/pm/addons" icon={Puzzle} label={t("addons")} />
             <SidebarLink href="/admin/media" icon={Images} label="Media" />
         </>
     );

@@ -33,6 +33,7 @@ interface ServiceAccordionItemProps {
     showCheckbox?: boolean;
     isSelected?: boolean;
     onSelectChange?: (selected: boolean) => void;
+    globalAddons?: any[];
 }
 
 export function ServiceAccordionItem({ 
@@ -40,7 +41,8 @@ export function ServiceAccordionItem({
     index, 
     showCheckbox = false, 
     isSelected = false, 
-    onSelectChange 
+    onSelectChange,
+    globalAddons = []
 }: ServiceAccordionItemProps) {
     const t = useTranslations("Admin.Services");
     const locale = useLocale();
@@ -158,19 +160,21 @@ export function ServiceAccordionItem({
 
                                 {/* Tombol Aksi di Mobile (sejajar horizontal dengan Diskon di kolom kedua) */}
                                 <div className="flex items-center sm:hidden">
-                                    <ServiceActionButtons service={service} />
+                                    <ServiceActionButtons service={service} globalAddons={globalAddons} />
                                 </div>
                             </div>
 
                             {/* Tombol Aksi di Desktop/Tablet (sm ke atas) */}
                             <div className="hidden sm:flex justify-start lg:justify-end shrink-0 pt-2 lg:pt-0 pl-6 lg:pl-0">
-                                <ServiceActionButtons service={service} />
+                                <ServiceActionButtons service={service} globalAddons={globalAddons} />
                             </div>
                         </div>
 
-                        {/* Tampilan daftar addon service */}
                         {(() => {
-                            const addons = (isId ? service.addons_id : service.addons) as Array<{ name: string; description?: string; price: number; currency?: string; interval?: string }> | null;
+                            const addons = (globalAddons && globalAddons.length > 0)
+                                ? globalAddons
+                                : ((isId ? service.addons_id : service.addons) as Array<{ name: string; name_id?: string | null; description?: string; price: number; currency?: string; interval?: string }> | null);
+                                
                             if (!addons || addons.length === 0) return null;
                             return (
                                 <div className="mt-3 pt-3 border-t border-zinc-800/40">
@@ -178,23 +182,26 @@ export function ServiceAccordionItem({
                                         {t("addonsAvailable")}
                                     </span>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-                                        {addons.map((addon, idx) => (
-                                            <div key={idx} className="flex items-start gap-2 p-2 rounded-lg bg-zinc-900/50 border border-zinc-800/30">
-                                                <Plus className="w-3.5 h-3.5 text-brand-yellow mt-0.5 shrink-0" />
-                                                <div className="min-w-0">
-                                                    <span className="text-xs text-zinc-300 font-medium block truncate">{addon.name}</span>
-                                                    {addon.description && (
-                                                        <span className="text-[10px] text-zinc-600 block truncate">{addon.description}</span>
-                                                    )}
-                                                    <span className="text-[10px] text-brand-yellow font-mono font-bold">
-                                                        <PriceDisplay amount={addon.price} baseCurrency={(addon.currency as 'USD' | 'IDR') || service.currency as 'USD' | 'IDR' || 'USD'} />
-                                                        {addon.interval && addon.interval !== 'one_time' && (
-                                                            <span className="text-zinc-600 ml-0.5">/{addon.interval === 'monthly' ? t("mo") : (addon.interval === 'yearly' ? t("yr") : addon.interval)}</span>
+                                        {addons.map((addon, idx) => {
+                                            const displayName = isId ? (addon.name_id || addon.name) : addon.name;
+                                            return (
+                                                <div key={idx} className="flex items-start gap-2 p-2 rounded-lg bg-zinc-900/50 border border-zinc-800/30">
+                                                    <Plus className="w-3.5 h-3.5 text-brand-yellow mt-0.5 shrink-0" />
+                                                    <div className="min-w-0">
+                                                        <span className="text-xs text-zinc-300 font-medium block truncate">{displayName}</span>
+                                                        {addon.description && (
+                                                            <span className="text-[10px] text-zinc-600 block truncate">{addon.description}</span>
                                                         )}
-                                                    </span>
+                                                        <span className="text-[10px] text-brand-yellow font-mono font-bold">
+                                                            <PriceDisplay amount={addon.price} baseCurrency={(addon.currency as 'USD' | 'IDR') || service.currency as 'USD' | 'IDR' || 'USD'} />
+                                                            {addon.interval && addon.interval !== 'one_time' && (
+                                                                <span className="text-zinc-600 ml-0.5">/{addon.interval === 'monthly' ? t("mo") : (addon.interval === 'yearly' ? t("yr") : addon.interval)}</span>
+                                                            )}
+                                                        </span>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        ))}
+                                            );
+                                        })}
                                     </div>
                                 </div>
                             );

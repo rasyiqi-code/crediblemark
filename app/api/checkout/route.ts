@@ -58,18 +58,55 @@ export async function POST(req: Request) {
                 let addonsSummaryText = "";
 
                 if (selectedAddons && selectedAddons.length > 0) {
-                    addonsSummaryText = addonsMarker;
-                    (selectedAddons as ServiceAddon[]).forEach((addon) => {
-                        addonsTotal += addon.price;
-                        const currencySymbol = addon.currency === 'IDR' ? 'Rp' : '$';
-                        addonsSummaryText += `\n- + ${addon.name} (${currencySymbol}${addon.price} ${addon.interval === "monthly" ? "Monthly" : addon.interval === "yearly" ? "Yearly" : "One-time"})`;
+                    // Ambil detail addon dari database global
+                    const addonIds = selectedAddons.map((a: any) => typeof a === 'string' ? a : a.id).filter(Boolean);
+                    const addonNames = selectedAddons.map((a: any) => typeof a === 'string' ? '' : a.name).filter(Boolean);
+                    
+                    const dbAddons = await prisma.addon.findMany({
+                        where: {
+                            OR: [
+                                { id: { in: addonIds } },
+                                { name: { in: addonNames } }
+                            ],
+                            isActive: true
+                        }
                     });
+
+                    if (dbAddons.length > 0) {
+                        addonsSummaryText = addonsMarker;
+                        const rate = await paymentService.getExchangeRate();
+                        const isServiceIdr = estimate.service.currency === 'IDR';
+
+                        dbAddons.forEach((addon) => {
+                            let addonPriceInServiceCurrency = addon.price;
+                            
+                            if (isServiceIdr && addon.currency === 'USD') {
+                                // Konversi harga addon dari USD ke IDR
+                                addonPriceInServiceCurrency = addon.price * rate;
+                            } else if (!isServiceIdr && addon.currency === 'IDR') {
+                                // Konversi harga addon dari IDR ke USD
+                                addonPriceInServiceCurrency = addon.price / rate;
+                            }
+                            
+                            addonsTotal += addonPriceInServiceCurrency;
+                            const currencySymbol = isServiceIdr ? 'Rp' : '$';
+                            const displayPrice = isServiceIdr 
+                                ? (addon.currency === 'IDR' ? addon.price : addon.price * rate) 
+                                : (addon.currency === 'USD' ? addon.price : addon.price / rate);
+                            
+                            const formattedPrice = isServiceIdr 
+                                ? new Intl.NumberFormat('id-ID').format(Math.ceil(displayPrice))
+                                : displayPrice.toFixed(2);
+
+                            addonsSummaryText += `\n- + ${addon.name} (${currencySymbol}${formattedPrice} ${addon.interval === "monthly" ? "Monthly" : addon.interval === "yearly" ? "Yearly" : "One-time"})`;
+                        });
+                    }
                 }
 
                 currentTotalCost = basePrice + addonsTotal;
                 currentSummary = baseSummary + addonsSummaryText;
                 
-                // Always update estimate in DB so it perfectly matches current selection
+                // Selalu perbarui estimasi di DB agar sesuai dengan pilihan saat ini
                 await prisma.estimate.update({
                     where: { id: estimate.id },
                     data: {

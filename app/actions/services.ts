@@ -65,22 +65,8 @@ export async function createService(formData: FormData) {
             visibility: formData.get("visibility")?.toString() || "PUBLIC",
             features,
             features_id,
-            addons: (() => {
-                try {
-                    const val = formData.get("addons");
-                    return val ? JSON.parse(val.toString()) : [];
-                } catch {
-                    return [];
-                }
-            })(),
-            addons_id: (() => {
-                try {
-                    const val = formData.get("addons_id");
-                    return val ? JSON.parse(val.toString()) : [];
-                } catch {
-                    return [];
-                }
-            })(),
+            addons: [],
+            addons_id: [],
             image: imageUrl,
             slug: slugInput ? slugify(slugInput) : slugify(title)
         } as Prisma.ServiceCreateInput
@@ -124,8 +110,7 @@ export async function updateService(serviceId: string, formData: FormData) {
     const features = featuresRaw.split('\n').map(f => f.trim()).filter(f => f !== '');
     const features_id = featuresIdRaw.split('\n').map(f => f.trim()).filter(f => f !== '');
 
-    const addonsRaw = formData.get("addons")?.toString();
-    const addonsIdRaw = formData.get("addons_id")?.toString();
+    // Addons individual sudah dihapus dan dikelola secara global
 
     const data: Record<string, unknown> = {
         title,
@@ -140,20 +125,8 @@ export async function updateService(serviceId: string, formData: FormData) {
         visibility: formData.get("visibility")?.toString() || "PUBLIC",
         features,
         features_id,
-        addons: (() => {
-            try {
-                return addonsRaw ? JSON.parse(addonsRaw) : [];
-            } catch {
-                return [];
-            }
-        })(),
-        addons_id: (() => {
-            try {
-                return addonsIdRaw ? JSON.parse(addonsIdRaw) : [];
-            } catch {
-                return [];
-            }
-        })(),
+        addons: [],
+        addons_id: [],
         slug: slugInput ? slugify(slugInput) : slugify(title)
     };
 
