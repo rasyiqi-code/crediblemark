@@ -226,8 +226,8 @@ export function InteractivePricingRepair({ locale }: InteractivePricingRepairPro
     const handleConsultation = (pkgName: string) => {
         const currentUrl = typeof window !== "undefined" ? window.location.href : "";
         const bodyText = isId
-            ? `Halo, saya ingin konsultasi gratis terkait perbaikan website untuk paket "${pkgName}". Website saya saat ini mengalami kendala...`
-            : `Hello, I would like a free consultation regarding web repair for the "${pkgName}" tier. My current website is having issues...`;
+            ? `Halo, saya ingin konsultasi gratis terkait perbaikan website untuk paket "${pkgName}". Website saya saat ini mengalami kendala...\n\n${currentUrl}`
+            : `Hello, I would like a free consultation regarding web repair for the "${pkgName}" tier. My current website is having issues...\n\n${currentUrl}`;
         setDefaultInput(bodyText);
         setIsMenuOpen(true);
     };
