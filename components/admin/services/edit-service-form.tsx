@@ -73,6 +73,7 @@ export function EditServiceForm({
         features: features,
         features_id: features_id
     });
+    const [_isPricingApplied, setIsPricingApplied] = useState(true);
     const [generatedData, setGeneratedData] = useState<DraftServiceData | null>(null);
 
     // Key terpisah agar force-remount hanya field yang relevan per step
