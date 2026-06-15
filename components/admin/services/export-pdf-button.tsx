@@ -1229,8 +1229,8 @@ export function ExportPdfButton({
                 <p style="font-size: 12px; color: #a1a1aa; line-height: 1.6; margin: 0;">
                     <strong>${isEn ? "Let's Talk & Partner Up:" : "Diskusikan dengan Kami:"}</strong> 
                     ${isEn 
-                        ? "Your business needs are unique, which is why we are completely open to discussing this investment to perfectly align with your budget and priorities. Rest assured, every dollar you invest here returns to you as a high-performance system that is 100% yours, entirely bug-free, and engineered to help your business scale profits faster!"
-                        : "Kebutuhan bisnis Anda unik, karena itu nilai investasi ini sangat terbuka untuk kita diskusikan agar pas dengan anggaran dan prioritas Anda saat ini. Tenang saja, setiap rupiah yang Anda percayakan di sini akan kembali dalam bentuk sistem berkinerja tinggi yang 100% jadi hak milik Anda, bebas error, dan siap membantu bisnis Anda cetak profit lebih cepat!"
+                        ? "Your business needs are unique, which is why we are completely open to discussing this investment to perfectly fit your budget. If you require a more cost-effective option, we can easily adjust the list of Key Features & Deliverables above — such as simplifying certain functionalities or postponing non-priority modules to a later phase. Let's collaborate to build the most efficient solution for you!"
+                        : "Kebutuhan bisnis Anda unik, karena itu nilai investasi ini sangat terbuka untuk kita diskusikan agar pas dengan anggaran Anda. Jika Anda memerlukan opsi investasi yang lebih hemat, kita bisa dengan mudah menyesuaikan kembali daftar Fitur & Deliverables Utama di atas — misalnya dengan menyederhanakan fungsionalitas tertentu atau menunda modul non-prioritas ke fase berikutnya. Mari berkolaborasi merancang solusi terbaik untuk Anda!"
                     }
                 </p>
             </div>
