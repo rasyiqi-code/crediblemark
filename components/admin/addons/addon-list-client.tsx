@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -19,6 +19,7 @@ interface AddonListClientProps {
 
 export function AddonListClient({ addons }: AddonListClientProps) {
     const t = useTranslations("Admin.Addons");
+    const locale = useLocale();
     const router = useRouter();
     const [selectedIds, setSelectedIds] = useState<string[]>([]);
     const [isSelectionMode, setIsSelectionMode] = useState(false);
@@ -271,8 +272,9 @@ export function AddonListClient({ addons }: AddonListClientProps) {
                                         )}
                                         <td className="py-3.5 px-4">
                                             <div className="flex flex-col">
-                                                <span className="font-semibold text-zinc-100 text-sm">{addon.name}</span>
-                                                <span className="text-[11px] text-zinc-500 italic mt-0.5">{addon.name_id || "-"}</span>
+                                                <span className="font-semibold text-zinc-100 text-sm">
+                                                    {locale === "id" && addon.name_id ? addon.name_id : addon.name}
+                                                </span>
                                             </div>
                                         </td>
                                         <td className="py-3.5 px-4 font-medium text-sm">

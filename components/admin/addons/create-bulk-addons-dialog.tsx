@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import { useLocale } from "next-intl";
 import { toast } from "sonner";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -26,6 +27,7 @@ interface CreateBulkAddonsDialogProps {
 
 export function CreateBulkAddonsDialog({ existingAddonNames }: CreateBulkAddonsDialogProps) {
     const router = useRouter();
+    const locale = useLocale();
     const [open, setOpen] = useState(false);
     const [isGenerating, setIsGenerating] = useState(false);
     const [isPending, startTransition] = useTransition();
@@ -244,8 +246,9 @@ export function CreateBulkAddonsDialog({ existingAddonNames }: CreateBulkAddonsD
                                                     </td>
                                                     <td className="py-3 px-3">
                                                         <div className="flex flex-col">
-                                                            <span className="font-semibold text-zinc-200">{draft.name}</span>
-                                                            <span className="text-[10px] text-zinc-500 italic mt-0.5">{draft.name_id}</span>
+                                                            <span className="font-semibold text-zinc-200 text-xs">
+                                                                {locale === "id" && draft.name_id ? draft.name_id : draft.name}
+                                                            </span>
                                                         </div>
                                                     </td>
                                                     <td className="py-3 px-3 font-semibold text-zinc-200">
