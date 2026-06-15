@@ -1223,8 +1223,7 @@ export function ExportPdfButton({
                     <span class="pricing-price" style="margin-top: 4px; line-height: 1.1;">${formattedPrice}</span>
                 </div>
                 <div style="text-align: right;">
-                    <span style="font-size: 12px; text-transform: uppercase; color: #ffffff; letter-spacing: 0.5px;">${tPaymentScheme}</span>
-                    <span style="font-size: 17px; font-weight: 600; color: #ffffff; display: block; margin-top: 4px;">${intervalLabel}</span>
+                    <span style="font-size: 17px; font-weight: 700; color: #ffffff; display: block;">${intervalLabel}</span>
                 </div>
             </div>
 
