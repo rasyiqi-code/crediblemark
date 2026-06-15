@@ -37,6 +37,7 @@ export function CreateServiceForm() {
     const [isGenerating, setIsGenerating] = useState(false);
     const [isGeneratingPricing, setIsGeneratingPricing] = useState(false);
     const [pendingDraft, setPendingDraft] = useState<DraftServiceData | null>(null);
+    const [_isPricingApplied, setIsPricingApplied] = useState(false);
     const [generatedData, setGeneratedData] = useState<DraftServiceData | null>(null);
 
     // Key terpisah agar force-remount hanya field yang relevan per step
