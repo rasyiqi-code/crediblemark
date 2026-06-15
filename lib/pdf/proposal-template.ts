@@ -193,50 +193,6 @@ export function generateProposalHtml({
             .replace(/\b6\b/, totalPages.toString());
     };
 
-    const addonsPagesHtml = addonsNeedNewPage ? addonChunks.map((chunk, chunkIdx) => {
-        const pageNum = 6 + chunkIdx;
-        const pageTitle = isEn 
-            ? `04.2 / Optional Add-on Modules (Part ${chunkIdx + 1} of ${addonChunks.length})` 
-            : `04.2 / Modul Add-on Opsional (Bagian ${chunkIdx + 1} dari ${addonChunks.length})`;
-
-        const pageIntro = isEn
-            ? "Detailed breakdown of the selected optional add-on modules configured to customize the scalability of your infrastructure and digital system:"
-            : "Rincian modul tambahan pilihan yang dikonfigurasi untuk menyesuaikan kebutuhan skalabilitas infrastruktur dan sistem digital Anda:";
-
-        return `
-        <!-- HALAMAN ADD-ON: BAGIAN ${chunkIdx + 1} -->
-        <div class="page">
-            <div class="section-header">
-                <h2 class="section-title">${pageTitle}</h2>
-                <span class="section-subtitle-badge">${getPageFooterHtml(pageNum)}</span>
-            </div>
-     
-            <div class="body-section" style="margin-top: 10px;">
-                <p class="paragraph-text" style="font-size: 14px; color: #ffffff; margin-bottom: 20px;">
-                    ${pageIntro}
-                </p>
-                <table class="proposal-table">
-                    <thead>
-                        <tr>
-                            <th>${tAddonHeaderModule}</th>
-                            <th>${tAddonHeaderScheme}</th>
-                            <th style="text-align: right;">${tAddonHeaderInvest}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${generateAddonsTableRows(chunk)}
-                    </tbody>
-                </table>
-            </div>
-     
-            <div class="page-footer">
-                <span>CREDIBLEMARK &bull; Proposal ${title}</span>
-                <span>${getPageFooterHtml(pageNum)}</span>
-            </div>
-        </div>
-        `;
-    }).join("") : "";
-
     // Lokalisasi dinamis untuk Halaman 3
     const tFeaturesIntro = messages.ProposalExport.featuresIntro;
     const tFallbackFeature = messages.ProposalExport.fallbackFeature.replace("{title}", title);
@@ -316,6 +272,50 @@ export function generateProposalHtml({
 
     const tAgreementText = messages.ProposalExport.agreementText;
     const tClientRepresentative = messages.ProposalExport.clientRepresentative;
+
+    const addonsPagesHtml = addonsNeedNewPage ? addonChunks.map((chunk, chunkIdx) => {
+        const pageNum = 6 + chunkIdx;
+        const pageTitle = isEn 
+            ? `04.2 / Optional Add-on Modules (Part ${chunkIdx + 1} of ${addonChunks.length})` 
+            : `04.2 / Modul Add-on Opsional (Bagian ${chunkIdx + 1} dari ${addonChunks.length})`;
+
+        const pageIntro = isEn
+            ? "Detailed breakdown of the selected optional add-on modules configured to customize the scalability of your infrastructure and digital system:"
+            : "Rincian modul tambahan pilihan yang dikonfigurasi untuk menyesuaikan kebutuhan skalabilitas infrastruktur dan sistem digital Anda:";
+
+        return `
+        <!-- HALAMAN ADD-ON: BAGIAN ${chunkIdx + 1} -->
+        <div class="page">
+            <div class="section-header">
+                <h2 class="section-title">${pageTitle}</h2>
+                <span class="section-subtitle-badge">${getPageFooterHtml(pageNum)}</span>
+            </div>
+     
+            <div class="body-section" style="margin-top: 10px;">
+                <p class="paragraph-text" style="font-size: 14px; color: #ffffff; margin-bottom: 20px;">
+                    ${pageIntro}
+                </p>
+                <table class="proposal-table">
+                    <thead>
+                        <tr>
+                            <th>${tAddonHeaderModule}</th>
+                            <th>${tAddonHeaderScheme}</th>
+                            <th style="text-align: right;">${tAddonHeaderInvest}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${generateAddonsTableRows(chunk)}
+                    </tbody>
+                </table>
+            </div>
+     
+            <div class="page-footer">
+                <span>CREDIBLEMARK &bull; Proposal ${title}</span>
+                <span>${getPageFooterHtml(pageNum)}</span>
+            </div>
+        </div>
+        `;
+    }).join("") : "";
 
     return `
 <!DOCTYPE html>
