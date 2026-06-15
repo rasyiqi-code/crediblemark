@@ -23,7 +23,7 @@ interface AdminListToolbarProps {
 
     // Pengurutan (Sorting)
     sortBy: string;
-    onSortByChange: (val: any) => void;
+    onSortByChange: (val: string) => void;
     sortOptions: SortOptionItem[];
     sortPlaceholder?: string;
 
