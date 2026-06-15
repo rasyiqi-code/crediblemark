@@ -1041,15 +1041,15 @@ export function ExportPdfButton({
     <div class="page page-cover">
         <div class="cover-top-accent"></div>
         ${service.discount && service.discount > 0 ? `
-        <div style="position: absolute; top: 45px; right: 45px; z-index: 10; text-align: center; color: #000000; transform: rotate(12deg); font-family: 'Plus Jakarta Sans', sans-serif; pointer-events: none;">
-            <div style="font-size: 13px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.85;">
-                ${isEn ? "SAVE" : "HEMAT"}
+        <div style="position: absolute; top: 50px; right: 50px; z-index: 10; text-align: center; color: #000000; transform: rotate(12deg); font-family: 'Plus Jakarta Sans', sans-serif; pointer-events: none; width: 140px;">
+            <div style="font-size: 11px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; opacity: 0.8;">
+                EXCLUSIVE
             </div>
-            <div style="font-size: 56px; font-weight: 900; line-height: 0.95; letter-spacing: -2px; margin: 1px 0;">
+            <div style="font-size: 82px; font-weight: 900; line-height: 0.85; letter-spacing: -4px; margin: -2px 0;">
                 ${service.discount}%
             </div>
-            <div style="font-size: 13px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;">
-                ${isEn ? "OFF" : "POTONGAN"}
+            <div style="font-size: 16px; font-weight: 900; letter-spacing: 4px; text-transform: uppercase;">
+                OFF
             </div>
         </div>
         ` : ''}
