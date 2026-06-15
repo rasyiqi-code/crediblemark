@@ -6,7 +6,6 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Trash2, CheckSquare, Square, Loader2, ListCheck, Search, X, ArrowUpDown } from "lucide-react";
 import { CreateBulkAddonsDialog } from "./create-bulk-addons-dialog";
-import type { AddonData } from "./edit-addon-dialog";
 
 export type SortOption = "latest" | "oldest" | "price_asc" | "price_desc" | "name_asc";
 
