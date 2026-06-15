@@ -1206,8 +1206,8 @@ export function ExportPdfButton({
                 </div>
                 <p style="font-size: 12.5px; color: #fbbf24; font-weight: 700; margin: 0; line-height: 1.6; letter-spacing: 0.2px;">
                     ${isEn 
-                        ? `✨ Secure this special value today & instantly keep an extra ${formatPriceHelper(service.price - finalPrice)} in your growth budget. <br> * SPECIAL VALUE RATE — APPLIED DIRECTLY AS A STRATEGIC PARTNER APPRECIATION.` 
-                        : `✨ Amankan harga investasi spesial ini sekarang & kunci hemat langsung ${formatPriceHelper(service.price - finalPrice)} untuk dialokasikan ke strategi pertumbuhan bisnis Anda. <br> * JAMINAN HARGA TERBAIK — DIBERIKAN KHUSUS SEBAGAI APRESIASI MITRA STRATEGIS.`
+                        ? `✨ Secure this special value today & instantly keep an extra ${formatPriceHelper(service.price - finalPrice)} in your growth budget — SPECIAL VALUE RATE APPLIED DIRECTLY AS A STRATEGIC PARTNER APPRECIATION.` 
+                        : `✨ Amankan harga investasi spesial ini sekarang & kunci hemat langsung ${formatPriceHelper(service.price - finalPrice)} untuk dialokasikan ke strategi pertumbuhan bisnis Anda — JAMINAN HARGA TERBAIK SEBAGAI APRESIASI MITRA STRATEGIS.`
                     }
                 </p>
             </div>
