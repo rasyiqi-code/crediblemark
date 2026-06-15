@@ -12,6 +12,7 @@ import { Trash2, CheckSquare, Square, Loader2, ListCheck, Search, X, ArrowUpDown
 import { deleteAddons, toggleAddonStatus } from "@/app/actions/addons";
 import { EditAddonDialog, type AddonData } from "./edit-addon-dialog";
 import { CreateBulkAddonsDialog } from "./create-bulk-addons-dialog";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 
 interface AddonListClientProps {
     addons: AddonData[];
@@ -241,90 +242,100 @@ export function AddonListClient({ addons }: AddonListClientProps) {
                 </div>
             ) : (
                 <div className="w-full space-y-4">
-                    {/* Tampilan Mobile: Kartu (block md:hidden) */}
-                    <div className="grid grid-cols-1 gap-3 md:hidden">
-                        {sortedAddons.map((addon) => {
-                            const isSelected = selectedIds.includes(addon.id);
-                            return (
-                                <div 
-                                    key={addon.id}
-                                    onClick={() => isSelectionMode && handleSelectChange(addon.id, !isSelected)}
-                                    className={`p-4 rounded-xl border bg-zinc-950/40 transition-colors flex flex-col gap-3.5 ${
-                                        isSelected 
-                                            ? "border-blue-500/30 bg-blue-500/5" 
-                                            : "border-zinc-850 hover:border-zinc-800"
-                                    } ${isSelectionMode ? "cursor-pointer" : ""}`}
-                                >
-                                    {/* Header Kartu: Checkbox (jika selection mode) + Nama Addon */}
-                                    <div className="flex items-start gap-3">
-                                        {isSelectionMode && (
-                                            <div onClick={(e) => e.stopPropagation()} className="pt-0.5">
-                                                <input
-                                                    type="checkbox"
-                                                    checked={isSelected}
-                                                    onChange={(e) => handleSelectChange(addon.id, e.target.checked)}
-                                                    className="rounded border-zinc-800 text-blue-600 focus:ring-blue-500/20 bg-black/40 w-4 h-4 cursor-pointer"
-                                                />
-                                            </div>
-                                        )}
-                                        <div className="flex-1">
-                                            <span className="font-semibold text-zinc-100 text-sm break-words leading-snug">
-                                                {locale === "id" && addon.name_id ? addon.name_id : addon.name}
-                                            </span>
-                                        </div>
-                                    </div>
-
-                                    {/* Info Detil: Harga & Interval */}
-                                    <div className="flex items-center justify-between border-t border-zinc-900/60 pt-3 text-xs">
-                                        <div className="flex flex-col gap-1">
-                                            <span className="text-zinc-500 uppercase tracking-widest text-[9px] font-bold">Harga</span>
-                                            <span className="font-semibold text-zinc-200">
-                                                {addon.currency === "IDR" 
-                                                    ? `Rp ${Number(addon.price).toLocaleString("id-ID")}` 
-                                                    : `$${Number(addon.price).toFixed(2)}`}
-                                            </span>
-                                        </div>
-
-                                        <div className="flex flex-col gap-1 items-end">
-                                            <span className="text-zinc-500 uppercase tracking-widest text-[9px] font-bold">Interval</span>
-                                            <span className="text-zinc-400 font-medium uppercase tracking-wide text-[10px]">
-                                                {addon.interval === "monthly" 
-                                                    ? "Monthly" 
-                                                    : addon.interval === "yearly" 
-                                                    ? "Yearly" 
-                                                    : "One-time"}
-                                            </span>
-                                        </div>
-                                    </div>
-
-                                    {/* Aksi & Status */}
-                                    <div className="flex items-center justify-between border-t border-zinc-900/60 pt-3">
-                                        <div className="flex items-center gap-2">
-                                            <span className="text-xs text-zinc-400">Status</span>
-                                            <Switch
-                                                checked={addon.isActive}
-                                                onCheckedChange={() => handleToggleActive(addon.id, addon.isActive)}
-                                            />
-                                        </div>
-
-                                        {!isSelectionMode && (
-                                            <Button
-                                                variant="ghost"
-                                                size="sm"
+                    {/* Tampilan Mobile: Accordion (block md:hidden) */}
+                    <div className="md:hidden border border-zinc-850 rounded-xl bg-zinc-950/40 overflow-hidden divide-y divide-zinc-900">
+                        <Accordion type="single" collapsible className="w-full">
+                            {sortedAddons.map((addon) => {
+                                const isSelected = selectedIds.includes(addon.id);
+                                return (
+                                    <AccordionItem 
+                                        key={addon.id} 
+                                        value={addon.id}
+                                        className={`border-b-0 px-4 transition-colors ${
+                                            isSelected 
+                                                ? "bg-blue-500/5" 
+                                                : "hover:bg-white/[0.01]"
+                                        }`}
+                                    >
+                                        <div className="flex items-center gap-3">
+                                            {isSelectionMode && (
+                                                <div className="pt-0.5">
+                                                    <input
+                                                        type="checkbox"
+                                                        checked={isSelected}
+                                                        onChange={(e) => handleSelectChange(addon.id, e.target.checked)}
+                                                        className="rounded border-zinc-800 text-blue-600 focus:ring-blue-500/20 bg-black/40 w-4 h-4 cursor-pointer"
+                                                    />
+                                                </div>
+                                            )}
+                                            
+                                            <AccordionTrigger 
+                                                className="py-3.5 hover:no-underline"
                                                 onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    openEditDialog(addon);
+                                                    // Jika dalam selection mode, klik area baris harus men-toggle checkbox, bukan membuka accordion
+                                                    if (isSelectionMode) {
+                                                        e.preventDefault();
+                                                        handleSelectChange(addon.id, !isSelected);
+                                                    }
                                                 }}
-                                                className="h-8 text-xs font-semibold text-zinc-400 hover:text-white hover:bg-zinc-850 px-2.5 rounded-lg flex items-center gap-1.5"
                                             >
-                                                <Edit className="w-3.5 h-3.5" />
-                                                <span>Edit</span>
-                                            </Button>
-                                        )}
-                                    </div>
-                                </div>
-                            );
-                        })}
+                                                <span className="font-semibold text-zinc-100 text-sm break-words leading-snug pr-2 text-left">
+                                                    {locale === "id" && addon.name_id ? addon.name_id : addon.name}
+                                                </span>
+                                            </AccordionTrigger>
+                                        </div>
+
+                                        <AccordionContent className="pb-4 pt-1 flex flex-col gap-3.5 border-t border-zinc-900/60 mt-1">
+                                            {/* Info Detil: Harga & Interval */}
+                                            <div className="flex items-center justify-between text-xs mt-2">
+                                                <div className="flex flex-col gap-1">
+                                                    <span className="text-zinc-500 uppercase tracking-widest text-[9px] font-bold">Harga</span>
+                                                    <span className="font-semibold text-zinc-200">
+                                                        {addon.currency === "IDR" 
+                                                            ? `Rp ${Number(addon.price).toLocaleString("id-ID")}` 
+                                                            : `$${Number(addon.price).toFixed(2)}`}
+                                                    </span>
+                                                </div>
+
+                                                <div className="flex flex-col gap-1 items-end">
+                                                    <span className="text-zinc-500 uppercase tracking-widest text-[9px] font-bold">Interval</span>
+                                                    <span className="text-zinc-400 font-medium uppercase tracking-wide text-[10px]">
+                                                        {addon.interval === "monthly" 
+                                                            ? "Monthly" 
+                                                            : addon.interval === "yearly" 
+                                                            ? "Yearly" 
+                                                            : "One-time"}
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            {/* Aksi & Status */}
+                                            <div className="flex items-center justify-between border-t border-zinc-900/40 pt-3">
+                                                <div className="flex items-center gap-2">
+                                                    <span className="text-xs text-zinc-400">Status</span>
+                                                    <Switch
+                                                        checked={addon.isActive}
+                                                        onCheckedChange={() => handleToggleActive(addon.id, addon.isActive)}
+                                                    />
+                                                </div>
+
+                                                {!isSelectionMode && (
+                                                    <Button
+                                                        variant="ghost"
+                                                        size="sm"
+                                                        onClick={() => openEditDialog(addon)}
+                                                        className="h-8 text-xs font-semibold text-zinc-400 hover:text-white hover:bg-zinc-850 px-2.5 rounded-lg flex items-center gap-1.5"
+                                                    >
+                                                        <Edit className="w-3.5 h-3.5" />
+                                                        <span>Edit</span>
+                                                    </Button>
+                                                )}
+                                            </div>
+                                        </AccordionContent>
+                                    </AccordionItem>
+                                );
+                            })}
+                        </Accordion>
                     </div>
 
                     {/* Tampilan Desktop: Tabel (hidden md:block) */}
