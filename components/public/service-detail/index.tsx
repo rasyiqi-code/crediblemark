@@ -94,6 +94,7 @@ export function ServiceDetailContent({ service, isId, trustedAvatars = [], globa
                     displayTitle={displayTitle}
                     intervalLabel={intervalLabel}
                     selectedAddons={selectedAddons}
+                    displayAddons={displayAddons}
                 />
 
                 <div className="max-w-6xl mx-auto px-6 md:px-8 space-y-24 pb-32">

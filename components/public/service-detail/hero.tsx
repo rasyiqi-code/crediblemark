@@ -11,9 +11,10 @@ interface ServiceHeroProps {
     displayTitle: string;
     intervalLabel: string;
     selectedAddons: AddonType[];
+    displayAddons: AddonType[];
 }
 
-export function ServiceHero({ service, displayTitle, intervalLabel, selectedAddons }: ServiceHeroProps) {
+export function ServiceHero({ service, displayTitle, intervalLabel, selectedAddons, displayAddons }: ServiceHeroProps) {
     const tService = useTranslations("Service");
 
     return (
@@ -31,7 +32,7 @@ export function ServiceHero({ service, displayTitle, intervalLabel, selectedAddo
                             <ExportPdfButton 
                                 service={service} 
                                 variant="button" 
-                                globalAddons={selectedAddons.map(addon => ({
+                                globalAddons={displayAddons.map(addon => ({
                                     id: addon.id,
                                     name: addon.name,
                                     name_id: addon.name_id,
