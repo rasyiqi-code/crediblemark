@@ -58,9 +58,10 @@ Input Details:
 - Output Language: ${isEn ? 'English' : 'Indonesian'}
 
 Rules:
-1. ADDON NAME:
+1. ADDON NAME & FOCUS (CRITICAL):
    - Create a professional, clear, and high-value name for the addon.
    - The name MUST be written in ${isEn ? 'English (e.g. "Payment Gateway Integration")' : 'Indonesian (e.g. "Integrasi Payment Gateway")'}.
+   - Batasi ruang lingkup teknis (job description) addon ini HANYA pada satu fokus tugas spesifik yang diminta. Dilarang keras mencampurkan beberapa tanggung jawab teknis yang berbeda ke dalam satu addon (misal: jika ide user tentang integrasi WhatsApp, fokus hanya pada gateway chat/komunikasi tersebut, jangan mencampurkan setup analitik, backup, atau optimasi SEO).
    
 2. PRICING & INTERVAL:
    - Currency MUST be "${currency}".

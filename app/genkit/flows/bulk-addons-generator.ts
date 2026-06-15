@@ -66,9 +66,21 @@ ${existingAddonsText}
 
 Rules:
 1. QUANTITY: Hasilkan TEPAT ${count} addon dalam array. Tidak boleh kurang atau lebih.
-2. UNIQUENESS (CRITICAL):
-   - Kamu HARUS memastikan tidak ada addon yang dihasilkan menduplikasi atau mirip dengan daftar addon yang sudah ada saat ini.
-   - Pikirkan ide addon layanan kreatif yang relevan (optimasi kecepatan, SEO booster, setup analitik, integrasi platform kustom, audit keamanan, dll).
+2. UNIQUENESS & TECHNICAL DIFFERENTIATION (CRITICAL):
+   - Kamu HARUS memastikan tidak ada addon yang dihasilkan menduplikasi, mirip, atau memiliki fungsi yang tumpang tindih dengan daftar addon yang sudah ada saat ini.
+   - Setiap dari ${count} addon yang dihasilkan HARUS memiliki area fokus teknis (job description) yang terisolasi dan spesifik.
+   - Distribusikan addon ke dalam domain teknis yang berbeda agar tidak terjadi bentrokan area jobdisc, misalnya:
+     * Keamanan/Security (e.g., Security Hardening, SSL, & Firewall Setup)
+     * Analitik/Tracking (e.g., Google Analytics 4 & Event Tracking Setup)
+     * Komunikasi/Notifikasi (e.g., WhatsApp Gateway API Integration)
+     * Kecepatan/Kinerja (e.g., Caching, Core Web Vitals, & CDN Optimization)
+     * SEO/Metadata (e.g., Advanced Schema Markup & Sitemap Automation)
+     * Interaksi/Fungsionalitas User (e.g., Interactive Booking & Appointment Calendar)
+     * Otomasi/AI (e.g., Customer Support AI Chatbot Integration)
+     * Backup/Pemeliharaan (e.g., Automated Daily Cloud Backup System)
+     * Integrasi CRM/Email Marketing (e.g., Mailchimp Newsletter Synchronization)
+     * E-commerce/Keuangan (e.g., PDF Invoice Auto-generator & Tax Rules Setup)
+   - DILARANG KERAS membuat dua addon yang melakukan pekerjaan sejenis dalam paket rilis yang sama (misalnya: tidak boleh ada "Facebook Pixel Setup" dan "TikTok Pixel Setup" terpisah; gabungkan ke "Multi-Platform Pixel Setup" atau pilih salah satu saja).
 3. LANGUAGE:
    - "name": Nama addon dalam Bahasa Inggris (misal: "Google Analytics 4 & Custom Dashboards Setup").
    - "name_id": Terjemahan nama addon dalam Bahasa Indonesia (misal: "Setup Google Analytics 4 & Dashboard Kustom").
