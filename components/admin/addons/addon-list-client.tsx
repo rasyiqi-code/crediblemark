@@ -11,6 +11,7 @@ import { Switch } from "@/components/ui/switch";
 import { Trash2, CheckSquare, Square, Loader2, ListCheck, Search, X, ArrowUpDown, Edit } from "lucide-react";
 import { deleteAddons, toggleAddonStatus } from "@/app/actions/addons";
 import { EditAddonDialog, type AddonData } from "./edit-addon-dialog";
+import { CreateBulkAddonsDialog } from "./create-bulk-addons-dialog";
 
 interface AddonListClientProps {
     addons: AddonData[];
@@ -140,6 +141,10 @@ export function AddonListClient({ addons }: AddonListClientProps) {
                         <ListCheck className="w-3.5 h-3.5" />
                         <span>{isSelectionMode ? t("cancelSelectMode") : t("selectMode")}</span>
                     </Button>
+
+                    {!isSelectionMode && (
+                        <CreateBulkAddonsDialog existingAddonNames={addons.map(a => a.name)} />
+                    )}
 
                     {isSelectionMode && (
                         <>
