@@ -1193,37 +1193,40 @@ export function ExportPdfButton({
         <!-- Investasi Layanan -->
         <div class="body-section" style="margin-bottom: 25px;">
             <h3 class="body-section-title">${tInvestTitle}</h3>
+            ${service.discount && service.discount > 0 ? `
+            <!-- Card Penawaran Eksklusif Terpisah -->
+            <div style="margin-bottom: 12px; padding: 12px 16px; border: 1.5px dashed #fbbf24; background: rgba(251, 191, 36, 0.02); border-radius: 8px;">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+                    <span style="font-size: 11px; font-weight: 800; color: #000000; background: #fbbf24; padding: 3px 8px; border-radius: 4px; letter-spacing: 0.5px; text-transform: uppercase; display: inline-block;">
+                        ${isEn ? `SPECIAL OFFER: SAVE ${service.discount}%` : `PENAWARAN EKSKLUSIF: HEMAT ${service.discount}%`}
+                    </span>
+                    <span style="font-size: 13px; text-decoration: line-through; color: #71717a; font-weight: 500;">
+                        ${isEn ? `Original Price: ${formatPriceHelper(service.price)}` : `Harga Normal: ${formatPriceHelper(service.price)}`}
+                    </span>
+                </div>
+                <p style="font-size: 12.5px; color: #ffffff; font-weight: 600; margin: 0; line-height: 1.5; letter-spacing: 0.2px;">
+                    ${isEn 
+                        ? `✨ Secure this special value & instantly keep an extra ${formatPriceHelper(service.price - finalPrice)} in your growth budget` 
+                        : `✨ Amankan penawaran bernilai tinggi ini & simpan langsung surplus ${formatPriceHelper(service.price - finalPrice)} untuk anggaran pertumbuhan Anda`
+                    }
+                </p>
+            </div>
+            ` : ''}
+
+            <!-- Card Utama Harga Bersih & Skema Pembayaran -->
             <div class="pricing-banner">
                 <div class="pricing-info">
-                    <div style="display: flex; flex-direction: column; gap: 4px;">
-                        <span style="font-size: 12px; text-transform: uppercase; color: #ffffff; letter-spacing: 0.5px;">${tBaseInvestLabel}</span>
-                        ${service.discount && service.discount > 0 ? `
-                            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 4px; margin-bottom: 4px;">
-                                <span style="font-size: 16px; text-decoration: line-through; color: #71717a; font-weight: 500;">
-                                    ${formatPriceHelper(service.price)}
-                                </span>
-                                <span style="font-size: 15px; font-weight: 800; color: #fbbf24; background: rgba(251, 191, 36, 0.1); border: 1px dashed #fbbf24; padding: 3px 10px; border-radius: 4px; letter-spacing: 0.5px; display: inline-block;">
-                                    ${isEn ? `SPECIAL OFFER: SAVE ${service.discount}%` : `PENAWARAN EKSKLUSIF: HEMAT ${service.discount}%`}
-                                </span>
-                            </div>
-                            <div style="font-size: 12px; color: #fbbf24; font-weight: 600; margin-bottom: 4px; letter-spacing: 0.2px;">
-                                ${isEn 
-                                    ? `✨ Secure this special value & instantly keep an extra ${formatPriceHelper(service.price - finalPrice)} in your growth budget` 
-                                    : `✨ Amankan penawaran bernilai tinggi ini & simpan langsung surplus ${formatPriceHelper(service.price - finalPrice)} untuk anggaran pertumbuhan Anda`
-                                }
-                            </div>
-                        ` : ''}
-                    </div>
-                    <span class="pricing-price">${formattedPrice}</span>
+                    <span style="font-size: 12px; text-transform: uppercase; color: #ffffff; letter-spacing: 0.5px;">${tBaseInvestLabel}</span>
+                    <span class="pricing-price" style="margin-top: 4px; line-height: 1.1;">${formattedPrice}</span>
                     ${service.discount && service.discount > 0 ? `
-                        <span style="font-size: 11px; color: #a1a1aa; text-transform: uppercase; letter-spacing: 0.8px; display: block; margin-top: 4px; font-weight: 500;">
+                        <span style="font-size: 11px; color: #fbbf24; text-transform: uppercase; letter-spacing: 0.8px; display: block; margin-top: 6px; font-weight: 700;">
                             ${isEn ? "* Guaranteed promotional rate shown above" : "* Nominal di atas adalah harga investasi spesial setelah potongan langsung"}
                         </span>
                     ` : ''}
                 </div>
                 <div style="text-align: right;">
                     <span style="font-size: 12px; text-transform: uppercase; color: #ffffff; letter-spacing: 0.5px;">${tPaymentScheme}</span>
-                    <span style="font-size: 17px; font-weight: 600; color: #ffffff; display: block;">${intervalLabel}</span>
+                    <span style="font-size: 17px; font-weight: 600; color: #ffffff; display: block; margin-top: 4px;">${intervalLabel}</span>
                 </div>
             </div>
 
