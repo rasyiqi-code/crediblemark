@@ -124,7 +124,7 @@ export function CreateBulkAddonsDialog({ existingAddonNames }: CreateBulkAddonsD
                     <span>AI Magic Draft</span>
                 </Button>
             </DialogTrigger>
-            <DialogContent className={`bg-zinc-950 border-zinc-800 text-zinc-200 transition-all duration-300 ${drafts.length > 0 ? "sm:max-w-[750px]" : "sm:max-w-[500px]"}`}>
+            <DialogContent className={`bg-zinc-950 border-zinc-800 text-zinc-200 transition-all duration-300 ${drafts.length > 0 ? "sm:max-w-[750px] md:max-w-[850px] lg:max-w-[950px] w-full" : "sm:max-w-[500px]"}`}>
                 <DialogHeader>
                     <DialogTitle className="text-white text-lg font-bold flex items-center gap-2">
                         <Sparkles className="w-5 h-5 text-amber-400" />
@@ -135,9 +135,9 @@ export function CreateBulkAddonsDialog({ existingAddonNames }: CreateBulkAddonsD
                     </DialogDescription>
                 </DialogHeader>
 
-                <div className="space-y-4 py-2">
+                <div className={`py-2 ${drafts.length > 0 ? "grid grid-cols-1 md:grid-cols-12 gap-6 items-start" : "space-y-4"}`}>
                     {/* Panel Input Prompt & Parameter */}
-                    <div className="space-y-3 bg-zinc-900/40 p-4 border border-zinc-900 rounded-xl">
+                    <div className={`space-y-3 bg-zinc-900/40 p-4 border border-zinc-900 rounded-xl ${drafts.length > 0 ? "md:col-span-4" : ""}`}>
                         <div className="space-y-2">
                             <Label htmlFor="bulk-prompt" className="text-[10px] text-zinc-500 uppercase tracking-widest font-bold">Topik / Tema Panduan (Opsional)</Label>
                             <Input
@@ -150,7 +150,7 @@ export function CreateBulkAddonsDialog({ existingAddonNames }: CreateBulkAddonsD
                             />
                         </div>
 
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className={`grid gap-4 ${drafts.length > 0 ? "grid-cols-1" : "grid-cols-2"}`}>
                             <div className="space-y-2">
                                 <Label htmlFor="bulk-currency" className="text-[10px] text-zinc-500 uppercase tracking-widest font-bold">Mata Uang Target</Label>
                                 <Select value={currency} onValueChange={(val: "USD" | "IDR") => setCurrency(val)} disabled={isGenerating || isPending}>
@@ -164,7 +164,7 @@ export function CreateBulkAddonsDialog({ existingAddonNames }: CreateBulkAddonsD
                                 </Select>
                             </div>
 
-                            <div className="flex items-end">
+                            <div className="flex items-end w-full">
                                 <Button
                                     type="button"
                                     onClick={handleGenerateAI}
@@ -189,7 +189,7 @@ export function CreateBulkAddonsDialog({ existingAddonNames }: CreateBulkAddonsD
 
                     {/* Panel Hasil Draf Addon */}
                     {drafts.length > 0 && (
-                        <div className="space-y-3 animate-in fade-in-50 slide-in-from-bottom-2 duration-300">
+                        <div className="md:col-span-8 space-y-3 animate-in fade-in-50 slide-in-from-bottom-2 duration-300">
                             <div className="flex items-center justify-between border-b border-zinc-850 pb-2">
                                 <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider">
                                     Hasil Draf AI ({selectedIndexes.length}/{drafts.length} Terpilih)
@@ -215,7 +215,7 @@ export function CreateBulkAddonsDialog({ existingAddonNames }: CreateBulkAddonsD
                                 </Button>
                             </div>
 
-                            <div className="max-h-[300px] overflow-y-auto border border-zinc-850 rounded-xl bg-zinc-950/60 divide-y divide-zinc-900 scrollbar-thin">
+                            <div className="max-h-[400px] overflow-y-auto border border-zinc-850 rounded-xl bg-zinc-950/60 divide-y divide-zinc-900 scrollbar-thin">
                                 <table className="w-full text-left border-collapse text-zinc-300">
                                     <thead>
                                         <tr className="bg-zinc-900/20 border-b border-zinc-900 text-[10px] uppercase tracking-wider text-zinc-500">
