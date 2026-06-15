@@ -41,58 +41,19 @@ export const serviceAddonsGeneratorFlow = ai.defineFlow(
         const discount = input.discount;
         const currency = input.currency;
         const interval = input.interval;
-        const requestedScale = input.targetBusinessScale || 'AUTO';
 
-        const scaleLabels: Record<string, string> = {
-            'ULTRA_MICRO': 'Ultra Mikro (UMi)',
-            'MICRO': 'Mikro',
-            'SMALL': 'Kecil',
-            'MEDIUM': 'Menengah (SME)',
-            'ENTERPRISE': 'Besar (Enterprise)',
-            'AUTO': 'Deteksi Otomatis (Insting AI)'
-        };
-        const activeScaleLabel = scaleLabels[requestedScale] || scaleLabels['AUTO'];
-
-        // Hitung harga konsumen untuk referensi skala bisnis
+        // Hitung harga konsumen untuk referensi
         const consumerPrice = discount > 0 ? basePrice * (1 - (discount / 100)) : basePrice;
 
-        // Aturan penentuan harga addon berdasarkan infrastruktur & kompleksitas fitur kustom secara realistis
-        let addonsPricingRule = "";
-        
-        // Aturan umum penentuan harga domain (selalu murah & realistis di semua skala bisnis)
-        const domainRule = `- Domain Registration: IDR 149,000 - 245,000/year (USD 10 - 20/year) (interval: yearly). (Sangat penting: ini biaya domain standar di pasaran, jangan dipasang mahal meskipun skala bisnisnya besar).`;
-
-        // Aturan penentuan harga custom addon berdasarkan kompleksitas teknis (bukan harga jasa utama)
-        const customComplexityRule = `- Custom Functional/Business Addons (Harganya HARUS didasarkan murni pada kompleksitas teknis fiturnya, BUKAN berdasarkan harga layanan utama):
+        // Aturan penentuan harga addon berdasarkan infrastruktur & kompleksitas fitur kustom secara realistis (tanpa memandang skala bisnis/harga jasa)
+        const addonsPricingRule = `You MUST strictly select the pricing of the addons from these ranges:
+- **Hosting**: IDR 35,000 - 150,000/month OR IDR 350,000 - 1,500,000/year (USD 3 - 15/month OR USD 30 - 150/year). (Selalu gunakan harga hosting yang terjangkau dan realistis).
+- **Domain Registration**: IDR 149,000 - 245,000/year (USD 10 - 20/year) (interval: yearly). (Penting: ini biaya domain standar di pasaran untuk semua kalangan).
+- **Maintenance & Support**: IDR 99,000 - 390,000/month (USD 9 - 39/month).
+- **Custom Functional/Business Addons** (Harganya didasarkan murni pada kompleksitas teknis fiturnya, BUKAN berdasarkan skala bisnis client atau harga layanan utama):
   * Low Complexity (misal: widget sederhana, link sosmed, tracking pixel, form kontak dasar): IDR 190,000 - 490,000 / USD 19 - 49.
   * Medium Complexity (misal: integrasi WhatsApp gateway, multi-bahasa, kalender/booking, filter pencarian kustom): IDR 490,000 - 1,490,000 / USD 49 - 149.
   * High Complexity (misal: payment gateway, AI chatbot kustom 24/7, sinkronisasi CRM, sistem membership/poin loyalitas, dashboard penjualan): IDR 1,490,000 - 3,990,000 / USD 149 - 399.`;
-
-        if (requestedScale === "ULTRA_MICRO" || requestedScale === "MICRO") {
-            addonsPricingRule = `The target business scale is \`ULTRA_MICRO\` / \`MICRO\`. You MUST strictly select the pricing of the addons from these ranges:
-- Hosting: IDR 35,000 - 75,000/month OR IDR 350,000 - 750,000/year (USD 3 - 7/month OR USD 30 - 70/year).
-${domainRule}
-- Maintenance & Support: IDR 99,000 - 195,000/month (USD 9 - 19/month).
-${customComplexityRule}`;
-        } else if (requestedScale === "SMALL" || requestedScale === "MEDIUM") {
-            addonsPricingRule = `The target business scale is \`SMALL\` / \`MEDIUM\` (SME). You MUST strictly select the pricing of the addons from these ranges:
-- Hosting: IDR 75,000 - 195,000/month OR IDR 750,000 - 1,950,000/year (USD 7 - 19/month OR USD 70 - 190/year).
-${domainRule}
-- Maintenance & Support: IDR 190,000 - 490,000/month (USD 19 - 49/month).
-${customComplexityRule}`;
-        } else if (requestedScale === "ENTERPRISE") {
-            addonsPricingRule = `The target business scale is \`ENTERPRISE\`. You MUST strictly select the pricing of the addons from these ranges:
-- Hosting (VPS/Cloud Enterprise): IDR 195,000 - 495,000/month OR IDR 1,950,000 - 4,950,000/year (USD 19 - 49/month OR USD 190 - 490/year).
-${domainRule}
-- Maintenance & Support: IDR 490,000 - 990,000/month (USD 49 - 99/month).
-${customComplexityRule}`;
-        } else {
-            addonsPricingRule = `Determine a realistic price for the addons matching a standard business scale.
-- Hosting: IDR 35k - 495k/month OR IDR 350k - 4.95M/year (USD 3 - 49/month OR USD 30 - 490/year).
-${domainRule}
-- Maintenance & Support: IDR 99k - 990k/month (USD 9 - 99/month).
-${customComplexityRule}`;
-        }
 
         const { output } = await ai.generate({
             model: `googleai/${model}`,
@@ -110,7 +71,6 @@ Service Profile:
 - Description: "${sanitizedDesc}"
 - Base Price: ${currency} ${basePrice} (Consumer Price: ${currency} ${consumerPrice})
 - Interval: ${interval}
-- Target Business Scale: \`${activeScaleLabel}\`
 
 Rules:
 1. MANDATORY ADD-ONS REQUIREMENT (CRITICAL):
@@ -132,7 +92,7 @@ Rules:
      * Total Base Yearly = 3,000,000 (hosting) + 250,000 (domain) + 6,000,000 (maintenance) = IDR 9,250,000.
      * All-in-One price (with 10% discount) = 9,250,000 * 0.9 = IDR 8,325,000.
      * Final charm rounded price: IDR 8,290,000/yearly or IDR 8,350,000/yearly.
-   - CRITICAL: The yearly All-in-One price MUST be a large yearly sum matching the calculated sum of the components. Typical ranges: IDR 1.5M - 3.5M for \`UMi\`/\`Mikro\`, IDR 3M - 6M for \`Small\`/\`Medium\`, and IDR 6M - 15M for \`Enterprise\`. Never output low monthly-like numbers (like IDR 200k) for the yearly price!
+   - CRITICAL: The yearly All-in-One price MUST be a large yearly sum matching the calculated sum of the components. Typical range: IDR 1,500,000 - 5,500,000/year or USD 150 - 550/year. Never output low monthly-like numbers (like IDR 200k) for the yearly price!
 
 3. CUSTOM FUNCTIONAL & BUSINESS ADD-ONS (MANDATORY 3-6 ITEMS):
    In addition to the four mandatory infrastructure add-ons above, you MUST generate 3-6 custom, highly valuable, and essential business/functional add-ons tailored specifically to the service's industry context. These add-ons must solve practical business pain points, drive revenue, or automate operations for the client.
@@ -149,7 +109,7 @@ Rules:
    - Never limit database/CMS features (e.g. DO NOT limit products, categories, or image uploads). The client must have unlimited CMS capability.
    - Limit/quota fields MUST only apply to our manual deliverables (e.g. "3 Articles/Month", "Up to 3 Custom APIs Setup", "4 Hours/Month Support").
 
-5. PRICING & TARGET BUSINESS SCALE ADJUSTMENT:
+5. PRICING & REALISTIC PRICING ADJUSTMENT:
    - Addon currency must be "${currency}".
    - ${addonsPricingRule}
    - CRITICAL: DO NOT use the Base Price of the main service to scale or determine the price of custom addons. Addon prices must be determined solely by their technical complexity as specified above, regardless of the main service price.
