@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { updateService } from "@/app/actions/services";
+import { generateServiceContentAction, generateServicePricingAction } from "@/app/actions/genkit";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RichTextEditorClient } from "@/components/ui/rich-text-editor-client";
@@ -98,16 +99,7 @@ export function EditServiceForm({
         if (!prompt.trim()) return;
         setIsGenerating(true);
         try {
-            const res = await fetch("/api/genkit/generate-service", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    type: "content",
-                    prompt: prompt,
-                    targetBusinessScale: businessScale
-                })
-            });
-            const result = await res.json();
+            const result = await generateServiceContentAction(prompt);
 
             if (result.success && result.data) {
                 const draft = result.data;
@@ -167,21 +159,15 @@ export function EditServiceForm({
             const features = formData.get("features") ? (formData.get("features") as string).split('\n').filter(Boolean) : [];
             const features_id = formData.get("features_id") ? (formData.get("features_id") as string).split('\n').filter(Boolean) : [];
 
-            const res = await fetch("/api/genkit/generate-service", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    type: "pricing",
-                    title,
-                    title_id,
-                    description,
-                    description_id,
-                    features,
-                    features_id,
-                    targetBusinessScale: businessScale
-                })
+            const result = await generateServicePricingAction({
+                title,
+                title_id,
+                description,
+                description_id,
+                features,
+                features_id,
+                targetBusinessScale: businessScale
             });
-            const result = await res.json();
 
             if (result.success && result.data) {
                 const pricing = result.data;
