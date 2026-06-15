@@ -8,6 +8,7 @@ import { useLocale } from "next-intl";
 import idMessages from "@/messages/id.json";
 import enMessages from "@/messages/en.json";
 import { getAgencyLogo, getCompanyStamp, getDirectorSignature } from "@/app/actions/system-admin";
+import { useSafeUser } from "@/hooks/use-safe-user";
 
 interface ServiceData {
     id: string;
@@ -33,6 +34,7 @@ export function ExportPdfButton({
     service: ServiceData;
     variant?: "icon" | "button";
 }) {
+    const { user } = useSafeUser();
     const [isGenerating, setIsGenerating] = useState(false);
     const [logoUrl, setLogoUrl] = useState<string | null>(null);
     const [stampUrl, setStampUrl] = useState<string | null>(null);
@@ -181,6 +183,7 @@ export function ExportPdfButton({
         const tCoverSub = messages.ProposalExport.coverSub;
         const tPreparedFor = messages.ProposalExport.preparedFor;
         const tValuedClient = messages.ProposalExport.valuedClient;
+        const clientName = user?.displayName || tValuedClient;
         const tProposalDate = messages.ProposalExport.proposalDate;
 
         // Lokalisasi dinamis untuk judul Section
@@ -1073,7 +1076,7 @@ export function ExportPdfButton({
             <div class="cover-footer">
                 <div>
                     <div class="metadata-label">${tPreparedFor}</div>
-                    <div class="metadata-value">${tValuedClient}</div>
+                    <div class="metadata-value">${clientName}</div>
                 </div>
                 <div style="text-align: right;">
                     <div class="metadata-label">${tProposalDate}</div>
