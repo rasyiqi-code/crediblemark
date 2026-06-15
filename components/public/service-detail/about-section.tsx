@@ -78,13 +78,15 @@ export function AboutSection({ service, displayDescription, displayAddons, selec
                                         </div>
                                         <div className="flex flex-col">
                                             <span className={`text-xs md:text-sm font-bold tracking-tight ${isSelected ? 'text-brand-yellow' : 'text-zinc-300'}`}>{addon.name}</span>
-                                            {addon.interval && addon.interval !== "one_time" && (
-                                                <span className="text-[9px] text-zinc-500 uppercase font-black tracking-widest">{addon.interval}</span>
-                                            )}
                                         </div>
                                     </div>
-                                    <div className="text-xs md:text-sm font-black text-white ml-3 whitespace-nowrap">
-                                        +<PriceDisplay amount={addon.price} baseCurrency={(addon.currency as "USD" | "IDR") || (service.currency as "USD" | "IDR") || 'USD'} compact={true} />
+                                    <div className="flex flex-col items-end shrink-0 ml-3 whitespace-nowrap">
+                                        <span className="text-xs md:text-sm font-black text-white">
+                                            +<PriceDisplay amount={addon.price} baseCurrency={(addon.currency as "USD" | "IDR") || (service.currency as "USD" | "IDR") || 'USD'} compact={true} />
+                                        </span>
+                                        {addon.interval && addon.interval !== "one_time" && (
+                                            <span className="text-[9px] text-zinc-500 uppercase font-black tracking-widest mt-0.5">{addon.interval}</span>
+                                        )}
                                     </div>
                                 </div>
                             );

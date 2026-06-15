@@ -55,17 +55,19 @@ export function StickyCTA({ service, intervalLabel, selectedAddons }: StickyCTAP
                     {/* Bagian Kanan - Harga & Tombol */}
                     <div className="flex items-center gap-4 md:gap-6 shrink-0">
                         {/* Harga (Desktop Only) */}
-                        <div className="hidden sm:flex items-baseline gap-1.5 text-right select-none">
-                            {priceSuffix && (
-                                <span className="text-[9px] md:text-xs font-medium text-zinc-500 pb-0.5">
-                                    {priceSuffix}
+                        <div className="hidden sm:flex flex-col items-end gap-0 text-right select-none">
+                            <div className="flex items-baseline gap-1">
+                                {priceSuffix && (
+                                    <span className="text-[9px] md:text-[10px] font-medium text-zinc-500 pb-0.5">
+                                        {priceSuffix}
+                                    </span>
+                                )}
+                                <span className="text-base md:text-xl font-black text-brand-yellow tracking-tighter">
+                                    <PriceDisplay amount={totalPrice} baseCurrency={baseCurrency} compact={true} />
                                 </span>
-                            )}
-                            <span className="text-lg md:text-2xl font-black text-brand-yellow tracking-tighter">
-                                <PriceDisplay amount={totalPrice} baseCurrency={baseCurrency} compact={true} />
-                            </span>
-                            <span className="text-[9px] md:text-[10px] font-bold text-zinc-500 uppercase tracking-widest">
-                                / {intervalLabel}
+                            </div>
+                            <span className="text-[8px] md:text-[9px] font-extrabold text-zinc-500 uppercase tracking-widest mt-[-2px]">
+                                {intervalLabel}
                             </span>
                         </div>
 
@@ -74,7 +76,7 @@ export function StickyCTA({ service, intervalLabel, selectedAddons }: StickyCTAP
                             serviceId={service.id}
                             interval={service.interval}
                             selectedAddons={selectedAddons}
-                            className="bg-brand-yellow hover:bg-brand-yellow/90 text-black px-5 md:px-6 py-2 md:py-2.5 rounded-none font-black text-[10px] md:text-[11px] uppercase tracking-widest shadow-lg shadow-brand-yellow/20 transition-all hover:scale-[1.05] active:scale-[0.95] shrink-0 !w-auto"
+                            className="bg-brand-yellow hover:bg-brand-yellow/90 text-black px-5 py-2 rounded-none font-black text-[10px] uppercase tracking-widest shadow-lg shadow-brand-yellow/20 transition-all hover:scale-[1.03] active:scale-[0.95] shrink-0 !w-auto"
                         />
                     </div>
                 </div>
