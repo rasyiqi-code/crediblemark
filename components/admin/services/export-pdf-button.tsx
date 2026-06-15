@@ -1040,6 +1040,19 @@ export function ExportPdfButton({
     <!-- HALAMAN 1: COVER -->
     <div class="page page-cover">
         <div class="cover-top-accent"></div>
+        ${service.discount && service.discount > 0 ? `
+        <div style="position: absolute; top: 45px; right: 45px; z-index: 10; text-align: center; color: #000000; transform: rotate(12deg); font-family: 'Plus Jakarta Sans', sans-serif; pointer-events: none;">
+            <div style="font-size: 13px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.85;">
+                ${isEn ? "SAVE" : "HEMAT"}
+            </div>
+            <div style="font-size: 56px; font-weight: 900; line-height: 0.95; letter-spacing: -2px; margin: 1px 0;">
+                ${service.discount}%
+            </div>
+            <div style="font-size: 13px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;">
+                ${isEn ? "OFF" : "POTONGAN"}
+            </div>
+        </div>
+        ` : ''}
         <div class="cover-top-accent-sub"></div>
         <div class="cover-bottom-accent"></div>
         <div class="cover-bottom-stripes"></div>
