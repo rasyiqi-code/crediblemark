@@ -22,10 +22,10 @@ export function RepairFAQ({ locale }: RepairFAQProps) {
     // Data FAQ khusus untuk Jasa Perbaikan Website (Vibecoding Rescue)
     const faqData: FAQItem[] = [
         {
-            qId: "Apa itu \"vibecoding\" dan mengapa website saya bisa bermasalah karenanya?",
-            aId: "Vibecoding adalah tren di mana kode ditulis secara instan menggunakan AI tanpa pemahaman arsitektur yang mendalam. Ini sering menghasilkan kode yang tidak efisien (bloated), penuh bug tersembunyi, memiliki celah keamanan, dan sangat sulit untuk dikembangkan lebih lanjut. Kami merapikan dan menulis ulang kode tersebut menjadi modular, cepat, dan mudah dirawat.",
-            qEn: "What is \"vibecoding\" and why does it cause problems on my website?",
-            aEn: "Vibecoding is the trend of instantly generating code using AI without a deep understanding of architecture. This often results in bloated, inefficient code with hidden bugs, security vulnerabilities, and major maintainability issues. We clean up and refactor this spaghetti code into modular, fast, and maintainable systems.",
+            qId: "Saya memesan website dari agensi/freelancer lain, tetapi hasilnya sangat lambat dan penuh error. Bisakah diperbaiki di sini?",
+            aId: "Sangat bisa. Ini adalah salah satu masalah paling umum saat ini. Banyak penyedia jasa pembuatan website murah melakukan 'vibecoding'—membuat website secara cepat menggunakan AI tanpa memahami struktur arsitektur yang aman dan efisien. Kami akan mengaudit sistem tersebut, memperbaiki fungsi yang rusak, dan menulis ulang kodenya secara rapi dan profesional agar website berjalan cepat dan aman.",
+            qEn: "I bought a website from a freelancer/agency, but it is slow and buggy. Can you fix it?",
+            aEn: "Yes, absolutely. This is one of the most common issues we solve. Many cheap website providers rely on 'vibecoding'—instantly generating code using AI with no regard for security or performance. We audit the system, resolve structural crashes, and clean up the codebase to meet industry standards.",
         },
         {
             qId: "Teknologi atau framework apa saja yang bisa diperbaiki di sini?",
