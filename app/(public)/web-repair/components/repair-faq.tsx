@@ -22,10 +22,10 @@ export function RepairFAQ({ locale }: RepairFAQProps) {
     // Data FAQ khusus untuk Jasa Perbaikan Website (Vibecoding Rescue)
     const faqData: FAQItem[] = [
         {
-            qId: "Saya memesan website dari agensi/freelancer lain, tetapi hasilnya sangat lambat dan penuh error. Bisakah diperbaiki di sini?",
-            aId: "Sangat bisa. Ini adalah salah satu masalah paling umum saat ini. Banyak penyedia jasa pembuatan website murah melakukan 'vibecoding'—membuat website secara cepat menggunakan AI tanpa memahami struktur arsitektur yang aman dan efisien. Kami akan mengaudit sistem tersebut, memperbaiki fungsi yang rusak, dan menulis ulang kodenya secara rapi dan profesional agar website berjalan cepat dan aman.",
-            qEn: "I bought a website from a freelancer/agency, but it is slow and buggy. Can you fix it?",
-            aEn: "Yes, absolutely. This is one of the most common issues we solve. Many cheap website providers rely on 'vibecoding'—instantly generating code using AI with no regard for security or performance. We audit the system, resolve structural crashes, and clean up the codebase to meet industry standards.",
+            qId: "Website hasil pengerjaan vibecoding saya sangat lambat dan penuh error. Apakah bisa diperbaiki di sini?",
+            aId: "Sangat bisa. Ini adalah masalah utama yang kami selesaikan. Pengembangan web secara instan menggunakan AI (vibecoding) tanpa pemahaman struktur dasar seringkali meninggalkan banyak bug tersembunyi dan performa buruk. Kami mendiagnosis sistem tersebut, memperbaiki fungsi yang rusak, dan menulis ulang kodenya secara rapi dan profesional agar website berjalan cepat dan aman.",
+            qEn: "My website built via vibecoding is slow and buggy. Can it be repaired here?",
+            aEn: "Yes, absolutely. This is our core expertise. Building websites instantly using AI tools (vibecoding) without structured architecture often leaves behind critical bugs and poor performance. We audit the code, repair broken functions, and rebuild the system using clean industry standards.",
         },
         {
             qId: "Teknologi atau framework apa saja yang bisa diperbaiki di sini?",

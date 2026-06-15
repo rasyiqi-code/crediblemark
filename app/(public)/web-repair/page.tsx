@@ -22,11 +22,11 @@ export async function generateMetadata(
     const pageSeo = await getPageSeo("/web-repair");
 
     const defaultTitle = isId 
-        ? `Jasa Perbaikan Website Hasil Pembelian Pihak Ketiga | ${brand}`
-        : `Fix Your Outsourced Website & Code Rescue | ${brand}`;
+        ? `Jasa Perbaikan Website & Kode Hasil Vibecoding | ${brand}`
+        : `Fix Your Website & Vibecoding Code Rescue | ${brand}`;
     const defaultDesc = isId 
-        ? "Jasa perbaikan website lambat, penuh bug, dan berantakan akibat pengerjaan murah atau vibecoding oleh pihak ketiga. Refactoring kode menjadi clean-code standar industri."
-        : "Rescue slow, buggy, or unmaintainable websites delivered by low-cost providers. We refactor spaghetti code into high-performance, modular systems.";
+        ? "Jasa perbaikan website lambat, penuh bug, dan berantakan akibat pengerjaan vibecoding secara instan. Refactoring kode menjadi clean-code standar industri."
+        : "Rescue slow, buggy, or unmaintainable websites built via vibecoding. We refactor spaghetti code into high-performance, modular systems.";
 
     const title = (isId ? pageSeo?.title_id : null) || pageSeo?.title || defaultTitle;
     const description = (isId ? pageSeo?.description_id : null) || pageSeo?.description || defaultDesc;
@@ -128,19 +128,21 @@ export default async function WebRepairLandingPage() {
                     </div>
 
                     <h1 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-white leading-[1.1]">
-                        {isId ? "Website dari Vendor Lama " : "Outsourced Web "}
-                        <span className="bg-gradient-to-r from-red-500 via-amber-500 to-yellow-400 bg-clip-text text-transparent animate-pulse-glow block sm:inline">
+                        {isId ? "Web Kamu Saat ini" : "Your Current Web App"}
+                        <br />
+                        <span className="bg-gradient-to-r from-red-500 via-amber-500 to-yellow-400 bg-clip-text text-transparent animate-pulse-glow">
                             {isId ? "Penuh Bug & Lambat?" : "Broken & Slow?"}
                         </span>
-                        <span className="block mt-2 text-3xl sm:text-5xl md:text-6xl font-extrabold text-zinc-300">
+                        <br />
+                        <span className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-zinc-300 mt-2 block">
                             {isId ? "Biar Kami Rescue Total." : "We Rescue It."}
                         </span>
                     </h1>
 
                     <p className="text-zinc-400 text-sm sm:text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
                         {isId
-                            ? "Banyak penyedia jasa pembuatan website murah sekadar melakukan 'vibecoding' (memakai AI secara asal-asalan tanpa paham arsitektur dasar). Kami mengaudit seluruh sistem, merapikan kode spaghetti tersebut, dan memulihkan performa optimal website Anda."
-                            : "Many low-cost agencies and freelancers use AI tools blindly without proper architecture, leaving you with a buggy, unscalable site. We audit the system, clean up the spaghetti code, and restore your system's peak performance."}
+                            ? "Pengembangan website secara instan menggunakan AI (vibecoding) seringkali menghasilkan kode yang tidak terstruktur, lambat, penuh error, dan tidak aman. Kami mengaudit seluruh sistem, merapikan kode spaghetti tersebut, dan memulihkan performa website Anda hingga optimal."
+                            : "Developing websites instantly using AI (vibecoding) often results in unstructured, sluggish, and error-prone code. We audit the system, clean up the spaghetti code, and restore your application's peak performance."}
                     </p>
 
                     <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -184,13 +186,13 @@ export default async function WebRepairLandingPage() {
                                         <Code className="w-4 h-4 sm:w-5 sm:h-5 text-amber-500 group-hover:scale-125 transition-transform" />
                                     </div>
                                     <h3 className="text-base sm:text-xl font-bold text-white group-hover:text-amber-500 transition-colors sm:mt-4">
-                                        {isId ? "Refactoring Kode Hasil Jasa Pihak Ketiga" : "Outsourced Code Refactoring"}
+                                        {isId ? "Refactoring Kode Hasil Vibecoding" : "Refactoring Vibecoded Code"}
                                     </h3>
                                 </div>
                                 <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
                                     {isId
-                                        ? "Kami menyusun ulang kode 'spaghetti' buatan pihak ketiga menjadi modular, terstruktur, dan DRY (Don't Repeat Yourself). Menghilangkan ketergantungan buruk pada vendor lama dan membuat website Anda kembali mudah dikembangkan."
-                                        : "We restructure poorly written, messy code delivered by cheap agencies or freelancers. We make it clean, modular, and DRY, freeing your business from developer lock-in."}
+                                        ? "Kami menyusun ulang kode 'spaghetti' hasil vibecoding menjadi modular, terstruktur, dan DRY (Don't Repeat Yourself). Membuat kode website Anda kembali bersih, efisien, dan mudah dikembangkan di masa mendatang."
+                                        : "We restructure messy, unstructured code generated during vibecoding into clean, modular, and DRY files, making your website easy to maintain and scale in the future."}
                                 </p>
                             </div>
                         </div>
