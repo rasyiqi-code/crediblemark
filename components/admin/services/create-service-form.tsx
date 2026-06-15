@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { FileText, ListChecks, CreditCard, Link as LinkIcon } from "lucide-react";
 import { slugify } from "@/lib/shared/utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Flag, Sparkles, Loader2, ArrowLeft, Package, Plus } from "lucide-react";
+import { Flag, Sparkles, Loader2, ArrowLeft, Package } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 import Link from "next/link";
 import { ServiceData } from "./edit-service-form";
@@ -37,7 +37,6 @@ export function CreateServiceForm() {
     const [isGenerating, setIsGenerating] = useState(false);
     const [isGeneratingPricing, setIsGeneratingPricing] = useState(false);
     const [pendingDraft, setPendingDraft] = useState<DraftServiceData | null>(null);
-    const [isPricingApplied, setIsPricingApplied] = useState(false);
     const [generatedData, setGeneratedData] = useState<DraftServiceData | null>(null);
 
     // Key terpisah agar force-remount hanya field yang relevan per step

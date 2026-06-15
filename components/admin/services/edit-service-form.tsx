@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { RichTextEditorClient } from "@/components/ui/rich-text-editor-client";
 import { DynamicListInput } from "@/components/ui/dynamic-list-input";
 import { Button } from "@/components/ui/button";
-import { FileText, ListChecks, CreditCard, Sparkles, ArrowLeft, CheckCircle2, Plus, Link as LinkIcon, Loader2 } from "lucide-react";
+import { FileText, ListChecks, CreditCard, Sparkles, ArrowLeft, CheckCircle2, Link as LinkIcon, Loader2 } from "lucide-react";
 import { slugify } from "@/lib/shared/utils";
 import { type ServiceAddon } from "@/components/ui/dynamic-addon-input";
 
@@ -73,7 +73,6 @@ export function EditServiceForm({
         features: features,
         features_id: features_id
     });
-    const [isPricingApplied, setIsPricingApplied] = useState(true);
     const [generatedData, setGeneratedData] = useState<DraftServiceData | null>(null);
 
     // Key terpisah agar force-remount hanya field yang relevan per step
