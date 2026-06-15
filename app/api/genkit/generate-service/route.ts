@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { 
     serviceContentGeneratorFlow, 
     servicePricingGeneratorFlow, 
-    serviceAddonsGeneratorFlow,
     singleAddonGeneratorFlow,
     bulkAddonsGeneratorFlow
 } from "@/app/genkit";
@@ -58,54 +57,7 @@ export async function POST(req: NextRequest) {
                 features_id: features_id || features || [],
                 targetBusinessScale: targetBusinessScale || 'AUTO'
             });
-        } else if (type === 'addons') {
-            if (!title || !description) {
-                return NextResponse.json({ error: "Title and description are required for addons generation" }, { status: 400 });
-            }
-            const addonsResult = await serviceAddonsGeneratorFlow({
-                title,
-                title_id: title_id || title,
-                description,
-                description_id: description_id || description,
-                features: features || [],
-                features_id: features_id || features || [],
-                recommended_price: recommended_price ? Number(recommended_price) : 0,
-                discount: discount !== undefined ? Number(discount) : 0,
-                currency: currency || 'USD',
-                priceType: priceType || 'FIXED',
-                interval: interval || 'one_time',
-                targetBusinessScale: targetBusinessScale || 'AUTO'
-            });
 
-            interface AddonItem {
-                name: string;
-                name_id?: string;
-                price: number;
-                interval: 'one_time' | 'monthly' | 'yearly';
-                currency: 'USD' | 'IDR';
-            }
-
-            const addons = addonsResult.addons?.map((a: AddonItem) => ({
-                name: a.name,
-                price: a.price,
-                interval: a.interval,
-                currency: a.currency
-            })) || [];
-
-            const addons_id = addonsResult.addons?.map((a: AddonItem) => ({
-                name: a.name_id || a.name,
-                price: a.price,
-                interval: a.interval,
-                currency: a.currency
-            })) || [];
-
-            return NextResponse.json({
-                success: true,
-                data: {
-                    addons,
-                    addons_id
-                }
-            });
         } else if (type === 'single-addon') {
             if (!prompt) {
                 return NextResponse.json({ error: "Prompt is required for single addon generation" }, { status: 400 });
