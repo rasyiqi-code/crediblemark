@@ -123,27 +123,42 @@ export function generateProposalHtml({
         }
     }
 
-    const addonsHtml = addonsList.map(addon => {
-        const addPrice = typeof addon.price === "string" ? parseFloat(addon.price) : (typeof addon.price === "number" ? addon.price : 0);
-        const addonFormattedPrice = (addon.currency || baseCurrency) === "IDR"
-            ? `Rp ${addPrice.toLocaleString("id-ID")}`
-            : `$${addPrice.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    // Helper function to chunk array
+    const chunkArray = <T>(arr: T[], size: number): T[][] => {
+        const chunks: T[][] = [];
+        for (let i = 0; i < arr.length; i += size) {
+            chunks.push(arr.slice(i, i + size));
+        }
+        return chunks;
+    };
 
-        const addInterval = addon.interval === "one_time"
-            ? (isEn ? "One Time" : "Sekali Bayar")
-            : (addon.interval === "monthly" ? (isEn ? "Monthly" : "Bulanan") : (addon.interval === "yearly" ? (isEn ? "Yearly" : "Tahunan") : addon.interval));
+    const generateAddonsTableRows = (addonsSubList: ServiceAddon[]) => {
+        return addonsSubList.map(addon => {
+            const addPrice = typeof addon.price === "string" ? parseFloat(addon.price) : (typeof addon.price === "number" ? addon.price : 0);
+            const addonFormattedPrice = (addon.currency || baseCurrency) === "IDR"
+                ? `Rp ${addPrice.toLocaleString("id-ID")}`
+                : `$${addPrice.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
-        // Lokalkan nama addon jika Bahasa Indonesia
-        const displayName = !isEn ? (addon.name_id || addon.name) : addon.name;
+            const addInterval = addon.interval === "one_time"
+                ? (isEn ? "One Time" : "Sekali Bayar")
+                : (addon.interval === "monthly" ? (isEn ? "Monthly" : "Bulanan") : (addon.interval === "yearly" ? (isEn ? "Yearly" : "Tahunan") : addon.interval));
 
-        return `
-            <tr>
-                <td><strong>${displayName}</strong><br><small style="color: #a1a1aa; font-size: 12px;">${addon.description || ''}</small></td>
-                <td>${addInterval}</td>
-                <td style="text-align: right; font-weight: 600; color: #fbbf24;">${addonFormattedPrice}</td>
-            </tr>
-        `;
-    }).join("");
+            const displayName = !isEn ? (addon.name_id || addon.name) : addon.name;
+
+            return `
+                <tr>
+                    <td><strong>${displayName}</strong><br><small style="color: #a1a1aa; font-size: 11px;">${addon.description || ''}</small></td>
+                    <td>${addInterval}</td>
+                    <td style="text-align: right; font-weight: 600; color: #fbbf24;">${addonFormattedPrice}</td>
+                </tr>
+            `;
+        }).join("");
+    };
+
+    // Gunakan chunk isi 5 item per halaman
+    const addonChunks = chunkArray(addonsList, 5);
+    const addonsNeedNewPage = addonsList.length > 3;
+    const addonPageCount = addonsNeedNewPage ? addonChunks.length : 0;
 
     // Data Filosofi & Slogan dari Landing Page / Lokalisasi
     const quoteText = messages.About.quote;
@@ -169,8 +184,7 @@ export function generateProposalHtml({
     const tSec4Title = messages.ProposalExport.sec4Title;
     const tSec5Title = messages.ProposalExport.sec5Title;
 
-    const addonsNeedNewPage = addonsList.length > 3;
-    const totalPages = addonsNeedNewPage ? 8 : 7;
+    const totalPages = 7 + addonPageCount;
 
     const getPageFooterHtml = (page: number) => {
         const template = messages.ProposalExport.pageFooter;
@@ -178,6 +192,50 @@ export function generateProposalHtml({
             .replace("{page}", page.toString())
             .replace(/\b6\b/, totalPages.toString());
     };
+
+    const addonsPagesHtml = addonsNeedNewPage ? addonChunks.map((chunk, chunkIdx) => {
+        const pageNum = 6 + chunkIdx;
+        const pageTitle = isEn 
+            ? `04.2 / Optional Add-on Modules (Part ${chunkIdx + 1} of ${addonChunks.length})` 
+            : `04.2 / Modul Add-on Opsional (Bagian ${chunkIdx + 1} dari ${addonChunks.length})`;
+
+        const pageIntro = isEn
+            ? "Detailed breakdown of the selected optional add-on modules configured to customize the scalability of your infrastructure and digital system:"
+            : "Rincian modul tambahan pilihan yang dikonfigurasi untuk menyesuaikan kebutuhan skalabilitas infrastruktur dan sistem digital Anda:";
+
+        return `
+        <!-- HALAMAN ADD-ON: BAGIAN ${chunkIdx + 1} -->
+        <div class="page">
+            <div class="section-header">
+                <h2 class="section-title">${pageTitle}</h2>
+                <span class="section-subtitle-badge">${getPageFooterHtml(pageNum)}</span>
+            </div>
+     
+            <div class="body-section" style="margin-top: 10px;">
+                <p class="paragraph-text" style="font-size: 14px; color: #ffffff; margin-bottom: 20px;">
+                    ${pageIntro}
+                </p>
+                <table class="proposal-table">
+                    <thead>
+                        <tr>
+                            <th>${tAddonHeaderModule}</th>
+                            <th>${tAddonHeaderScheme}</th>
+                            <th style="text-align: right;">${tAddonHeaderInvest}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${generateAddonsTableRows(chunk)}
+                    </tbody>
+                </table>
+            </div>
+     
+            <div class="page-footer">
+                <span>CREDIBLEMARK &bull; Proposal ${title}</span>
+                <span>${getPageFooterHtml(pageNum)}</span>
+            </div>
+        </div>
+        `;
+    }).join("") : "";
 
     // Lokalisasi dinamis untuk Halaman 3
     const tFeaturesIntro = messages.ProposalExport.featuresIntro;
@@ -1331,7 +1389,7 @@ export function generateProposalHtml({
             </div>
  
             <!-- Trigger Lihat Addon Berikutnya -->
-            ${addonsHtml && addonsNeedNewPage ? `
+            ${addonsList.length > 0 && addonsNeedNewPage ? `
             <div style="margin-top: 12px; display: flex; align-items: center; gap: 8px; justify-content: flex-end; color: #fbbf24; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
                 <span>${isEn ? "See next page for optional add-ons" : "Lihat halaman berikutnya untuk modul add-on"}</span>
                 <span>&rarr;</span>
@@ -1339,7 +1397,7 @@ export function generateProposalHtml({
             ` : ''}
         </div>
   
-        ${addonsHtml && !addonsNeedNewPage ? `
+        ${addonsList.length > 0 && !addonsNeedNewPage ? `
         <div class="body-section" style="margin-bottom: 15px;">
             <table class="proposal-table">
                 <thead>
@@ -1350,7 +1408,7 @@ export function generateProposalHtml({
                     </tr>
                 </thead>
                 <tbody>
-                    ${addonsHtml}
+                    ${generateAddonsTableRows(addonsList)}
                 </tbody>
             </table>
         </div>
@@ -1362,47 +1420,13 @@ export function generateProposalHtml({
         </div>
     </div>
   
-    ${addonsHtml && addonsNeedNewPage ? `
-    <!-- HALAMAN 6 (NEW): RINCIAN MODUL ADD-ON -->
-    <div class="page">
-        <div class="section-header">
-            <h2 class="section-title">${isEn ? "04.2 / Optional Add-on Modules" : "04.2 / Modul Add-on Opsional"}</h2>
-            <span class="section-subtitle-badge">${getPageFooterHtml(6)}</span>
-        </div>
+    ${addonsPagesHtml}
  
-        <div class="body-section" style="margin-top: 10px;">
-            <p class="paragraph-text" style="font-size: 14px; color: #ffffff; margin-bottom: 20px;">
-                ${isEn
-                    ? "Detailed breakdown of the selected optional add-on modules configured to customize the scalability of your infrastructure and digital system:"
-                    : "Rincian modul tambahan pilihan yang dikonfigurasi untuk menyesuaikan kebutuhan skalabilitas infrastruktur dan sistem digital Anda:"
-                }
-            </p>
-            <table class="proposal-table">
-                <thead>
-                    <tr>
-                        <th>${tAddonHeaderModule}</th>
-                        <th>${tAddonHeaderScheme}</th>
-                        <th style="text-align: right;">${tAddonHeaderInvest}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    ${addonsHtml}
-                </tbody>
-            </table>
-        </div>
- 
-        <div class="page-footer">
-            <span>CREDIBLEMARK &bull; Proposal ${title}</span>
-            <span>${getPageFooterHtml(6)}</span>
-        </div>
-    </div>
-    ` : ''}
- 
-    <!-- HALAMAN 6 ATAU 7: FAQ & OTORISASI PERSETUJUAN -->
+    <!-- HALAMAN FAQ & OTORISASI PERSETUJUAN -->
     <div class="page">
         <div class="section-header">
             <h2 class="section-title">${tSec5Title}</h2>
-            <span class="section-subtitle-badge">${getPageFooterHtml(addonsNeedNewPage ? 7 : 6)}</span>
+            <span class="section-subtitle-badge">${getPageFooterHtml(6 + addonPageCount)}</span>
         </div>
   
         <!-- FAQ Section -->
@@ -1463,7 +1487,7 @@ export function generateProposalHtml({
         
         <div class="page-footer">
             <span>CREDIBLEMARK &bull; Proposal ${title}</span>
-            <span>${getPageFooterHtml(addonsNeedNewPage ? 7 : 6)}</span>
+            <span>${getPageFooterHtml(6 + addonPageCount)}</span>
         </div>
     </div>
  
@@ -1471,7 +1495,7 @@ export function generateProposalHtml({
     <div class="page" style="background: radial-gradient(circle at bottom left, rgba(250, 204, 21, 0.05) 0%, transparent 50%), #000000;">
         <div class="section-header">
             <h2 class="section-title">${isEn ? "06 / Contact Us" : "06 / Hubungi Kami"}</h2>
-            <span class="section-subtitle-badge">${getPageFooterHtml(addonsNeedNewPage ? 8 : 7)}</span>
+            <span class="section-subtitle-badge">${getPageFooterHtml(7 + addonPageCount)}</span>
         </div>
  
         <div class="contact-container">
@@ -1528,7 +1552,7 @@ export function generateProposalHtml({
  
         <div class="page-footer">
             <span>CREDIBLEMARK &bull; Proposal ${title}</span>
-            <span>${getPageFooterHtml(addonsNeedNewPage ? 8 : 7)}</span>
+            <span>${getPageFooterHtml(7 + addonPageCount)}</span>
         </div>
     </div>
 </body>
