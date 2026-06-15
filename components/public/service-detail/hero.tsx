@@ -21,14 +21,16 @@ export function ServiceHero({ service, displayTitle, intervalLabel, selectedAddo
             <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-br from-brand-yellow/[0.03] to-transparent pointer-events-none" />
 
             <div className="max-w-7xl mx-auto px-6 md:px-8 relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6 md:gap-12 p-6 md:p-10 lg:p-12">
-                {/* Kolom Kiri: Nama Jasa */}
-                <div className="flex-1 space-y-3 md:space-y-4">
-                    <h1 className="text-xl md:text-2xl lg:text-4xl font-black text-brand-yellow tracking-tighter leading-tight break-words max-w-2xl">
-                        {displayTitle}
+                {/* Kolom Kiri: Nama Jasa dan Tombol Unduh Proposal */}
+                <div className="flex-1">
+                    <h1 className="text-xl md:text-2xl lg:text-4xl font-black text-brand-yellow tracking-tighter leading-tight break-words max-w-3xl flex flex-wrap items-center gap-x-3 gap-y-2">
+                        <span>{displayTitle}</span>
+                        {/* Batas pemisah vertikal antara judul dan tombol unduh proposal */}
+                        <span className="text-zinc-600 font-light select-none text-base md:text-lg lg:text-xl">|</span>
+                        <span className="inline-flex">
+                            <ExportPdfButton service={service} variant="button" />
+                        </span>
                     </h1>
-                    <div className="pt-1">
-                        <ExportPdfButton service={service} variant="button" />
-                    </div>
                 </div>
 
                 {/* Kolom Kanan: Harga & Tombol Order */}
