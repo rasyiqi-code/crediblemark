@@ -280,13 +280,14 @@ export function PaymentPanel({
                     </div>
                 )}
 
-                {/* Configure Add-ons (Checkbox selection ala kuesioner Minecraft) */}
+                {/* Konfigurasi Add-ons (Pemilihan checkbox dengan scroll independen) */}
                 {!activeOrderId && serviceAddons && serviceAddons.length > 0 && (
                     <div className="space-y-2.5">
                         <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest block">
                             {t("configureAddons")}
                         </span>
-                        <div className="grid grid-cols-1 gap-2.5">
+                        {/* Memberikan scroll independen dengan batas tinggi agar layout tidak terlalu panjang */}
+                        <div className="grid grid-cols-1 gap-2.5 max-h-[280px] overflow-y-auto pr-1">
                             {serviceAddons.map((addon, i) => {
                                 const isSelected = selectedAddons.some(a => a.name === addon.name);
                                 return (
