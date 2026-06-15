@@ -295,60 +295,44 @@ export function AddonListClient({ addons }: AddonListClientProps) {
                                             </AccordionTrigger>
                                         </div>
 
-                                        <AccordionContent className="pb-2 pt-0.5 border-t border-zinc-900/40 mt-1">
-                                            <div className="space-y-2.5 pt-2 px-1 w-full text-xs">
-                                                {/* Baris Pertama: Harga & Interval */}
-                                                <div className="flex items-center justify-between">
-                                                    {/* Harga */}
-                                                    <div className="flex flex-col">
-                                                        <span className="text-[9px] text-zinc-500 font-bold uppercase tracking-wider">Harga</span>
-                                                        <span className="text-sm font-semibold text-amber-500">
-                                                            {addon.currency === "IDR" 
-                                                                ? `Rp ${Number(addon.price).toLocaleString("id-ID")}` 
-                                                                : `$${Number(addon.price).toFixed(2)}`}
-                                                        </span>
-                                                    </div>
-
-                                                    {/* Interval */}
-                                                    <div className="flex flex-col items-end">
-                                                        <span className="text-[9px] text-zinc-500 font-bold uppercase tracking-wider">Interval</span>
-                                                        <span className="text-xs font-semibold text-zinc-400 uppercase">
-                                                            {addon.interval === "monthly" 
-                                                                ? "Monthly" 
-                                                                : addon.interval === "yearly" 
-                                                                ? "Yearly" 
-                                                                : "One-time"}
-                                                        </span>
-                                                    </div>
+                                        <AccordionContent className="pb-3 pt-0.5 border-t border-zinc-900/40 mt-1">
+                                            <div className="flex items-center justify-between gap-4 pt-2.5 px-1.5 w-full text-xs">
+                                                {/* Harga */}
+                                                <div className="font-bold text-amber-500 text-sm shrink-0">
+                                                    {addon.currency === "IDR" 
+                                                        ? `Rp ${Number(addon.price).toLocaleString("id-ID")}` 
+                                                        : `$${Number(addon.price).toFixed(2)}`}
                                                 </div>
 
-                                                {/* Garis Pembatas Tipis */}
-                                                <div className="border-t border-zinc-900" />
-
-                                                {/* Baris Kedua: Status & Edit */}
-                                                <div className="flex items-center justify-between">
-                                                    {/* Status */}
-                                                    <div className="flex items-center gap-2">
-                                                        <span className="text-zinc-400 font-medium text-xs">Status</span>
-                                                        <Switch
-                                                            checked={addon.isActive}
-                                                            onCheckedChange={() => handleToggleActive(addon.id, addon.isActive)}
-                                                        />
-                                                    </div>
-
-                                                    {/* Edit */}
-                                                    {!isSelectionMode && (
-                                                        <Button
-                                                            variant="ghost"
-                                                            size="sm"
-                                                            onClick={() => openEditDialog(addon)}
-                                                            className="h-8 text-xs font-semibold text-zinc-300 hover:text-white hover:bg-zinc-800 px-2.5 rounded-lg flex items-center gap-1.5 border border-transparent hover:border-zinc-700/50"
-                                                        >
-                                                            <Edit className="w-3.5 h-3.5" />
-                                                            <span>Edit</span>
-                                                        </Button>
-                                                    )}
+                                                {/* Interval */}
+                                                <div className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider shrink-0">
+                                                    {addon.interval === "monthly" 
+                                                        ? "Monthly" 
+                                                        : addon.interval === "yearly" 
+                                                        ? "Yearly" 
+                                                        : "One-time"}
                                                 </div>
+
+                                                {/* Status (Switch saja, tanpa label teks) */}
+                                                <div className="flex items-center shrink-0">
+                                                    <Switch
+                                                        checked={addon.isActive}
+                                                        onCheckedChange={() => handleToggleActive(addon.id, addon.isActive)}
+                                                    />
+                                                </div>
+
+                                                {/* Edit (Hanya ikon pensil) */}
+                                                {!isSelectionMode && (
+                                                    <Button
+                                                        variant="ghost"
+                                                        size="icon"
+                                                        onClick={() => openEditDialog(addon)}
+                                                        className="w-8 h-8 text-zinc-400 hover:text-white hover:bg-zinc-800 rounded-lg shrink-0 flex items-center justify-center border border-transparent hover:border-zinc-700/50"
+                                                        title="Edit Add-on"
+                                                    >
+                                                        <Edit className="w-3.5 h-3.5" />
+                                                    </Button>
+                                                )}
                                             </div>
                                         </AccordionContent>
                                     </AccordionItem>
