@@ -64,7 +64,7 @@ export function AboutSection({ service, displayDescription, displayAddons, selec
                                         </div>
                                     </div>
                                     <div className="text-xs md:text-sm font-black text-white ml-3 whitespace-nowrap">
-                                        +<PriceDisplay amount={addon.price} baseCurrency={addon.currency || (service.currency as "USD" | "IDR") || 'USD'} compact={true} />
+                                        +<PriceDisplay amount={addon.price} baseCurrency={(addon.currency as "USD" | "IDR") || (service.currency as "USD" | "IDR") || 'USD'} compact={true} />
                                     </div>
                                 </div>
                             );
