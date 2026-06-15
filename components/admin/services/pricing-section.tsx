@@ -14,11 +14,14 @@ interface PricingSectionProps {
     currency: string;
     setCurrency: (value: string) => void;
     applyStep2: () => Promise<void>;
-    pendingDraft: any;
+    pendingDraft: unknown;
     isGeneratingPricing: boolean;
     isSubmitting: boolean;
     isEdit: boolean;
-    generatedData?: any;
+    generatedData?: {
+        recommended_price?: number | null;
+        discount?: number | null;
+    } | null;
     defaultVisibility?: string;
     defaultPrice?: number;
     defaultDiscount?: number;

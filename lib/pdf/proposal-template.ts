@@ -17,6 +17,103 @@ export interface ServiceDataForPdf {
     addons_id?: unknown;
 }
 
+export interface ProposalMessages {
+    About: {
+        quote: string;
+        description: string;
+    };
+    Hero: {
+        description: string;
+    };
+    ProposalExport: {
+        businessProposal: string;
+        coverSub: string;
+        preparedFor: string;
+        valuedClient: string;
+        proposalDate: string;
+        sec1Title: string;
+        sec2Title: string;
+        sec3Title: string;
+        sec4Title: string;
+        sec5Title: string;
+        pageFooter: string;
+        featuresIntro: string;
+        fallbackFeature: string;
+        investTitle: string;
+        baseInvestLabel: string;
+        addonHeaderModule: string;
+        addonHeaderScheme: string;
+        addonHeaderInvest: string;
+        moreInfoAt: string;
+        agreementText: string;
+        clientRepresentative: string;
+    };
+    Comparison: {
+        title: string;
+        subtitle: string;
+        oldTitle: string;
+        newTitle: string;
+        old1: string;
+        old1Sub: string;
+        old2: string;
+        old2Sub: string;
+        old3: string;
+        old3Sub: string;
+        old4: string;
+        old4Sub: string;
+        new1: string;
+        new1Sub: string;
+        new2: string;
+        new2Sub: string;
+        new3: string;
+        new3Sub: string;
+        new4: string;
+        new4Sub: string;
+    };
+    Service: {
+        everythingToSucceed: string;
+        premiumStandard: string;
+        f1: string;
+        f2: string;
+        f3: string;
+        f4: string;
+        f5: string;
+        f6: string;
+    };
+    Financial: {
+        title: string;
+        subtitle: string;
+        hireSenior: string;
+        hybrid: string;
+        salaryOldValue: string;
+        salaryOld: string;
+        salaryNewValue: string;
+        salaryNew: string;
+        comp1Old: string;
+        comp1New: string;
+        comp2Old: string;
+        comp2New: string;
+        comp3Old: string;
+        comp3New: string;
+    };
+    FAQ: {
+        title: string;
+        q4: string;
+        a4: string;
+        q3: string;
+        a3: string;
+        q13: string;
+        a13: string;
+    };
+    Guarantee: {
+        title: string;
+        subtitle: string;
+        desc: string;
+        footer: string;
+    };
+    [key: string]: unknown;
+}
+
 export interface ProposalHtmlParams {
     service: ServiceDataForPdf;
     logoUrl: string | null;
@@ -35,7 +132,7 @@ export interface ProposalHtmlParams {
         email?: string | null;
     } | null;
     globalAddons?: ServiceAddon[];
-    messages: any; // next-intl messages
+    messages: ProposalMessages;
 }
 
 export function generateProposalHtml({

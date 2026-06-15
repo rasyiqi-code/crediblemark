@@ -10,7 +10,14 @@ import { FileText, ListChecks, Flag, Link as LinkIcon } from "lucide-react";
 import { slugify } from "@/lib/shared/utils";
 
 interface BilingualContentSectionProps {
-    generatedData: any;
+    generatedData: {
+        title?: string | null;
+        title_id?: string | null;
+        description?: string | null;
+        description_id?: string | null;
+        features?: string[] | null;
+        features_id?: string[] | null;
+    } | null;
     slug: string;
     setSlug: (value: string) => void;
     isCustomSlug: boolean;
