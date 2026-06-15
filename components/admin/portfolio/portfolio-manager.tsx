@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { AdminHeaderSetter } from "@/components/admin/admin-header-setter";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { Trash2, Plus, AlertTriangle, ExternalLink } from "lucide-react";
+import { Plus, AlertTriangle, ExternalLink } from "lucide-react";
 import { toast } from "sonner";
 import { Textarea } from "@/components/ui/textarea";
 import { HtmlFileUploader } from "./html-file-uploader";
