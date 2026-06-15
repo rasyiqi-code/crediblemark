@@ -5,6 +5,7 @@ import { Edit } from "lucide-react";
 import Link from "next/link";
 import { DeleteServiceButton } from "./delete-service-button";
 import { ExportPdfButton } from "./export-pdf-button";
+import { ServiceAddon } from "@/lib/shared/types";
 
 interface ServiceData {
     id: string;
@@ -23,7 +24,7 @@ interface ServiceData {
 
 interface ServiceActionButtonsProps {
     service: ServiceData;
-    globalAddons?: any[];
+    globalAddons?: ServiceAddon[];
 }
 
 export function ServiceActionButtons({ service, globalAddons = [] }: ServiceActionButtonsProps) {
