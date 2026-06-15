@@ -431,7 +431,7 @@ export function generateProposalHtml({
         .cover-hero-image {
             position: absolute;
             bottom: 35.6mm;
-            right: 20mm;
+            right: 10mm;
             width: 75mm;
             height: auto;
             filter: grayscale(10%) contrast(1.02) brightness(0.95);
