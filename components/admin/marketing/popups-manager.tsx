@@ -2,55 +2,16 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import {
-    Dialog,
-    DialogContent,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-    DialogDescription,
-} from "@/components/ui/dialog";
-import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { Textarea } from "@/components/ui/textarea";
 import {
-    Plus,
-    Trash2,
-    Settings2,
-    LayoutTemplate,
-    Globe,
-    Navigation,
-    Clock,
-    MousePointer2,
-    FormInput,
-    Tag,
+    Plus, Trash2, Settings2, LayoutTemplate,
+    Globe, Navigation, Clock, MousePointer2, Tag,
 } from "lucide-react";
 import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
 import { getPopUpsAction, createPopUpAction, updatePopUpAction, deletePopUpAction, togglePopUpStatusAction } from "@/app/actions/marketing-admin";
-
-interface PopUp {
-    id: string;
-    headline: string;
-    headline_id: string | null;
-    description: string;
-    description_id: string | null;
-    ctaText: string | null;
-    ctaText_id: string | null;
-    ctaUrl: string | null;
-    isActive: boolean;
-    targetingType: string;
-    targetingPaths: string[];
-    targetingLocales: string[];
-    showFormLead: boolean;
-    formHeadline: string | null;
-    formHeadline_id: string | null;
-    delay: number;
-    couponCode: string | null;
-    createdAt: string | Date;
-}
+import { PopupFormDialog, type PopUp } from "./popup-form-dialog";
 
 export function PopUpsManager() {
     const [popups, setPopups] = useState<PopUp[]>([]);
@@ -58,7 +19,6 @@ export function PopUpsManager() {
     const [isOpen, setIsOpen] = useState(false);
     const [editingPopup, setEditingPopup] = useState<Partial<PopUp> | null>(null);
     const [deletingId, setDeletingId] = useState<string | null>(null);
-    const [isMultiLang, setIsMultiLang] = useState(false);
 
     useEffect(() => {
         loadPopUps();
@@ -156,152 +116,19 @@ export function PopUpsManager() {
                     </h2>
                     <p className="text-zinc-500 text-xs font-medium">Manage promotional modals.</p>
                 </div>
-                <Dialog open={isOpen} onOpenChange={setIsOpen}>
-                    <DialogTrigger asChild>
-                        <Button
-                            onClick={() => {
-                                setEditingPopup(null);
-                                setIsMultiLang(false);
-                            }}
-                            className="bg-brand-yellow text-black hover:bg-white font-black uppercase text-[10px] tracking-widest px-4 h-9 rounded-xl transition-all"
-                        >
-                            <Plus className="w-4 h-4 mr-2" />
-                            Create PopUp
-                        </Button>
-                    </DialogTrigger>
-                    <DialogContent className="bg-zinc-950 border-white/5 text-white max-w-2xl max-h-[90vh] overflow-y-auto custom-scrollbar">
-                        <DialogHeader>
-                            <DialogTitle className="text-2xl font-black uppercase tracking-tighter">
-                                {editingPopup ? "Edit PopUp" : "Create New PopUp"}
-                            </DialogTitle>
-                            <DialogDescription className="text-zinc-500">
-                                Configure your promotional popup settings and targeting rules.
-                            </DialogDescription>
-                        </DialogHeader>
-
-                        <form onSubmit={handleSubmit} className="space-y-6 pt-4">
-                            <div className="flex items-center justify-between p-3 rounded-2xl bg-white/5 border border-white/5">
-                                <div className="space-y-0.5">
-                                    <Label className="text-[10px] font-black uppercase tracking-widest text-white flex items-center gap-2">
-                                        <Globe className="w-3 h-3 text-brand-yellow" />
-                                        Multi-language Mode
-                                    </Label>
-                                    <p className="text-[10px] text-zinc-500">Enable translation fields for English and Indonesian.</p>
-                                </div>
-                                <Switch checked={isMultiLang} onCheckedChange={setIsMultiLang} />
-                            </div>
-
-                            <div className={`grid ${isMultiLang ? 'grid-cols-2' : 'grid-cols-1'} gap-4`}>
-                                <div className="space-y-2">
-                                    <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Headline {isMultiLang && '(EN)'}</Label>
-                                    <Input name="headline" defaultValue={editingPopup?.headline} required className="bg-white/5 border-white/10" />
-                                </div>
-                                {isMultiLang && (
-                                    <div className="space-y-2">
-                                        <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Headline (ID)</Label>
-                                        <Input name="headline_id" defaultValue={editingPopup?.headline_id || ""} className="bg-white/5 border-white/10" />
-                                    </div>
-                                )}
-                            </div>
-
-                            <div className={`grid ${isMultiLang ? 'grid-cols-2' : 'grid-cols-1'} gap-4`}>
-                                <div className="space-y-2">
-                                    <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Description {isMultiLang && '(EN)'}</Label>
-                                    <Textarea name="description" defaultValue={editingPopup?.description} required className="bg-white/5 border-white/10 min-h-[80px]" />
-                                </div>
-                                {isMultiLang && (
-                                    <div className="space-y-2">
-                                        <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Description (ID)</Label>
-                                        <Textarea name="description_id" defaultValue={editingPopup?.description_id || ""} className="bg-white/5 border-white/10 min-h-[80px]" />
-                                    </div>
-                                )}
-                            </div>
-
-                            <div className={`grid ${isMultiLang ? 'grid-cols-2' : 'grid-cols-1'} gap-4`}>
-                                <div className="space-y-2">
-                                    <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">CTA Text {isMultiLang && '(EN)'}</Label>
-                                    <Input name="ctaText" defaultValue={editingPopup?.ctaText || ""} className="bg-white/5 border-white/10" />
-                                </div>
-                                {isMultiLang && (
-                                    <div className="space-y-2">
-                                        <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">CTA Text (ID)</Label>
-                                        <Input name="ctaText_id" defaultValue={editingPopup?.ctaText_id || ""} className="bg-white/5 border-white/10" />
-                                    </div>
-                                )}
-                            </div>
-
-                            <div className="grid grid-cols-2 gap-4">
-                                <div className="space-y-2">
-                                    <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">CTA URL</Label>
-                                    <Input name="ctaUrl" defaultValue={editingPopup?.ctaUrl || ""} placeholder="https://..." className="bg-white/5 border-white/10" />
-                                </div>
-                                <div className="space-y-2">
-                                    <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Coupon Code (Optional)</Label>
-                                    <Input name="couponCode" defaultValue={editingPopup?.couponCode || ""} placeholder="SAVE50" className="bg-white/5 border-white/10 font-mono tracking-widest" />
-                                </div>
-                            </div>
-
-                            <div className="p-4 rounded-2xl bg-white/5 border border-white/5 space-y-4">
-                                <div className="flex items-center justify-between">
-                                    <div className="space-y-0.5">
-                                        <Label className="text-[10px] font-black uppercase tracking-widest text-white flex items-center gap-2">
-                                            <FormInput className="w-3 h-3 text-brand-yellow" />
-                                            Enable Lead Form
-                                        </Label>
-                                        <p className="text-[10px] text-zinc-500">Allow users to record their name and email directly.</p>
-                                    </div>
-                                    <Switch name="showFormLead" defaultChecked={editingPopup?.showFormLead} />
-                                </div>
-                                <div className={`grid ${isMultiLang ? 'grid-cols-2' : 'grid-cols-1'} gap-4`}>
-                                    <div className="space-y-2">
-                                        <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Form Headline {isMultiLang && '(EN)'}</Label>
-                                        <Input name="formHeadline" defaultValue={editingPopup?.formHeadline || ""} placeholder="Join our waitlist" className="bg-white/5 border-white/10" />
-                                    </div>
-                                    {isMultiLang && (
-                                        <div className="space-y-2">
-                                            <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Form Headline (ID)</Label>
-                                            <Input name="formHeadline_id" defaultValue={editingPopup?.formHeadline_id || ""} placeholder="Bergabung ke daftar tunggu" className="bg-white/5 border-white/10" />
-                                        </div>
-                                    )}
-                                </div>
-                                <div className="space-y-2">
-                                    <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Delay (Seconds)</Label>
-                                    <Input type="number" name="delay" defaultValue={editingPopup?.delay ?? 3} className="bg-white/5 border-white/10" />
-                                </div>
-                            </div>
-
-                            <div className="p-4 rounded-2xl bg-zinc-900 border border-white/5 space-y-4">
-                                <h3 className="text-[10px] font-black uppercase tracking-widest text-zinc-400 flex items-center gap-2">
-                                    <Globe className="w-3.5 h-3.5" />
-                                    Targeting Rules
-                                </h3>
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div className="space-y-2">
-                                        <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Paths (Comma separated)</Label>
-                                        <Input name="targetingPaths" defaultValue={editingPopup?.targetingPaths?.join(', ') || ""} placeholder="/portfolio, /services" className="bg-black/50 border-white/5" />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Locales (Comma separated)</Label>
-                                        <Input name="targetingLocales" defaultValue={editingPopup?.targetingLocales?.join(', ') || ""} placeholder="id, en" className="bg-black/50 border-white/5" />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="flex items-center justify-between pt-4 border-t border-white/5">
-                                <div className="flex items-center gap-2">
-                                    <Switch name="isActive" defaultChecked={editingPopup?.isActive ?? true} />
-                                    <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Published</Label>
-                                </div>
-                                <div className="flex gap-3">
-                                    <Button type="button" variant="outline" onClick={() => setIsOpen(false)} className="border-white/5 text-zinc-400">Cancel</Button>
-                                    <Button type="submit" className="bg-brand-yellow text-black font-black uppercase text-[11px] tracking-widest px-8">
-                                        {editingPopup ? "Update PopUp" : "Create PopUp"}
-                                    </Button>
-                                </div>
-                            </div>
-                        </form>
-                    </DialogContent>
-                </Dialog>
+                <Button
+                    onClick={() => { setEditingPopup(null); setIsOpen(true); }}
+                    className="bg-brand-yellow text-black hover:bg-white font-black uppercase text-[10px] tracking-widest px-4 h-9 rounded-xl transition-all"
+                >
+                    <Plus className="w-4 h-4 mr-2" />
+                    Create PopUp
+                </Button>
+                <PopupFormDialog
+                    isOpen={isOpen}
+                    onOpenChange={setIsOpen}
+                    editingPopup={editingPopup}
+                    onSubmit={handleSubmit}
+                />
             </div>
 
             <div className="overflow-hidden overflow-x-auto custom-scrollbar pt-4 border-t border-white/5">
@@ -398,7 +225,6 @@ export function PopUpsManager() {
                                                 className="h-9 w-9 text-zinc-600 hover:text-white hover:bg-white/5 rounded-xl"
                                                 onClick={() => {
                                                     setEditingPopup(popup);
-                                                    setIsMultiLang(!!(popup.headline_id || popup.description_id || popup.ctaText_id));
                                                     setIsOpen(true);
                                                 }}
                                             >
