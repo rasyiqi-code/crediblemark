@@ -260,7 +260,6 @@ export function ExportPdfButton({
 
         const tInvestTitle = messages.ProposalExport.investTitle;
         const tBaseInvestLabel = messages.ProposalExport.baseInvestLabel.replace("{priceModel}", priceModel);
-        const tPaymentScheme = messages.ProposalExport.paymentScheme;
 
         const tAddonHeaderModule = messages.ProposalExport.addonHeaderModule;
         const tAddonHeaderScheme = messages.ProposalExport.addonHeaderScheme;
