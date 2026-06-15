@@ -28,7 +28,18 @@ export function ServiceHero({ service, displayTitle, intervalLabel, selectedAddo
                         {/* Batas pemisah vertikal antara judul dan tombol unduh proposal */}
                         <span className="inline-flex items-center gap-x-3 ml-3 align-middle">
                             <span className="text-zinc-600 font-light select-none text-base md:text-lg lg:text-xl">|</span>
-                            <ExportPdfButton service={service} variant="button" />
+                            <ExportPdfButton 
+                                service={service} 
+                                variant="button" 
+                                globalAddons={selectedAddons.map(addon => ({
+                                    id: addon.id,
+                                    name: addon.name,
+                                    name_id: addon.name_id,
+                                    price: addon.price,
+                                    currency: addon.currency || undefined,
+                                    interval: addon.interval
+                                }))} 
+                            />
                         </span>
                     </h1>
                 </div>
