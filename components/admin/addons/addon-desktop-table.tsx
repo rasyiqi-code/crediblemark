@@ -33,12 +33,12 @@ export function AddonDesktopTable({
             <table className="w-full text-left border-collapse text-zinc-300">
                 <thead>
                     <tr className="bg-zinc-900/40 border-b border-zinc-850 text-xs uppercase tracking-wider text-zinc-500">
-                        {isSelectionMode && <th className="py-3 px-4 w-10"></th>}
-                        <th className="py-3 px-4">{t("name")}</th>
-                        <th className="py-3 px-4">{t("price")}</th>
-                        <th className="py-3 px-4">{t("interval")}</th>
-                        <th className="py-3 px-4 text-center">{t("status")}</th>
-                        <th className="py-3 px-4 text-right">{t("actions")}</th>
+                        {isSelectionMode && <th className="py-2 px-4 w-10"></th>}
+                        <th className="py-2 px-4">{t("name")}</th>
+                        <th className="py-2 px-4">{t("price")}</th>
+                        <th className="py-2 px-4">{t("interval")}</th>
+                        <th className="py-2 px-4 text-center">{t("status")}</th>
+                        <th className="py-2 px-4 text-right">{t("actions")}</th>
                     </tr>
                 </thead>
                 <tbody className="divide-y divide-zinc-900">
@@ -50,7 +50,7 @@ export function AddonDesktopTable({
                                 className={`hover:bg-white/[0.02] transition-colors ${isSelected ? "bg-blue-500/5 hover:bg-blue-500/5" : ""}`}
                             >
                                 {isSelectionMode && (
-                                    <td className="py-3.5 px-4">
+                                    <td className="py-2 px-4">
                                         <input
                                             type="checkbox"
                                             checked={isSelected}
@@ -59,24 +59,24 @@ export function AddonDesktopTable({
                                         />
                                     </td>
                                 )}
-                                <td className="py-3.5 px-4">
+                                <td className="py-2 px-4">
                                     <div className="flex flex-col">
                                         <span className="font-semibold text-zinc-100 text-sm">
                                             {locale === "id" && addon.name_id ? addon.name_id : addon.name}
                                         </span>
                                     </div>
                                 </td>
-                                <td className="py-3.5 px-4 font-medium text-sm">
+                                <td className="py-2 px-4 font-medium text-sm">
                                     <PriceDisplay amount={addon.price} baseCurrency={(addon.currency as 'USD' | 'IDR') || 'USD'} />
                                 </td>
-                                <td className="py-3.5 px-4 text-xs text-zinc-400 uppercase tracking-wide">
+                                <td className="py-2 px-4 text-xs text-zinc-400 uppercase tracking-wide">
                                     {addon.interval === "monthly" 
                                         ? "Monthly" 
                                         : addon.interval === "yearly" 
                                         ? "Yearly" 
                                         : "One-time"}
                                 </td>
-                                <td className="py-3.5 px-4 text-center">
+                                <td className="py-2 px-4 text-center">
                                     <div className="flex items-center justify-center">
                                         <Switch
                                             checked={addon.isActive}
@@ -84,7 +84,7 @@ export function AddonDesktopTable({
                                         />
                                     </div>
                                 </td>
-                                <td className="py-3.5 px-4 text-right">
+                                <td className="py-2 px-4 text-right">
                                     <div className="flex items-center justify-end gap-2">
                                         <Button
                                             variant="ghost"

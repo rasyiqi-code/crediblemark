@@ -110,3 +110,22 @@ export function shuffleArray<T>(array: T[], seed?: number): T[] {
     return shuffled;
 }
 
+/**
+ * Menyalin teks ke clipboard browser dan menampilkan toast notifikasi.
+ * Gunakan fungsi ini sebagai pengganti `navigator.clipboard.writeText` lokal
+ * di setiap komponen agar tidak perlu mengimpor toast berulang.
+ *
+ * @param text  - Teks yang akan disalin
+ * @param label - Label yang ditampilkan di toast (cth: "ID", "Invoice ID")
+ * @param toast - Referensi fungsi toast dari `sonner` (opsional jika tidak perlu notifikasi)
+ */
+export async function copyToClipboard(
+    text: string,
+    label: string,
+    toastFn?: (msg: string) => void
+): Promise<void> {
+    await navigator.clipboard.writeText(text);
+    if (toastFn) {
+        toastFn(`${label} copied`);
+    }
+}

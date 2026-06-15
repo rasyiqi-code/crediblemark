@@ -7,9 +7,8 @@ import {
     getCoreRowModel,
 } from "@tanstack/react-table";
 import { useTableInstance } from "@/lib/shared/table-instance";
-
-import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
+import { useProjectPagination } from "@/lib/shared/hooks/use-project-pagination";
+import { AdminLoadMoreButton } from "@/components/admin/shared/admin-load-more-button";
 
 interface ProjectsDataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
@@ -26,41 +25,13 @@ export function ProjectsDataTable<TData, TValue>({
     query,
     status,
 }: ProjectsDataTableProps<TData, TValue>) {
-    const [data, setData] = React.useState<TData[]>(initialData);
-    const [page, setPage] = React.useState(1);
-    const [isLoading, setIsLoading] = React.useState(false);
-
-    // Sync with initial data when server props change (filters, etc.)
-    React.useEffect(() => {
-        setData(initialData);
-        setPage(1);
-    }, [initialData]);
-
-    const hasMore = data.length < totalCount;
-
-    const loadMore = async () => {
-        if (isLoading || !hasMore) return;
-        setIsLoading(true);
-        try {
-            const nextPage = page + 1;
-            const params = new URLSearchParams({
-                page: nextPage.toString(),
-                limit: "10"
-            });
-            if (query) params.append("query", query);
-            if (status) params.append("status", status);
-
-            const res = await fetch(`/api/projects?${params.toString()}`);
-            if (!res.ok) throw new Error("Failed to fetch projects");
-            const newData = await res.json() as TData[];
-            setData(prev => [...prev, ...newData]);
-            setPage(nextPage);
-        } catch (error) {
-            console.error("Failed to load more projects:", error);
-        } finally {
-            setIsLoading(false);
-        }
-    };
+    // Logika paginasi di-handle oleh hook bersama
+    const { data, hasMore, isLoading, loadMore } = useProjectPagination({
+        initialData,
+        totalCount,
+        query,
+        status,
+    });
 
     const table = useTableInstance({
         data,
@@ -193,19 +164,7 @@ export function ProjectsDataTable<TData, TValue>({
                 </div>
 
                 {hasMore && (
-                    <div className="flex justify-center mt-6">
-                        <Button
-                            variant="ghost"
-                            onClick={loadMore}
-                            disabled={isLoading}
-                            className="h-10 px-8 rounded-full border border-zinc-800 bg-zinc-950/50 hover:bg-zinc-900 text-zinc-400 hover:text-white transition-all gap-2"
-                        >
-                            {isLoading ? (
-                                <Loader2 className="w-4 h-4 animate-spin" />
-                            ) : null}
-                            {isLoading ? "Loading..." : "Load More"}
-                        </Button>
-                    </div>
+                    <AdminLoadMoreButton isLoading={isLoading} onClick={loadMore} />
                 )}
             </div>
         </div>
