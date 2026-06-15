@@ -43,7 +43,7 @@ export function AboutSection({ service, displayDescription, displayAddons, selec
                         <p className="text-[10px] text-zinc-500 font-medium">{t("personalize")}</p>
                     </div>
 
-                    <div className="space-y-3">
+                    <div className="space-y-3 lg:max-h-[calc(100vh-320px)] lg:overflow-y-auto lg:pr-1.5">
                         {displayAddons.map((addon, idx) => {
                             const isSelected = selectedAddons.some(a => a.name === addon.name);
                             return (
