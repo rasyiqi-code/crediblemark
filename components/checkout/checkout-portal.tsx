@@ -66,9 +66,10 @@ export function CheckoutPortal({
     useEffect(() => {
         fetch("/api/addons")
             .then(res => res.json())
-            .then(data => {
+            .then((data: unknown) => {
                 if (Array.isArray(data)) {
-                    const formatted: ServiceAddon[] = data.map((addon: any) => ({
+                    const typedData = data as { id: string; name: string; name_id?: string | null; price: number; currency: string; interval: string }[];
+                    const formatted: ServiceAddon[] = typedData.map((addon) => ({
                         id: addon.id,
                         name: isId ? (addon.name_id || addon.name) : addon.name,
                         price: addon.price,
@@ -80,7 +81,7 @@ export function CheckoutPortal({
                     // Deteksi addon yang awalnya terpilih berdasarkan teks di summary
                     if (!hasInitializedAddons.current) {
                         const initiallySelected = formatted.filter((addon) => {
-                            const rawAddon = data.find(d => d.id === addon.id);
+                            const rawAddon = typedData.find(d => d.id === addon.id);
                             const enName = rawAddon?.name;
                             return enName && estimate.summary.includes(`+ ${enName}`);
                         });
