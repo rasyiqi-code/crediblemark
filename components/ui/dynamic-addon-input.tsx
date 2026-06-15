@@ -1,11 +1,12 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { Plus, X, GripVertical } from "lucide-react";
+import { Plus, X, GripVertical, Sparkles, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { cn } from "@/lib/shared/utils";
+import { toast } from "sonner";
 
 export interface ServiceAddon {
     name: string;
@@ -19,9 +20,16 @@ interface DynamicAddonInputProps {
     defaultValue?: ServiceAddon[];
     className?: string;
     currency?: string;
+    targetBusinessScale?: string;
 }
 
-export function DynamicAddonInput({ name, defaultValue = [], className, currency = "USD" }: DynamicAddonInputProps) {
+export function DynamicAddonInput({ 
+    name, 
+    defaultValue = [], 
+    className, 
+    currency = "USD",
+    targetBusinessScale = "AUTO"
+}: DynamicAddonInputProps) {
     const [addons, setAddons] = useState<ServiceAddon[]>(Array.isArray(defaultValue) ? defaultValue : []);
     const [newName, setNewName] = useState("");
     const [newPrice, setNewPrice] = useState("");
@@ -29,7 +37,48 @@ export function DynamicAddonInput({ name, defaultValue = [], className, currency
     const [newCurrency, setNewCurrency] = useState<"USD" | "IDR">("USD");
     const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
     const [isDraggable, setIsDraggable] = useState(false);
+    const [isGeneratingAI, setIsGeneratingAI] = useState(false);
     const nameRef = useRef<HTMLInputElement>(null);
+
+    const handleGenerateAddonAI = async () => {
+        const trimmedPrompt = newName.trim();
+        if (!trimmedPrompt) return;
+
+        setIsGeneratingAI(true);
+        try {
+            const isEn = name === "addons";
+            const response = await fetch("/api/genkit/generate-service", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    type: "single-addon",
+                    prompt: trimmedPrompt,
+                    currency: newCurrency,
+                    targetBusinessScale,
+                    isEn,
+                }),
+            });
+
+            const result = await response.json();
+            if (result.success && result.data) {
+                const generated = result.data;
+                setNewName(generated.name);
+                setNewPrice(generated.price.toString());
+                setNewInterval(generated.interval);
+                setNewCurrency(generated.currency);
+                toast.success(isEn ? "Addon generated with AI!" : "Addon berhasil dibuat oleh AI!");
+            } else {
+                toast.error(result.error || (isEn ? "Failed to generate addon." : "Gagal membuat addon."));
+            }
+        } catch (error) {
+            console.error("AI Single Addon Generation error:", error);
+            toast.error(name === "addons" ? "Error generating addon." : "Terjadi kesalahan saat memproses addon.");
+        } finally {
+            setIsGeneratingAI(false);
+        }
+    };
 
     const handleAddAddon = (e?: React.FormEvent) => {
         if (e) e.preventDefault();
@@ -135,14 +184,29 @@ export function DynamicAddonInput({ name, defaultValue = [], className, currency
 
             <div className="flex flex-col sm:flex-row gap-2">
                 <div className="flex-[3] flex gap-2">
-                    <Input
-                        ref={nameRef}
-                        value={newName}
-                        onChange={(e) => setNewName(e.target.value)}
-                        onKeyDown={handleKeyDown}
-                        placeholder="Add-on name..."
-                        className="bg-black/20 border-white/10 text-zinc-200 focus-visible:ring-blue-500/20"
-                    />
+                    <div className="flex-1 relative">
+                        <Input
+                            ref={nameRef}
+                            value={newName}
+                            onChange={(e) => setNewName(e.target.value)}
+                            onKeyDown={handleKeyDown}
+                            placeholder="Add-on name..."
+                            className="bg-black/20 border-white/10 text-zinc-200 focus-visible:ring-blue-500/20 pr-10"
+                        />
+                        <button
+                            type="button"
+                            onClick={handleGenerateAddonAI}
+                            disabled={isGeneratingAI || !newName.trim()}
+                            className="absolute right-3 top-3 text-zinc-500 hover:text-indigo-400 disabled:opacity-40 transition-colors"
+                            title="Generate price & interval with AI"
+                        >
+                            {isGeneratingAI ? (
+                                <Loader2 className="w-4 h-4 animate-spin text-indigo-400" />
+                            ) : (
+                                <Sparkles className="w-4 h-4" />
+                            )}
+                        </button>
+                    </div>
                     <Input
                         type="number"
                         step="0.01"

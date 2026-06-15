@@ -497,6 +497,7 @@ export function CreateServiceForm() {
                                             name="addons"
                                             defaultValue={generatedData?.addons || []}
                                             currency={currency}
+                                            targetBusinessScale={businessScale}
                                         />
                                     </div>
                                 </div>
@@ -581,6 +582,7 @@ export function CreateServiceForm() {
                                             name="addons_id"
                                             defaultValue={generatedData?.addons_id || []}
                                             currency={currency}
+                                            targetBusinessScale={businessScale}
                                         />
                                     </div>
                                 </div>

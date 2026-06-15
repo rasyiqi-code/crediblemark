@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { 
     serviceContentGeneratorFlow, 
     servicePricingGeneratorFlow, 
-    serviceAddonsGeneratorFlow 
+    serviceAddonsGeneratorFlow,
+    singleAddonGeneratorFlow
 } from "@/app/genkit";
 import { isAdmin } from "@/lib/shared/auth-helpers";
 
@@ -103,6 +104,17 @@ export async function POST(req: NextRequest) {
                     addons,
                     addons_id
                 }
+            });
+        } else if (type === 'single-addon') {
+            if (!prompt) {
+                return NextResponse.json({ error: "Prompt is required for single addon generation" }, { status: 400 });
+            }
+            const isEn = body.isEn === true || body.isEn === "true";
+            result = await singleAddonGeneratorFlow({
+                prompt,
+                currency: currency || 'USD',
+                targetBusinessScale: targetBusinessScale || 'AUTO',
+                isEn
             });
         } else {
             return NextResponse.json({ error: "Invalid type" }, { status: 400 });
