@@ -197,3 +197,40 @@ export async function deleteAddons(addonIds: string[]) {
         return { error: "Gagal menghapus addon terpilih" };
     }
 }
+
+/**
+ * Membuat banyak data addon sekaligus di database (bulk create).
+ * Hanya dapat diakses oleh user terautentikasi (Admin).
+ */
+export async function createAddons(addons: { name: string; name_id: string; price: number; currency: string; interval: string; isActive?: boolean }[]) {
+    const user = await hexclaveServerApp.getUser();
+    if (!user) return { error: "Unauthorized" };
+
+    if (!Array.isArray(addons) || addons.length === 0) {
+        return { error: "Tidak ada addon yang diberikan" };
+    }
+
+    try {
+        const created = await prisma.addon.createMany({
+            data: addons.map(a => ({
+                name: a.name,
+                name_id: a.name_id,
+                price: a.price,
+                currency: a.currency,
+                interval: a.interval,
+                isActive: a.isActive ?? true
+            }))
+        });
+
+        // Invalidasi cache halaman terkait
+        (revalidateTag as unknown as (tag: string) => void)("addons");
+        revalidatePath("/admin/pm/addons");
+        revalidatePath("/en/services");
+        revalidatePath("/id/services");
+        return { success: true, count: created.count };
+    } catch (error) {
+        console.error("CREATE ADDONS BULK ERROR:", error);
+        return { error: "Gagal membuat daftar addon kustom secara massal" };
+    }
+}
+
