@@ -1206,8 +1206,8 @@ export function ExportPdfButton({
                 </div>
                 <p style="font-size: 12.5px; color: #fbbf24; font-weight: 700; margin: 0; line-height: 1.6; letter-spacing: 0.2px;">
                     ${isEn 
-                        ? `✨ Secure this special value & instantly keep an extra ${formatPriceHelper(service.price - finalPrice)} in your growth budget. <br> * GUARANTEED PROMOTIONAL RATE AFTER DIRECT DISCOUNT.` 
-                        : `✨ Amankan penawaran bernilai tinggi ini & simpan langsung surplus ${formatPriceHelper(service.price - finalPrice)} untuk anggaran pertumbuhan Anda. <br> * NOMINAL INI MERUPAKAN HARGA INVESTASI EKSKLUSIF SETELAH POTONGAN LANGSUNG.`
+                        ? `✨ Secure this special value today & instantly keep an extra ${formatPriceHelper(service.price - finalPrice)} in your growth budget. <br> * SPECIAL VALUE RATE — APPLIED DIRECTLY AS A STRATEGIC PARTNER APPRECIATION.` 
+                        : `✨ Amankan harga investasi spesial ini sekarang & kunci hemat langsung ${formatPriceHelper(service.price - finalPrice)} untuk dialokasikan ke strategi pertumbuhan bisnis Anda. <br> * JAMINAN HARGA TERBAIK — DIBERIKAN KHUSUS SEBAGAI APRESIASI MITRA STRATEGIS.`
                     }
                 </p>
             </div>
@@ -1227,10 +1227,10 @@ export function ExportPdfButton({
             <!-- Catatan Negosiasi & Kualitas -->
             <div style="margin-top: 12px; padding: 12px 16px; border-left: 3px solid #fbbf24; background: #09090b; border-radius: 0 6px 6px 0;">
                 <p style="font-size: 12px; color: #a1a1aa; line-height: 1.6; margin: 0;">
-                    <strong>${isEn ? "Negotiable & Value-Driven:" : "Negosiasi & Garansi Kualitas:"}</strong> 
+                    <strong>${isEn ? "Flexible Investment & Value Guarantee:" : "Fleksibilitas Investasi & Garansi Hasil:"}</strong> 
                     ${isEn 
-                        ? "This investment is open for further negotiation based on your customization scope. Remember, the price you pay directly represents the premium quality of code and long-term stability you receive."
-                        : "Nilai investasi ini bersifat negotiable sesuai dengan penyesuaian cakupan proyek Anda. Harga yang Anda bayar adalah representasi langsung dari kualitas rekayasa premium serta stabilitas jangka panjang yang Anda dapatkan."
+                        ? "This investment is highly flexible and fully adaptable to your business priorities. Every dollar invested here returns to you as a high-performance, bug-free system, 100% full code ownership, and custom engineering designed to generate real profits."
+                        : "Nilai investasi di atas sangat fleksibel dan siap disesuaikan dengan skala prioritas bisnis Anda. Setiap Rupiah yang Anda investasikan di sini kembali dalam bentuk sistem berkinerja tinggi yang bebas dari error, hak milik kode 100%, dan performa yang mendatangkan profit nyata."
                     }
                 </p>
             </div>
