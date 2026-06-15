@@ -93,7 +93,7 @@ export function AboutSection({ service, displayDescription, displayAddons, selec
                         })}
                     </div>
 
-                    <div className="pt-6 border-t border-white/10 mt-6 space-y-4 hidden lg:block">
+                    <div className="pt-6 border-t border-white/10 mt-6 space-y-4 hidden lg:block lg:pr-1.5">
                         <div className="justify-between items-end mb-2 flex">
                             <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">{t("totalInvestment")}</span>
                             <div className="text-xl font-black text-white tracking-tighter">
@@ -108,7 +108,7 @@ export function AboutSection({ service, displayDescription, displayAddons, selec
                             serviceId={service.id}
                             interval={service.interval}
                             selectedAddons={selectedAddons}
-                            className="w-full bg-brand-yellow hover:bg-brand-yellow/90 text-black py-3 rounded-xl font-black text-[11px] uppercase tracking-widest shadow-xl shadow-brand-yellow/20 transition-all hover:scale-[1.02] active:scale-95 group"
+                            className="w-full bg-brand-yellow hover:bg-brand-yellow/90 text-black py-3 rounded-none font-black text-[11px] uppercase tracking-widest shadow-xl shadow-brand-yellow/20 transition-all hover:scale-[1.02] active:scale-95 group"
                         />
                         <p className="text-[9px] text-center text-zinc-600 font-medium tracking-wide">{t("secureCheckout")}</p>
                     </div>
@@ -120,7 +120,7 @@ export function AboutSection({ service, displayDescription, displayAddons, selec
                             serviceId={service.id}
                             interval={service.interval}
                             selectedAddons={[]}
-                            className="w-full bg-brand-yellow hover:bg-brand-yellow/90 text-black py-3 rounded-xl font-black text-[11px] uppercase tracking-widest shadow-xl shadow-brand-yellow/20 transition-all hover:scale-[1.02] active:scale-95"
+                            className="w-full bg-brand-yellow hover:bg-brand-yellow/90 text-black py-3 rounded-none font-black text-[11px] uppercase tracking-widest shadow-xl shadow-brand-yellow/20 transition-all hover:scale-[1.02] active:scale-95"
                         />
                         <p className="text-[9px] text-center text-zinc-600 font-medium tracking-wide mt-4">{t("secureCheckout")}</p>
                     </div>
