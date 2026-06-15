@@ -44,58 +44,88 @@ export function ExportPdfButton({
             .catch(console.error);
     }, []);
 
-    const handleExport = () => {
+    const handleExport = async () => {
         setIsGenerating(true);
 
-        // Membuat iframe tersembunyi untuk proses printing
-        const iframe = document.createElement("iframe");
-        iframe.style.position = "fixed";
-        iframe.style.right = "0";
-        iframe.style.bottom = "0";
-        iframe.style.width = "0";
-        iframe.style.height = "0";
-        iframe.style.border = "none";
-        iframe.style.visibility = "hidden";
+        try {
+            // Impor html2pdf.js secara dinamis untuk menghindari masalah SSR di Next.js
+            const html2pdf = (await import("html2pdf.js")).default;
 
-        document.body.appendChild(iframe);
+            // Membuat iframe tersembunyi untuk proses rendering HTML
+            const iframe = document.createElement("iframe");
+            iframe.style.position = "fixed";
+            iframe.style.right = "0";
+            iframe.style.bottom = "0";
+            iframe.style.width = "0";
+            iframe.style.height = "0";
+            iframe.style.border = "none";
+            iframe.style.visibility = "hidden";
 
-        const doc = iframe.contentDocument || iframe.contentWindow?.document;
-        if (!doc) {
-            setIsGenerating(false);
-            return;
-        }
+            document.body.appendChild(iframe);
 
-        const messages = locale.startsWith("en") ? enMessages : idMessages;
+            const doc = iframe.contentDocument || iframe.contentWindow?.document;
+            if (!doc) {
+                document.body.removeChild(iframe);
+                setIsGenerating(false);
+                return;
+            }
 
-        const htmlContent = generateProposalHtml({
-            service,
-            logoUrl,
-            signatureUrl,
-            stampUrl,
-            contactInfo,
-            locale,
-            user,
-            globalAddons,
-            messages
-        });
+            const messages = locale.startsWith("en") ? enMessages : idMessages;
 
-        doc.open();
-        doc.write(htmlContent);
-        doc.close();
+            const htmlContent = generateProposalHtml({
+                service,
+                logoUrl,
+                signatureUrl,
+                stampUrl,
+                contactInfo,
+                locale,
+                user,
+                globalAddons,
+                messages
+            });
 
-        // Print preview dipicu sesudah styles & fonts termuat
-        const win = iframe.contentWindow;
-        if (win) {
+            doc.open();
+            doc.write(htmlContent);
+            doc.close();
+
+            const fileName = `${service.title.replace(/[^a-z0-9]/gi, '_')}_Proposal.pdf`;
+
+            const opt = {
+                margin: 0,
+                filename: fileName,
+                image: { type: "jpeg" as const, quality: 0.98 },
+                html2canvas: { 
+                    scale: 2, 
+                    useCORS: true,
+                    logging: false,
+                    letterRendering: true
+                },
+                jsPDF: { unit: "mm" as const, format: "a4" as const, orientation: "portrait" as const }
+            };
+
+            // Menunggu styles, gambar, dan fonts dimuat di dalam iframe sebelum konversi
             setTimeout(() => {
-                win.focus();
-                win.print();
-                setTimeout(() => {
+                if (iframe.contentDocument?.body) {
+                    html2pdf()
+                        .set(opt)
+                        .from(iframe.contentDocument.body)
+                        .save()
+                        .then(() => {
+                            document.body.removeChild(iframe);
+                            setIsGenerating(false);
+                        })
+                        .catch((err: unknown) => {
+                            console.error("Gagal memproses PDF via html2pdf:", err);
+                            document.body.removeChild(iframe);
+                            setIsGenerating(false);
+                        });
+                } else {
                     document.body.removeChild(iframe);
                     setIsGenerating(false);
-                }, 1000);
+                }
             }, 1000);
-        } else {
-            document.body.removeChild(iframe);
+        } catch (error) {
+            console.error("Ekspor PDF gagal:", error);
             setIsGenerating(false);
         }
     };
