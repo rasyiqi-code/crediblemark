@@ -223,21 +223,25 @@ export function generateProposalHtml({
     const generateAddonsTableRows = (addonsSubList: ServiceAddon[]) => {
         return addonsSubList.map(addon => {
             const addPrice = typeof addon.price === "string" ? parseFloat(addon.price) : (typeof addon.price === "number" ? addon.price : 0);
-            const addonFormattedPrice = (addon.currency || baseCurrency) === "IDR"
+            
+            // Format harga dasar
+            let addonFormattedPrice = (addon.currency || baseCurrency) === "IDR"
                 ? `Rp ${addPrice.toLocaleString("id-ID")}`
                 : `$${addPrice.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
-            const addInterval = addon.interval === "one_time"
-                ? (isEn ? "One Time" : "Sekali Bayar")
-                : (addon.interval === "monthly" ? (isEn ? "Monthly" : "Bulanan") : (addon.interval === "yearly" ? (isEn ? "Yearly" : "Tahunan") : addon.interval));
+            // Tambahkan sufiks interval secara langsung pada harga
+            if (addon.interval === "monthly") {
+                addonFormattedPrice += isEn ? "/mo" : "/bln";
+            } else if (addon.interval === "yearly") {
+                addonFormattedPrice += isEn ? "/yr" : "/thn";
+            }
 
             const displayName = !isEn ? (addon.name_id || addon.name) : addon.name;
 
             return `
                 <tr>
                     <td><strong>${displayName}</strong><br><small style="color: #a1a1aa; font-size: 11px;">${addon.description || ''}</small></td>
-                    <td>${addInterval}</td>
-                    <td style="text-align: right; font-weight: 600; color: #fbbf24;">${addonFormattedPrice}</td>
+                    <td style="text-align: right; font-weight: 600; color: #fbbf24; white-space: nowrap;">${addonFormattedPrice}</td>
                 </tr>
             `;
         }).join("");
@@ -252,8 +256,8 @@ export function generateProposalHtml({
         return chunks;
     };
 
-    // Chunk list addon per 15 item untuk mencegah overflow halaman
-    const addonChunks = chunkArray(addonsList, 15);
+    // Chunk list addon per 19 item untuk mencegah overflow halaman
+    const addonChunks = chunkArray(addonsList, 19);
     const addonsNeedNewPage = addonsList.length > 3;
     const addonPageCount = addonsNeedNewPage ? addonChunks.length : 0;
 
@@ -349,7 +353,6 @@ export function generateProposalHtml({
     const tBaseInvestLabel = messages.ProposalExport.baseInvestLabel.replace("{priceModel}", priceModel);
 
     const tAddonHeaderModule = messages.ProposalExport.addonHeaderModule;
-    const tAddonHeaderScheme = messages.ProposalExport.addonHeaderScheme;
     const tAddonHeaderInvest = messages.ProposalExport.addonHeaderInvest;
 
     // Lokalisasi dinamis untuk Halaman 6 (FAQ, Guarantee, Otorisasi)
@@ -373,9 +376,7 @@ export function generateProposalHtml({
     const addonsPagesHtml = addonsNeedNewPage ? addonChunks.map((chunk, chunkIdx) => {
         const pageNum = 6 + chunkIdx;
         
-        const pageTitle = chunkIdx === 0
-            ? (isEn ? "04.2 / Optional Add-on Modules" : "04.2 / Modul Add-on Opsional")
-            : (isEn ? "04.2 / Optional Add-on Modules (Continued)" : "04.2 / Modul Add-on Opsional (Lanjutan)");
+        const pageTitle = isEn ? "04.2 / Optional Add-on Modules" : "04.2 / Modul Add-on Opsional";
 
         const pageIntro = isEn
             ? "Detailed breakdown of the selected optional add-on modules configured to customize the scalability of your infrastructure and digital system:"
@@ -384,8 +385,11 @@ export function generateProposalHtml({
         return `
         <!-- HALAMAN ADD-ON: HALAMAN ${chunkIdx + 1} -->
         <div class="page">
-            <div class="section-header">
-                <h2 class="section-title">${pageTitle}</h2>
+            <div class="section-header" style="align-items: flex-end;">
+                <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 2px;">
+                    ${chunkIdx > 0 ? `<span class="page-title-badge">${isEn ? "Continued" : "Lanjutan"}</span>` : ''}
+                    <h2 class="section-title" style="margin: 0; line-height: 1.1;">${pageTitle}</h2>
+                </div>
                 <span class="section-subtitle-badge">${getPageFooterHtml(pageNum)}</span>
             </div>
      
@@ -399,7 +403,6 @@ export function generateProposalHtml({
                     <thead>
                         <tr>
                             <th>${tAddonHeaderModule}</th>
-                            <th>${tAddonHeaderScheme}</th>
                             <th style="text-align: right;">${tAddonHeaderInvest}</th>
                         </tr>
                     </thead>
@@ -565,6 +568,33 @@ export function generateProposalHtml({
             padding: 6px 14px;
             border-radius: 4px;
             margin-bottom: 20px;
+        }
+        
+        .page-title-badge {
+            display: inline-block;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 8px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: #fbbf24;
+            color: #000000;
+            padding: 1px 5px;
+            border-radius: 3px;
+            position: relative;
+            margin-bottom: 6px;
+            line-height: 1;
+        }
+        .page-title-badge::after {
+            content: "";
+            position: absolute;
+            bottom: -3px;
+            left: 8px;
+            border-width: 3px 3px 0;
+            border-style: solid;
+            border-color: #fbbf24 transparent;
+            display: block;
+            width: 0;
         }
         
         .main-title {
@@ -996,8 +1026,8 @@ export function generateProposalHtml({
         .proposal-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 20px;
-            margin-top: 10px;
+            margin-bottom: 12px;
+            margin-top: 6px;
         }
         
         .proposal-table th {
@@ -1006,14 +1036,14 @@ export function generateProposalHtml({
             font-size: 12.5px;
             font-weight: 600;
             text-align: left;
-            padding: 12px 14px;
+            padding: 8px 12px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
         
         .proposal-table td {
-            padding: 12px 14px;
-            font-size: 14.5px;
+            padding: 8px 12px;
+            font-size: 14px;
             border-bottom: 1px solid #27272a;
             color: #ffffff;
             vertical-align: middle;
@@ -1548,7 +1578,6 @@ export function generateProposalHtml({
                 <thead>
                     <tr>
                         <th>${tAddonHeaderModule}</th>
-                        <th>${tAddonHeaderScheme}</th>
                         <th style="text-align: right;">${tAddonHeaderInvest}</th>
                     </tr>
                 </thead>

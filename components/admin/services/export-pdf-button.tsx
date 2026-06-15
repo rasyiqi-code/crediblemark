@@ -1,16 +1,15 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { FileDown, Loader2 } from "lucide-react";
 import { ServiceAddon } from "@/lib/shared/types";
 import { useLocale } from "next-intl";
-import idMessages from "@/messages/id.json";
-import enMessages from "@/messages/en.json";
-import { getAgencyLogo, getCompanyStamp, getDirectorSignature } from "@/app/actions/system-admin";
 import { useSafeUser } from "@/hooks/use-safe-user";
-import { generateProposalHtml, ServiceDataForPdf } from "@/lib/pdf/proposal-template";
+import { ServiceDataForPdf } from "@/lib/pdf/proposal-template";
 
+// Tombol ekspor PDF proposal yang memicu download langsung di sisi klien
+// menggunakan API route sisi server agar layout merender desktop A4 dengan presisi.
 export function ExportPdfButton({
     service,
     variant = "icon",
@@ -22,80 +21,41 @@ export function ExportPdfButton({
 }) {
     const { user } = useSafeUser();
     const [isGenerating, setIsGenerating] = useState(false);
-    const [logoUrl, setLogoUrl] = useState<string | null>(null);
-    const [stampUrl, setStampUrl] = useState<string | null>(null);
-    const [signatureUrl, setSignatureUrl] = useState<string | null>(null);
-    const [contactInfo, setContactInfo] = useState<{
-        email: string;
-        phone: string;
-        telegram: string;
-        address: string;
-        hours: string;
-    } | null>(null);
     const locale = useLocale();
 
-    useEffect(() => {
-        getAgencyLogo().then(setLogoUrl).catch(console.error);
-        getCompanyStamp().then(setStampUrl).catch(console.error);
-        getDirectorSignature().then(setSignatureUrl).catch(console.error);
-        fetch("/api/system/contact")
-            .then(res => res.json())
-            .then(setContactInfo)
-            .catch(console.error);
-    }, []);
-
-    const handleExport = () => {
+    const handleExport = async () => {
         setIsGenerating(true);
 
-        // Membuat iframe tersembunyi untuk proses printing
-        const iframe = document.createElement("iframe");
-        iframe.style.position = "fixed";
-        iframe.style.right = "0";
-        iframe.style.bottom = "0";
-        iframe.style.width = "0";
-        iframe.style.height = "0";
-        iframe.style.border = "none";
-        iframe.style.visibility = "hidden";
+        try {
+            const response = await fetch("/api/services/export-pdf", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    service,
+                    locale,
+                    user,
+                    globalAddons
+                })
+            });
 
-        document.body.appendChild(iframe);
+            if (!response.ok) {
+                throw new Error("Gagal mengunduh berkas proposal PDF");
+            }
 
-        const doc = iframe.contentDocument || iframe.contentWindow?.document;
-        if (!doc) {
-            setIsGenerating(false);
-            return;
-        }
-
-        const messages = locale.startsWith("en") ? enMessages : idMessages;
-
-        const htmlContent = generateProposalHtml({
-            service,
-            logoUrl,
-            signatureUrl,
-            stampUrl,
-            contactInfo,
-            locale,
-            user,
-            globalAddons,
-            messages
-        });
-
-        doc.open();
-        doc.write(htmlContent);
-        doc.close();
-
-        // Print preview dipicu sesudah styles & fonts termuat
-        const win = iframe.contentWindow;
-        if (win) {
-            setTimeout(() => {
-                win.focus();
-                win.print();
-                setTimeout(() => {
-                    document.body.removeChild(iframe);
-                    setIsGenerating(false);
-                }, 1000);
-            }, 1000);
-        } else {
-            document.body.removeChild(iframe);
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `${service.title.replace(/[^a-z0-9]/gi, '_')}_Proposal.pdf`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        } catch (error) {
+            console.error("Ekspor PDF gagal:", error);
+        } finally {
             setIsGenerating(false);
         }
     };
