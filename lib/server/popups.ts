@@ -56,7 +56,7 @@ export async function createPopUp(data: {
         },
     });
     revalidatePath("/admin/marketing");
-    (revalidateTag as unknown as (tag: string) => void)("popups");
+    revalidateTag("popups", "max");
     return popup;
 }
 
@@ -66,14 +66,14 @@ export async function updatePopUp(id: string, data: Partial<Parameters<typeof cr
         data,
     });
     revalidatePath("/admin/marketing");
-    (revalidateTag as unknown as (tag: string) => void)("popups");
+    revalidateTag("popups", "max");
     return popup;
 }
 
 export async function deletePopUp(id: string) {
     await prisma.popUp.deleteMany({ where: { id } });
     revalidatePath("/admin/marketing");
-    (revalidateTag as unknown as (tag: string) => void)("popups");
+    revalidateTag("popups", "max");
 }
 
 export async function togglePopUpStatus(id: string, isActive: boolean) {
@@ -82,6 +82,6 @@ export async function togglePopUpStatus(id: string, isActive: boolean) {
         data: { isActive },
     });
     revalidatePath("/admin/marketing");
-    (revalidateTag as unknown as (tag: string) => void)("popups");
+    revalidateTag("popups", "max");
     return popup;
 }

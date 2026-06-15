@@ -58,7 +58,7 @@ export async function createAddon(formData: FormData) {
         });
 
         // Invalidasi cache halaman terkait
-        (revalidateTag as unknown as (tag: string) => void)("addons");
+        revalidateTag("addons", "max");
         revalidatePath("/admin/pm/addons");
         revalidatePath("/en/services");
         revalidatePath("/id/services");
@@ -107,7 +107,7 @@ export async function updateAddon(addonId: string, formData: FormData) {
         });
 
         // Invalidasi cache halaman terkait
-        (revalidateTag as unknown as (tag: string) => void)("addons");
+        revalidateTag("addons", "max");
         revalidatePath("/admin/pm/addons");
         revalidatePath("/en/services");
         revalidatePath("/id/services");
@@ -131,7 +131,7 @@ export async function toggleAddonStatus(addonId: string, isActive: boolean) {
             data: { isActive }
         });
 
-        (revalidateTag as unknown as (tag: string) => void)("addons");
+        revalidateTag("addons", "max");
         revalidatePath("/admin/pm/addons");
         revalidatePath("/en/services");
         revalidatePath("/id/services");
@@ -156,7 +156,7 @@ export async function deleteAddon(addonId: string) {
         });
 
         // Invalidasi cache halaman terkait
-        (revalidateTag as unknown as (tag: string) => void)("addons");
+        revalidateTag("addons", "max");
         revalidatePath("/admin/pm/addons");
         revalidatePath("/en/services");
         revalidatePath("/id/services");
@@ -187,7 +187,7 @@ export async function deleteAddons(addonIds: string[]) {
         });
 
         // Invalidasi cache halaman terkait
-        (revalidateTag as unknown as (tag: string) => void)("addons");
+        revalidateTag("addons", "max");
         revalidatePath("/admin/pm/addons");
         revalidatePath("/en/services");
         revalidatePath("/id/services");
@@ -223,7 +223,7 @@ export async function createAddons(addons: { name: string; name_id: string; pric
         });
 
         // Invalidasi cache halaman terkait
-        (revalidateTag as unknown as (tag: string) => void)("addons");
+        revalidateTag("addons", "max");
         revalidatePath("/admin/pm/addons");
         revalidatePath("/en/services");
         revalidatePath("/id/services");

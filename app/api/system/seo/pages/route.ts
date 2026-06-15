@@ -56,7 +56,7 @@ export async function POST(req: NextRequest) {
         });
 
         revalidatePath(normalizedPath, "page");
-        (revalidateTag as unknown as (tag: string) => void)("page-seo");
+        revalidateTag("page-seo", "max");
         return NextResponse.json(page);
     } catch (error) {
         console.error("Page SEO upsert error:", error);

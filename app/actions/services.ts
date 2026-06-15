@@ -71,7 +71,7 @@ export async function createService(formData: FormData) {
     });
 
     // Invalidasi cache halaman publik dan admin
-    (revalidateTag as unknown as (tag: string) => void)("services");
+    revalidateTag("services", "max");
     revalidatePath("/admin/pm/services");
     revalidatePath("/en/services");
     revalidatePath("/id/services");
@@ -144,7 +144,7 @@ export async function updateService(serviceId: string, formData: FormData) {
     });
 
     // Invalidasi cache halaman publik dan admin
-    (revalidateTag as unknown as (tag: string) => void)("services");
+    revalidateTag("services", "max");
     revalidatePath("/admin/pm/services");
     revalidatePath("/en/services");
     revalidatePath("/id/services");
@@ -158,7 +158,7 @@ export async function deleteService(serviceId: string) {
     await prisma.service.delete({ where: { id: serviceId } });
 
     // Invalidasi cache halaman publik dan admin
-    (revalidateTag as unknown as (tag: string) => void)("services");
+    revalidateTag("services", "max");
     revalidatePath("/admin/pm/services");
     revalidatePath("/en/services");
     revalidatePath("/id/services");
@@ -185,7 +185,7 @@ export async function deleteServices(serviceIds: string[]) {
         });
 
         // Invalidasi cache halaman publik dan admin
-        (revalidateTag as unknown as (tag: string) => void)("services");
+        revalidateTag("services", "max");
         revalidatePath("/admin/pm/services");
         revalidatePath("/en/services");
         revalidatePath("/id/services");

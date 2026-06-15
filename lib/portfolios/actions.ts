@@ -99,7 +99,7 @@ export async function savePortfolio(item: Omit<PortfolioItem, "id" | "createdAt"
         revalidatePath("/portfolio", "page");
         revalidatePath("/admin/portfolio", "page");
         revalidatePath(`/view-design/${cleanSlug}`, "page");
-        (revalidateTag as unknown as (tag: string) => void)("portfolios");
+        revalidateTag("portfolios", "max");
 
         return newItem as unknown as PortfolioItem;
     } catch (error) {
@@ -117,7 +117,7 @@ export async function deletePortfolio(id: string) {
         revalidatePath("/portfolio", "page");
         revalidatePath("/admin/portfolio", "page");
         revalidatePath(`/view-design/${item.slug}`, "page");
-        (revalidateTag as unknown as (tag: string) => void)("portfolios");
+        revalidateTag("portfolios", "max");
     } catch (error) {
         console.error("[Portfolios] Delete failed:", error);
         throw error;

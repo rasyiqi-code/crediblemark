@@ -124,7 +124,7 @@ export async function saveContactSettings(data: {
     await prisma.$transaction(updates);
     revalidatePath("/admin/system/settings", "page");
     revalidatePath("/", "layout");
-    (revalidateTag as unknown as (tag: string) => void)("system-settings");
+    revalidateTag("system-settings", "max");
 }
 
 export async function saveResendConfig(resendKey?: string, adminEmail?: string, senderName?: string, senderEmail?: string) {
