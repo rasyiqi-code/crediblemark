@@ -51,7 +51,7 @@ export function AboutSection({ service, displayDescription, displayAddons, selec
                             placeholder={locale === 'id' ? "Cari add-on..." : "Search add-ons..."}
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full bg-zinc-900 border border-zinc-800 rounded-xl pl-8 pr-8 py-2.5 text-xs text-zinc-300 placeholder:text-zinc-500 focus:outline-none focus:border-brand-yellow/30 focus:bg-zinc-900 transition-all"
+                            className="w-full bg-zinc-900 border border-zinc-800 rounded-none pl-8 pr-8 py-2.5 text-xs text-zinc-300 placeholder:text-zinc-500 focus:outline-none focus:border-brand-yellow/30 transition-all"
                         />
                         {searchQuery && (
                             <button
@@ -63,18 +63,18 @@ export function AboutSection({ service, displayDescription, displayAddons, selec
                         )}
                     </div>
  
-                    <div className="space-y-3 lg:max-h-[calc(100vh-320px)] lg:overflow-y-auto lg:pr-1.5">
+                    <div className="space-y-2 lg:max-h-[calc(100vh-320px)] lg:overflow-y-auto lg:pr-1.5">
                         {filteredAddons.map((addon, idx) => {
                             const isSelected = selectedAddons.some(a => a.name === addon.name);
                             return (
                                 <div
                                     key={idx}
                                     onClick={() => toggleAddon(addon)}
-                                    className={`flex items-center justify-between p-4 rounded-2xl cursor-pointer transition-all border duration-300 ${isSelected ? 'bg-brand-yellow/10 border-brand-yellow/30 shadow-lg shadow-brand-yellow/5' : 'bg-white/[0.03] border-transparent hover:bg-white/[0.08] hover:border-white/10'}`}
+                                    className={`flex items-center justify-between p-3 rounded-none cursor-pointer transition-all border duration-300 ${isSelected ? 'bg-zinc-900 border-brand-yellow/30 shadow-md shadow-brand-yellow/[0.01]' : 'bg-zinc-950 border-white/5 hover:bg-zinc-900/60 hover:border-white/10'}`}
                                 >
                                     <div className="flex items-start gap-3">
-                                        <div className={`w-5 h-5 rounded-md border flex items-center justify-center transition-all duration-300 shrink-0 mt-0.5 ${isSelected ? 'bg-brand-yellow border-brand-yellow scale-110' : 'border-zinc-700 bg-black/40'}`}>
-                                            {isSelected && <Check className="w-3 h-3 text-black stroke-[3]" />}
+                                        <div className={`w-4 h-4 rounded-none border flex items-center justify-center transition-all duration-300 shrink-0 mt-0.5 ${isSelected ? 'bg-brand-yellow border-brand-yellow' : 'border-zinc-700 bg-zinc-900'}`}>
+                                            {isSelected && <Check className="w-2.5 h-2.5 text-black stroke-[3]" />}
                                         </div>
                                         <div className="flex flex-col">
                                             <span className={`text-xs md:text-sm font-bold tracking-tight ${isSelected ? 'text-brand-yellow' : 'text-zinc-300'}`}>{addon.name}</span>
