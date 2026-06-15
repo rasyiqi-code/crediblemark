@@ -43,40 +43,50 @@ export const serviceAddonsGeneratorFlow = ai.defineFlow(
         const interval = input.interval;
         const requestedScale = input.targetBusinessScale || 'AUTO';
 
+        const scaleLabels: Record<string, string> = {
+            'ULTRA_MICRO': 'Ultra Mikro (UMi)',
+            'MICRO': 'Mikro',
+            'SMALL': 'Kecil',
+            'MEDIUM': 'Menengah (SME)',
+            'ENTERPRISE': 'Besar (Enterprise)',
+            'AUTO': 'Deteksi Otomatis (Insting AI)'
+        };
+        const activeScaleLabel = scaleLabels[requestedScale] || scaleLabels['AUTO'];
+
         // Hitung harga konsumen untuk referensi skala bisnis
         const consumerPrice = discount > 0 ? basePrice * (1 - (discount / 100)) : basePrice;
 
         let addonsPricingRule = "";
         if (requestedScale === "ULTRA_MICRO") {
-            addonsPricingRule = `The target business scale is \`ULTRA_MICRO\` (\`UMi\`). You MUST strictly select the pricing of the addons from these ranges:
+            addonsPricingRule = `The target business scale is \`ULTRA_MICRO\` (Indonesian: \`Ultra Mikro (UMi)\`). You MUST strictly select the pricing of the addons from these ranges:
 - Hosting: IDR 49,000 - 149,000/month OR IDR 490,000 - 1,490,000/year (USD 5 - 15/month OR USD 49 - 149/year).
 - Domain: IDR 149,000 - 245,000/year (USD 15 - 25/year) (interval: yearly).
 - Maintenance: IDR 99,000 - 195,000/month (USD 9 - 19/month).
 - All-in-One Managed Care (Yearly): IDR 2,190,000 - 4,490,000/year (USD 219 - 449/year).
 - Custom Low/Med/High Complexity Addons: IDR 290,000 - 990,000 / USD 29 - 99.`;
         } else if (requestedScale === "MICRO") {
-            addonsPricingRule = `The target business scale is \`MICRO\`. You MUST strictly select the pricing of the addons from these ranges:
+            addonsPricingRule = `The target business scale is \`MICRO\` (Indonesian: \`Mikro\`). You MUST strictly select the pricing of the addons from these ranges:
 - Hosting: IDR 149,000 - 245,000/month OR IDR 1,490,000 - 2,450,000/year (USD 15 - 25/month OR USD 149 - 245/year).
 - Domain: IDR 149,000 - 245,000/year (USD 15 - 25/year) (interval: yearly).
 - Maintenance: IDR 190,000 - 390,000/month (USD 19 - 39/month).
 - All-in-One Managed Care (Yearly): IDR 3,990,000 - 8,990,000/year (USD 399 - 899/year).
 - Custom Low/Med/High Complexity Addons: IDR 490,000 - 1,990,000 / USD 49 - 199.`;
         } else if (requestedScale === "SMALL") {
-            addonsPricingRule = `The target business scale is \`SMALL\`. You MUST strictly select the pricing of the addons from these ranges:
+            addonsPricingRule = `The target business scale is \`SMALL\` (Indonesian: \`Kecil\`). You MUST strictly select the pricing of the addons from these ranges:
 - Hosting: IDR 245,000 - 495,000/month OR IDR 2,450,000 - 4,950,000/year (USD 25 - 49/month OR USD 245 - 495/year).
 - Domain: IDR 245,000 - 395,000/year (USD 25 - 39/year) (interval: yearly).
 - Maintenance: IDR 390,000 - 990,000/month (USD 39 - 99/month).
 - All-in-One Managed Care (Yearly): IDR 8,990,000 - 19,990,000/year (USD 899 - 1,990/year).
 - Custom Low/Med/High Complexity Addons: IDR 990,000 - 4,950,000 / USD 99 - 495.`;
         } else if (requestedScale === "MEDIUM") {
-            addonsPricingRule = `The target business scale is \`MEDIUM\` (\`SME\`). You MUST strictly select the pricing of the addons from these ranges:
+            addonsPricingRule = `The target business scale is \`MEDIUM\` (\`SME\`) (Indonesian: \`Menengah (SME)\`). You MUST strictly select the pricing of the addons from these ranges:
 - Hosting: IDR 495,000 - 990,000/month OR IDR 4,950,000 - 9,900,000/year (USD 49 - 99/month OR USD 495 - 990/year).
 - Domain: IDR 390,000 - 590,000/year (USD 39 - 59/year) (interval: yearly).
 - Maintenance: IDR 990,000 - 1,950,000/month (USD 99 - 195/month).
 - All-in-One Managed Care (Yearly): IDR 19,990,000 - 49,990,000/year (USD 1,999 - 4,999/year).
 - Custom Low/Med/High Complexity Addons: IDR 1,990,000 - 9,950,000 / USD 199 - 995.`;
         } else if (requestedScale === "ENTERPRISE") {
-            addonsPricingRule = `The target business scale is \`ENTERPRISE\`. You MUST strictly select the pricing of the addons from these ranges:
+            addonsPricingRule = `The target business scale is \`ENTERPRISE\` (Indonesian: \`Besar (Enterprise)\`). You MUST strictly select the pricing of the addons from these ranges:
 - Hosting: IDR 1,490,000 - 3,490,000/month OR IDR 14,900,000 - 34,900,000/year (USD 149 - 349/month OR USD 1,490 - 3,490/year).
 - Domain: IDR 590,000 - 1,490,000/year (USD 59 - 149/year) (interval: yearly).
 - Maintenance: IDR 1,950,000 - 4,950,000/month (USD 195 - 495/month).
@@ -136,6 +146,7 @@ Service Profile:
 - Description: "${sanitizedDesc}"
 - Base Price: ${currency} ${basePrice} (Consumer Price: ${currency} ${consumerPrice})
 - Interval: ${interval}
+- Target Business Scale: \`${activeScaleLabel}\`
 
 Rules:
 1. MANDATORY ADD-ONS REQUIREMENT (CRITICAL):
