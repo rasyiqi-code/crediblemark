@@ -1,49 +1,76 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import React from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Trash2, CheckSquare, Square, Loader2, ListCheck, Search, X, ArrowUpDown } from "lucide-react";
-import { CreateBulkAddonsDialog } from "./create-bulk-addons-dialog";
 
-export type SortOption = "latest" | "oldest" | "price_asc" | "price_desc" | "name_asc";
-
-interface AddonToolbarProps {
-    isSelectionMode: boolean;
-    onToggleSelectionMode: () => void;
-    selectedIdsCount: number;
-    allSelected: boolean;
-    onToggleSelectAll: () => void;
-    sortBy: SortOption;
-    onSortByChange: (val: SortOption) => void;
-    searchQuery: string;
-    onSearchQueryChange: (val: string) => void;
-    isPending: boolean;
-    onBulkDelete: () => void;
-    existingAddonNames: string[];
+export interface SortOptionItem {
+    value: string;
+    label: string;
 }
 
-export function AddonToolbar({
+interface AdminListToolbarProps {
+    // Mode Seleksi
+    isSelectionMode: boolean;
+    onToggleSelectionMode: () => void;
+    selectModeLabel: string;
+    cancelSelectModeLabel: string;
+
+    // Aksi Kustom (seperti tombol AI Magic Draft)
+    customAction?: React.ReactNode;
+
+    // Pengurutan (Sorting)
+    sortBy: string;
+    onSortByChange: (val: any) => void;
+    sortOptions: SortOptionItem[];
+    sortPlaceholder?: string;
+
+    // Pencarian (Search)
+    searchQuery: string;
+    onSearchQueryChange: (val: string) => void;
+    searchPlaceholder: string;
+
+    // Aksi Massal (Bulk Actions)
+    selectedCount: number;
+    allSelected: boolean;
+    onToggleSelectAll: () => void;
+    selectAllLabel: string;
+    deselectAllLabel: string;
+    
+    // Hapus Massal (Bulk Delete)
+    onBulkDelete?: () => void;
+    bulkDeleteLabel?: string;
+    isPending?: boolean;
+}
+
+export function AdminListToolbar({
     isSelectionMode,
     onToggleSelectionMode,
-    selectedIdsCount,
-    allSelected,
-    onToggleSelectAll,
+    selectModeLabel,
+    cancelSelectModeLabel,
+    customAction,
     sortBy,
     onSortByChange,
+    sortOptions,
+    sortPlaceholder = "Urutkan",
     searchQuery,
     onSearchQueryChange,
-    isPending,
+    searchPlaceholder,
+    selectedCount,
+    allSelected,
+    onToggleSelectAll,
+    selectAllLabel,
+    deselectAllLabel,
     onBulkDelete,
-    existingAddonNames
-}: AddonToolbarProps) {
-    const t = useTranslations("Admin.Addons");
-
+    bulkDeleteLabel = "Hapus Terpilih",
+    isPending = false
+}: AdminListToolbarProps) {
     return (
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-transparent sm:bg-zinc-900/20 border-none sm:border sm:border-zinc-800/60 rounded-none sm:rounded-xl p-0 sm:p-3 w-full">
-            {/* 4 Pengaturan Sebaris */}
-            <div className="flex items-center gap-2 w-full sm:w-auto flex-1">
+            {/* 4 Pengaturan Sebaris (Full Width di Desktop dengan flex-1) */}
+            <div className="flex items-center gap-2 w-full flex-1">
                 {/* 1. Tombol Mode Seleksi */}
                 <Button
                     type="button"
@@ -55,46 +82,46 @@ export function AddonToolbar({
                             ? "bg-zinc-800 border-zinc-700 text-white hover:bg-zinc-700"
                             : "bg-zinc-900/40 border-white/5 text-zinc-400 hover:bg-zinc-800/50 hover:text-white"
                     } w-9 px-0 sm:w-auto sm:px-3 text-xs`}
-                    title={isSelectionMode ? t("cancelSelectMode") : t("selectMode")}
+                    title={isSelectionMode ? cancelSelectModeLabel : selectModeLabel}
                 >
                     <ListCheck className="w-3.5 h-3.5" />
-                    <span className="hidden sm:inline">{isSelectionMode ? t("cancelSelectMode") : t("selectMode")}</span>
+                    <span className="hidden sm:inline">{isSelectionMode ? cancelSelectModeLabel : selectModeLabel}</span>
                 </Button>
 
-                {/* 2. Draf AI Masal */}
-                {!isSelectionMode && (
+                {/* 2. Custom Action (Aksi Tambahan seperti AI Magic Draft) */}
+                {!isSelectionMode && customAction && (
                     <div className="shrink-0">
-                        <CreateBulkAddonsDialog existingAddonNames={existingAddonNames} />
+                        {customAction}
                     </div>
                 )}
 
-                {/* 3. Pengurutan */}
+                {/* 3. Pengurutan (Dropdown Sort) */}
                 <Select value={sortBy} onValueChange={onSortByChange}>
                     <SelectTrigger className="w-9 h-8 p-0 bg-black/20 border-white/5 text-zinc-300 text-xs focus:ring-blue-500/20 focus:ring-offset-0 flex items-center justify-center shrink-0 sm:w-[140px] sm:px-3">
                         <div className="flex items-center justify-center gap-1.5">
                             <ArrowUpDown className="w-3.5 h-3.5 text-zinc-500" />
                             <span className="hidden sm:inline">
-                                <SelectValue placeholder="Urutkan" />
+                                <SelectValue placeholder={sortPlaceholder} />
                             </span>
                         </div>
                     </SelectTrigger>
                     <SelectContent className="bg-zinc-900 border-white/5 text-zinc-200">
-                        <SelectItem value="latest" className="text-xs">Terbaru</SelectItem>
-                        <SelectItem value="oldest" className="text-xs">Terlama</SelectItem>
-                        <SelectItem value="price_asc" className="text-xs">Harga Terendah</SelectItem>
-                        <SelectItem value="price_desc" className="text-xs">Harga Tertinggi</SelectItem>
-                        <SelectItem value="name_asc" className="text-xs">Nama A-Z</SelectItem>
+                        {sortOptions.map((opt) => (
+                            <SelectItem key={opt.value} value={opt.value} className="text-xs">
+                                {opt.label}
+                            </SelectItem>
+                        ))}
                     </SelectContent>
                 </Select>
 
-                {/* 4. Input Pencarian */}
-                <div className="relative flex-1 sm:flex-initial sm:w-56">
+                {/* 4. Input Pencarian (Selalu flex-1 agar full width di desktop & mobile) */}
+                <div className="relative flex-1">
                     <Search className="w-3.5 h-3.5 absolute left-2.5 top-2.5 text-zinc-500" />
                     <Input
                         type="text"
                         value={searchQuery}
                         onChange={(e) => onSearchQueryChange(e.target.value)}
-                        placeholder={t("searchPlaceholder")}
+                        placeholder={searchPlaceholder}
                         className="bg-black/20 border-white/5 text-zinc-200 text-xs pl-8 pr-7 h-8 w-full focus-visible:ring-blue-500/20"
                     />
                     {searchQuery && (
@@ -110,7 +137,7 @@ export function AddonToolbar({
             </div>
 
             {/* Aksi Tambahan: Deselect/Select All & Bulk Delete */}
-            {(isSelectionMode || (isSelectionMode && selectedIdsCount > 0)) && (
+            {(isSelectionMode || (isSelectionMode && selectedCount > 0)) && (
                 <div className="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end shrink-0 empty:hidden">
                     {isSelectionMode && (
                         <Button
@@ -123,24 +150,24 @@ export function AddonToolbar({
                             {allSelected ? (
                                 <>
                                     <Square className="w-3.5 h-3.5 text-zinc-500" />
-                                    <span>{t("deselectAll")}</span>
+                                    <span>{deselectAllLabel}</span>
                                 </>
                             ) : (
                                 <>
                                     <CheckSquare className="w-3.5 h-3.5 text-blue-400" />
-                                    <span>{t("selectAll")}</span>
+                                    <span>{selectAllLabel}</span>
                                 </>
                             )}
                         </Button>
                     )}
 
-                    {isSelectionMode && selectedIdsCount > 0 && (
+                    {isSelectionMode && selectedCount > 0 && (
                         <span className="text-xs text-zinc-500 sm:block hidden">
-                            {selectedIdsCount} terpilih
+                            {selectedCount} terpilih
                         </span>
                     )}
 
-                    {isSelectionMode && selectedIdsCount > 0 && (
+                    {isSelectionMode && selectedCount > 0 && onBulkDelete && (
                         <Button
                             type="button"
                             onClick={onBulkDelete}
@@ -152,7 +179,7 @@ export function AddonToolbar({
                             ) : (
                                 <Trash2 className="w-3.5 h-3.5" />
                             )}
-                            <span>{t("deleteSelected", { count: selectedIdsCount })}</span>
+                            <span>{bulkDeleteLabel}</span>
                         </Button>
                     )}
                 </div>

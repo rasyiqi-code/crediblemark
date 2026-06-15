@@ -6,9 +6,12 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { deleteAddons, toggleAddonStatus } from "@/app/actions/addons";
 import { EditAddonDialog, type AddonData } from "./edit-addon-dialog";
-import { AddonToolbar, type SortOption } from "./addon-toolbar";
+import { AdminListToolbar } from "@/components/admin/shared/admin-list-toolbar";
 import { AddonMobileList } from "./addon-mobile-list";
 import { AddonDesktopTable } from "./addon-desktop-table";
+import { CreateBulkAddonsDialog } from "./create-bulk-addons-dialog";
+
+export type SortOption = "latest" | "oldest" | "price_asc" | "price_desc" | "name_asc";
 
 interface AddonListClientProps {
     addons: AddonData[];
@@ -119,22 +122,35 @@ export function AddonListClient({ addons }: AddonListClientProps) {
     return (
         <div className="w-full space-y-4">
             {/* Toolbar Panel */}
-            <AddonToolbar
+            <AdminListToolbar
                 isSelectionMode={isSelectionMode}
                 onToggleSelectionMode={() => {
                     setIsSelectionMode(!isSelectionMode);
                     if (isSelectionMode) setSelectedIds([]);
                 }}
-                selectedIdsCount={selectedIds.length}
-                allSelected={allSelected}
-                onToggleSelectAll={handleToggleSelectAll}
+                selectModeLabel={t("selectMode")}
+                cancelSelectModeLabel={t("cancelSelectMode")}
+                customAction={<CreateBulkAddonsDialog existingAddonNames={addons.map((a) => a.name)} />}
                 sortBy={sortBy}
                 onSortByChange={setSortBy}
+                sortOptions={[
+                    { value: "latest", label: "Terbaru" },
+                    { value: "oldest", label: "Terlama" },
+                    { value: "price_asc", label: "Harga Terendah" },
+                    { value: "price_desc", label: "Harga Tertinggi" },
+                    { value: "name_asc", label: "Nama A-Z" }
+                ]}
                 searchQuery={searchQuery}
                 onSearchQueryChange={setSearchQuery}
-                isPending={isPending}
+                searchPlaceholder={t("searchPlaceholder")}
+                selectedCount={selectedIds.length}
+                allSelected={allSelected}
+                onToggleSelectAll={handleToggleSelectAll}
+                selectAllLabel={t("selectAll")}
+                deselectAllLabel={t("deselectAll")}
                 onBulkDelete={handleBulkDelete}
-                existingAddonNames={addons.map((a) => a.name)}
+                bulkDeleteLabel={t("deleteSelected", { count: selectedIds.length })}
+                isPending={isPending}
             />
 
             {/* List Addons */}
