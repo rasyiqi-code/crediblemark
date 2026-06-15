@@ -28,9 +28,6 @@ export function ServiceCard({ service }: ServiceCardProps) {
     const displayFeatures = (isId && Array.isArray((service as unknown as Record<string, unknown>).features_id) && ((service as unknown as Record<string, unknown>).features_id as string[]).length > 0)
         ? (service as unknown as Record<string, unknown>).features_id as string[]
         : service.features as string[];
-
-    const displayAddons = [1]; // Statis untuk menunjukkan bahwa ada addon global yang selalu tersedia
-
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
         if (!rectRef.current) {
             rectRef.current = e.currentTarget.getBoundingClientRect();
