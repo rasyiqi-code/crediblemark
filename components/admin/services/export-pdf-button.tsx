@@ -1198,20 +1198,28 @@ export function ExportPdfButton({
                     <div style="display: flex; flex-direction: column; gap: 4px;">
                         <span style="font-size: 12px; text-transform: uppercase; color: #ffffff; letter-spacing: 0.5px;">${tBaseInvestLabel}</span>
                         ${service.discount && service.discount > 0 ? `
-                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 2px;">
-                                <span style="font-size: 14px; text-decoration: line-through; color: #a1a1aa; font-weight: 500;">
+                            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 4px; margin-bottom: 4px;">
+                                <span style="font-size: 16px; text-decoration: line-through; color: #71717a; font-weight: 500;">
                                     ${formatPriceHelper(service.price)}
                                 </span>
-                                <span style="font-size: 11px; background: #d97706; color: #ffffff; padding: 2px 8px; font-weight: 700; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; display: inline-block;">
-                                    ${isEn 
-                                        ? `Save ${formatPriceHelper(service.price - finalPrice)} (${service.discount}%)` 
-                                        : `Hemat ${formatPriceHelper(service.price - finalPrice)} (${service.discount}%)`
-                                    }
+                                <span style="font-size: 15px; font-weight: 800; color: #fbbf24; background: rgba(251, 191, 36, 0.1); border: 1px dashed #fbbf24; padding: 3px 10px; border-radius: 4px; letter-spacing: 0.5px; display: inline-block;">
+                                    ${isEn ? `SPECIAL OFFER: SAVE ${service.discount}%` : `PENAWARAN EKSKLUSIF: HEMAT ${service.discount}%`}
                                 </span>
+                            </div>
+                            <div style="font-size: 12px; color: #fbbf24; font-weight: 600; margin-bottom: 4px; letter-spacing: 0.2px;">
+                                ${isEn 
+                                    ? `✨ Secure this special value & instantly keep an extra ${formatPriceHelper(service.price - finalPrice)} in your growth budget` 
+                                    : `✨ Amankan penawaran bernilai tinggi ini & simpan langsung surplus ${formatPriceHelper(service.price - finalPrice)} untuk anggaran pertumbuhan Anda`
+                                }
                             </div>
                         ` : ''}
                     </div>
                     <span class="pricing-price">${formattedPrice}</span>
+                    ${service.discount && service.discount > 0 ? `
+                        <span style="font-size: 11px; color: #a1a1aa; text-transform: uppercase; letter-spacing: 0.8px; display: block; margin-top: 4px; font-weight: 500;">
+                            ${isEn ? "* Guaranteed promotional rate shown above" : "* Nominal di atas adalah harga investasi spesial setelah potongan langsung"}
+                        </span>
+                    ` : ''}
                 </div>
                 <div style="text-align: right;">
                     <span style="font-size: 12px; text-transform: uppercase; color: #ffffff; letter-spacing: 0.5px;">${tPaymentScheme}</span>
