@@ -3,7 +3,8 @@ import {
     serviceContentGeneratorFlow, 
     servicePricingGeneratorFlow, 
     serviceAddonsGeneratorFlow,
-    singleAddonGeneratorFlow
+    singleAddonGeneratorFlow,
+    bulkAddonsGeneratorFlow
 } from "@/app/genkit";
 import { isAdmin } from "@/lib/shared/auth-helpers";
 
@@ -115,6 +116,15 @@ export async function POST(req: NextRequest) {
                 currency: currency || 'USD',
                 targetBusinessScale: targetBusinessScale || 'AUTO',
                 isEn
+            });
+        } else if (type === 'bulk-addons') {
+            const existingAddons = Array.isArray(body.existingAddons) ? body.existingAddons : [];
+            const count = body.count ? Number(body.count) : 10;
+            result = await bulkAddonsGeneratorFlow({
+                prompt: prompt || "",
+                currency: currency || 'IDR',
+                existingAddons,
+                count
             });
         } else {
             return NextResponse.json({ error: "Invalid type" }, { status: 400 });
