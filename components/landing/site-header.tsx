@@ -92,26 +92,26 @@ export async function SiteHeader() {
                             )}
                         </Link>
 
-                        <nav className="hidden md:flex items-center gap-8">
-                            <Link href={`/${locale}/price-calculator`} className="text-sm font-bold text-emerald-500 hover:text-emerald-400 transition-colors duration-200 cursor-pointer">
+                        <nav className="hidden md:flex items-center gap-3 lg:gap-6">
+                            <Link href={`/${locale}/price-calculator`} className="text-xs lg:text-sm font-bold text-emerald-500 hover:text-emerald-400 transition-colors duration-200 cursor-pointer whitespace-nowrap">
                                 {t("priceCalculator")}
                             </Link>
-                            <Link href={`/${locale}/services`} className="text-sm font-bold text-sky-500 hover:text-sky-400 transition-colors duration-200 cursor-pointer">
+                            <Link href={`/${locale}/services`} className="text-xs lg:text-sm font-bold text-sky-500 hover:text-sky-400 transition-colors duration-200 cursor-pointer whitespace-nowrap">
                                 {t("services")}
                             </Link>
-                            <Link href={`/${locale}/wordpress`} className="text-sm font-bold text-violet-400 hover:text-violet-300 transition-colors duration-200 cursor-pointer">
+                            <Link href={`/${locale}/wordpress`} className="text-xs lg:text-sm font-bold text-violet-400 hover:text-violet-300 transition-colors duration-200 cursor-pointer whitespace-nowrap">
                                 {t("wordpress")}
                             </Link>
-                            <Link href={`/${locale}/web-repair`} className="text-sm font-bold text-amber-500 hover:text-amber-400 transition-colors duration-200 cursor-pointer">
+                            <Link href={`/${locale}/web-repair`} className="text-xs lg:text-sm font-bold text-amber-500 hover:text-amber-400 transition-colors duration-200 cursor-pointer whitespace-nowrap">
                                 {t("webRepair")}
                             </Link>
-                            <Link href={`/portfolio`} className="text-sm font-bold text-rose-500 hover:text-rose-400 transition-colors duration-200 cursor-pointer">
+                            <Link href={`/portfolio`} className="text-xs lg:text-sm font-bold text-rose-500 hover:text-rose-400 transition-colors duration-200 cursor-pointer whitespace-nowrap">
                                 Portfolio
                             </Link>
-                            <Link href="/promosi" className="text-sm font-bold text-brand-yellow hover:text-brand-yellow/90 transition-colors duration-200 cursor-pointer">
+                            <Link href="/promosi" className="text-xs lg:text-sm font-bold text-brand-yellow hover:text-brand-yellow/90 transition-colors duration-200 cursor-pointer whitespace-nowrap">
                                 {t("promo")}
                             </Link>
-                            <a href={blogUrl} target="_blank" rel="noopener noreferrer" className="text-sm font-bold text-orange-500 hover:text-orange-400 transition-colors duration-200 cursor-pointer">
+                            <a href={blogUrl} target="_blank" rel="noopener noreferrer" className="text-xs lg:text-sm font-bold text-orange-500 hover:text-orange-400 transition-colors duration-200 cursor-pointer whitespace-nowrap">
                                 Blog
                             </a>
                         </nav>

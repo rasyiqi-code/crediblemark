@@ -21,7 +21,7 @@
         "myAccount": "Akun Saya",
         "promo": "Promo",
         "wordpress": "Jasa WordPress",
-        "webRepair": "Perbaikan Website",
+        "webRepair": "Perbaikan",
         "startProject": "Mulai"
     },
     "Hero": {
@@ -624,7 +624,7 @@
         "typeLiveSite": "Situs Langsung",
         "typeLiveRender": "Render Langsung",
         "all": "Semua",
-        "empty": "Tidak ada portfolio untuk kategori ini."
+        "empty": "Aduh, lupa atau belum sempat posting."
     },
     "Loader": {
         "initializingCore": "Menyiapkan Arsitektur...",
