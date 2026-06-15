@@ -26,11 +26,11 @@ interface ServiceData {
     addons_id?: unknown;
 }
 
-export function ExportPdfButton({ 
-    service, 
-    variant = "icon" 
-}: { 
-    service: ServiceData; 
+export function ExportPdfButton({
+    service,
+    variant = "icon"
+}: {
+    service: ServiceData;
     variant?: "icon" | "button";
 }) {
     const [isGenerating, setIsGenerating] = useState(false);
@@ -57,7 +57,7 @@ export function ExportPdfButton({
         iframe.style.height = "0";
         iframe.style.border = "none";
         iframe.style.visibility = "hidden";
-        
+
         document.body.appendChild(iframe);
 
         const doc = iframe.contentDocument || iframe.contentWindow?.document;
@@ -71,12 +71,12 @@ export function ExportPdfButton({
         const descriptionHtml = service.description_id || service.description;
 
         // Hitung harga final diskon
-        const finalPrice = service.discount && service.discount > 0 
+        const finalPrice = service.discount && service.discount > 0
             ? service.price * (1 - service.discount / 100)
             : service.price;
 
         const baseCurrency = service.currency || "USD";
-        
+
         const formatPriceHelper = (amount: number) => {
             return baseCurrency === "IDR"
                 ? `Rp ${amount.toLocaleString("id-ID")}`
@@ -92,8 +92,8 @@ export function ExportPdfButton({
             ? (isEn ? 'One Time' : 'Sekali Bayar')
             : (service.interval === 'monthly' ? (isEn ? 'Monthly' : 'Bulanan') : (service.interval === 'yearly' ? (isEn ? 'Yearly' : 'Tahunan') : service.interval));
 
-        const priceModel = service.priceType === 'STARTING_AT' 
-            ? (isEn ? 'Starting at' : 'Mulai dari') 
+        const priceModel = service.priceType === 'STARTING_AT'
+            ? (isEn ? 'Starting at' : 'Mulai dari')
             : (isEn ? 'Fixed Price' : 'Harga Pasti');
 
         // Tanggal pembuatan proposal hari ini
@@ -142,8 +142,8 @@ export function ExportPdfButton({
                 ? `Rp ${addPrice.toLocaleString("id-ID")}`
                 : `$${addPrice.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
-            const addInterval = addon.interval === "one_time" 
-                ? (isEn ? "One Time" : "Sekali Bayar") 
+            const addInterval = addon.interval === "one_time"
+                ? (isEn ? "One Time" : "Sekali Bayar")
                 : (addon.interval === "monthly" ? (isEn ? "Monthly" : "Bulanan") : (addon.interval === "yearly" ? (isEn ? "Yearly" : "Tahunan") : addon.interval));
 
             return `
@@ -198,7 +198,7 @@ export function ExportPdfButton({
         const tCompSubtitle = messages.Comparison.subtitle;
         const tCompOldTitle = messages.Comparison.oldTitle;
         const tCompNewTitle = messages.Comparison.newTitle.replace("{brand}", "Crediblemark");
-        
+
         const old1 = messages.Comparison.old1;
         const old1Sub = messages.Comparison.old1Sub;
         const old2 = messages.Comparison.old2;
@@ -231,7 +231,7 @@ export function ExportPdfButton({
         const tFinSubtitle = messages.Financial.subtitle;
         const tFinHireOld = messages.Financial.hireSenior;
         const tFinHireNew = messages.Financial.hybrid.replace("{brand}", "Crediblemark");
-        
+
         const tFinOverheadLabel = messages.Financial.salaryOldValue;
         const tFinOverheadDesc = messages.Financial.salaryOld;
         const tFinProjectLabel = messages.Financial.salaryNewValue;
@@ -247,7 +247,7 @@ export function ExportPdfButton({
         const tInvestTitle = messages.ProposalExport.investTitle;
         const tBaseInvestLabel = messages.ProposalExport.baseInvestLabel.replace("{priceModel}", priceModel);
         const tPaymentScheme = messages.ProposalExport.paymentScheme;
-        
+
         const tAddonHeaderModule = messages.ProposalExport.addonHeaderModule;
         const tAddonHeaderScheme = messages.ProposalExport.addonHeaderScheme;
         const tAddonHeaderInvest = messages.ProposalExport.addonHeaderInvest;
@@ -255,7 +255,7 @@ export function ExportPdfButton({
         // Lokalisasi dinamis untuk Halaman 6 (FAQ, Guarantee, Otorisasi)
         const tFaqTitle = messages.FAQ.title;
         const tMoreInfoAt = messages.ProposalExport.moreInfoAt;
-        
+
         const faqQ1 = messages.FAQ.q4;
         const faqA1 = messages.FAQ.a4;
         const faqQ2 = messages.FAQ.q3;
@@ -963,6 +963,17 @@ export function ExportPdfButton({
                 <h1 class="main-title">${title}</h1>
                 <div class="title-divider"></div>
                 <p class="sub-title">${tCoverSub}</p>
+                
+                <div class="pricing-banner" style="margin-top: 35px; margin-bottom: 0;">
+                    <div class="pricing-info">
+                        <span style="font-size: 11px; text-transform: uppercase; color: #a1a1aa; letter-spacing: 0.5px;">${tBaseInvestLabel}</span>
+                        <span class="pricing-price" style="font-size: 32px; font-weight: 700; color: #fbbf24; margin-top: 4px; display: block;">${formattedPrice}</span>
+                    </div>
+                    <div style="text-align: right;">
+                        <span style="font-size: 11px; text-transform: uppercase; color: #a1a1aa; letter-spacing: 0.5px;">${tPaymentScheme}</span>
+                        <span style="font-size: 16px; font-weight: 600; color: #ffffff; display: block; margin-top: 4px;">${intervalLabel}</span>
+                    </div>
+                </div>
             </div>
             
             <div class="cover-footer">
@@ -1189,21 +1200,7 @@ export function ExportPdfButton({
                 </div>
             </div>
         </div>
- 
-        <!-- Investasi Layanan -->
-        <div class="body-section" style="margin-bottom: 25px;">
-            <h3 class="body-section-title">${tInvestTitle}</h3>
-            <div class="pricing-banner">
-                <div class="pricing-info">
-                    <span style="font-size: 12px; text-transform: uppercase; color: #ffffff; letter-spacing: 0.5px;">${tBaseInvestLabel}</span>
-                    <span class="pricing-price">${formattedPrice}</span>
-                </div>
-                <div style="text-align: right;">
-                    <span style="font-size: 12px; text-transform: uppercase; color: #ffffff; letter-spacing: 0.5px;">${tPaymentScheme}</span>
-                    <span style="font-size: 17px; font-weight: 600; color: #ffffff; display: block;">${intervalLabel}</span>
-                </div>
-            </div>
-        </div>
+
  
         ${addonsHtml && !addonsNeedNewPage ? `
         <div class="body-section" style="margin-bottom: 15px;">
@@ -1232,13 +1229,13 @@ export function ExportPdfButton({
     <!-- HALAMAN 6 (NEW): RINCIAN MODUL ADD-ON -->
     <div class="page">
         <div class="section-header">
-            <h2 class="section-title">${isEn ? "04.2 / Optional Add-on Modules" : "04.2 / Rincian Modul Add-on Opsional"}</h2>
+            <h2 class="section-title">${isEn ? "04.2 / Optional Add-on Modules" : "04.2 / Modul Add-on Opsional"}</h2>
             <span class="section-subtitle-badge">${getPageFooterHtml(6)}</span>
         </div>
 
         <div class="body-section" style="margin-top: 10px;">
             <p class="paragraph-text" style="font-size: 14px; color: #ffffff; margin-bottom: 20px;">
-                ${isEn 
+                ${isEn
                     ? "Detailed breakdown of the selected optional add-on modules configured to customize the scalability of your infrastructure and digital system:"
                     : "Rincian modul tambahan pilihan yang dikonfigurasi untuk menyesuaikan kebutuhan skalabilitas infrastruktur dan sistem digital Anda:"
                 }
@@ -1308,12 +1305,12 @@ export function ExportPdfButton({
             <div class="signatures-container">
                 <div class="sig-box" style="position: relative;">
                     ` + (signatureUrl
-                        ? `<img src="${signatureUrl}" alt="Tanda Tangan" style="position: absolute; bottom: 55px; left: 0; height: 70px; width: auto; object-fit: contain; z-index: 2;" />`
-                        : ``
-                    ) + (stampUrl
-                        ? `<img src="${stampUrl}" alt="Stempel Resmi" style="position: absolute; bottom: 45px; left: 50px; width: 100px; height: 100px; object-fit: contain; opacity: 0.85; filter: brightness(0) invert(1); z-index: 3;" />`
-                        : ``
-                    ) + `
+                ? `<img src="${signatureUrl}" alt="Tanda Tangan" style="position: absolute; bottom: 55px; left: 0; height: 70px; width: auto; object-fit: contain; z-index: 2;" />`
+                : ``
+            ) + (stampUrl
+                ? `<img src="${stampUrl}" alt="Stempel Resmi" style="position: absolute; bottom: 45px; left: 50px; width: 100px; height: 100px; object-fit: contain; opacity: 0.85; filter: brightness(0) invert(1); z-index: 3;" />`
+                : ``
+            ) + `
                     <div class="sig-line"></div>
                     <span class="sig-name">Rasyiqi</span>
                     <span class="sig-title">Crediblemark</span>
@@ -1357,7 +1354,7 @@ export function ExportPdfButton({
     };
 
     const isEn = locale.startsWith("en");
-    const buttonLabel = isGenerating 
+    const buttonLabel = isGenerating
         ? (isEn ? "Generating Proposal..." : "Membuat Proposal...")
         : (isEn ? "Download Proposal" : "Unduh Proposal");
 
