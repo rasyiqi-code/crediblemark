@@ -78,19 +78,21 @@ export function ServiceHero({ service, displayTitle, intervalLabel, selectedAddo
                         </span>
                     </div>
 
-                    <PurchaseButton
-                        serviceId={service.id}
-                        interval={service.interval}
-                        selectedAddons={selectedAddons}
-                        className="bg-brand-yellow hover:bg-brand-yellow/90 text-black px-6 py-2.5 rounded-none font-black text-[11px] uppercase tracking-widest shadow-xl shadow-brand-yellow/20 transition-all hover:scale-[1.05] active:scale-95 whitespace-nowrap"
-                    />
-                    <button
-                        type="button"
-                        onClick={handleConsultation}
-                        className="w-full text-center md:text-right text-[11px] font-bold text-zinc-500 hover:text-brand-yellow hover:underline transition-colors duration-200"
-                    >
-                        {locale === "id" ? "Konsultasi Gratis" : "Free Consultation"}
-                    </button>
+                    <div className="flex flex-row items-center gap-3 w-full md:w-auto mt-2">
+                        <PurchaseButton
+                            serviceId={service.id}
+                            interval={service.interval}
+                            selectedAddons={selectedAddons}
+                            className="bg-brand-yellow hover:bg-brand-yellow/90 text-black px-6 py-2.5 rounded-none font-black text-[11px] uppercase tracking-widest shadow-xl shadow-brand-yellow/20 transition-all hover:scale-[1.05] active:scale-95 whitespace-nowrap"
+                        />
+                        <button
+                            type="button"
+                            onClick={handleConsultation}
+                            className="text-[11px] font-bold text-zinc-500 hover:text-brand-yellow hover:underline transition-colors duration-200 whitespace-nowrap"
+                        >
+                            {locale === "id" ? "Konsultasi Gratis" : "Free Consultation"}
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
