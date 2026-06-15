@@ -4,7 +4,7 @@ import { CheckCircle, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ExtendedEstimate, ServiceAddon } from "@/lib/shared/types";
 import { useCurrency } from "@/components/providers/currency-provider";
-import { useTranslations, useLocale } from "next-intl";
+import { useTranslations } from "next-intl";
 import { PaymentSelector } from "@/components/payment/payment-selector";
 import { type AgencyInvoiceSettings } from "@/components/checkout/invoice-document";
 
