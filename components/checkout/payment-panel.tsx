@@ -59,7 +59,6 @@ export function PaymentPanel({
     const ti = useTranslations("Invoice");
     const tc = useTranslations("Common");
     const locale = useLocale();
-    const isId = locale === 'id';
 
     const { currency } = useCurrency();
 
