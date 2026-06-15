@@ -1,11 +1,12 @@
 "use client";
 
-import { Check } from "lucide-react";
+import { useState } from "react";
+import { Check, Search, X } from "lucide-react";
 import { PriceDisplay } from "@/components/providers/currency-provider";
 import { PurchaseButton } from "@/components/store/purchase-button";
 import { sanitizeHtml } from "@/lib/utils/sanitize";
 import { Service, AddonType } from "./types";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 
 interface AboutSectionProps {
     service: Service;
@@ -17,6 +18,12 @@ interface AboutSectionProps {
 
 export function AboutSection({ service, displayDescription, displayAddons, selectedAddons, toggleAddon }: AboutSectionProps) {
     const t = useTranslations("Cards");
+    const locale = useLocale();
+    const [searchQuery, setSearchQuery] = useState("");
+
+    const filteredAddons = displayAddons.filter(addon =>
+        addon.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
     return (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
@@ -43,8 +50,28 @@ export function AboutSection({ service, displayDescription, displayAddons, selec
                         <p className="text-[10px] text-zinc-500 font-medium">{t("personalize")}</p>
                     </div>
 
+                    {/* Search Field */}
+                    <div className="relative">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-zinc-500" />
+                        <input
+                            type="text"
+                            placeholder={locale === 'id' ? "Cari add-on..." : "Search add-ons..."}
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="w-full bg-white/[0.02] border border-white/5 rounded-xl pl-8 pr-8 py-2.5 text-xs text-zinc-300 placeholder:text-zinc-600 focus:outline-none focus:border-brand-yellow/30 focus:bg-white/[0.04] transition-all"
+                        />
+                        {searchQuery && (
+                            <button
+                                onClick={() => setSearchQuery("")}
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-white transition-colors"
+                            >
+                                <X className="w-3.5 h-3.5" />
+                            </button>
+                        )}
+                    </div>
+ 
                     <div className="space-y-3 lg:max-h-[calc(100vh-320px)] lg:overflow-y-auto lg:pr-1.5">
-                        {displayAddons.map((addon, idx) => {
+                        {filteredAddons.map((addon, idx) => {
                             const isSelected = selectedAddons.some(a => a.name === addon.name);
                             return (
                                 <div
