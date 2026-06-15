@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/config/db";
-import { Prisma, Addon } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import { ServiceAddon } from "@/lib/shared/types";
 import { hexclaveServerApp } from "@/lib/config/hexclave";
 import { NextResponse } from "next/server";
@@ -77,7 +77,7 @@ export async function POST(req: Request) {
                         const rate = await paymentService.getExchangeRate();
                         const isServiceIdr = estimate.service.currency === 'IDR';
 
-                        dbAddons.forEach((addon: Addon) => {
+                        dbAddons.forEach((addon: any) => {
                             let addonPriceInServiceCurrency = addon.price;
                             
                             if (isServiceIdr && addon.currency === 'USD') {
