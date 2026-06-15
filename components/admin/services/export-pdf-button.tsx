@@ -1048,8 +1048,8 @@ export function ExportPdfButton({
             <div style="font-size: 82px; font-weight: 900; line-height: 0.85; letter-spacing: -4px; margin: -2px 0;">
                 ${service.discount}%
             </div>
-            <div style="font-size: 16px; font-weight: 900; letter-spacing: 4px; text-transform: uppercase;">
-                ${isEn ? "OFF" : "KHUSUS"}
+            <div style="font-size: 14px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase;">
+                ${isEn ? "OFF" : "UNTUK ANDA"}
             </div>
         </div>
         ` : ''}
