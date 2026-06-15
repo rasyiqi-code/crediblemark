@@ -179,8 +179,14 @@ export function ExportPdfButton({
         const tSec4Title = messages.ProposalExport.sec4Title;
         const tSec5Title = messages.ProposalExport.sec5Title;
 
+        const addonsNeedNewPage = addonsList.length > 3;
+        const totalPages = addonsNeedNewPage ? 7 : 6;
+
         const getPageFooterHtml = (page: number) => {
-            return messages.ProposalExport.pageFooter.replace("{page}", page.toString());
+            const template = messages.ProposalExport.pageFooter;
+            return template
+                .replace("{page}", page.toString())
+                .replace(/\b6\b/, totalPages.toString());
         };
 
         // Lokalisasi dinamis untuk Halaman 3
@@ -1199,7 +1205,7 @@ export function ExportPdfButton({
             </div>
         </div>
  
-        ${addonsHtml ? `
+        ${addonsHtml && !addonsNeedNewPage ? `
         <div class="body-section" style="margin-bottom: 15px;">
             <table class="proposal-table">
                 <thead>
@@ -1222,11 +1228,47 @@ export function ExportPdfButton({
         </div>
     </div>
  
-    <!-- HALAMAN 6: FAQ & OTORISASI PERSETUJUAN -->
+    ${addonsHtml && addonsNeedNewPage ? `
+    <!-- HALAMAN 6 (NEW): RINCIAN MODUL ADD-ON -->
+    <div class="page">
+        <div class="section-header">
+            <h2 class="section-title">${isEn ? "04.2 / Optional Add-on Modules" : "04.2 / Rincian Modul Add-on Opsional"}</h2>
+            <span class="section-subtitle-badge">${getPageFooterHtml(6)}</span>
+        </div>
+
+        <div class="body-section" style="margin-top: 10px;">
+            <p class="paragraph-text" style="font-size: 14px; color: #ffffff; margin-bottom: 20px;">
+                ${isEn 
+                    ? "Detailed breakdown of the selected optional add-on modules configured to customize the scalability of your infrastructure and digital system:"
+                    : "Rincian modul tambahan pilihan yang dikonfigurasi untuk menyesuaikan kebutuhan skalabilitas infrastruktur dan sistem digital Anda:"
+                }
+            </p>
+            <table class="proposal-table">
+                <thead>
+                    <tr>
+                        <th>${tAddonHeaderModule}</th>
+                        <th>${tAddonHeaderScheme}</th>
+                        <th style="text-align: right;">${tAddonHeaderInvest}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${addonsHtml}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="page-footer">
+            <span>CREDIBLEMARK &bull; Proposal ${title}</span>
+            <span>${getPageFooterHtml(6)}</span>
+        </div>
+    </div>
+    ` : ''}
+
+    <!-- HALAMAN 6 ATAU 7: FAQ & OTORISASI PERSETUJUAN -->
     <div class="page">
         <div class="section-header">
             <h2 class="section-title">${tSec5Title}</h2>
-            <span class="section-subtitle-badge">${getPageFooterHtml(6)}</span>
+            <span class="section-subtitle-badge">${getPageFooterHtml(addonsNeedNewPage ? 7 : 6)}</span>
         </div>
  
         <!-- FAQ Section -->
@@ -1286,7 +1328,7 @@ export function ExportPdfButton({
         
         <div class="page-footer">
             <span>CREDIBLEMARK &bull; Proposal ${title}</span>
-            <span>${getPageFooterHtml(6)}</span>
+            <span>${getPageFooterHtml(addonsNeedNewPage ? 7 : 6)}</span>
         </div>
     </div>
 </body>
