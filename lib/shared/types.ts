@@ -104,6 +104,7 @@ export interface ServiceAddon {
     price: number;
     currency?: string;
     interval?: string;
+    name_id?: string | null;
 }
 
 export interface InvoiceItem {
