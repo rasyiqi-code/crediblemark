@@ -110,9 +110,9 @@ export function CreateAddonDialog() {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button className="w-auto bg-white text-black hover:bg-zinc-200 h-9 text-xs font-bold px-3 flex items-center justify-center">
-                    <Plus className="w-4 h-4 mr-1.5" />
-                    <span>{t("createNew")}</span>
+                <Button className="w-9 h-9 sm:w-auto bg-white text-black hover:bg-zinc-200 text-xs font-bold p-0 sm:px-3 flex items-center justify-center rounded-lg transition-all">
+                    <Plus className="w-4 h-4 mr-0 sm:mr-1.5 shrink-0" />
+                    <span className="hidden sm:inline">{t("createNew")}</span>
                 </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[500px] bg-zinc-950 border-zinc-800 text-zinc-200">
