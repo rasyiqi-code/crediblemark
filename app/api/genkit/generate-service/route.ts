@@ -25,11 +25,7 @@ export async function POST(req: NextRequest) {
             description_id,
             features,
             features_id,
-            recommended_price,
-            discount,
             currency,
-            priceType,
-            interval,
             targetBusinessScale
         } = body;
 
