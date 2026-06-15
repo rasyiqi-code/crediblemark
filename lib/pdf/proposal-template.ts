@@ -123,15 +123,6 @@ export function generateProposalHtml({
         }
     }
 
-    // Helper function to chunk array
-    const chunkArray = <T>(arr: T[], size: number): T[][] => {
-        const chunks: T[][] = [];
-        for (let i = 0; i < arr.length; i += size) {
-            chunks.push(arr.slice(i, i + size));
-        }
-        return chunks;
-    };
-
     const generateAddonsTableRows = (addonsSubList: ServiceAddon[]) => {
         return addonsSubList.map(addon => {
             const addPrice = typeof addon.price === "string" ? parseFloat(addon.price) : (typeof addon.price === "number" ? addon.price : 0);
@@ -155,10 +146,8 @@ export function generateProposalHtml({
         }).join("");
     };
 
-    // Gunakan chunk isi 5 item per halaman
-    const addonChunks = chunkArray(addonsList, 5);
     const addonsNeedNewPage = addonsList.length > 3;
-    const addonPageCount = addonsNeedNewPage ? addonChunks.length : 0;
+    const addonPageCount = addonsNeedNewPage ? 1 : 0;
 
     // Data Filosofi & Slogan dari Landing Page / Lokalisasi
     const quoteText = messages.About.quote;
@@ -273,49 +262,41 @@ export function generateProposalHtml({
     const tAgreementText = messages.ProposalExport.agreementText;
     const tClientRepresentative = messages.ProposalExport.clientRepresentative;
 
-    const addonsPagesHtml = addonsNeedNewPage ? addonChunks.map((chunk, chunkIdx) => {
-        const pageNum = 6 + chunkIdx;
-        const pageTitle = isEn 
-            ? `04.2 / Optional Add-on Modules (Part ${chunkIdx + 1} of ${addonChunks.length})` 
-            : `04.2 / Modul Add-on Opsional (Bagian ${chunkIdx + 1} dari ${addonChunks.length})`;
-
-        const pageIntro = isEn
-            ? "Detailed breakdown of the selected optional add-on modules configured to customize the scalability of your infrastructure and digital system:"
-            : "Rincian modul tambahan pilihan yang dikonfigurasi untuk menyesuaikan kebutuhan skalabilitas infrastruktur dan sistem digital Anda:";
-
-        return `
-        <!-- HALAMAN ADD-ON: BAGIAN ${chunkIdx + 1} -->
-        <div class="page">
-            <div class="section-header">
-                <h2 class="section-title">${pageTitle}</h2>
-                <span class="section-subtitle-badge">${getPageFooterHtml(pageNum)}</span>
-            </div>
-     
-            <div class="body-section" style="margin-top: 10px;">
-                <p class="paragraph-text" style="font-size: 14px; color: #ffffff; margin-bottom: 20px;">
-                    ${pageIntro}
-                </p>
-                <table class="proposal-table">
-                    <thead>
-                        <tr>
-                            <th>${tAddonHeaderModule}</th>
-                            <th>${tAddonHeaderScheme}</th>
-                            <th style="text-align: right;">${tAddonHeaderInvest}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${generateAddonsTableRows(chunk)}
-                    </tbody>
-                </table>
-            </div>
-     
-            <div class="page-footer">
-                <span>CREDIBLEMARK &bull; Proposal ${title}</span>
-                <span>${getPageFooterHtml(pageNum)}</span>
-            </div>
+    const addonsPagesHtml = addonsNeedNewPage ? `
+    <!-- HALAMAN RINCIAN MODUL ADD-ON (AUTO PAGE BREAK) -->
+    <div class="page-addons">
+        <div class="section-header">
+            <h2 class="section-title">${isEn ? "04.2 / Optional Add-on Modules" : "04.2 / Modul Add-on Opsional"}</h2>
+            <span class="section-subtitle-badge">${getPageFooterHtml(6)}</span>
         </div>
-        `;
-    }).join("") : "";
+ 
+        <div class="body-section" style="margin-top: 10px;">
+            <p class="paragraph-text" style="font-size: 14px; color: #ffffff; margin-bottom: 20px;">
+                ${isEn
+                    ? "Detailed breakdown of the selected optional add-on modules configured to customize the scalability of your infrastructure and digital system:"
+                    : "Rincian modul tambahan pilihan yang dikonfigurasi untuk menyesuaikan kebutuhan skalabilitas infrastruktur dan sistem digital Anda:"
+                }
+            </p>
+            <table class="proposal-table">
+                <thead>
+                    <tr>
+                        <th>${tAddonHeaderModule}</th>
+                        <th>${tAddonHeaderScheme}</th>
+                        <th style="text-align: right;">${tAddonHeaderInvest}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${generateAddonsTableRows(addonsList)}
+                </tbody>
+            </table>
+        </div>
+ 
+        <div class="page-footer-dynamic">
+            <span>CREDIBLEMARK &bull; Proposal ${title}</span>
+            <span>${getPageFooterHtml(6)}</span>
+        </div>
+    </div>
+    ` : "";
 
     return `
 <!DOCTYPE html>
@@ -1064,8 +1045,35 @@ export function generateProposalHtml({
         }
         
         .contact-subvalue {
-            font-size: 12.5px;
             color: #71717a;
+            font-size: 12.5px;
+        }
+        
+        .page-addons {
+            width: 210mm;
+            min-height: 297mm;
+            page-break-after: always;
+            position: relative;
+            background: #000000;
+            padding: 25mm 20mm 35mm 20mm;
+        }
+        .page-addons .proposal-table {
+            page-break-inside: auto;
+        }
+        .page-addons .proposal-table tr {
+            page-break-inside: avoid;
+            page-break-after: auto;
+        }
+        .page-footer-dynamic {
+            margin-top: 15mm;
+            border-top: 1px solid #27272a;
+            padding-top: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: #ffffff;
+            page-break-inside: avoid;
         }
     </style>
 </head>
