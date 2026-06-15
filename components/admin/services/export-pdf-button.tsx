@@ -1225,14 +1225,31 @@ export function ExportPdfButton({
             </div>
 
             <!-- Catatan Negosiasi & Kualitas -->
-            <div style="margin-top: 12px; padding: 12px 16px; border-left: 3px solid #fbbf24; background: #09090b; border-radius: 0 6px 6px 0;">
-                <p style="font-size: 12px; color: #a1a1aa; line-height: 1.6; margin: 0;">
+            <div style="margin-top: 15px; padding: 16px 20px; border-left: 3px solid #fbbf24; background: #09090b; border-radius: 0 6px 6px 0;">
+                <p style="font-size: 15px; color: #f3f4f6; line-height: 1.6; margin: 0 0 16px 0;">
                     <strong>${isEn ? "Let's Talk & Partner Up:" : "Diskusikan dengan Kami:"}</strong> 
                     ${isEn 
                         ? "Your business needs are unique, which is why we are completely open to discussing this investment to perfectly fit your budget. If you require a more cost-effective option, we can easily adjust the list of Key Features & Deliverables above — such as simplifying certain functionalities or postponing non-priority modules to a later phase. Let's collaborate to build the most efficient solution for you!"
                         : "Kebutuhan bisnis Anda unik, karena itu nilai investasi ini sangat terbuka untuk kita diskusikan agar pas dengan anggaran Anda. Jika Anda memerlukan opsi investasi yang lebih hemat, kita bisa dengan mudah menyesuaikan kembali daftar Fitur & Deliverables Utama di atas — misalnya dengan menyederhanakan fungsionalitas tertentu atau menunda modul non-prioritas ke fase berikutnya. Mari berkolaborasi merancang solusi terbaik untuk Anda!"
                     }
                 </p>
+                <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+                    <!-- WhatsApp Button -->
+                    <a href="https://wa.me/6285183131249?text=Hi%20Crediblemark,%20saya%20tertarik%20dengan%20proposal%20ini%20dan%20ingin%20berdiskusi%20lebih%20lanjut." target="_blank" style="display: inline-flex; align-items: center; gap: 8px; padding: 8px 18px; background: #25D366; color: #ffffff; text-decoration: none; border-radius: 6px; font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">
+                        <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: currentColor;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.008-.57-.008-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                        WhatsApp
+                    </a>
+                    <!-- Telegram Button -->
+                    <a href="https://t.me/crediblemark" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; padding: 8px 18px; background: #0088cc; color: #ffffff; text-decoration: none; border-radius: 6px; font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">
+                        <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: currentColor;"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                        Telegram
+                    </a>
+                    <!-- Email Button -->
+                    <a href="mailto:hello@crediblemark.com?subject=Proposal%20Inquiry" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; padding: 8px 18px; background: #e0f2fe; color: #0284c7; text-decoration: none; border-radius: 6px; font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; border: 1px solid #bae6fd;">
+                        <svg viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                        Email
+                    </a>
+                </div>
             </div>
 
             <!-- Trigger Lihat Addon Berikutnya -->
