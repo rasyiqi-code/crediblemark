@@ -963,17 +963,6 @@ export function ExportPdfButton({
                 <h1 class="main-title">${title}</h1>
                 <div class="title-divider"></div>
                 <p class="sub-title">${tCoverSub}</p>
-                
-                <div class="pricing-banner" style="margin-top: 35px; margin-bottom: 0;">
-                    <div class="pricing-info">
-                        <span style="font-size: 11px; text-transform: uppercase; color: #a1a1aa; letter-spacing: 0.5px;">${tBaseInvestLabel}</span>
-                        <span class="pricing-price" style="font-size: 32px; font-weight: 700; color: #fbbf24; margin-top: 4px; display: block;">${formattedPrice}</span>
-                    </div>
-                    <div style="text-align: right;">
-                        <span style="font-size: 11px; text-transform: uppercase; color: #a1a1aa; letter-spacing: 0.5px;">${tPaymentScheme}</span>
-                        <span style="font-size: 16px; font-weight: 600; color: #ffffff; display: block; margin-top: 4px;">${intervalLabel}</span>
-                    </div>
-                </div>
             </div>
             
             <div class="cover-footer">
@@ -1200,7 +1189,55 @@ export function ExportPdfButton({
                 </div>
             </div>
         </div>
+ 
+        <!-- Investasi Layanan -->
+        <div class="body-section" style="margin-bottom: 25px;">
+            <h3 class="body-section-title">${tInvestTitle}</h3>
+            <div class="pricing-banner">
+                <div class="pricing-info">
+                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                        <span style="font-size: 12px; text-transform: uppercase; color: #ffffff; letter-spacing: 0.5px;">${tBaseInvestLabel}</span>
+                        ${service.discount && service.discount > 0 ? `
+                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 2px;">
+                                <span style="font-size: 14px; text-decoration: line-through; color: #a1a1aa; font-weight: 500;">
+                                    ${formatPriceHelper(service.price)}
+                                </span>
+                                <span style="font-size: 11px; background: #d97706; color: #ffffff; padding: 2px 8px; font-weight: 700; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; display: inline-block;">
+                                    ${isEn 
+                                        ? `Save ${formatPriceHelper(service.price - finalPrice)} (${service.discount}%)` 
+                                        : `Hemat ${formatPriceHelper(service.price - finalPrice)} (${service.discount}%)`
+                                    }
+                                </span>
+                            </div>
+                        ` : ''}
+                    </div>
+                    <span class="pricing-price">${formattedPrice}</span>
+                </div>
+                <div style="text-align: right;">
+                    <span style="font-size: 12px; text-transform: uppercase; color: #ffffff; letter-spacing: 0.5px;">${tPaymentScheme}</span>
+                    <span style="font-size: 17px; font-weight: 600; color: #ffffff; display: block;">${intervalLabel}</span>
+                </div>
+            </div>
 
+            <!-- Catatan Negosiasi & Kualitas -->
+            <div style="margin-top: 12px; padding: 12px 16px; border-left: 3px solid #fbbf24; background: #09090b; border-radius: 0 6px 6px 0;">
+                <p style="font-size: 12px; color: #a1a1aa; line-height: 1.6; margin: 0;">
+                    <strong>${isEn ? "Negotiable & Value-Driven:" : "Negosiasi & Garansi Kualitas:"}</strong> 
+                    ${isEn 
+                        ? "This investment is open for further negotiation based on your customization scope. Remember, the price you pay directly represents the premium quality of code and long-term stability you receive."
+                        : "Nilai investasi ini bersifat negotiable sesuai dengan penyesuaian cakupan proyek Anda. Harga yang Anda bayar adalah representasi langsung dari kualitas rekayasa premium serta stabilitas jangka panjang yang Anda dapatkan."
+                    }
+                </p>
+            </div>
+
+            <!-- Trigger Lihat Addon Berikutnya -->
+            ${addonsHtml && addonsNeedNewPage ? `
+            <div style="margin-top: 12px; display: flex; align-items: center; gap: 8px; justify-content: flex-end; color: #fbbf24; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
+                <span>${isEn ? "See next page for optional add-ons" : "Lihat halaman berikutnya untuk modul add-on"}</span>
+                <span>&rarr;</span>
+            </div>
+            ` : ''}
+        </div>
  
         ${addonsHtml && !addonsNeedNewPage ? `
         <div class="body-section" style="margin-bottom: 15px;">
