@@ -59,17 +59,21 @@ export function ServiceHero({ service, displayTitle, intervalLabel, selectedAddo
 
                 {/* Kolom Kanan: Harga & Tombol Order */}
                 <div className="flex flex-col items-start md:items-end gap-3 md:gap-4 shrink-0">
-                    <div className="flex items-baseline gap-1 md:gap-2 justify-start md:justify-end">
-                        {service.priceType === 'STARTING_AT' && (
-                            <span className="text-[9px] md:text-xs font-medium text-zinc-500 pb-0.5">
-                                {tService("startsAt")}
-                            </span>
+                    <div className="flex items-baseline gap-1.5 md:gap-2 justify-start md:justify-end">
+                        {(service.priceType === 'STARTING_AT' || (service.discount && service.discount > 0)) && (
+                            <div className="flex flex-col items-start md:items-end leading-none gap-0.5 select-none self-center mr-1">
+                                {service.discount && service.discount > 0 && (
+                                    <span className="text-xs md:text-sm text-zinc-500 line-through tracking-tight font-medium">
+                                        <PriceDisplay amount={service.price} baseCurrency={(service.currency as "USD" | "IDR") || 'USD'} compact={true} />
+                                    </span>
+                                )}
+                                {service.priceType === 'STARTING_AT' && (
+                                    <span className="text-[8px] md:text-[9px] font-medium text-zinc-500 uppercase tracking-wider">
+                                        {tService("startsAt")}
+                                    </span>
+                                )}
+                            </div>
                         )}
-                        {service.discount && service.discount > 0 ? (
-                            <span className="text-sm md:text-lg text-zinc-500 line-through tracking-tight font-medium select-none self-center mr-1">
-                                <PriceDisplay amount={service.price} baseCurrency={(service.currency as "USD" | "IDR") || 'USD'} compact={true} />
-                            </span>
-                        ) : null}
                         <div className="text-xl md:text-3xl lg:text-4xl font-black text-brand-yellow tracking-tighter">
                             <PriceDisplay amount={service.discount ? (service.price * (1 - service.discount / 100)) : service.price} baseCurrency={(service.currency as "USD" | "IDR") || 'USD'} compact={true} />
                         </div>
@@ -78,17 +82,17 @@ export function ServiceHero({ service, displayTitle, intervalLabel, selectedAddo
                         </span>
                     </div>
 
-                    <div className="flex flex-row items-center gap-3 w-full md:w-auto mt-2">
+                    <div className="flex flex-row items-center justify-between md:justify-end gap-4 w-full md:w-auto mt-2">
                         <PurchaseButton
                             serviceId={service.id}
                             interval={service.interval}
                             selectedAddons={selectedAddons}
-                            className="bg-brand-yellow hover:bg-brand-yellow/90 text-black px-6 py-2.5 rounded-none font-black text-[11px] uppercase tracking-widest shadow-xl shadow-brand-yellow/20 transition-all hover:scale-[1.05] active:scale-95 whitespace-nowrap"
+                            className="bg-brand-yellow hover:bg-brand-yellow/90 text-black px-6 py-2.5 rounded-none font-black text-[11px] uppercase tracking-widest shadow-xl shadow-brand-yellow/20 transition-all hover:scale-[1.05] active:scale-95 whitespace-nowrap w-full md:w-48 flex-1 md:flex-initial text-center"
                         />
                         <button
                             type="button"
                             onClick={handleConsultation}
-                            className="text-[11px] font-bold text-zinc-500 hover:text-brand-yellow hover:underline transition-colors duration-200 whitespace-nowrap"
+                            className="text-[11px] font-bold text-zinc-500 hover:text-brand-yellow hover:underline transition-colors duration-200 whitespace-nowrap shrink-0"
                         >
                             {locale === "id" ? "Konsultasi Gratis" : "Free Consultation"}
                         </button>
