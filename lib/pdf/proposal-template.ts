@@ -155,8 +155,8 @@ export function generateProposalHtml({
         return chunks;
     };
 
-    // Chunk list addon per 6 item untuk mencegah overflow halaman
-    const addonChunks = chunkArray(addonsList, 6);
+    // Chunk list addon per 15 item untuk mencegah overflow halaman
+    const addonChunks = chunkArray(addonsList, 15);
     const addonsNeedNewPage = addonsList.length > 3;
     const addonPageCount = addonsNeedNewPage ? addonChunks.length : 0;
 
