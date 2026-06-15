@@ -535,6 +535,7 @@
             "saveSuccess": "Add-on berhasil disimpan!",
             "updateSuccess": "Add-on berhasil diperbarui!",
             "deleteSuccess": "Add-on berhasil dihapus!",
+            "deleteSelected": "Hapus Terpilih ({count})",
             "deleteSelectedConfirm": "Apakah Anda yakin ingin menghapus {count} add-on terpilih?",
             "deleteSelectedSuccess": "Add-on terpilih berhasil dihapus!",
             "deleteSelectedError": "Gagal menghapus add-on terpilih",

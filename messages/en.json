@@ -477,6 +477,7 @@
             "saveSuccess": "Add-on saved successfully!",
             "updateSuccess": "Add-on updated successfully!",
             "deleteSuccess": "Add-on deleted successfully!",
+            "deleteSelected": "Delete Selected ({count})",
             "deleteSelectedConfirm": "Are you sure you want to delete {count} selected add-ons?",
             "deleteSelectedSuccess": "Selected add-ons deleted successfully!",
             "deleteSelectedError": "Failed to delete selected add-ons",
