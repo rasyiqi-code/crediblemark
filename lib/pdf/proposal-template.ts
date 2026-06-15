@@ -15,6 +15,7 @@ export interface ServiceDataForPdf {
     features_id?: unknown;
     addons?: unknown;
     addons_id?: unknown;
+    image?: string | null;
 }
 
 export interface ProposalHtmlParams {
@@ -1132,6 +1133,12 @@ export function generateProposalHtml({
                 <div class="title-divider"></div>
                 <p class="sub-title">${tCoverSub}</p>
             </div>
+            
+            ${service.image ? `
+            <div style="margin-top: 10mm; margin-bottom: 10mm; width: 100%; height: 60mm; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); background: #0c0c0c;">
+                <img src="${service.image}" alt="Service Illustration" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.85;" />
+            </div>
+            ` : ''}
             
             <div class="cover-footer" style="align-items: center;">
                 <div style="background: #ffffff; padding: 16px 22px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25); border: 1.5px solid #e4e4e7; max-width: 110mm;">
