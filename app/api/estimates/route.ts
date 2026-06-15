@@ -69,8 +69,9 @@ export async function POST(req: Request) {
 
             // Hitung total harga termasuk addon yang dipilih dari database global
             const selectedAddons = Array.isArray(body.selectedAddons) ? body.selectedAddons : [];
-            const addonIds = selectedAddons.map((a: any) => typeof a === 'string' ? a : a.id).filter(Boolean);
-            const addonNames = selectedAddons.map((a: any) => typeof a === 'string' ? '' : a.name).filter(Boolean);
+            const addonsInput = selectedAddons as (string | { id?: string; name?: string })[];
+            const addonIds = addonsInput.map((a) => typeof a === 'string' ? a : a.id).filter((id): id is string => !!id);
+            const addonNames = addonsInput.map((a) => typeof a === 'string' ? '' : a.name).filter((name): name is string => !!name);
             
             const dbAddons = await prisma.addon.findMany({
                 where: {
