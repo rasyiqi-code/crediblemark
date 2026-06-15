@@ -95,7 +95,8 @@ export function InvoiceDocument({
     currency: propsCurrency,
     exchangeRate,
     bankDetails,
-    orderId
+    orderId,
+    selectedAddons: propsSelectedAddons
 }: {
     estimate: ExtendedEstimate,
     refAction?: React.RefObject<HTMLDivElement | null>,
@@ -106,7 +107,8 @@ export function InvoiceDocument({
     currency?: string,
     exchangeRate?: number,
     bankDetails?: BankDetails,
-    orderId?: string | null
+    orderId?: string | null,
+    selectedAddons?: ServiceAddon[]
 }) {
     const t = useTranslations("Invoice");
     const tc = useTranslations("Checkout");
@@ -150,7 +152,7 @@ export function InvoiceDocument({
         ? (extendedEstimate.service?.features_id as string[]) || (extendedEstimate.service?.features as string[])
         : (extendedEstimate.service?.features as string[]) || [];
 
-    // Ambil daftar addon dari estimate.service
+    // Ambil daftar addon dari estimate.service (fallback)
     const serviceAddonsEn = (extendedEstimate.service?.addons as ServiceAddon[]) || [];
     const serviceAddonsId = Array.isArray((extendedEstimate.service as unknown as Record<string, unknown>)?.addons_id)
         ? (extendedEstimate.service as unknown as Record<string, unknown>).addons_id as ServiceAddon[]
@@ -158,8 +160,8 @@ export function InvoiceDocument({
 
     const serviceAddons = (locale === 'id' && serviceAddonsId.length > 0) ? serviceAddonsId : serviceAddonsEn;
 
-    // Filter addon yang terpilih berdasarkan estimate.summary
-    const selectedAddons = serviceAddons.filter((_addon, idx) => {
+    // Gunakan propsSelectedAddons jika dikirim dari parent, fallback ke summary matching
+    const selectedAddons = propsSelectedAddons || serviceAddons.filter((_addon, idx) => {
         const enName = serviceAddonsEn[idx]?.name;
         return enName && extendedEstimate.summary.includes(`+ ${enName}`);
     });

@@ -9,6 +9,7 @@ import { FAQSection } from "@/components/landing/faq-section-fixed";
 import { BreadcrumbSchema } from "@/components/seo/breadcrumb-schema";
 import { getSystemSettings } from "@/lib/server/settings";
 import { getActiveTestimonials } from "@/lib/server/testimonials";
+import { prisma } from "@/lib/config/db";
 
 export const revalidate = 3600; // Cache halaman detail layanan selama 1 jam (ISR)
 
@@ -108,6 +109,12 @@ export default async function PublicServiceDetailPage(props: ServicePageProps) {
         features_id: service.features_id as unknown
     };
 
+    // Fetch global active addons
+    const globalAddons = await prisma.addon.findMany({
+        where: { isActive: true },
+        orderBy: { name: 'asc' }
+    });
+
     return (
         <div className="flex flex-col">
             <BreadcrumbSchema
@@ -175,6 +182,7 @@ export default async function PublicServiceDetailPage(props: ServicePageProps) {
                 isId={isId}
                 showBack={true}
                 trustedAvatars={trustedAvatars}
+                globalAddons={globalAddons}
             />
             <Testimonials />
             <SectionGuarantee />

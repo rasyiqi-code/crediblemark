@@ -65,8 +65,6 @@ export async function createService(formData: FormData) {
             visibility: formData.get("visibility")?.toString() || "PUBLIC",
             features,
             features_id,
-            addons: [],
-            addons_id: [],
             image: imageUrl,
             slug: slugInput ? slugify(slugInput) : slugify(title)
         } as Prisma.ServiceCreateInput
@@ -125,8 +123,6 @@ export async function updateService(serviceId: string, formData: FormData) {
         visibility: formData.get("visibility")?.toString() || "PUBLIC",
         features,
         features_id,
-        addons: [],
-        addons_id: [],
         slug: slugInput ? slugify(slugInput) : slugify(title)
     };
 

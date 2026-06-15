@@ -18,9 +18,10 @@ interface ServiceDetailContentProps
     isId: boolean;
     showBack?: boolean;
     trustedAvatars?: string[];
+    globalAddons?: any[];
 }
 
-export function ServiceDetailContent({ service, isId, trustedAvatars = [] }: ServiceDetailContentProps)
+export function ServiceDetailContent({ service, isId, trustedAvatars = [], globalAddons = [] }: ServiceDetailContentProps)
 {
     const tService = useTranslations("Service");
 
@@ -51,9 +52,13 @@ export function ServiceDetailContent({ service, isId, trustedAvatars = [] }: Ser
     const displayTitle = (isId && service.title_id) ? service.title_id : service.title;
     const displayDescription = (isId && service.description_id) ? service.description_id : service.description;
 
-    const displayAddons = (isId && Array.isArray(service.addons_id) && (service.addons_id as AddonType[]).length > 0)
-        ? (service.addons_id as AddonType[])
-        : (service.addons as AddonType[]) || [];
+    const displayAddons: AddonType[] = globalAddons.map((addon) => ({
+        id: addon.id,
+        name: isId ? (addon.name_id || addon.name) : addon.name,
+        price: addon.price,
+        currency: addon.currency as "USD" | "IDR",
+        interval: addon.interval
+    }));
 
     const intervalLabel = service.interval === 'one_time' ? tService("oneTime") : service.interval;
 

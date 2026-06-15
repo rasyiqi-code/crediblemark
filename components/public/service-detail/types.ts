@@ -18,6 +18,7 @@ export interface Service {
 }
 
 export type AddonType = { 
+    id?: string;
     name: string; 
     price: number; 
     currency?: "USD" | "IDR"; 

@@ -58,21 +58,42 @@ export function CheckoutPortal({
     );
     const [shouldSubscribe, setShouldSubscribe] = useState(true);
 
-    const serviceAddonsEn = (estimate.service?.addons as ServiceAddon[]) || [];
-    const serviceAddonsId = Array.isArray((estimate.service as unknown as Record<string, unknown>)?.addons_id)
-        ? (estimate.service as unknown as Record<string, unknown>).addons_id as ServiceAddon[]
-        : [];
+    const [globalAddons, setGlobalAddons] = useState<ServiceAddon[]>([]);
+    const [selectedAddons, setSelectedAddons] = useState<ServiceAddon[]>([]);
+    const [trueBaseCost, setTrueBaseCost] = useState(estimate.totalCost);
+    const hasInitializedAddons = useRef(false);
 
-    // Addon yang ditampilkan ke user sesuai locale
-    const serviceAddons = (isId && serviceAddonsId.length > 0) ? serviceAddonsId : serviceAddonsEn;
+    useEffect(() => {
+        fetch("/api/addons")
+            .then(res => res.json())
+            .then(data => {
+                if (Array.isArray(data)) {
+                    const formatted: ServiceAddon[] = data.map((addon: any) => ({
+                        id: addon.id,
+                        name: isId ? (addon.name_id || addon.name) : addon.name,
+                        price: addon.price,
+                        currency: addon.currency,
+                        interval: addon.interval
+                    }));
+                    setGlobalAddons(formatted);
 
-    // Deteksi addon yang sudah dipilih — summary menyimpan nama EN, jadi cocokkan via index
-    const initiallyIncludedAddons = serviceAddons.filter((_addon, idx) => {
-        const enName = serviceAddonsEn[idx]?.name;
-        return enName && estimate.summary.includes(`+ ${enName}`);
-    });
-
-    const [selectedAddons, setSelectedAddons] = useState<ServiceAddon[]>(initiallyIncludedAddons);
+                    // Deteksi addon yang awalnya terpilih berdasarkan teks di summary
+                    if (!hasInitializedAddons.current) {
+                        const initiallySelected = formatted.filter((addon) => {
+                            const rawAddon = data.find(d => d.id === addon.id);
+                            const enName = rawAddon?.name;
+                            return enName && estimate.summary.includes(`+ ${enName}`);
+                        });
+                        setSelectedAddons(initiallySelected);
+                        
+                        const initiallySelectedTotal = initiallySelected.reduce((sum: number, a) => sum + (a.price || 0), 0);
+                        setTrueBaseCost(estimate.totalCost - initiallySelectedTotal);
+                        hasInitializedAddons.current = true;
+                    }
+                }
+            })
+            .catch(err => console.error("Failed to load global addons:", err));
+    }, [isId, estimate.summary, estimate.totalCost]);
 
     // Menghubungkan state activeOrderStatus dengan initialOrderStatus jika ada pembaruan dari server
     useEffect(() => {
@@ -139,10 +160,6 @@ export function CheckoutPortal({
             router.push(`/invoices/${activeOrderId}`);
         }
     }, [countdown, estimate.status, activeOrderId, router]);
-
-    // Calculate the TRUE base cost
-    const initiallyIncludedAddonsTotal = initiallyIncludedAddons.reduce((sum: number, addon) => sum + (addon.price || 0), 0);
-    const trueBaseCost = estimate.totalCost - initiallyIncludedAddonsTotal;
 
     const addonsTotal = selectedAddons.reduce((sum: number, addon) => sum + (addon.price || 0), 0);
     const baseTotal = trueBaseCost + addonsTotal;
@@ -248,6 +265,7 @@ export function CheckoutPortal({
                         activeOrderStatus={activeOrderStatus}
                         countdown={countdown}
                         selectedAddons={selectedAddons}
+                        globalAddons={globalAddons}
                         onToggleAddon={(addon) => {
                             setSelectedAddons(prev => 
                                 prev.some(a => a.name === addon.name)
@@ -288,6 +306,7 @@ export function CheckoutPortal({
                         exchangeRate={rate || activeRate}
                         bankDetails={bankDetails}
                         orderId={activeOrderId}
+                        selectedAddons={selectedAddons}
                     />
                 </div>
             </div>

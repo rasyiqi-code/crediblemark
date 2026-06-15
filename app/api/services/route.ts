@@ -84,24 +84,6 @@ export async function POST(req: NextRequest) {
                 visibility: formData.get("visibility")?.toString() || "PUBLIC",
                 features,
                 features_id,
-                addons: (() => {
-                    try {
-                        const val = formData.get("addons");
-                        return val ? JSON.parse(val.toString()) : [];
-                    } catch (e) {
-                        console.warn("Failed to parse addons:", e);
-                        return [];
-                    }
-                })(),
-                addons_id: (() => {
-                    try {
-                        const val = formData.get("addons_id");
-                        return val ? JSON.parse(val.toString()) : [];
-                    } catch (e) {
-                        console.warn("Failed to parse addons_id:", e);
-                        return [];
-                    }
-                })(),
                 image: imageUrl,
                 slug: slugInput ? slugify(slugInput) : slugify(title)
             } as Prisma.ServiceCreateInput

@@ -23,6 +23,7 @@ export function PaymentPanel({
     activeOrderStatus,
     countdown,
     selectedAddons = [],
+    globalAddons = [],
     onToggleAddon,
     agencySettings,
     onPaymentInitiated,
@@ -45,6 +46,7 @@ export function PaymentPanel({
     activeOrderStatus: string,
     countdown: number,
     selectedAddons?: ServiceAddon[],
+    globalAddons?: ServiceAddon[],
     onToggleAddon?: (addon: ServiceAddon) => void,
     agencySettings?: AgencyInvoiceSettings,
     onPaymentInitiated?: () => void,
@@ -61,10 +63,8 @@ export function PaymentPanel({
 
     const { currency } = useCurrency();
 
-    // Get available addons from the service
-    const serviceAddons = isId
-        ? (estimate.service?.addons_id as ServiceAddon[]) || (estimate.service?.addons as ServiceAddon[])
-        : (estimate.service?.addons as ServiceAddon[]) || [];
+    // Get available addons from global pool
+    const serviceAddons = globalAddons;
 
     // Menggunakan bankDetails secara langsung karena agencySettings tidak memiliki informasi rekening bank
     const formattedBankDetails = bankDetails ? {

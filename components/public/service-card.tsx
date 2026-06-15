@@ -29,9 +29,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
         ? (service as unknown as Record<string, unknown>).features_id as string[]
         : service.features as string[];
 
-    const displayAddons = (isId && Array.isArray((service as unknown as Record<string, unknown>).addons_id) && ((service as unknown as Record<string, unknown>).addons_id as unknown[]).length > 0)
-        ? (service as unknown as Record<string, unknown>).addons_id as unknown[]
-        : (service.addons as unknown[]) || [];
+    const displayAddons = [1]; // Statis untuk menunjukkan bahwa ada addon global yang selalu tersedia
 
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
         if (!rectRef.current) {
@@ -93,11 +91,9 @@ export function ServiceCard({ service }: ServiceCardProps) {
                                 ? tService("oneTime")
                                 : service.interval}
                         </div>
-                        {displayAddons.length > 0 && (
-                            <div className="px-2.5 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-[10px] font-bold text-blue-400 uppercase tracking-widest">
-                                + Add-ons
-                            </div>
-                        )}
+                        <div className="px-2.5 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-[10px] font-bold text-blue-400 uppercase tracking-widest">
+                            + Add-ons
+                        </div>
                     </div>
                     <Link href={`/services/${service.slug || service.id}`}>
                         <h3 className="text-lg md:text-xl font-bold text-white group-hover:text-brand-yellow transition-colors leading-tight mb-3">

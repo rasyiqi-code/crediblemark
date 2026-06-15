@@ -98,6 +98,7 @@ export interface Coupon {
 }
 
 export interface ServiceAddon {
+    id?: string;
     name: string;
     description?: string;
     price: number;

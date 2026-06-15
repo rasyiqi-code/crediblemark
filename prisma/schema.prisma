@@ -199,8 +199,6 @@ model Service {
   features_id    Json?
   title_id       String?
   priceType      String     @default("FIXED")
-  addons         Json?
-  addons_id      Json?
   visibility     String     @default("PUBLIC")
   estimates      Estimate[]
   projects       Project[]

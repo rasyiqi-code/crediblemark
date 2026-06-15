@@ -44,16 +44,6 @@ async function main() {
             interval: 'one_time',
             features: ['5 Pages', 'Mobile Responsive', 'Contact Form', 'SEO Basic', '1 Month Support'],
             features_id: ['5 Halaman', 'Responsi Seluler', 'Formulir Kontak', 'SEO Dasar', 'Dukungan 1 Bulan'],
-            addons: [
-                { name: 'Extra Page', description: 'Add one additional page to your website', price: 150, currency: 'USD', interval: 'one_time' },
-                { name: 'Blog Setup', description: 'Full blog system with CMS integration', price: 300, currency: 'USD', interval: 'one_time' },
-                { name: 'WhatsApp Chat Widget', description: 'Floating WhatsApp button for instant customer contact', price: 50, currency: 'USD', interval: 'one_time' },
-            ],
-            addons_id: [
-                { name: 'Halaman Tambahan', description: 'Tambah satu halaman ekstra ke website Anda', price: 150, currency: 'USD', interval: 'one_time' },
-                { name: 'Setup Blog', description: 'Sistem blog lengkap dengan integrasi CMS', price: 300, currency: 'USD', interval: 'one_time' },
-                { name: 'Widget Chat WhatsApp', description: 'Tombol WhatsApp mengambang untuk kontak pelanggan instan', price: 50, currency: 'USD', interval: 'one_time' },
-            ],
         },
         {
             title: 'E-Commerce Growth Plan',
@@ -66,16 +56,6 @@ async function main() {
             interval: 'monthly',
             features: ['Monthly Maintenance', 'Performance Tuning', 'Priority Support', 'Security Patches', 'Analytics Report'],
             features_id: ['Pemeliharaan Bulanan', 'Tuning Performa', 'Dukungan Prioritas', 'Patch Keamanan', 'Laporan Analitik'],
-            addons: [
-                { name: 'Advanced Analytics', description: 'Custom dashboard with conversion tracking and heatmaps', price: 79, currency: 'USD', interval: 'monthly' },
-                { name: 'Multi-language Support', description: 'Internationalization setup for your store', price: 120, currency: 'USD', interval: 'one_time' },
-                { name: 'Email Marketing Integration', description: 'Automated email campaigns connected to your store', price: 49, currency: 'USD', interval: 'monthly' },
-            ],
-            addons_id: [
-                { name: 'Analitik Lanjutan', description: 'Dashboard kustom dengan pelacakan konversi dan heatmap', price: 79, currency: 'USD', interval: 'monthly' },
-                { name: 'Dukungan Multi-bahasa', description: 'Setup internasionalisasi untuk toko Anda', price: 120, currency: 'USD', interval: 'one_time' },
-                { name: 'Integrasi Email Marketing', description: 'Kampanye email otomatis terhubung ke toko Anda', price: 49, currency: 'USD', interval: 'monthly' },
-            ],
         },
         {
             title: 'Enterprise Support (Annual)',
@@ -88,16 +68,6 @@ async function main() {
             interval: 'yearly',
             features: ['24/7 Dedicated Support', 'Rapid Response Time', 'Server Monitoring', 'Legal Compliance', 'Quarterly Reviews'],
             features_id: ['Dukungan Khusus 24/7', 'Waktu Respons Cepat', 'Pemantauan Server', 'Kepatuhan Hukum', 'Tinjauan Kuartalan'],
-            addons: [
-                { name: 'Disaster Recovery', description: 'Automated backup and disaster recovery plan', price: 15000000, currency: 'IDR', interval: 'yearly' },
-                { name: 'Penetration Testing', description: 'Annual security audit and penetration test', price: 10000000, currency: 'IDR', interval: 'yearly' },
-                { name: 'Custom SLA Upgrade', description: 'Upgrade to 99.99% uptime SLA with dedicated account manager', price: 20000000, currency: 'IDR', interval: 'yearly' },
-            ],
-            addons_id: [
-                { name: 'Pemulihan Bencana', description: 'Backup otomatis dan rencana pemulihan bencana', price: 15000000, currency: 'IDR', interval: 'yearly' },
-                { name: 'Pengujian Penetrasi', description: 'Audit keamanan tahunan dan uji penetrasi', price: 10000000, currency: 'IDR', interval: 'yearly' },
-                { name: 'Upgrade SLA Kustom', description: 'Upgrade ke SLA uptime 99.99% dengan account manager khusus', price: 20000000, currency: 'IDR', interval: 'yearly' },
-            ],
         },
         {
             title: 'Custom Website Design',
@@ -110,16 +80,6 @@ async function main() {
             interval: 'one_time',
             features: ['Custom UI/UX Design', 'High Performance', 'Interactive Elements', 'Brand Integration', 'Source Files Included'],
             features_id: ['Desain UI/UX Kustom', 'Performa Tinggi', 'Elemen Interaktif', 'Integrasi Merek', 'Termasuk File Sumber'],
-            addons: [
-                { name: 'Motion & Animation Pack', description: 'Premium micro-animations and scroll-driven effects', price: 5000000, currency: 'IDR', interval: 'one_time' },
-                { name: 'CMS Integration', description: 'Headless CMS setup for easy content management', price: 3500000, currency: 'IDR', interval: 'one_time' },
-                { name: 'Logo & Branding Kit', description: 'Custom logo design with full brand guideline document', price: 7500000, currency: 'IDR', interval: 'one_time' },
-            ],
-            addons_id: [
-                { name: 'Paket Motion & Animasi', description: 'Micro-animasi premium dan efek scroll-driven', price: 5000000, currency: 'IDR', interval: 'one_time' },
-                { name: 'Integrasi CMS', description: 'Setup headless CMS untuk manajemen konten mudah', price: 3500000, currency: 'IDR', interval: 'one_time' },
-                { name: 'Kit Logo & Branding', description: 'Desain logo kustom dengan dokumen panduan merek lengkap', price: 7500000, currency: 'IDR', interval: 'one_time' },
-            ],
         },
     ];
 
@@ -142,11 +102,45 @@ async function main() {
                     price: s.price,
                     currency: s.currency,
                     interval: s.interval,
-                    addons: s.addons,
-                    addons_id: s.addons_id,
                 }
             });
             console.log(`Updated service: ${service.title}`);
+        }
+    }
+
+    // 3. Create Global Addons (Idempotent)
+    console.log('🔌 Seeding global addons...');
+    const globalAddons = [
+        { name: 'Extra Page', name_id: 'Halaman Tambahan', price: 150, currency: 'USD', interval: 'one_time' },
+        { name: 'Blog Setup', name_id: 'Setup Blog', price: 300, currency: 'USD', interval: 'one_time' },
+        { name: 'WhatsApp Chat Widget', name_id: 'Widget Chat WhatsApp', price: 50, currency: 'USD', interval: 'one_time' },
+        { name: 'Advanced Analytics', name_id: 'Analitik Lanjutan', price: 79, currency: 'USD', interval: 'monthly' },
+        { name: 'Multi-language Support', name_id: 'Dukungan Multi-bahasa', price: 120, currency: 'USD', interval: 'one_time' },
+        { name: 'Email Marketing Integration', name_id: 'Integrasi Email Marketing', price: 49, currency: 'USD', interval: 'monthly' },
+        { name: 'Disaster Recovery', name_id: 'Pemulihan Bencana', price: 15000000, currency: 'IDR', interval: 'yearly' },
+        { name: 'Penetration Testing', name_id: 'Pengujian Penetrasi', price: 10000000, currency: 'IDR', interval: 'yearly' },
+        { name: 'Custom SLA Upgrade', name_id: 'Upgrade SLA Kustom', price: 20000000, currency: 'IDR', interval: 'yearly' },
+        { name: 'Motion & Animation Pack', name_id: 'Paket Motion & Animasi', price: 5000000, currency: 'IDR', interval: 'one_time' },
+        { name: 'CMS Integration', name_id: 'Integrasi CMS', price: 3500000, currency: 'IDR', interval: 'one_time' },
+        { name: 'Logo & Branding Kit', name_id: 'Kit Logo & Branding', price: 7500000, currency: 'IDR', interval: 'one_time' }
+    ];
+
+    for (const addon of globalAddons) {
+        const existing = await prisma.addon.findFirst({ where: { name: addon.name } });
+        if (!existing) {
+            await prisma.addon.create({ data: addon });
+            console.log(`Created global addon: ${addon.name}`);
+        } else {
+            await prisma.addon.update({
+                where: { id: existing.id },
+                data: {
+                    name_id: addon.name_id,
+                    price: addon.price,
+                    currency: addon.currency,
+                    interval: addon.interval
+                }
+            });
+            console.log(`Updated global addon: ${addon.name}`);
         }
     }
 
