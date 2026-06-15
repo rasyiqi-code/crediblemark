@@ -1147,7 +1147,11 @@ export function generateProposalHtml({
                 <p class="sub-title">${tCoverSub}</p>
             </div>
             
-            <div class="cover-footer" style="align-items: center;">
+            <div class="cover-footer" style="align-items: center; position: relative;">
+                <!-- Teks di atas garis -->
+                <div style="position: absolute; top: -25px; left: 0; font-size: 11px; color: #a1a1aa; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; line-height: 1;">
+                    crediblemark.com
+                </div>
                 <div style="background: #ffffff; padding: 16px 22px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25); border: 1.5px solid #e4e4e7; max-width: 110mm;">
                     <div class="metadata-label" style="color: #71717a; font-size: 11px; font-weight: 800; margin-bottom: 6px; letter-spacing: 0.5px;">${tPreparedFor}</div>
                     <div class="metadata-value" style="color: #09090b; font-size: 20px; font-weight: 800; line-height: 1.2;">${clientName}</div>
