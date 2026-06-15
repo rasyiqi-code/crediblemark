@@ -240,81 +240,170 @@ export function AddonListClient({ addons }: AddonListClientProps) {
                     {searchQuery ? t("noAddonsFound") : t("noAddons")}
                 </div>
             ) : (
-                <div className="w-full overflow-hidden border border-zinc-850 rounded-xl bg-zinc-950/40">
-                    <table className="w-full text-left border-collapse text-zinc-300">
-                        <thead>
-                            <tr className="bg-zinc-900/40 border-b border-zinc-850 text-xs uppercase tracking-wider text-zinc-500">
-                                {isSelectionMode && <th className="py-3 px-4 w-10"></th>}
-                                <th className="py-3 px-4">{t("name")}</th>
-                                <th className="py-3 px-4">{t("price")}</th>
-                                <th className="py-3 px-4">{t("interval")}</th>
-                                <th className="py-3 px-4 text-center">{t("status")}</th>
-                                <th className="py-3 px-4 text-right">{t("actions")}</th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-zinc-900">
-                            {sortedAddons.map((addon) => {
-                                const isSelected = selectedIds.includes(addon.id);
-                                return (
-                                    <tr 
-                                        key={addon.id}
-                                        className={`hover:bg-white/[0.02] transition-colors ${isSelected ? "bg-blue-500/5 hover:bg-blue-500/5" : ""}`}
-                                    >
+                <div className="w-full space-y-4">
+                    {/* Tampilan Mobile: Kartu (block md:hidden) */}
+                    <div className="grid grid-cols-1 gap-3 md:hidden">
+                        {sortedAddons.map((addon) => {
+                            const isSelected = selectedIds.includes(addon.id);
+                            return (
+                                <div 
+                                    key={addon.id}
+                                    onClick={() => isSelectionMode && handleSelectChange(addon.id, !isSelected)}
+                                    className={`p-4 rounded-xl border bg-zinc-950/40 transition-colors flex flex-col gap-3.5 ${
+                                        isSelected 
+                                            ? "border-blue-500/30 bg-blue-500/5" 
+                                            : "border-zinc-850 hover:border-zinc-800"
+                                    } ${isSelectionMode ? "cursor-pointer" : ""}`}
+                                >
+                                    {/* Header Kartu: Checkbox (jika selection mode) + Nama Addon */}
+                                    <div className="flex items-start gap-3">
                                         {isSelectionMode && (
-                                            <td className="py-3.5 px-4">
+                                            <div onClick={(e) => e.stopPropagation()} className="pt-0.5">
                                                 <input
                                                     type="checkbox"
                                                     checked={isSelected}
                                                     onChange={(e) => handleSelectChange(addon.id, e.target.checked)}
                                                     className="rounded border-zinc-800 text-blue-600 focus:ring-blue-500/20 bg-black/40 w-4 h-4 cursor-pointer"
                                                 />
-                                            </td>
+                                            </div>
                                         )}
-                                        <td className="py-3.5 px-4">
-                                            <div className="flex flex-col">
-                                                <span className="font-semibold text-zinc-100 text-sm">
-                                                    {locale === "id" && addon.name_id ? addon.name_id : addon.name}
-                                                </span>
-                                            </div>
-                                        </td>
-                                        <td className="py-3.5 px-4 font-medium text-sm">
-                                            {addon.currency === "IDR" 
-                                                ? `Rp ${Number(addon.price).toLocaleString("id-ID")}` 
-                                                : `$${Number(addon.price).toFixed(2)}`}
-                                        </td>
-                                        <td className="py-3.5 px-4 text-xs text-zinc-400 uppercase tracking-wide">
-                                            {addon.interval === "monthly" 
-                                                ? "Monthly" 
-                                                : addon.interval === "yearly" 
-                                                ? "Yearly" 
-                                                : "One-time"}
-                                        </td>
-                                        <td className="py-3.5 px-4 text-center">
-                                            <div className="flex items-center justify-center">
-                                                <Switch
-                                                    checked={addon.isActive}
-                                                    onCheckedChange={() => handleToggleActive(addon.id, addon.isActive)}
-                                                />
-                                            </div>
-                                        </td>
-                                        <td className="py-3.5 px-4 text-right">
-                                            <div className="flex items-center justify-end gap-2">
-                                                <Button
-                                                    variant="ghost"
-                                                    size="icon"
-                                                    onClick={() => openEditDialog(addon)}
-                                                    className="w-8 h-8 text-zinc-400 hover:text-white hover:bg-zinc-850"
-                                                    title="Edit Add-on"
-                                                >
-                                                    <Edit className="w-3.5 h-3.5" />
-                                                </Button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                );
-                            })}
-                        </tbody>
-                    </table>
+                                        <div className="flex-1">
+                                            <span className="font-semibold text-zinc-100 text-sm break-words leading-snug">
+                                                {locale === "id" && addon.name_id ? addon.name_id : addon.name}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    {/* Info Detil: Harga & Interval */}
+                                    <div className="flex items-center justify-between border-t border-zinc-900/60 pt-3 text-xs">
+                                        <div className="flex flex-col gap-1">
+                                            <span className="text-zinc-500 uppercase tracking-widest text-[9px] font-bold">Harga</span>
+                                            <span className="font-semibold text-zinc-200">
+                                                {addon.currency === "IDR" 
+                                                    ? `Rp ${Number(addon.price).toLocaleString("id-ID")}` 
+                                                    : `$${Number(addon.price).toFixed(2)}`}
+                                            </span>
+                                        </div>
+
+                                        <div className="flex flex-col gap-1 items-end">
+                                            <span className="text-zinc-500 uppercase tracking-widest text-[9px] font-bold">Interval</span>
+                                            <span className="text-zinc-400 font-medium uppercase tracking-wide text-[10px]">
+                                                {addon.interval === "monthly" 
+                                                    ? "Monthly" 
+                                                    : addon.interval === "yearly" 
+                                                    ? "Yearly" 
+                                                    : "One-time"}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    {/* Aksi & Status */}
+                                    <div className="flex items-center justify-between border-t border-zinc-900/60 pt-3">
+                                        <div className="flex items-center gap-2">
+                                            <span className="text-xs text-zinc-400">Status</span>
+                                            <Switch
+                                                checked={addon.isActive}
+                                                onCheckedChange={() => handleToggleActive(addon.id, addon.isActive)}
+                                            />
+                                        </div>
+
+                                        {!isSelectionMode && (
+                                            <Button
+                                                variant="ghost"
+                                                size="sm"
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    openEditDialog(addon);
+                                                }}
+                                                className="h-8 text-xs font-semibold text-zinc-400 hover:text-white hover:bg-zinc-850 px-2.5 rounded-lg flex items-center gap-1.5"
+                                            >
+                                                <Edit className="w-3.5 h-3.5" />
+                                                <span>Edit</span>
+                                            </Button>
+                                        )}
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+
+                    {/* Tampilan Desktop: Tabel (hidden md:block) */}
+                    <div className="hidden md:block overflow-hidden border border-zinc-850 rounded-xl bg-zinc-950/40">
+                        <table className="w-full text-left border-collapse text-zinc-300">
+                            <thead>
+                                <tr className="bg-zinc-900/40 border-b border-zinc-850 text-xs uppercase tracking-wider text-zinc-500">
+                                    {isSelectionMode && <th className="py-3 px-4 w-10"></th>}
+                                    <th className="py-3 px-4">{t("name")}</th>
+                                    <th className="py-3 px-4">{t("price")}</th>
+                                    <th className="py-3 px-4">{t("interval")}</th>
+                                    <th className="py-3 px-4 text-center">{t("status")}</th>
+                                    <th className="py-3 px-4 text-right">{t("actions")}</th>
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-zinc-900">
+                                {sortedAddons.map((addon) => {
+                                    const isSelected = selectedIds.includes(addon.id);
+                                    return (
+                                        <tr 
+                                            key={addon.id}
+                                            className={`hover:bg-white/[0.02] transition-colors ${isSelected ? "bg-blue-500/5 hover:bg-blue-500/5" : ""}`}
+                                        >
+                                            {isSelectionMode && (
+                                                <td className="py-3.5 px-4">
+                                                    <input
+                                                        type="checkbox"
+                                                        checked={isSelected}
+                                                        onChange={(e) => handleSelectChange(addon.id, e.target.checked)}
+                                                        className="rounded border-zinc-800 text-blue-600 focus:ring-blue-500/20 bg-black/40 w-4 h-4 cursor-pointer"
+                                                    />
+                                                </td>
+                                            )}
+                                            <td className="py-3.5 px-4">
+                                                <div className="flex flex-col">
+                                                    <span className="font-semibold text-zinc-100 text-sm">
+                                                        {locale === "id" && addon.name_id ? addon.name_id : addon.name}
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td className="py-3.5 px-4 font-medium text-sm">
+                                                {addon.currency === "IDR" 
+                                                    ? `Rp ${Number(addon.price).toLocaleString("id-ID")}` 
+                                                    : `$${Number(addon.price).toFixed(2)}`}
+                                            </td>
+                                            <td className="py-3.5 px-4 text-xs text-zinc-400 uppercase tracking-wide">
+                                                {addon.interval === "monthly" 
+                                                    ? "Monthly" 
+                                                    : addon.interval === "yearly" 
+                                                    ? "Yearly" 
+                                                    : "One-time"}
+                                            </td>
+                                            <td className="py-3.5 px-4 text-center">
+                                                <div className="flex items-center justify-center">
+                                                    <Switch
+                                                        checked={addon.isActive}
+                                                        onCheckedChange={() => handleToggleActive(addon.id, addon.isActive)}
+                                                    />
+                                                </div>
+                                            </td>
+                                            <td className="py-3.5 px-4 text-right">
+                                                <div className="flex items-center justify-end gap-2">
+                                                    <Button
+                                                        variant="ghost"
+                                                        size="icon"
+                                                        onClick={() => openEditDialog(addon)}
+                                                        className="w-8 h-8 text-zinc-400 hover:text-white hover:bg-zinc-850"
+                                                        title="Edit Add-on"
+                                                    >
+                                                        <Edit className="w-3.5 h-3.5" />
+                                                    </Button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             )}
 
