@@ -289,7 +289,7 @@ export function AddonListClient({ addons }: AddonListClientProps) {
                                                     }
                                                 }}
                                             >
-                                                <span className="font-semibold text-zinc-100 text-sm break-words leading-snug pr-2 text-left">
+                                                <span className="font-semibold text-zinc-100 text-sm truncate text-left pr-2 flex-1 min-w-0">
                                                     {locale === "id" && addon.name_id ? addon.name_id : addon.name}
                                                 </span>
                                             </AccordionTrigger>
