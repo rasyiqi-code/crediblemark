@@ -428,23 +428,15 @@ export function generateProposalHtml({
             flex-grow: 1;
         }
         
-        .cover-hero-image-box {
+        .cover-hero-image {
             position: absolute;
             top: 48mm;
             right: 20mm;
             width: 65mm;
             height: 95mm;
-            border: 1px solid rgba(251, 191, 36, 0.3);
-            background: #18181b;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-            z-index: 5;
-        }
-        
-        .cover-hero-image {
-            width: 100%;
-            height: 100%;
             object-fit: cover;
             filter: grayscale(10%) contrast(1.02) brightness(0.95);
+            z-index: 5;
         }
         
         .logo-container {
@@ -1123,14 +1115,25 @@ export function generateProposalHtml({
     <!-- HALAMAN 1: COVER -->
     <div class="page page-cover">
         <div class="cover-top-accent"></div>
+        ${service.discount && service.discount > 0 ? `
+        <div style="position: absolute; top: 50px; right: 50px; z-index: 10; text-align: center; color: #000000; transform: rotate(12deg); font-family: 'Plus Jakarta Sans', sans-serif; pointer-events: none; width: 140px;">
+            <div style="font-size: 11px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; opacity: 0.8;">
+                ${isEn ? "EXCLUSIVE" : "DISKON"}
+            </div>
+            <div style="font-size: 82px; font-weight: 900; line-height: 0.85; letter-spacing: -4px; margin: -2px 0;">
+                ${service.discount}%
+            </div>
+            <div style="font-size: 14px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase;">
+                ${isEn ? "OFF" : "UNTUK ANDA"}
+            </div>
+        </div>
+        ` : ''}
         <div class="cover-top-accent-sub"></div>
         <div class="cover-bottom-accent"></div>
         <div class="cover-bottom-stripes"></div>
         
         <!-- Gambar Hero Expert di Sisi Kanan Cover -->
-        <div class="cover-hero-image-box">
-            <img src="/expert.webp" alt="Expert" class="cover-hero-image" />
-        </div>
+        <img src="/expert.webp" alt="Expert" class="cover-hero-image" />
         
         <div class="cover-content">
             <div class="logo-container">
@@ -1139,14 +1142,7 @@ export function generateProposalHtml({
             </div>
             
             <div class="main-title-box">
-                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 20px;">
-                    <span class="proposal-badge" style="margin-bottom: 0;">${tBusinessProposal}</span>
-                    ${service.discount && service.discount > 0 ? `
-                        <span style="background: #fbbf24; color: #000000; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; padding: 4px 10px; border-radius: 4px; display: inline-block;">
-                            ${isEn ? `Save ${service.discount}%` : `Hemat ${service.discount}%`}
-                        </span>
-                    ` : ''}
-                </div>
+                <span class="proposal-badge">${tBusinessProposal}</span>
                 <h1 class="main-title">${title}</h1>
                 <div class="title-divider"></div>
                 <p class="sub-title">${tCoverSub}</p>
