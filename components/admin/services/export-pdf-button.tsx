@@ -1092,8 +1092,10 @@ export function ExportPdfButton({
                         </div>
                     </div>
                     <div style="clear: both;"></div>
-                    <div class="metadata-label">${tProposalDate}</div>
-                    <div class="metadata-value">${dateStr}</div>
+                    <div class="metadata-value" style="font-size: 14px; font-weight: 600; color: #ffffff;">
+                        <span style="font-size: 11px; text-transform: uppercase; color: #a1a1aa; letter-spacing: 0.5px; margin-right: 6px; font-weight: 500;">${tProposalDate}:</span>
+                        ${dateStr}
+                    </div>
                 </div>
             </div>
         </div>
