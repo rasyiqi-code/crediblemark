@@ -23,8 +23,8 @@ export function getProposalDescription(service: ServiceDataForPdf): string {
 export function getPageFooterHtml(page: number, totalPages: number, messages: ProposalMessages): string {
     const template = messages.ProposalExport.pageFooter as string;
     return template
-        .replace("{page}", page.toString())
-        .replace(/\b6\b/, totalPages.toString());
+        .replace(/\b6\b/, totalPages.toString())
+        .replace("{page}", page.toString());
 }
 
 export function generateAddonsTableRows(

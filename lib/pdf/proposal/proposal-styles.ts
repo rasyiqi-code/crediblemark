@@ -216,7 +216,7 @@ body {
     border-radius: 3px;
     position: relative;
     margin-bottom: 6px;
-    line-height: 1;
+    line-height: 1.3;
 }
 .page-title-badge::after {
     content: "";
@@ -638,15 +638,20 @@ body {
     border: 1px solid #27272a;
     border-radius: 8px;
     padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: table;
+    width: 100%;
     margin-bottom: 25px;
 }
 
 .pricing-info {
-    display: flex;
-    flex-direction: column;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.pricing-side {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: right;
 }
 
 .pricing-price {
@@ -679,7 +684,7 @@ body {
     font-size: 14px;
     border-bottom: 1px solid #27272a;
     color: #ffffff;
-    vertical-align: middle;
+    vertical-align: top;
 }
 
 .proposal-table tr:nth-child(even) td {

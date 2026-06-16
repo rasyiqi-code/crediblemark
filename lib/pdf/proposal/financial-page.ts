@@ -117,7 +117,7 @@ export function renderFinancialPage(
                     <span style="font-size: 12px; text-transform: uppercase; color: #ffffff; letter-spacing: 0.5px;">${tBaseInvestLabel}</span>
                     <span class="pricing-price" style="margin-top: 4px; line-height: 1.1;">${formattedPrice}</span>
                 </div>
-                <div style="text-align: right;">
+                <div class="pricing-side">
                     <span style="font-size: 17px; font-weight: 700; color: #ffffff; display: block;">${intervalLabel}</span>
                 </div>
             </div>
