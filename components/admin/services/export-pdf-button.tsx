@@ -98,7 +98,10 @@ export function ExportPdfButton({
                     useCORS: true, 
                     logging: false,
                     letterRendering: true,
-                    width: 794
+                    width: 794,
+                    scrollX: 0,
+                    scrollY: 0,
+                    window: (iframe.contentWindow || window) as Window
                 },
                 jsPDF: { unit: "px", format: [794, 1123] as [number, number], orientation: "portrait" as const }
             };
@@ -127,7 +130,7 @@ export function ExportPdfButton({
                 variant="outline"
                 onClick={handleExport}
                 disabled={isGenerating}
-                className="inline-flex items-center gap-2 h-9 px-4 rounded-none bg-zinc-950 border border-white/10 text-zinc-300 hover:text-white hover:bg-zinc-900 hover:border-brand-yellow/30 transition-all text-xs font-bold uppercase tracking-wider cursor-pointer shadow-lg hover:shadow-[0_0_15px_rgba(254,215,0,0.1)]"
+                className="inline-flex items-center justify-center gap-2 h-9 px-4 min-w-[185px] rounded-none bg-zinc-950 border border-white/10 text-zinc-300 hover:text-white hover:bg-zinc-900 hover:border-brand-yellow/30 transition-all text-xs font-bold uppercase tracking-wider cursor-pointer shadow-lg hover:shadow-[0_0_15px_rgba(254,215,0,0.1)]"
             >
                 {isGenerating ? (
                     <Loader2 className="w-4 h-4 animate-spin text-brand-yellow" />
