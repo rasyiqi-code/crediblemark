@@ -4,11 +4,13 @@ import { getAgencyLogo, getCompanyStamp, getDirectorSignature } from "@/app/acti
 import { getSystemSettings } from "@/lib/server/settings";
 import idMessages from "@/messages/id.json";
 import enMessages from "@/messages/en.json";
-import puppeteer, { Browser } from "puppeteer";
+import type { Browser } from "puppeteer";
 
 // Cache memori untuk stempel dan tanda tangan guna menghindari operasi pembacaan disk (I/O) berulang pada setiap request
 let cachedStamp: string | null = null;
 let cachedSignature: string | null = null;
+
+const isProd = process.env.NODE_ENV === "production" || process.env.VERCEL === "1";
 
 // Endpoint API untuk mengekspor proposal ke PDF dari sisi server menggunakan Puppeteer
 // Menghindari kendala rendering layout responsif pada perangkat seluler (HP)
@@ -70,20 +72,37 @@ export async function POST(req: NextRequest) {
             baseUrl: req.nextUrl.origin
         });
 
-        // Jalankan Chromium headless menggunakan Puppeteer dengan optimasi RAM & CPU tingkat lanjut
-        browser = await puppeteer.launch({
-            headless: true,
-            args: [
-                "--no-sandbox",
-                "--disable-setuid-sandbox",
-                "--disable-dev-shm-usage", // Menghindari crash memori pada docker/linux (/dev/shm)
-                "--disable-gpu", // Menonaktifkan render hardware GPU untuk hemat CPU & RAM di server
-                "--no-zygote", // Menonaktifkan proses zygote ekstra demi hemat memori
-                "--single-process", // Menjalankan di dalam satu proses utama Chromium
-                "--disable-extensions", // Menonaktifkan pemuatan ekstensi
-                "--disable-audio-output" // Mencegah pemuatan driver suara
-            ]
-        });
+        // Jalankan Chromium headless menggunakan Puppeteer dengan opsi sesuai environment
+        if (isProd) {
+            // Di Vercel/Produksi: Gunakan puppeteer-core dan @sparticuz/chromium secara dinamis (asinkron)
+            const puppeteerCore = await import("puppeteer-core");
+            const chromium = (await import("@sparticuz/chromium")).default;
+            const executablePath = await chromium.executablePath();
+            
+            browser = await puppeteerCore.launch({
+                args: chromium.args,
+                defaultViewport: chromium.defaultViewport,
+                executablePath: executablePath,
+                headless: chromium.headless,
+            }) as unknown as Browser;
+        } else {
+            // Di Lokal: Gunakan puppeteer standar
+            const puppeteerLocal = await import("puppeteer");
+            browser = await puppeteerLocal.launch({
+                headless: true,
+                args: [
+                    "--no-sandbox",
+                    "--disable-setuid-sandbox",
+                    "--disable-dev-shm-usage", // Menghindari crash memori pada docker/linux (/dev/shm)
+                    "--disable-gpu", // Menonaktifkan render hardware GPU untuk hemat CPU & RAM di server
+                    "--no-zygote", // Menonaktifkan proses zygote ekstra demi hemat memori
+                    "--single-process", // Menjalankan di dalam satu proses utama Chromium
+                    "--disable-extensions", // Menonaktifkan pemuatan ekstensi
+                    "--disable-audio-output" // Mencegah pemuatan driver suara
+                ]
+            });
+        }
+        
         const page = await browser.newPage();
         
         // Atur ukuran viewport agar merender layout desktop (A4 lebar 794px @ 96 DPI)
