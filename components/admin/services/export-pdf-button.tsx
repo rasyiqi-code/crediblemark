@@ -76,10 +76,22 @@ export function ExportPdfButton({
             await new Promise<void>((resolve) => {
                 const win = iframe.contentWindow;
                 if (win) {
-                    if (doc.readyState === "complete") {
+                    const checkLoaded = async () => {
+                        try {
+                            // Tunggu pemuatan font asinkron (Google Fonts) di dokumen iframe selesai
+                            if (doc.fonts && typeof doc.fonts.ready !== "undefined") {
+                                await doc.fonts.ready;
+                            }
+                        } catch (e) {
+                            console.warn("Gagal menunggu pemuatan fonts:", e);
+                        }
                         resolve();
+                    };
+
+                    if (doc.readyState === "complete") {
+                        checkLoaded();
                     } else {
-                        win.onload = () => resolve();
+                        win.onload = () => checkLoaded();
                     }
                 } else {
                     resolve();
@@ -97,7 +109,6 @@ export function ExportPdfButton({
                     scale: 2, 
                     useCORS: true, 
                     logging: false,
-                    letterRendering: true,
                     width: 794,
                     scrollX: 0,
                     scrollY: 0,
