@@ -89,6 +89,8 @@ body {
     background: #000000;
     overflow: hidden;
     padding: 25mm 20mm;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Halaman Cover (Estetika Tinggi - Dark Theme) */
@@ -864,6 +866,8 @@ body {
     position: relative;
     background: #000000;
     padding: 25mm 20mm 35mm 20mm;
+    margin-left: auto;
+    margin-right: auto;
 }
 .page-addons .proposal-table {
     page-break-inside: auto;
