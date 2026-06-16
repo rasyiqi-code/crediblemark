@@ -179,8 +179,8 @@ export function ServicesClientWrapper({ services, pageTitle }: ServicesClientWra
 
                 {/* Daily Random Services (Tampil saat tidak melakukan search) */}
                 {searchQuery.length === 0 && randomServices.length > 0 && (
-                    <div className="max-w-4xl mx-auto space-y-4 animate-in fade-in duration-500">
-                        <div className="flex items-center justify-between border-b border-white/5 pb-3">
+                    <div className="max-w-4xl mx-auto space-y-1.5 animate-in fade-in duration-500">
+                        <div className="flex items-center justify-between border-b border-white/5 pb-1.5">
                             <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest block">
                                 {isId ? "Rekomendasi Layanan Hari Ini" : "Today's Recommended Services"}
                             </span>
@@ -207,8 +207,8 @@ export function ServicesClientWrapper({ services, pageTitle }: ServicesClientWra
 
                 {/* Hasil Pencarian List Premium */}
                 {searchQuery.length > 0 && filteredServices.length > 0 && (
-                    <div className="max-w-4xl mx-auto space-y-4 animate-in fade-in slide-in-from-top-3 duration-500">
-                        <div className="flex items-center justify-between border-b border-white/5 pb-3">
+                    <div className="max-w-4xl mx-auto space-y-1.5 animate-in fade-in slide-in-from-top-3 duration-500">
+                        <div className="flex items-center justify-between border-b border-white/5 pb-1.5">
                             <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest block">
                                 {isId 
                                     ? `Hasil Pencarian (${filteredServices.length} Layanan Ditemukan)` 
