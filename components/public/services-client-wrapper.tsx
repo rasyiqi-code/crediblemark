@@ -129,9 +129,6 @@ export function ServicesClientWrapper({ services, pageTitle }: ServicesClientWra
             <div className="absolute inset-0">
                 {/* Grid Pattern */}
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:32px_32px]"></div>
-
-                {/* Radial Gradient overlay */}
-                <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[400px] w-[600px] rounded-full bg-brand-yellow/5 blur-[120px]" />
             </div>
 
             <div className="container mx-auto px-4 pt-6 pb-16 sm:py-24 relative z-10">
@@ -150,8 +147,8 @@ export function ServicesClientWrapper({ services, pageTitle }: ServicesClientWra
                 {/* Bilah Pencarian Jasa Premium */}
                 <div className="mb-16 max-w-2xl mx-auto relative animate-in fade-in slide-in-from-bottom-4 duration-700 px-4 sm:px-0">
                     <div className="relative group">
-                        <div className="absolute -inset-0.5 bg-gradient-to-r from-brand-yellow/40 via-brand-yellow/10 to-brand-yellow/30 rounded-2xl blur opacity-40 group-hover:opacity-75 transition duration-500 group-focus-within:opacity-100" />
-                        <div className="relative flex items-center bg-zinc-900/80 backdrop-blur-xl rounded-2xl border border-white/10 overflow-hidden shadow-2xl transition-all hover:border-white/20 group-focus-within:border-brand-yellow/50 group-focus-within:ring-2 group-focus-within:ring-brand-yellow/20">
+                        <div className="absolute -inset-0.5 bg-gradient-to-r from-brand-yellow/40 via-brand-yellow/10 to-brand-yellow/30 rounded-2xl opacity-40 group-hover:opacity-75 transition duration-500 group-focus-within:opacity-100" />
+                        <div className="relative flex items-center bg-zinc-900/80 rounded-2xl border border-white/10 overflow-hidden shadow-2xl transition-all hover:border-white/20 group-focus-within:border-brand-yellow/50 group-focus-within:ring-2 group-focus-within:ring-brand-yellow/20">
                             <div className="flex items-center justify-center pl-6">
                                 <Search className="w-5 h-5 text-zinc-400 group-focus-within:text-brand-yellow transition-colors duration-300" />
                             </div>

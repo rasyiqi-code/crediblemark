@@ -31,7 +31,7 @@ export function ServiceListItem({ service, isId, indexNumber }: ServiceListItemP
 
     return (
         <div
-            className="py-2.5 px-0 flex flex-row justify-between items-center gap-3 transition-all duration-300 group relative"
+            className="py-2.5 px-0 flex flex-row justify-between items-center gap-3 border-b border-white/10 transition-all duration-300 group relative"
         >
             {/* Gaya Marquee Lokal Terisolasi */}
             <style dangerouslySetInnerHTML={{ __html: `
@@ -47,8 +47,6 @@ export function ServiceListItem({ service, isId, indexNumber }: ServiceListItemP
                     scrollbar-width: none;
                     white-space: nowrap;
                     width: 100%;
-                    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
-                    -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
                 }
                 .marquee-container::-webkit-scrollbar {
                     display: none;
