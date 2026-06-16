@@ -114,8 +114,8 @@ export function renderFinancialPage(
             <!-- Card Utama Harga Bersih & Skema Pembayaran -->
             <div class="pricing-banner">
                 <div class="pricing-info">
-                    <span style="font-size: 12px; text-transform: uppercase; color: #ffffff; letter-spacing: 0.5px;">${tBaseInvestLabel}</span>
-                    <span class="pricing-price" style="margin-top: 4px; line-height: 1.1;">${formattedPrice}</span>
+                    <span style="font-size: 11px; text-transform: uppercase; color: #a1a1aa; letter-spacing: 0.5px; display: block; margin-bottom: 4px;">${tBaseInvestLabel}</span>
+                    <span class="pricing-price" style="display: block; line-height: 1.1;">${formattedPrice}</span>
                 </div>
                 <div class="pricing-side">
                     <span style="font-size: 17px; font-weight: 700; color: #ffffff; display: block;">${intervalLabel}</span>
