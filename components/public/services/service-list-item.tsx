@@ -31,7 +31,7 @@ export function ServiceListItem({ service, isId, indexNumber }: ServiceListItemP
 
     return (
         <div
-            className="py-2.5 px-4 sm:px-5 flex flex-row justify-between items-center gap-3 bg-zinc-900/20 hover:bg-zinc-900/30 border-l-2 border-l-brand-yellow transition-all duration-300 group relative"
+            className="py-2.5 px-0 flex flex-row justify-between items-center gap-3 transition-all duration-300 group relative"
         >
             {/* Gaya Marquee Lokal Terisolasi */}
             <style dangerouslySetInnerHTML={{ __html: `
