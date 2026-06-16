@@ -44,15 +44,14 @@ export function ExportPdfButton({
                 throw new Error("Gagal mengunduh berkas proposal PDF");
             }
 
-            const blob = await response.blob();
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = `${service.title.replace(/[^a-z0-9]/gi, '_')}_Proposal.pdf`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            window.URL.revokeObjectURL(url);
+            const data = await response.json();
+            if (!data.downloadUrl) {
+                throw new Error("Tautan unduhan tidak ditemukan");
+            }
+
+            // Arahkan browser langsung ke tautan unduhan GET
+            // Memicu unduhan native bawaan sistem operasi (sangat andal di Android/iOS mobile)
+            window.location.href = data.downloadUrl;
         } catch (error) {
             console.error("Ekspor PDF gagal:", error);
         } finally {

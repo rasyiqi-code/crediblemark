@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { generateProposalHtml, ProposalMessages } from "@/lib/pdf/proposal-template";
 import { getAgencyLogo, getCompanyStamp, getDirectorSignature } from "@/app/actions/system-admin";
 import { getSystemSettings } from "@/lib/server/settings";
+import { uploadFile } from "@/lib/integrations/storage";
 import idMessages from "@/messages/id.json";
 import enMessages from "@/messages/en.json";
 import type { Browser } from "puppeteer";
@@ -81,9 +82,8 @@ export async function POST(req: NextRequest) {
             
             browser = await puppeteerCore.launch({
                 args: chromium.args,
-                defaultViewport: chromium.defaultViewport,
                 executablePath: executablePath,
-                headless: chromium.headless,
+                headless: true,
             }) as unknown as Browser;
         } else {
             // Di Lokal: Gunakan puppeteer standar
@@ -134,18 +134,14 @@ export async function POST(req: NextRequest) {
 
         const fileName = `${service.title.replace(/[^a-z0-9]/gi, '_')}_Proposal.pdf`;
 
-        // Bungkus buffer dengan Blob agar kompatibel dengan constructor NextResponse (BodyInit) tanpa type error
-        const pdfBlob = new Blob([pdfBuffer as unknown as BlobPart], { type: "application/pdf" });
+        // Upload berkas PDF hasil render ke storage aktif secara dinamis
+        const pathName = `proposals/${service.title.replace(/[^a-z0-9]/gi, '_')}_${Date.now()}.pdf`;
+        const fileUrl = await uploadFile(pdfBuffer, pathName, "application/pdf");
 
-        // Kirimkan Blob PDF sebagai unduhan langsung
-        return new NextResponse(pdfBlob, {
-            status: 200,
-            headers: {
-                "Content-Type": "application/pdf",
-                "Content-Disposition": `attachment; filename="${fileName}"`,
-                "Content-Length": pdfBuffer.length.toString()
-            }
-        });
+        // Kembalikan URL unduhan native 2-tahap
+        const downloadUrl = `/api/services/download-pdf?url=${encodeURIComponent(fileUrl)}&filename=${encodeURIComponent(fileName)}`;
+
+        return NextResponse.json({ downloadUrl });
     } catch (error) {
         console.error("Gagal mengekspor PDF proposal via server:", error);
         return NextResponse.json({ error: "Failed to generate PDF" }, { status: 500 });
