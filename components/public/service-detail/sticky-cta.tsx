@@ -43,10 +43,10 @@ export function StickyCTA({ service, intervalLabel, selectedAddons }: StickyCTAP
                 }`}
         >
             <div className="max-w-7xl mx-auto px-6 md:px-8">
-                <div className="flex flex-row items-center justify-between gap-4 py-3 md:py-4">
+                <div className="flex flex-row items-center justify-between gap-4 py-2 md:py-2.5">
                     {/* Bagian Kiri - Badge & Judul */}
                     <div className="flex flex-col justify-center min-w-0 space-y-1">
-                        <span className="text-sm md:text-xl font-black text-brand-yellow tracking-tighter leading-none truncate block">
+                        <span className="text-xs md:text-base font-black text-brand-yellow tracking-tighter leading-none truncate block">
                             {displayTitle}
                         </span>
                     </div>
@@ -60,7 +60,7 @@ export function StickyCTA({ service, intervalLabel, selectedAddons }: StickyCTAP
                                     {priceSuffix}
                                 </span>
                             )}
-                            <span className="text-lg md:text-2xl font-black text-brand-yellow tracking-tighter">
+                            <span className="text-base md:text-lg font-black text-brand-yellow tracking-tighter">
                                 <PriceDisplay amount={totalPrice} baseCurrency={baseCurrency} compact={true} />
                             </span>
                             <span className="text-[9px] md:text-[10px] font-bold text-zinc-500 uppercase tracking-widest">
@@ -73,7 +73,7 @@ export function StickyCTA({ service, intervalLabel, selectedAddons }: StickyCTAP
                             serviceId={service.id}
                             interval={service.interval}
                             selectedAddons={selectedAddons}
-                            className="bg-brand-yellow hover:bg-brand-yellow/90 text-black px-5 md:px-6 py-2 md:py-2.5 rounded-none font-black text-[10px] md:text-[11px] uppercase tracking-widest shadow-lg shadow-brand-yellow/20 transition-all hover:scale-[1.05] active:scale-[0.95] shrink-0 !w-auto"
+                            className="bg-brand-yellow hover:bg-brand-yellow/90 text-black px-4 md:px-5 py-1.5 md:py-2 rounded-none font-black text-[10px] md:text-[11px] uppercase tracking-widest shadow-lg shadow-brand-yellow/20 transition-all hover:scale-[1.05] active:scale-[0.95] shrink-0 !w-auto"
                         />
                     </div>
                 </div>
