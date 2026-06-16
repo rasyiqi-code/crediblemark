@@ -64,8 +64,8 @@ export function GlobalLoader() {
 
     return (
         <div 
-            className={`fixed inset-0 z-[9999] transition-opacity duration-300 pointer-events-none ${
-                fading ? "opacity-0" : "opacity-100"
+            className={`fixed inset-0 z-[9999] transition-opacity duration-300 ${
+                fading ? "opacity-0 pointer-events-none" : "opacity-100 bg-black pointer-events-auto"
             }`}
         >
             <LoadingScreen />
