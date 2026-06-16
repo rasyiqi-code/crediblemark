@@ -3,59 +3,58 @@
  * Dipisahkan untuk mempermudah maintenance desain visual.
  */
 export const proposalStyles = `
-/* @font-face eksplisit dengan URL langsung ke CDN fonts.gstatic.com
-   font-display: block digunakan agar browser TIDAK pernah merender teks
-   dengan font fallback (yang memiliki metrik berbeda) selama font dimuat.
-   Ini mencegah html2canvas menangkap teks dalam posisi yang salah. */
+/* @font-face menggunakan file lokal dari /public/fonts/ yang di-serve same-origin.
+   Ini eliminasi masalah CORS, timing, dan network saat html2canvas render. */
 @font-face {
     font-family: 'Plus Jakarta Sans';
     font-style: normal;
     font-weight: 400;
     font-display: block;
-    src: url(https://fonts.gstatic.com/s/plusjakartasans/v12/LDIbaomQNQcsA88c7O9yZ4KMCoOg4IA6-91aHEjcWuA_qU7NSg.ttf) format('truetype');
+    src: url(/fonts/PlusJakartaSans-Regular.ttf) format('truetype');
 }
 @font-face {
     font-family: 'Plus Jakarta Sans';
     font-style: normal;
     font-weight: 500;
     font-display: block;
-    src: url(https://fonts.gstatic.com/s/plusjakartasans/v12/LDIbaomQNQcsA88c7O9yZ4KMCoOg4IA6-91aHEjcWuA_m07NSg.ttf) format('truetype');
+    src: url(/fonts/PlusJakartaSans-Medium.ttf) format('truetype');
 }
 @font-face {
     font-family: 'Plus Jakarta Sans';
     font-style: normal;
     font-weight: 600;
     font-display: block;
-    src: url(https://fonts.gstatic.com/s/plusjakartasans/v12/LDIbaomQNQcsA88c7O9yZ4KMCoOg4IA6-91aHEjcWuA_d0nNSg.ttf) format('truetype');
+    src: url(/fonts/PlusJakartaSans-SemiBold.ttf) format('truetype');
 }
 @font-face {
     font-family: 'Plus Jakarta Sans';
     font-style: normal;
     font-weight: 700;
     font-display: block;
-    src: url(https://fonts.gstatic.com/s/plusjakartasans/v12/LDIbaomQNQcsA88c7O9yZ4KMCoOg4IA6-91aHEjcWuA_TknNSg.ttf) format('truetype');
+    src: url(/fonts/PlusJakartaSans-Bold.ttf) format('truetype');
 }
 @font-face {
     font-family: 'Playfair Display';
     font-style: normal;
     font-weight: 600;
     font-display: block;
-    src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKebukDQ.ttf) format('truetype');
+    src: url(/fonts/PlayfairDisplay-SemiBold.ttf) format('truetype');
 }
 @font-face {
     font-family: 'Playfair Display';
     font-style: normal;
     font-weight: 700;
     font-display: block;
-    src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKeiukDQ.ttf) format('truetype');
+    src: url(/fonts/PlayfairDisplay-Bold.ttf) format('truetype');
 }
 @font-face {
     font-family: 'Playfair Display';
     font-style: italic;
     font-weight: 400;
     font-display: block;
-    src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFRD-vYSZviVYUb_rj3ij__anPXDTnCjmHKM4nYO7KN_qiTbtY.ttf) format('truetype');
+    src: url(/fonts/PlayfairDisplay-Italic.ttf) format('truetype');
 }
+
 
 html, body {
     overflow: hidden;
