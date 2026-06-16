@@ -41,17 +41,57 @@ export function ExportPdfButton({
             });
 
             if (!response.ok) {
-                throw new Error("Gagal mengunduh berkas proposal PDF");
+                throw new Error("Gagal mengambil template proposal HTML");
             }
 
             const data = await response.json();
-            if (!data.downloadUrl) {
-                throw new Error("Tautan unduhan tidak ditemukan");
+            if (!data.html) {
+                throw new Error("Template proposal kosong");
             }
 
-            // Arahkan browser langsung ke tautan unduhan GET
-            // Memicu unduhan native bawaan sistem operasi (sangat andal di Android/iOS mobile)
-            window.location.href = data.downloadUrl;
+            // Muat html2pdf secara dinamis di sisi klien
+            const html2pdf = (await import("html2pdf.js")).default;
+
+            // Buat kontainer tersembunyi dengan lebar A4 desktop (794px)
+            const element = document.createElement("div");
+            element.style.position = "fixed";
+            element.style.left = "-9999px";
+            element.style.top = "-9999px";
+            element.style.width = "794px";
+            element.style.backgroundColor = "#000000"; // Menyelaraskan dengan background dark theme proposal
+            element.innerHTML = data.html;
+            document.body.appendChild(element);
+
+            // Tunggu semua gambar (logo, tanda tangan, stempel) selesai dimuat
+            const images = element.querySelectorAll("img");
+            const imagePromises = Array.from(images).map((img) => {
+                if (img.complete) return Promise.resolve();
+                return new Promise((resolve) => {
+                    img.onload = resolve;
+                    img.onerror = resolve; // Tetap lanjut jika gambar gagal dimuat agar tidak stuck
+                });
+            });
+            await Promise.all(imagePromises);
+
+            const opt = {
+                margin: 0,
+                filename: `${service.title.replace(/[^a-z0-9]/gi, '_')}_Proposal.pdf`,
+                image: { type: "jpeg", quality: 0.98 },
+                html2canvas: { 
+                    scale: 2, 
+                    useCORS: true, 
+                    logging: false,
+                    letterRendering: true,
+                    width: 794
+                },
+                jsPDF: { unit: "px", format: [794, 1123], orientation: "portrait" as const }
+            };
+
+            // Jalankan proses ekstraksi PDF dan unduh langsung secara native di browser
+            await html2pdf().set(opt).from(element).save();
+
+            // Bersihkan kontainer dari DOM
+            document.body.removeChild(element);
         } catch (error) {
             console.error("Ekspor PDF gagal:", error);
         } finally {
