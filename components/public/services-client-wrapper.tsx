@@ -195,7 +195,7 @@ export function ServicesClientWrapper({ services, pageTitle }: ServicesClientWra
                                 {isId ? "Acak Layanan" : "Shuffle Services"}
                             </button>
                         </div>
-                        <div className="bg-zinc-950/30 backdrop-blur-xl overflow-hidden shadow-2xl divide-y divide-white/5 border border-white/5 rounded-lg">
+                        <div className="divide-y divide-white/5">
                             {randomServices.map((service, idx) => (
                                 <ServiceListItem
                                     key={`random-${service.id}`}
@@ -210,7 +210,7 @@ export function ServicesClientWrapper({ services, pageTitle }: ServicesClientWra
 
                 {/* Hasil Pencarian List Premium */}
                 {searchQuery.length > 0 && filteredServices.length > 0 && (
-                    <div className="max-w-4xl mx-auto bg-zinc-950/30 backdrop-blur-xl overflow-hidden shadow-2xl animate-in fade-in slide-in-from-top-3 duration-500 divide-y divide-white/5">
+                    <div className="max-w-4xl mx-auto divide-y divide-white/5 animate-in fade-in slide-in-from-top-3 duration-500">
                         {filteredServices.map((service, idx) => (
                             <ServiceListItem key={service.id} service={service} isId={isId} indexNumber={idx + 1} />
                         ))}
