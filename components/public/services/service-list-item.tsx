@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { PurchaseButton } from "@/components/store/purchase-button";
 
 interface Service {
     id: string;
@@ -31,7 +32,7 @@ export function ServiceListItem({ service, isId, indexNumber }: ServiceListItemP
 
     return (
         <div
-            className="py-2.5 px-0 flex flex-row justify-between items-center gap-3 border-b border-white/10 transition-all duration-300 group relative"
+            className="py-2.5 px-0 flex flex-row justify-between items-center gap-3 border-b border-white/20 transition-all duration-300 group relative"
         >
             {/* Gaya Marquee Lokal Terisolasi */}
             <style dangerouslySetInnerHTML={{ __html: `
@@ -92,6 +93,15 @@ export function ServiceListItem({ service, isId, indexNumber }: ServiceListItemP
                     </Link>
                     <ArrowUpRight className="w-3 h-3 text-zinc-600 group-hover:text-brand-yellow transition-colors shrink-0 opacity-0 group-hover:opacity-100 transform translate-y-0.5 -translate-x-1 group-hover:translate-x-0 group-hover:translate-y-0 duration-300 hidden sm:block" />
                 </div>
+            </div>
+
+            {/* Aksi Pilih Cepat */}
+            <div className="shrink-0">
+                <PurchaseButton
+                    serviceId={service.id}
+                    interval={service.interval}
+                    className="bg-brand-yellow text-black hover:bg-brand-yellow/90 font-bold h-7 px-3.5 rounded-none text-[9px] uppercase tracking-tight shadow-sm shadow-brand-yellow/10 transition-all duration-300 hover:shadow-brand-yellow/15 transform hover:scale-[1.01] active:scale-[0.99] shrink-0"
+                />
             </div>
         </div>
     );
