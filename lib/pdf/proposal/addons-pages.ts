@@ -36,8 +36,8 @@ export function renderAddonsPages(
         <!-- HALAMAN ADD-ON: HALAMAN ${chunkIdx + 1} -->
         <div class="page">
             <div class="section-header" style="align-items: flex-end;">
-                <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 2px;">
-                    ${chunkIdx > 0 ? `<span class="page-title-badge">${isEn ? "Continued" : "Lanjutan"}</span>` : ''}
+                <div style="display: block;">
+                    ${chunkIdx > 0 ? `<span class="page-title-badge" style="display: block; margin-bottom: 4px;">${isEn ? "Continued" : "Lanjutan"}</span>` : ''}
                     <h2 class="section-title" style="margin: 0; line-height: 1.1;">${pageTitle}</h2>
                 </div>
                 <span class="section-subtitle-badge">${getPageFooterHtml(pageNum, totalPages, messages)}</span>

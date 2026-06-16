@@ -135,10 +135,7 @@ export function renderFinancialPage(
  
             <!-- Trigger Lihat Addon Berikutnya -->
             ${addonsList.length > 0 && addonsNeedNewPage ? `
-            <div style="margin-top: 12px; display: flex; align-items: center; gap: 8px; justify-content: flex-end; color: #fbbf24; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
-                <span>${isEn ? "See next page for optional add-ons" : "Lihat halaman berikutnya untuk modul add-on"}</span>
-                <span>&rarr;</span>
-            </div>
+            <div style="margin-top: 12px; text-align: right; color: #fbbf24; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">${isEn ? "See next page for optional add-ons" : "Lihat halaman berikutnya untuk modul add-on"} &rarr;</div>
             ` : ''}
         </div>
   

@@ -43,7 +43,7 @@ export function renderFaqPage(
         <!-- FAQ Section -->
         <div class="body-section" style="margin-bottom: 12px;">
             <h3 class="body-section-title">${tFaqTitle}</h3>
-            <p class="paragraph-text" style="font-size: 13px; color: #ffffff; margin-bottom: 12px; margin-top: -5px;">
+            <p class="paragraph-text" style="font-size: 13px; color: #ffffff; margin-bottom: 12px; margin-top: 0;">
                 ${tMoreInfoAt} <strong style="color: #fbbf24;">crediblemark.com</strong>
             </p>
             <div class="faq-container">
