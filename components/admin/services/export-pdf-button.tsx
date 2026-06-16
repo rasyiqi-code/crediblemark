@@ -72,34 +72,33 @@ export function ExportPdfButton({
             doc.write(data.html);
             doc.close();
 
-            // Tunggu hingga seluruh aset (CSS, Gambar, Google Fonts) selesai dimuat penuh di dalam iframe
+            // Tunggu seluruh @font-face di CSS proposal selesai di-fetch dan diterapkan.
+            // @font-face sudah dideklarasikan dengan URL langsung di proposal-styles.ts
+            // sehingga doc.fonts.ready akan menunggu file .ttf benar-benar siap digunakan.
             await new Promise<void>((resolve) => {
                 const win = iframe.contentWindow;
-                if (win) {
-                    const checkLoaded = async () => {
-                        try {
-                            // Tunggu pemuatan font asinkron (Google Fonts) di dokumen iframe selesai
-                            if (doc.fonts && typeof doc.fonts.ready !== "undefined") {
-                                await doc.fonts.ready;
-                            }
-                        } catch (e) {
-                            console.warn("Gagal menunggu pemuatan fonts:", e);
-                        }
-                        resolve();
-                    };
+                if (!win) { resolve(); return; }
 
-                    if (doc.readyState === "complete") {
-                        checkLoaded();
-                    } else {
-                        win.onload = () => checkLoaded();
+                const waitFonts = async () => {
+                    try {
+                        if (doc.fonts && typeof doc.fonts.ready !== "undefined") {
+                            await (doc as Document & { fonts: FontFaceSet }).fonts.ready;
+                        }
+                    } catch (e) {
+                        console.warn("Penungguan font gagal:", e);
                     }
-                } else {
                     resolve();
+                };
+
+                if (doc.readyState === "complete") {
+                    waitFonts();
+                } else {
+                    win.onload = () => waitFonts();
                 }
             });
 
-            // Beri jeda 500ms tambahan untuk meyakinkan rendering font & layout selesai sempurna
-            await new Promise((resolve) => setTimeout(resolve, 500));
+            // Beri jeda 1500ms sebagai safety net agar font benar-benar ter-apply ke DOM
+            await new Promise((resolve) => setTimeout(resolve, 1500));
 
             const opt = {
                 margin: 0,

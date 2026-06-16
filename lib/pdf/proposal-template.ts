@@ -183,7 +183,6 @@ export function generateProposalHtml(params: ProposalHtmlParams): string {
     <meta charset="utf-8">
     <base href="${params.baseUrl}">
     <title>${title} - Proposal Layanan</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
     <style>
         ${proposalStyles}
     </style>
