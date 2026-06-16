@@ -66,7 +66,8 @@ export async function POST(req: NextRequest) {
             locale,
             user,
             globalAddons,
-            messages
+            messages,
+            baseUrl: req.nextUrl.origin
         });
 
         // Jalankan Chromium headless menggunakan Puppeteer dengan optimasi RAM & CPU tingkat lanjut

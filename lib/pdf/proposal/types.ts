@@ -20,4 +20,6 @@ export interface ProposalHtmlParams {
     } | null;
     globalAddons?: ServiceAddon[];
     messages: ProposalMessages;
+    baseUrl: string;
 }
+
