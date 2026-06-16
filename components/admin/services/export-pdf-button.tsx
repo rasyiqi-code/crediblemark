@@ -73,8 +73,8 @@ export function ExportPdfButton({
             doc.close();
 
             // Tunggu seluruh @font-face di CSS proposal selesai di-fetch dan diterapkan.
-            // @font-face sudah dideklarasikan dengan URL langsung di proposal-styles.ts
-            // sehingga doc.fonts.ready akan menunggu file .ttf benar-benar siap digunakan.
+            // @font-face dideklarasikan dengan URL langsung di proposal-styles.ts sehingga
+            // doc.fonts.ready menunggu file .ttf benar-benar siap sebelum render.
             await new Promise<void>((resolve) => {
                 const win = iframe.contentWindow;
                 if (!win) { resolve(); return; }
@@ -83,6 +83,13 @@ export function ExportPdfButton({
                     try {
                         if (doc.fonts && typeof doc.fonts.ready !== "undefined") {
                             await (doc as Document & { fonts: FontFaceSet }).fonts.ready;
+                        }
+                        // Force reflow: memaksa browser menghitung ulang layout
+                        // dengan font yang sudah ter-load (penting agar posisi teks akurat)
+                        const body = doc.body;
+                        if (body) {
+                            // Membaca offsetHeight memaksa browser melakukan reflow sinkron
+                            void body.offsetHeight;
                         }
                     } catch (e) {
                         console.warn("Penungguan font gagal:", e);
@@ -97,8 +104,8 @@ export function ExportPdfButton({
                 }
             });
 
-            // Beri jeda 1500ms sebagai safety net agar font benar-benar ter-apply ke DOM
-            await new Promise((resolve) => setTimeout(resolve, 1500));
+            // Beri jeda 2000ms: font-display:block butuh waktu lebih sebelum layout stabil
+            await new Promise((resolve) => setTimeout(resolve, 2000));
 
             const opt = {
                 margin: 0,
