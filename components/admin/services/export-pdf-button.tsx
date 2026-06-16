@@ -103,8 +103,8 @@ export function ExportPdfButton({
                 jsPDF: { unit: "px", format: [794, 1123] as [number, number], orientation: "portrait" as const }
             };
 
-            // Jalankan proses ekstraksi PDF dari body dokumen iframe
-            await html2pdf().set(opt).from(doc.body).save();
+            // Jalankan proses ekstraksi PDF dari seluruh dokumen HTML iframe (termasuk tag <head> dan <style> didalamnya)
+            await html2pdf().set(opt).from(doc.documentElement).save();
 
             // Bersihkan iframe dari DOM
             document.body.removeChild(iframe);
