@@ -2,9 +2,6 @@
 
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { PriceDisplay } from "@/components/providers/currency-provider";
-import { PurchaseButton } from "@/components/store/purchase-button";
-import { Button } from "@/components/ui/button";
 
 interface Service {
     id: string;
@@ -93,33 +90,6 @@ export function ServiceListItem({ service, isId, indexNumber }: ServiceListItemP
                         </div>
                     </Link>
                     <ArrowUpRight className="w-3 h-3 text-zinc-600 group-hover:text-brand-yellow transition-colors shrink-0 opacity-0 group-hover:opacity-100 transform translate-y-0.5 -translate-x-1 group-hover:translate-x-0 group-hover:translate-y-0 duration-300 hidden sm:block" />
-                </div>
-            </div>
-
-            {/* Aksi dan Harga */}
-            <div className="flex items-center gap-3 shrink-0">
-                <div className="text-right flex flex-col justify-center select-none">
-                    {service.discount && service.discount > 0 ? (
-                        <div className="text-[10px] text-zinc-500 line-through tracking-tight leading-none mb-1">
-                            <PriceDisplay amount={service.price} baseCurrency={(service.currency as "USD" | "IDR") || 'USD'} compact={true} />
-                        </div>
-                    ) : null}
-                    <div className="text-xs sm:text-sm font-black text-white tracking-tight leading-none">
-                        <PriceDisplay amount={service.discount ? (service.price * (1 - service.discount / 100)) : service.price} baseCurrency={(service.currency as "USD" | "IDR") || 'USD'} compact={true} />
-                    </div>
-                </div>
-
-                <div className="flex items-center gap-1.5">
-                    <Link href={`/services/${service.slug || service.id}`}>
-                        <Button size="sm" variant="ghost" className="h-7 px-2 text-[10px] text-zinc-400 hover:text-white hover:bg-white/5 font-semibold rounded-none">
-                            {isId ? "Detail" : "Details"}
-                        </Button>
-                    </Link>
-                    <PurchaseButton
-                        serviceId={service.id}
-                        interval={service.interval}
-                        className="bg-brand-yellow text-black hover:bg-brand-yellow/90 font-bold h-7 px-2.5 rounded-none text-[9px] uppercase tracking-tight shadow-sm shadow-brand-yellow/10 transition-all duration-300 hover:shadow-brand-yellow/15 transform hover:scale-[1.01] active:scale-[0.99]"
-                    />
                 </div>
             </div>
         </div>
