@@ -796,13 +796,25 @@ body {
 }
 
 .contact-item {
-    display: flex;
-    align-items: center;
-    gap: 20px;
+    display: table;
+    width: 100%;
     background: #09090b;
     border: 1px solid #27272a;
-    padding: 16px 20px;
     border-radius: 12px;
+}
+
+.contact-icon-cell {
+    display: table-cell;
+    vertical-align: middle;
+    width: 48px;
+    padding: 16px 0 16px 20px;
+}
+
+.contact-details-cell {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 16px 20px;
+    text-align: left;
 }
 
 .contact-icon-box {
@@ -819,9 +831,7 @@ body {
 }
 
 .contact-details {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+    display: block;
 }
 
 .contact-label {
