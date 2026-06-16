@@ -52,26 +52,42 @@ export function ExportPdfButton({
             // Muat html2pdf secara dinamis di sisi klien
             const html2pdf = (await import("html2pdf.js")).default;
 
-            // Buat kontainer tersembunyi dengan lebar A4 desktop (794px)
-            const element = document.createElement("div");
-            element.style.position = "fixed";
-            element.style.left = "-9999px";
-            element.style.top = "-9999px";
-            element.style.width = "794px";
-            element.style.backgroundColor = "#000000"; // Menyelaraskan dengan background dark theme proposal
-            element.innerHTML = data.html;
-            document.body.appendChild(element);
+            // Buat iframe tersembunyi beresolusi A4 desktop (794px)
+            // agar layout A4 ter-render secara terisolasi tanpa interferensi CSS parent page
+            const iframe = document.createElement("iframe");
+            iframe.style.position = "fixed";
+            iframe.style.left = "-9999px";
+            iframe.style.top = "-9999px";
+            iframe.style.width = "794px";
+            iframe.style.height = "1123px";
+            iframe.style.border = "none";
+            document.body.appendChild(iframe);
 
-            // Tunggu semua gambar (logo, tanda tangan, stempel) selesai dimuat
-            const images = element.querySelectorAll("img");
-            const imagePromises = Array.from(images).map((img) => {
-                if (img.complete) return Promise.resolve();
-                return new Promise((resolve) => {
-                    img.onload = resolve;
-                    img.onerror = resolve; // Tetap lanjut jika gambar gagal dimuat agar tidak stuck
-                });
+            const doc = iframe.contentDocument || iframe.contentWindow?.document;
+            if (!doc) {
+                throw new Error("Gagal membuat dokumen dalam iframe terisolasi");
+            }
+
+            doc.open();
+            doc.write(data.html);
+            doc.close();
+
+            // Tunggu hingga seluruh aset (CSS, Gambar, Google Fonts) selesai dimuat penuh di dalam iframe
+            await new Promise<void>((resolve) => {
+                const win = iframe.contentWindow;
+                if (win) {
+                    if (doc.readyState === "complete") {
+                        resolve();
+                    } else {
+                        win.onload = () => resolve();
+                    }
+                } else {
+                    resolve();
+                }
             });
-            await Promise.all(imagePromises);
+
+            // Beri jeda 500ms tambahan untuk meyakinkan rendering font & layout selesai sempurna
+            await new Promise((resolve) => setTimeout(resolve, 500));
 
             const opt = {
                 margin: 0,
@@ -87,11 +103,11 @@ export function ExportPdfButton({
                 jsPDF: { unit: "px", format: [794, 1123] as [number, number], orientation: "portrait" as const }
             };
 
-            // Jalankan proses ekstraksi PDF dan unduh langsung secara native di browser
-            await html2pdf().set(opt).from(element).save();
+            // Jalankan proses ekstraksi PDF dari body dokumen iframe
+            await html2pdf().set(opt).from(doc.body).save();
 
-            // Bersihkan kontainer dari DOM
-            document.body.removeChild(element);
+            // Bersihkan iframe dari DOM
+            document.body.removeChild(iframe);
         } catch (error) {
             console.error("Ekspor PDF gagal:", error);
         } finally {
