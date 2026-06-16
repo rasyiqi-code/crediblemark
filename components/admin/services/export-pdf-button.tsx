@@ -76,7 +76,7 @@ export function ExportPdfButton({
             const opt = {
                 margin: 0,
                 filename: `${service.title.replace(/[^a-z0-9]/gi, '_')}_Proposal.pdf`,
-                image: { type: "jpeg", quality: 0.98 },
+                image: { type: "jpeg" as const, quality: 0.98 },
                 html2canvas: { 
                     scale: 2, 
                     useCORS: true, 
@@ -84,7 +84,7 @@ export function ExportPdfButton({
                     letterRendering: true,
                     width: 794
                 },
-                jsPDF: { unit: "px", format: [794, 1123], orientation: "portrait" as const }
+                jsPDF: { unit: "px", format: [794, 1123] as [number, number], orientation: "portrait" as const }
             };
 
             // Jalankan proses ekstraksi PDF dan unduh langsung secara native di browser
