@@ -24,7 +24,7 @@ export function GlobalLoader() {
             if (!startTimeRef.current) return;
             
             const elapsed = Date.now() - startTimeRef.current;
-            const minDuration = 3000; // Durasi minimum 3 detik agar quote terbaca
+            const minDuration = 2500; // Durasi minimum 2.5 detik agar quote terbaca
             const remaining = Math.max(0, minDuration - elapsed);
 
             if (timeoutRef.current) clearTimeout(timeoutRef.current);
