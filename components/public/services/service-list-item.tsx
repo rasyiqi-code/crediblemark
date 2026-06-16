@@ -37,7 +37,10 @@ export function ServiceListItem({ service, isId, indexNumber }: ServiceListItemP
             <style dangerouslySetInnerHTML={{ __html: `
                 @keyframes marqueeMobile {
                     0% { transform: translate3d(0, 0, 0); }
-                    100% { transform: translate3d(-50%, 0, 0); }
+                    20% { transform: translate3d(0, 0, 0); }
+                    60% { transform: translate3d(-50%, 0, 0); }
+                    80% { transform: translate3d(-50%, 0, 0); }
+                    100% { transform: translate3d(0, 0, 0); }
                 }
                 .marquee-container {
                     overflow-x: auto;
@@ -53,7 +56,7 @@ export function ServiceListItem({ service, isId, indexNumber }: ServiceListItemP
                 .marquee-content {
                     display: inline-block;
                     white-space: nowrap;
-                    animation: marqueeMobile 12s linear infinite;
+                    animation: marqueeMobile 8s cubic-bezier(0.25, 1, 0.5, 1) 1 forwards;
                 }
                 @media (min-width: 640px) {
                     .marquee-container {
