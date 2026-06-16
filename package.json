@@ -51,7 +51,6 @@
     "embla-carousel-react": "^8.6.0",
     "framer-motion": "^12.34.3",
     "genkit": "^1.29.0",
-    "html2pdf.js": "^0.14.0",
     "lucide-react": "^0.562.0",
     "midtrans-client": "^1.4.3",
     "next": "16.1.4",
