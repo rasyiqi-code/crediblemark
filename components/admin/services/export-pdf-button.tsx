@@ -115,6 +115,11 @@ export function ExportPdfButton({
                     scale: 2, 
                     useCORS: true, 
                     logging: false,
+                    // letterRendering: render setiap huruf di posisi DOM exact-nya,
+                    // bukan estimasi dari bounding box — fix utama untuk font shift
+                    // pada elemen badge, flex container, dan inline elements
+                    letterRendering: true,
+                    imageTimeout: 0,
                     width: 794,
                     scrollX: 0,
                     scrollY: 0,

@@ -102,14 +102,14 @@ export function renderFinancialPage(
             ${service.discount && service.discount > 0 ? `
             <!-- Card Penawaran Eksklusif Terpisah -->
             <div style="margin-bottom: 12px; padding: 12px 16px; border: 1.5px dashed #fbbf24; background: rgba(251, 191, 36, 0.02); border-radius: 8px;">
-                <p style="font-size: 12.5px; color: #fbbf24; font-weight: 700; margin: 0; line-height: 1.6; letter-spacing: 0.2px;">
-                    <span style="font-size: 11px; font-weight: 800; color: #000000; background: #fbbf24; padding: 2px 8px; border-radius: 4px; letter-spacing: 0.5px; text-transform: uppercase; display: inline-block; vertical-align: middle; margin-right: 8px; margin-top: -2px;">
+                <p style="font-size: 12.5px; color: #fbbf24; font-weight: 700; margin: 0; line-height: 1.8; letter-spacing: 0.2px; display: flex; align-items: center; flex-wrap: wrap; gap: 6px 8px;">
+                    <span style="font-size: 11px; font-weight: 800; color: #000000; background: #fbbf24; padding: 3px 8px; border-radius: 4px; letter-spacing: 0.5px; text-transform: uppercase; display: inline-block; line-height: 1.4; flex-shrink: 0;">
                         ${isEn ? `SAVE ${service.discount}%` : `HEMAT ${service.discount}%`}
                     </span>
-                    <span style="font-size: 13px; text-decoration: line-through; color: #71717a; font-weight: 500; margin-right: 10px; vertical-align: middle;">
+                    <span style="font-size: 13px; text-decoration: line-through; color: #71717a; font-weight: 500; display: inline-block; line-height: 1.4;">
                         ${formatPriceHelper(service.price)}
                     </span>
-                    <span style="vertical-align: middle;">
+                    <span style="display: inline; color: #fbbf24; font-weight: 700; font-size: 12px; line-height: 1.6;">
                         ${isEn 
                             ? `✨ Secure this special value today & instantly keep an extra ${formatPriceHelper(service.price - finalPrice)} in your growth budget — SPECIAL VALUE RATE APPLIED DIRECTLY AS A STRATEGIC PARTNER APPRECIATION.` 
                             : `✨ Amankan harga investasi spesial ini sekarang & kunci hemat langsung ${formatPriceHelper(service.price - finalPrice)} untuk dialokasikan ke strategi pertumbuhan bisnis Anda — JAMINAN HARGA TERBAIK SEBAGAI APRESIASI MITRA STRATEGIS.`
