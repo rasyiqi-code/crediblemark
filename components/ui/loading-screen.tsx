@@ -53,8 +53,8 @@ export default function LoadingScreen() {
     }, []);
 
     return (
-        <div id="native-loading-marker" className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-sm pointer-events-none font-mono">
-            <div className="p-5 md:p-6 rounded-2xl bg-zinc-950/90 border border-white/5 flex flex-col items-start gap-3 shadow-2xl shadow-black/80 max-w-md mx-4">
+        <div id="native-loading-marker" className="fixed inset-0 z-50 flex items-center justify-center bg-black pointer-events-auto font-mono select-none">
+            <div className="p-5 md:p-6 rounded-2xl bg-zinc-950 border border-white/5 flex flex-col items-start gap-3 shadow-2xl max-w-md mx-4">
                 <div className="flex items-center gap-2 shrink-0">
                     <Terminal className="w-4 h-4 text-brand-yellow animate-pulse shrink-0" />
                     <span className="text-[10px] tracking-widest uppercase text-brand-yellow font-black whitespace-nowrap">
