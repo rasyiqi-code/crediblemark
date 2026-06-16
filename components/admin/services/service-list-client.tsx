@@ -52,10 +52,14 @@ export function ServiceListClient({ services, addons = [] }: ServiceListClientPr
     const [sortBy, setSortBy] = useState<SortOption>("latest");
     const [isPending, startTransition] = useTransition();
 
-    // Tambahkan nomor urut asli ke setiap layanan berdasarkan urutan props aslinya
-    const servicesWithIndex = services.map((service, idx) => ({
+    // Urutkan berdasarkan tanggal pembuatan (createdAt) menaik untuk menentukan nomor indeks statis permanen
+    const sortedByCreation = [...services].sort((a, b) => 
+        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+    );
+
+    const servicesWithIndex = services.map((service) => ({
         ...service,
-        displayIndex: services.length - idx
+        displayIndex: sortedByCreation.findIndex(s => s.id === service.id) + 1
     }));
 
     // Menyaring layanan berdasarkan teks pencarian (searchQuery) atau nomor urut (displayIndex)
