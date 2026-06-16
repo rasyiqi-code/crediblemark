@@ -193,12 +193,12 @@ export function ServicesClientWrapper({ services, pageTitle }: ServicesClientWra
                             </button>
                         </div>
                         <div className="divide-y divide-white/5">
-                            {randomServices.map((service, idx) => (
+                            {randomServices.map((service) => (
                                 <ServiceListItem
                                     key={`random-${service.id}`}
                                     service={service}
                                     isId={isId}
-                                    indexNumber={idx + 1}
+                                    indexNumber={services.findIndex(s => s.id === service.id) + 1}
                                 />
                             ))}
                         </div>
@@ -216,8 +216,13 @@ export function ServicesClientWrapper({ services, pageTitle }: ServicesClientWra
                             </span>
                         </div>
                         <div className="divide-y divide-white/5">
-                            {filteredServices.map((service, idx) => (
-                                <ServiceListItem key={service.id} service={service} isId={isId} indexNumber={idx + 1} />
+                            {filteredServices.map((service) => (
+                                <ServiceListItem 
+                                    key={service.id} 
+                                    service={service} 
+                                    isId={isId} 
+                                    indexNumber={services.findIndex(s => s.id === service.id) + 1} 
+                                />
                             ))}
                         </div>
                     </div>
