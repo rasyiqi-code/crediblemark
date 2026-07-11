@@ -1,7 +1,7 @@
 import { consultantFlow } from '../../genkit';
 import { hexclaveServerApp } from '@/lib/config/hexclave';
 
-export const maxDuration = 60;
+export const maxDuration = 10;
 
 export async function POST(req: Request) {
     try {

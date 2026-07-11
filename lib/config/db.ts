@@ -38,26 +38,26 @@ const pool = globalForPrisma.pg_pool_v8 ?? new Pool({
     // ssl: { rejectUnauthorized: false }
 })
 
-if (isDev) {
+if (isDev || isServerless) {
     globalForPrisma.pg_pool_v8 = pool
 }
 
 const adapter = globalForPrisma.pg_adapter_v8 ?? new PrismaPg(pool)
 
-if (isDev) {
+if (isDev || isServerless) {
     globalForPrisma.pg_adapter_v8 = adapter
 }
 
 const prismaClientSingleton = () => {
     return new PrismaClient({ 
         adapter,
-        log: isDev ? ['error', 'warn'] : ['error'],
+        log: (isDev || isServerless) ? ['error', 'warn'] : ['error'],
     })
 }
 
 export const prisma = globalForPrisma.prisma_v8 ?? prismaClientSingleton()
 
-if (isDev) {
+if (isDev || isServerless) {
     globalForPrisma.prisma_v8 = prisma
 }
 

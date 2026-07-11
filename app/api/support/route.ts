@@ -1,7 +1,7 @@
 import { supportFlow } from '../../genkit';
 import { toReadableStream } from '@/lib/config/genkit-stream';
 
-export const maxDuration = 60;
+export const maxDuration = 10;
 
 export async function POST(req: Request) {
     const body = await req.json();

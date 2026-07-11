@@ -5,10 +5,11 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ViewDesignClient } from "./view-design-client";
 import { getTranslations } from "next-intl/server";
-import { headers } from "next/headers";
 
 import { ResolvingMetadata } from "next";
 import { getLocale } from "next-intl/server";
+
+export const revalidate = 3600; // Cache halaman preview selama 1 jam (ISR)
 
 // Localized SEO: Preview {Nama Porto} | {AGENCY_NAME}
 export async function generateMetadata(
@@ -69,12 +70,11 @@ export default async function ViewDesignPage({ params }: { params: Promise<{ slu
     const locale = await getLocale();
     const isId = locale === 'id';
 
-    const [portfolios, agencyName, contactPhone, contactTelegram, headerList, logoUrl] = await Promise.all([
+    const [portfolios, agencyName, contactPhone, contactTelegram, logoUrl] = await Promise.all([
         getPortfolios(),
         getSettingValue("AGENCY_NAME", "Crediblemark"),
         getSettingValue("CONTACT_PHONE", ""),
         getSettingValue("CONTACT_TELEGRAM", ""),
-        headers(),
         getSettingValue("AGENCY_LOGO", ""),
     ]);
 
@@ -84,10 +84,8 @@ export default async function ViewDesignPage({ params }: { params: Promise<{ slu
         notFound();
     }
 
-    const host = headerList.get("host");
-    const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
-    const localBaseUrl = `${protocol}://${host}`;
-    const baseUrl = (process.env.NEXT_PUBLIC_APP_URL || localBaseUrl).replace(/\/$/, "");
+    const baseUrl = (process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000").replace(/\/$/, "");
+    const localBaseUrl = baseUrl;
 
     let html = "";
     if (portfolio.externalUrl) {
