@@ -15,6 +15,9 @@ export async function GET(
     return new NextResponse(html, {
         headers: {
             "Content-Type": "text/html; charset=utf-8",
+            "Cache-Control": "public, max-age=3600",
+            "CDN-Cache-Control": "public, max-age=3600",
+            "Vercel-CDN-Cache-Control": "public, max-age=3600",
         },
     });
 }

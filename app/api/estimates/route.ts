@@ -41,6 +41,10 @@ export async function GET(req: NextRequest) {
         return NextResponse.json({
             items: estimates,
             nextCursor
+        }, {
+            headers: {
+                "Cache-Control": "public, max-age=30, s-maxage=30, stale-while-revalidate=60",
+            }
         });
     } catch {
         return NextResponse.json({ error: "Failed to fetch estimates" }, { status: 500 });
