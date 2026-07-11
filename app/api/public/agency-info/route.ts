@@ -13,7 +13,13 @@ export async function GET() {
             return acc;
         }, {} as Record<string, string>);
 
-        return NextResponse.json(settingsMap);
+        return NextResponse.json(settingsMap, {
+            headers: {
+                "Cache-Control": "public, max-age=86400",
+                "CDN-Cache-Control": "public, max-age=86400",
+                "Vercel-CDN-Cache-Control": "public, max-age=86400",
+            }
+        });
     } catch (error) {
         console.error("Public Agency Info Error:", error);
         return new NextResponse("Internal Error", { status: 500 });
