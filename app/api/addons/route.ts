@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/config/db";
 
+export const revalidate = 86400; // Cache static selama 24 jam
+
 export async function GET() {
     try {
         const addons = await prisma.addon.findMany({

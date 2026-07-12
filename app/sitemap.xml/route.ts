@@ -2,7 +2,6 @@ import { getServices } from "@/lib/server/services";
 import { getPortfolios, type PortfolioItem } from "@/lib/portfolios/actions";
 import type { Service } from "@prisma/client";
 
-export const dynamic = "force-dynamic";
 export const revalidate = 3600;
 
 interface SitemapRoute {
@@ -12,14 +11,8 @@ interface SitemapRoute {
     priority: number;
 }
 
-export async function GET(req: Request) {
-    // RESOLUSI DINAMIS: Tentukan baseUrl secara dinamis berdasarkan request headers
-    // jika variabel lingkungan NEXT_PUBLIC_APP_URL tidak dikonfigurasi.
-    const urlObj = new URL(req.url);
-    const host = req.headers.get("host") || urlObj.host;
-    const protocol = req.headers.get("x-forwarded-proto") || urlObj.protocol.replace(":", "") || "https";
-    
-    let baseUrl = process.env.NEXT_PUBLIC_APP_URL || `${protocol}://${host}`;
+export async function GET() {
+    let baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://crediblemark.com";
     baseUrl = baseUrl.replace(/\/$/, "");
 
     const locales = ["id", "en"];

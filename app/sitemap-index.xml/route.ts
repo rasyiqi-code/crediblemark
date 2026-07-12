@@ -9,11 +9,10 @@ import { NextResponse } from "next/server";
  * - /sitemap-services.xml: Halaman detail layanan (dinamis dari DB)
  * - /sitemap-portfolio.xml: Halaman portofolio (dinamis dari DB)
  */
-export async function GET(req: Request) {
-    const urlObj = new URL(req.url);
-    const host = req.headers.get("host") || urlObj.host;
-    const protocol = req.headers.get("x-forwarded-proto") || "https";
-    const baseUrl = (process.env.NEXT_PUBLIC_APP_URL || `${protocol}://${host}`).replace(/\/$/, "");
+export const revalidate = 86400; // Cache selama 24 jam (Static/ISR)
+
+export async function GET() {
+    const baseUrl = (process.env.NEXT_PUBLIC_APP_URL || "https://crediblemark.com").replace(/\/$/, "");
 
     const now = new Date().toISOString();
 
