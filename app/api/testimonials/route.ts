@@ -1,7 +1,6 @@
 
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/config/db";
-import { getActiveTestimonials } from "@/lib/server/testimonials";
+import { getActiveTestimonials, getAllTestimonials } from "@/lib/server/testimonials";
 
 export async function GET(req: Request) {
     try {
@@ -22,9 +21,7 @@ export async function GET(req: Request) {
 
         const testimonials = onlyActive 
             ? await getActiveTestimonials() 
-            : await prisma.testimonial.findMany({
-                orderBy: { createdAt: "desc" },
-            });
+            : await getAllTestimonials();
 
         const res = NextResponse.json({ success: true, data: testimonials });
         if (onlyActive) {
