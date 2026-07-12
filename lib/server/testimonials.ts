@@ -7,24 +7,24 @@ import { cache } from "react";
  */
 export const getActiveTestimonials = cache(async (limit = 10) => {
     return unstable_cache(
-        async () => {
+        async (l: number) => {
             try {
                 return await prisma.testimonial.findMany({
                     where: { isActive: true },
                     orderBy: { createdAt: 'desc' },
-                    take: limit
+                    take: l
                 });
             } catch (error) {
                 console.error("[Testimonials] DB Fetch Error:", error);
                 return [];
             }
         },
-        ["active-testimonials-singleton"],
+        ["active-testimonials-singleton", String(limit)],
         {
             tags: ["testimonials"],
             revalidate: 3600, // Cache for 1 hour
         }
-    )();
+    )(limit);
 });
 
 export const getAllTestimonials = async (limit?: number) => {

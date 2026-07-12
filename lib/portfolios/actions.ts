@@ -25,6 +25,16 @@ export async function getPortfolios(): Promise<PortfolioItem[]> {
                 const portfolios = await prisma.portfolio.findMany({
                     take: 50,
                     orderBy: { createdAt: "desc" },
+                    select: {
+                        id: true,
+                        title: true,
+                        slug: true,
+                        category: true,
+                        description: true,
+                        externalUrl: true,
+                        imageUrl: true,
+                        createdAt: true,
+                    }
                 });
                 return portfolios as unknown as PortfolioItem[];
             } catch {

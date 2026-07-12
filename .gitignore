@@ -63,3 +63,4 @@ yarn-error.log*
 # build and backup folders
 .output/
 backup/
+.env*
