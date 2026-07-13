@@ -33,6 +33,11 @@ export async function SectionGuarantee() {
                         {t("desc")}
                     </p>
 
+                    {/* Note */}
+                    <p className="text-zinc-500 text-xs sm:text-sm max-w-2xl mx-auto leading-relaxed font-light">
+                        * {t("note")}
+                    </p>
+
                     {/* Link Terms */}
                     <div className="pt-4">
                         <a 

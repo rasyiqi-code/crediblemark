@@ -91,9 +91,7 @@ export async function SiteHeader() {
                                     {agencyName}
                                 </span>
                             )}
-                        </Link>
-
-                        <nav className="hidden md:flex items-center gap-3 lg:gap-6">
+                        </Link>                        <nav className="hidden md:flex items-center gap-3 lg:gap-6">
                             {/* Dropdown Solusi */}
                             <div className="relative group">
                                 <button className="flex items-center gap-1 text-xs lg:text-sm font-bold text-sky-500 hover:text-sky-400 transition-colors duration-200 cursor-pointer whitespace-nowrap bg-transparent border-0 py-2">
@@ -137,6 +135,9 @@ export async function SiteHeader() {
                             <Link href={`/${locale}/price-calculator`} className="text-xs lg:text-sm font-bold text-emerald-500 hover:text-emerald-400 transition-colors duration-200 cursor-pointer whitespace-nowrap">
                                 {t("priceCalculator")}
                             </Link>
+                            <Link href={user ? `/${locale}/dashboard` : "/handler/sign-in"} className="text-xs lg:text-sm font-bold text-zinc-400 hover:text-white transition-colors duration-200 cursor-pointer whitespace-nowrap">
+                                {t("clientPortal")}
+                            </Link>
                         </nav>
 
                     </div>
@@ -149,14 +150,6 @@ export async function SiteHeader() {
                         </div>
 
                         <div className="flex items-center gap-2 md:gap-4">
-                            {/* Portal Klien - Tampilan kecil/minimal */}
-                            <Link href={user ? `/${locale}/dashboard` : "/handler/sign-in"}>
-                                <span className="text-xs font-bold text-zinc-400 hover:text-white transition-colors py-2 cursor-pointer flex items-center gap-1">
-                                    <LayoutDashboard className="w-3.5 h-3.5" />
-                                    <span className="hidden sm:inline">{t("clientPortal")}</span>
-                                </span>
-                            </Link>
-
                             {/* Tombol Konsultasi Gratis (Utama) */}
                             <a href={waUrl} target="_blank" rel="noopener noreferrer">
                                 <Button className="h-8 sm:h-9 text-xs md:text-sm bg-brand-yellow hover:bg-brand-yellow/90 text-black font-extrabold cursor-pointer rounded-full px-3 sm:px-5 shadow-lg shadow-brand-yellow/10 transition-all hover:scale-105 active:scale-95 border-0" aria-label={t("consultation")}>
@@ -167,7 +160,9 @@ export async function SiteHeader() {
                         </div>
                     </div>
                 </div>
-            </header>            {/* Mobile Sub-Header Navigation - Sticky */}
+            </header>
+
+            {/* Mobile Sub-Header Navigation - Sticky */}
             <div className="sticky top-0 z-40 md:hidden border-b border-white/5 bg-[#0a0a0a] overflow-x-auto no-scrollbar mask-gradient-x">
                 <div className="flex items-center gap-6 px-6 h-10 w-max mx-auto min-w-full">
                     <Link href={`/${locale}#solusi-web`} className="text-sm font-bold text-sky-500 hover:text-sky-400 transition-colors duration-200 cursor-pointer whitespace-nowrap">
@@ -187,6 +182,9 @@ export async function SiteHeader() {
                     </a>
                     <Link href={`/${locale}/price-calculator`} className="text-sm font-bold text-emerald-500 hover:text-emerald-400 transition-colors duration-200 cursor-pointer whitespace-nowrap">
                         {t("priceCalculator")}
+                    </Link>
+                    <Link href={user ? `/${locale}/dashboard` : "/handler/sign-in"} className="text-sm font-bold text-zinc-400 hover:text-white transition-colors duration-200 cursor-pointer whitespace-nowrap">
+                        {t("clientPortal")}
                     </Link>
                 </div>
             </div>

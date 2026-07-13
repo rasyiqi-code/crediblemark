@@ -19,7 +19,7 @@
         "solutions": "Solutions",
         "workflow": "How It Works",
         "cases": "Case Studies",
-        "about": "About Us",
+        "about": "About",
         "insight": "Insight",
         "priceCalculator": "Cost Calculator",
         "consultation": "Free Consultation",
@@ -33,82 +33,79 @@
         "startProject": "Start"
     },
     "Hero": {
-        "statusBadge": "DIGITAL SYSTEM CONSULTANT",
+        "statusBadge": "INDEPENDENT DIGITAL SYSTEM CONSULTANT & DEVELOPER",
         "title": "Reduce Manual Work with a Digital System Tailored to Your Business",
-        "description": "Crediblemark helps businesses analyze workflows, design solutions, and build custom websites or applications. From consultation to launch, the entire system is built to your team's needs and owned by you.",
+        "description": "Crediblemark helps businesses analyze workflows, design solutions, and build custom websites or applications. Every project is handled directly by the founder, from consultation to launch.",
         "ctaPrimary": "Free 30-Minute Consultation",
         "ctaSecondary": "View Case Studies",
         "ctaHint": "Get initial recommendations, cost estimates, and project timelines.",
         "poweredBy": "ANALYZE • DESIGN • BUILD",
         "heroTagline1": "UNDERSTAND THE PROBLEM.",
-        "heroTagline2": "BUILD THE SOLUTION.",
-        "heroImageAlt": "Expert consultant at {brand} designing digital system architecture"
+        "heroTagline2": "BUILD THE SOLUTION."
     },
     "SocialProof": {
         "analysis": "Requirement Analysis",
         "blueprint": "Clear Blueprint",
         "price": "Transparent Pricing",
-        "progress": "Trackable Progress",
+        "progress": "Direct Communication",
         "ownership": "System Ownership",
         "support": "Post-Launch Support"
     },
     "Testimonials": {
-        "title": "Systems We Have Built",
-        "subtitle": "Case studies of digital solutions custom-built to solve real business challenges.",
+        "badge": "SELECTED PROJECTS",
+        "title": "Systems Built by Crediblemark",
+        "subtitle": "Examples of technology implementation to solve operational problems and business needs.",
         "cases": [
             {
                 "title": "Retail Audit System",
-                "industry": "Retail & Distribution",
-                "duration": "6 Weeks",
-                "problem": "Visit logs and audit proofs were scattered across WhatsApp and Excel, making consolidation difficult.",
-                "solution": "Centralized dashboard for logging visits, photo documentation, resolution status, and automated reporting.",
-                "result": "Audit progress is easily monitored in real-time by management, and monthly report creation is instant."
+                "problem": "Visit logs, photos, and audit statuses were scattered across multiple places.",
+                "solution": "Centralized dashboard to manage store data, log visits, upload photo evidence, and track audit status.",
+                "role": "Requirement analysis, system design, full-stack development, database, and deployment.",
+                "cta": "View Case Study"
             },
             {
                 "title": "Booking & Schedule Management",
-                "industry": "Professional Services & Healthcare",
-                "duration": "4 Weeks",
-                "problem": "Manual WhatsApp booking led to double-bookings and consumed significant administrative hours.",
-                "solution": "Self-service client booking portal with real-time calendar sync and automated WhatsApp reminders.",
-                "result": "Reduced manual administrative load by 85% and eliminated scheduling conflicts entirely."
+                "problem": "Order processing and scheduling were handled manually, making tracking difficult.",
+                "solution": "Booking system unifying schedule, client data, booking status, and notifications.",
+                "role": "Flow design, UI/UX, system development, integrations, and launch.",
+                "cta": "View Case Study"
             },
             {
-                "title": "B2B Customer Portal & Order Management",
-                "industry": "Manufacturing & Wholesale",
-                "duration": "8 Weeks",
-                "problem": "Distributor orders used manual paper/PDF forms, prone to input errors and slow stock tracking.",
-                "solution": "Dedicated distributor portal for order submission, real-time stock checks, auto-invoicing, and shipment tracking.",
-                "result": "Accelerated order cycles by 70%, improved shipping accuracy, and streamlined cash flow."
+                "title": "Customer Portal & Order Management",
+                "problem": "Clients had to contact the admin to check order details and service information.",
+                "solution": "Client portal to manage accounts, send requests, check statuses, and view transaction history.",
+                "role": "Analysis, architectural design, full-stack development, and deployment.",
+                "cta": "View Case Study"
             }
         ]
     },
     "Comparison": {
         "title": "What You Get from {brand}",
-        "subtitle": "Every project is designed so that decisions, costs, processes, and ownership remain clear.",
+        "subtitle": "Personal service, transparent processes, and systems built based on actual needs.",
         "benefits": [
             {
                 "title": "Analysis Before Development",
-                "desc": "We map out problems and needs before determining any features."
+                "desc": "Problems and needs are mapped out before features and technologies are decided."
             },
             {
-                "title": "Clear Project Scope",
-                "desc": "Features, costs, duration, and deliverables are confirmed before kickoff."
+                "title": "Direct Communication",
+                "desc": "You communicate directly with the founder and developer working on the project."
             },
             {
-                "title": "Transparent Progress",
-                "desc": "Clients can monitor the project's evolution in real-time via the dashboard."
+                "title": "Transparent Project Scope",
+                "desc": "Features, costs, duration, and deliverables are agreed before starting."
             },
             {
-                "title": "Tailored to Your Workflows",
-                "desc": "The system is built based on user needs, not just following templates."
+                "title": "Trackable Progress",
+                "desc": "Development progress can be viewed through the project dashboard."
             },
             {
-                "title": "Clear Ownership",
+                "title": "Clear System Ownership",
                 "desc": "Code, database, and system accesses are handed over in full after payment."
             },
             {
                 "title": "Post-Launch Support",
-                "desc": "Bug warranties, documentation, team training, and maintenance options are available."
+                "desc": "Bug warranties, documentation, training, maintenance, and further development are available."
             }
         ]
     },
@@ -123,73 +120,98 @@
         "viewMoreFeatures": "View {count} more features for {title}"
     },
     "Solutions": {
-        "badge": "Strategic Solutions",
+        "badge": "SOLUTIONS BY NEED",
         "title": "Solutions Built on Business Needs",
-        "subtitle": "We do not sell a one-size-fits-all solution. Each system is designed based on workflows, users, and business goals.",
+        "subtitle": "Crediblemark does not use a one-size-fits-all approach. Each system is designed based on workflows, users, and business goals.",
         "items": {
             "web": {
                 "title": "Websites for Sales and Credibility",
-                "target": "Company Profile, Landing Page, Company Blog, Content Marketing, Online Store, Pro Portfolio, Digital Catalog",
-                "desc": "Company profile websites, landing pages, catalogs, and e-commerce platforms that help businesses build trust and generate leads.",
+                "desc": "Company profile websites, landing pages, catalogs, and business sites that help build trust and generate leads.",
+                "services": [
+                    "Company profile.",
+                    "Landing page.",
+                    "Digital catalog.",
+                    "Services website.",
+                    "Custom e-commerce.",
+                    "Form & WhatsApp integration."
+                ],
                 "cta": "View Website Solutions"
             },
             "app": {
                 "title": "Applications & Operational Systems",
-                "target": "Internal Systems, Custom Dashboards, SaaS Platforms, Business Automation, Custom CRM, Inventory Systems, Client Portals",
-                "desc": "CRM, inventory, booking, dashboards, customer portals, and admin systems that reduce manual work and unify business data.",
+                "desc": "CRM, inventory, booking, dashboards, customer portals, and admin systems that reduce manual work.",
+                "services": [
+                    "CRM.",
+                    "Inventory.",
+                    "Booking system.",
+                    "Reports dashboard.",
+                    "Client portal.",
+                    "Admin systems.",
+                    "Custom web applications."
+                ],
                 "cta": "View Business Systems"
             },
             "security": {
-                "title": "Integration, Security, & Support",
-                "target": "API Integration, Server Deployment, Security Monitoring, Database Backups, Cloud Maintenance, Data Encryption, Systems Security",
-                "desc": "API integrations, deployment, monitoring, backups, security patching, and maintenance to keep your systems stable.",
+                "title": "Integration & System Support",
+                "desc": "API integrations, deployment, backups, maintenance, and further development to keep systems stable.",
+                "services": [
+                    "API Integration.",
+                    "Payment gateway.",
+                    "Email & WhatsApp.",
+                    "Deployment.",
+                    "Backups.",
+                    "Maintenance.",
+                    "Further development."
+                ],
                 "cta": "View System Support"
             }
         }
     },
     "Workflow": {
-        "badge": "Structured Process",
+        "badge": "STRUCTURED PROCESS",
         "title": "From Business Problem to Ready-to-Use Digital System",
-        "subtitle": "Each project follows a structured, transparent, and trackable process.",
+        "subtitle": "Each project follows a clear, transparent, and trackable process.",
         "step1": "01. Initial Consultation",
-        "step1Desc": "We discuss your business problems, users, workflows, and objectives.",
+        "step1Desc": "Discuss problems, workflows, users, and business objectives.",
         "step2": "02. Audit & Blueprint",
-        "step2Desc": "We map out requirements, solutions, feature priorities, costs, and timeline.",
+        "step2Desc": "Map out requirements, solutions, feature priorities, costs, and timeline.",
         "step3": "03. Design & Development",
-        "step3Desc": "Our team designs UI mockups, database schemas, features, and required integrations.",
+        "step3Desc": "Design mockups, databases, features, and integrations per blueprint.",
         "step4": "04. Testing & Training",
-        "step4Desc": "The system is tested with users, and your team gets comprehensive usage training.",
+        "step4Desc": "Test functionality with users and provide system usage training.",
         "step5": "05. Launch & Support",
-        "step5Desc": "The system goes live, is monitored, and is backed by our post-launch warranty."
+        "step5Desc": "Launch the system and provide bug warranty and support packages."
     },
     "Financial": {
         "title": "Are Your Business Processes Still Like This?",
         "subtitle": "Many operational issues are not caused by the team, but by fragmented working systems.",
-        "problemsTitle": "Current Operational Problems",
-        "solutionsTitle": "Changes After Implementing the System",
+        "problemsTitle": "Common Operational Problems",
+        "solutionsTitle": "After Implementing the System",
         "cta": "Discuss Your Business Challenges",
         "problems": [
             "Data scattered in Excel, WhatsApp, and separate documents.",
-            "Reports take a long time to prepare.",
             "Team performs redundant data entry tasks.",
+            "Reports take a long time to prepare.",
             "Stocks, transactions, or operations are hard to monitor.",
             "Website exists but does not generate leads.",
             "Used systems do not fit actual business processes."
         ],
         "results": [
-            "Data stored in a single centralized system.",
-            "Operational progress can be monitored in real-time.",
-            "Reports are available faster and more accurately.",
+            "Data stored in a single unified system.",
+            "Progress can be monitored more easily.",
+            "Reports are available faster.",
             "Repetitive tasks are automated seamlessly.",
-            "User access is more controlled and secure.",
+            "User access is more controlled.",
             "Decisions are made using the same unified data."
-        ]
+        ],
+        "badge": "IDENTIFY THE PROBLEM"
     },
     "Guarantee": {
         "badge": "EARLY STAGE PROTECTION",
         "title": "Start with Lower Risks",
-        "desc": "After the briefing and blueprint phase, you can evaluate if our approach fits your business. If it doesn't align and development hasn't started, your deposit will be refunded according to terms.",
-        "cta": "Read Warranty Terms"
+        "desc": "After briefing and blueprint compilation, you can assess if Crediblemark's approach fits your business. If it doesn't align and development hasn't started, deposit is refunded according to terms.",
+        "note": "Warranty does not cover domain, hosting, server, API, license, or third-party service fees already purchased with client approval.",
+        "cta": "View Warranty Terms"
     },
     "CustomCTA": {
         "title": "Need a Specific Solution?",
@@ -198,28 +220,28 @@
         "contact": "Contact Us"
     },
     "About": {
-        "role": "OUR APPROACH",
+        "role": "CREDIBLEMARK APPROACH",
         "name": "{brand} Approach",
-        "badge": "ANALISIS BEFORE CODE",
-        "quote": "We Do Not Instantly Offer an App",
-        "description": "We start every project by understanding problems, workflows, users, and business goals. Once needs are clear, we determine if the solution is a website, custom app, integration, automation, or refinement of existing processes. The result is a relevant, easy-to-use system that grows with your business."
+        "badge": "ANALYSIS BEFORE CODE",
+        "quote": "Crediblemark Does Not Instantly Offer an App",
+        "description": "Every project starts by understanding problems, workflows, users, and business goals. Once needs are clear, we determine if the solution is a website, custom app, integration, automation, or refinement of existing processes. Analysis, design, and main development are handled directly by the founder. Communication is streamlined, decisions are faster, and business goals are not lost in translation."
     },
     "Stats": {
-        "analysis": {
-            "title": "Analysis Before Development",
-            "desc": "Problems & Needs Priority"
+        "founder": {
+            "title": "Handled Directly by the Founder",
+            "desc": "Consultation and main development are done directly by the person working on your project."
+        },
+        "scope": {
+            "title": "Transparent Project Scope",
+            "desc": "Features, costs, duration, and deliverables are confirmed before kickoff."
         },
         "ownership": {
             "title": "Clear System Ownership",
-            "desc": "100% Owned by You"
-        },
-        "license": {
-            "title": "No Licensing from Crediblemark",
-            "desc": "$0 License Fees"
+            "desc": "Code, database, and system accesses are handed over after payment based on terms."
         },
         "warranty": {
             "title": "90-Day Bug Warranty",
-            "desc": "Post-Launch Support"
+            "desc": "Post-launch bug repairs are available in accordance with project scope and terms."
         }
     },
     "ClientDashboard": {
@@ -274,27 +296,27 @@
     },
     "FAQ": {
         "title": "Questions Before Starting the Project",
-        "subtitle": "Short answers about consultation, pricing, process, ownership, and support.",
+        "subtitle": "Short answers about consultation, pricing, development, ownership, and support.",
         "q1": "Do I need to have a feature list ready?",
-        "a1": "Not at all. We start with a consultation to understand your business challenge. Our team will help map and compile the most relevant feature list.",
-        "q2": "How does Crediblemark determine a solution?",
-        "a2": "We analyze your workflow, user profiles, and business goals. From there, we determine if the solution is a website, custom application, API integration, or automation.",
-        "q3": "How much does it cost to build a website or app?",
-        "a3": "Cost depends on complexity. We provide a transparent investment estimate after mapping out the initial blueprint, with no hidden fees at the end.",
-        "q4": "How long does the development process take?",
-        "a4": "For a ready-to-use initial version (MVP), it typically takes 4 to 8 weeks depending on the agreed feature complexity.",
-        "q5": "Who owns the source code and database?",
-        "a5": "You have <strong>100% system ownership</strong>. Once final payment is completed, all source code, database access, and system credentials are handed over to you.",
-        "q6": "What if requirements change mid-project?",
-        "a6": "As consultants, we are flexible. Minor changes can be adjusted instantly. For major changes, we will re-prioritize features or plan a next phase to keep the release on schedule.",
-        "q7": "Is there a warranty after the system is launched?",
-        "a7": "Yes, we provide a <strong>90-Day Bug Warranty</strong> post-launch to ensure your team's operational stability.",
-        "q8": "Does Crediblemark offer system maintenance?",
-        "a8": "Absolutely. We offer regular maintenance packages to monitor server health, backup databases, and perform routine security updates.",
+        "a1": "No. You just need to explain your workflow, problems, users, and business goals. Crediblemark will help compile and prioritize the features.",
+        "q2": "Is the entire project handled directly by the founder?",
+        "a2": "Yes. Consultation, analysis, design, and main development are handled directly by the founder of Crediblemark.",
+        "q3": "Does Crediblemark have a team?",
+        "a3": "Crediblemark currently operates as an independent consulting and development service. Specialist partners can be involved for specific needs after consulting with the client.",
+        "q4": "How much does it cost to build a website or app?",
+        "a4": "Pricing is determined based on scope, complexity, integrations, timeline, and support needed. Initial estimates are provided after consultation.",
+        "q5": "How long does the development process take?",
+        "a5": "Duration depends on the project scope. Schedule and development phases will be detailed in the proposal before starting.",
+        "q6": "Who owns the source code and database?",
+        "a6": "Source code, database, and system accesses are handed over to the client according to contract terms after payment obligations are fulfilled.",
+        "q7": "What if requirements change mid-project?",
+        "a7": "Changes will be evaluated for their impact on cost and timeline. Work is performed once the revised scope is approved.",
+        "q8": "Is post-launch support available?",
+        "a8": "Yes. A bug warranty is available per scope, along with maintenance and further development options.",
         "ctaTitle": "Don't Know What System You Need?",
-        "ctaDesc": "Tell us the process you want to improve. You don't need to understand technical terms or prepare a feature list.",
-        "ctaButton": "Schedule a Free Consultation",
-        "ctaSocialProof": "Maximum 1 business day response time."
+        "ctaDesc": "Tell us the process you want to improve. You don't need to understand technical terms or prepare a feature list. Crediblemark will help map the problem and determine the next steps.",
+        "ctaButton": "Free 30-Minute Consultation",
+        "ctaSocialProof": "Consultation and initial analysis are handled directly by the founder."
     },
     "Dashboard": {
         "Sidebar": {
@@ -546,14 +568,11 @@
         "processing": "Processing"
     },
     "Footer": {
-        "ctaTitle": "Confused where to start? We're here to help.",
-        "ctaDescription": "Many business owners have already grown with our services. Let's discuss your digital needs, stress-free.",
-        "ctaButton": "Talk to an Expert, for Free!",
-        "ctaSocialProof": "60+ Founders Joined",
-        "contactUs": "Contact Expert",
+        "desc": "Crediblemark is an independent digital systems consulting and development service. Helping businesses analyze problems, design solutions, and build custom websites or apps.",
+        "copyright": "All Rights Reserved.",
+        "privacy": "Privacy Policy",
         "terms": "Terms of Service",
-        "privacy": "Privacy Compliance",
-        "copyright": "All Rights Reserved."
+        "contactUs": "Contact Us"
     },
     "PriceCalculator": {
         "badge": "Quote & Pricing",
@@ -858,21 +877,23 @@
         "moreInfoAt": "For more info, visit"
     },
     "Audit": {
+        "badge": "FIRST STEP",
         "title": "Don't Know Where to Start?",
         "subtitle": "Begin with a Digital System Audit.",
-        "desc": "We inspect your workflows, user needs, existing systems, and core business challenges. The result is a Digital System Blueprint as your development foundation.",
+        "desc": "Crediblemark inspects your workflows, user needs, existing systems, and core business challenges. The result is a Digital System Blueprint as your decision and development foundation.",
+        "note": "If the project continues with Crediblemark, the audit fee can be credited towards development costs based on agreement.",
         "blueprintTitle": "The Blueprint Contains:",
         "blueprintItems": [
-            "Current workflow mapping",
-            "Identification of operational risks",
-            "Digital system recommendations",
-            "Initial system architecture diagram",
-            "Feature prioritization & release plan",
-            "Timeline and project schedule",
-            "Investment estimate breakdown",
-            "Implementation & training steps"
+            "Problem summary & business goals.",
+            "Current workflow mapping.",
+            "Identified problems & risks.",
+            "Digital system recommendations.",
+            "System flow diagram.",
+            "Feature prioritization.",
+            "Timeline and investment estimate.",
+            "Implementation steps."
         ],
-        "cta": "Learn About Digital System Audit"
+        "cta": "Start Digital System Audit"
     },
     "Team": {
         "title": "People Who Will Handle Your Project",
@@ -882,5 +903,40 @@
             "lead": "Lead Systems Engineer",
             "ui": "Product Designer"
         }
+    },
+    "Cbo": {
+        "title": "CONSULT · BUILD · SUPPORT",
+        "subtitle": "A unified workflow linking analysis, development, and post-launch support.",
+        "consultTitle": "Consult",
+        "consultDesc": "Analyze problems, workflows, user needs, risks, and business goals. The result forms the project blueprint and scope.",
+        "buildTitle": "Build",
+        "buildDesc": "Design and build websites, apps, databases, dashboards, and integrations based on the agreed blueprint.",
+        "supportTitle": "Support",
+        "supportDesc": "Assist with launch, documentation, training, bug fixes, maintenance, and further development as needed."
+    },
+    "Founder": {
+        "badge": "FOUNDER-LED SERVICE",
+        "title": "Your Project Handled Directly by the Founder",
+        "subtitle": "From consultation to launch, you communicate directly with the person who analyzes and builds your system.",
+        "name": "Rasyiqi",
+        "role": "Founder, Digital Systems Consultant & Full-Stack Developer",
+        "description": "I personally handle consultation, requirement analysis, system architecture, development, and launch. This keeps communication direct, decisions faster, and ensures business goals are not lost mid-way.",
+        "capacity": "Crediblemark limits active projects to ensure each job gets adequate attention.",
+        "cta": "Discuss Directly with Founder",
+        "competenceTitle": "Competence",
+        "competences": [
+            "Business process analysis",
+            "System architecture design",
+            "UI/UX",
+            "Frontend development",
+            "Backend development",
+            "Database design",
+            "API integration",
+            "Deployment and maintenance"
+        ]
+    },
+    "Partners": {
+        "title": "Specialist Partner Support When Needed",
+        "desc": "For specific needs outside of core development, Crediblemark can involve specialist partners such as designers, copywriters, or infrastructure specialists. Partner involvement is always communicated and approved in advance by the client."
     }
 }

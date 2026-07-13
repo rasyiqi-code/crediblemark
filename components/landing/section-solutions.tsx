@@ -3,23 +3,14 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowRight, Zap, Layers, ShieldCheck, Sparkles } from "lucide-react";
-import { motion, useMotionValue, useMotionTemplate, AnimatePresence } from "framer-motion";
+import { motion, useMotionValue, useMotionTemplate } from "framer-motion";
 import { useTranslations, useLocale } from "next-intl";
-import { useEffect, useState, useRef } from "react";
+import { useRef } from "react";
 import { ScrollHint } from "./scroll-hint";
 
 export function SectionSolutions() {
     const t = useTranslations("Solutions");
     const locale = useLocale();
-    const [globalTargetIndex, setGlobalTargetIndex] = useState(0);
-
-    useEffect(() => {
-        // Hanya satu interval terpusat (2.5s) untuk semua kartu agar menghemat resource CPU browser
-        const interval = setInterval(() => {
-            setGlobalTargetIndex((prev) => prev + 1);
-        }, 2500);
-        return () => clearInterval(interval);
-    }, []);
 
     const products = [
         { 
@@ -98,7 +89,6 @@ export function SectionSolutions() {
                             index={index}
                             locale={locale}
                             t={t}
-                            globalTargetIndex={globalTargetIndex}
                         />
                     ))}
                 </ScrollHint>
@@ -117,18 +107,16 @@ interface SolutionCardProps {
     };
     index: number;
     locale: string;
-    t: (key: string) => string;
-    globalTargetIndex: number;
+    t: any;
 }
 
-function SolutionCard({ product, index, locale, t, globalTargetIndex }: SolutionCardProps) {
+function SolutionCard({ product, index, locale, t }: Omit<SolutionCardProps, "globalTargetIndex">) {
     const mouseX = useMotionValue(0);
     const mouseY = useMotionValue(0);
     const rectRef = useRef<DOMRect | null>(null);
-    const targets = t(`items.${product.key}.target`).split(",").map((s: string) => s.trim());
     
-    // Hitung index target secara modular berdasarkan tick interval global
-    const targetIndex = targets.length > 0 ? (globalTargetIndex % targets.length) : 0;
+    // Ambil array list layanan dari i18n
+    const services = t.raw(`items.${product.key}.services`) as string[];
 
     const handleMouseMove = (e: React.MouseEvent) => {
         if (!rectRef.current) {
@@ -165,7 +153,7 @@ function SolutionCard({ product, index, locale, t, globalTargetIndex }: Solution
             {/* Corner Accent */}
             <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl ${product.glow} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-3xl rounded-full`} />
             
-            <div className="relative z-10 flex flex-col items-center h-full">
+            <div className="relative z-10 flex flex-col items-center h-full w-full">
                 {/* Icon Box */}
                 <div className="w-16 h-16 rounded-2xl bg-zinc-950 border border-white/10 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:-rotate-3 transition-all duration-700 shadow-2xl relative overflow-hidden">
                     <div className={`absolute inset-0 bg-gradient-to-br ${product.glow} to-transparent opacity-50`} />
@@ -182,26 +170,26 @@ function SolutionCard({ product, index, locale, t, globalTargetIndex }: Solution
                     {t(`items.${product.key}.title`)}
                 </h3>
 
-                {/* Target Badge with Switcher */}
-                <div className="mb-6 h-8 flex items-center justify-center overflow-hidden">
-                    <AnimatePresence mode="wait">
-                        <motion.span
-                            key={targetIndex}
-                            initial={{ y: 15, opacity: 0 }}
-                            animate={{ y: 0, opacity: 1 }}
-                            exit={{ y: -15, opacity: 0 }}
-                            transition={{ duration: 0.3, ease: "circOut" }}
-                            className="text-[11px] font-black text-brand-yellow uppercase tracking-[0.2em] leading-relaxed whitespace-nowrap drop-shadow-[0_0_8px_rgba(255,200,0,0.3)]"
-                        >
-                            {targets[targetIndex]}
-                        </motion.span>
-                    </AnimatePresence>
-                </div>
-
                 {/* Description */}
-                <p className="text-zinc-400 font-medium leading-relaxed mb-12 text-base group-hover:text-zinc-200 transition-colors">
+                <p className="text-zinc-400 font-medium leading-relaxed mb-8 text-sm group-hover:text-zinc-200 transition-colors">
                     {t(`items.${product.key}.desc`)}
                 </p>
+
+                {/* Divider */}
+                <div className="w-full h-px bg-white/5 mb-6" />
+
+                {/* Services List */}
+                <div className="w-full space-y-3.5 mb-10 text-left flex-grow">
+                    <h4 className="text-[10px] font-black text-zinc-500 uppercase tracking-widest mb-4">Layanan Terkait:</h4>
+                    {services && services.map((service, idx) => (
+                        <div key={idx} className="flex items-start gap-2.5">
+                            <div className="w-1.5 h-1.5 rounded-full bg-brand-yellow shrink-0 mt-2" />
+                            <span className="text-zinc-400 text-xs md:text-sm font-semibold leading-relaxed group-hover:text-zinc-200 transition-colors">
+                                {service}
+                            </span>
+                        </div>
+                    ))}
+                </div>
 
                 {/* Action */}
                 <div className="mt-auto w-full">

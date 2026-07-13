@@ -36,6 +36,10 @@ export async function DigitalSystemAudit() {
                             {t("desc")}
                         </p>
 
+                        <p className="text-zinc-500 text-xs md:text-sm italic leading-relaxed max-w-xl mx-auto lg:mx-0">
+                            * {t("note")}
+                        </p>
+
                         <div className="pt-6 flex justify-center lg:justify-start">
                             <a href={waUrl} target="_blank" rel="noopener noreferrer">
                                 <Button className="h-14 px-8 rounded-full bg-brand-yellow hover:bg-brand-yellow/90 text-black font-extrabold shadow-lg shadow-brand-yellow/10 transition-all hover:scale-105 active:scale-95 flex items-center gap-2 group border-0">

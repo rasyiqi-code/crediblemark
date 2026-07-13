@@ -48,7 +48,7 @@ export async function AboutSection() {
                             <div className="pt-4 flex justify-center lg:justify-start">
                                 <Link href="#cara-kerja">
                                     <Button className="h-12 px-6 rounded-full bg-brand-yellow hover:bg-brand-yellow/90 text-black font-extrabold shadow-lg shadow-brand-yellow/10 transition-all hover:scale-105 active:scale-95 flex items-center gap-2 group border-0">
-                                        Pelajari Pendekatan Kami
+                                        Pelajari Cara Kerjanya
                                         <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                                     </Button>
                                 </Link>

@@ -1,23 +1,23 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Search, ShieldCheck, CircleDollarSign, Wrench } from "lucide-react";
+import { User, FileText, ShieldCheck, Wrench } from "lucide-react";
 
 export function SectionStats() {
     const t = useTranslations("Stats");
 
     const stats = [
         {
-            key: "analysis",
-            icon: Search,
+            key: "founder",
+            icon: User,
+        },
+        {
+            key: "scope",
+            icon: FileText,
         },
         {
             key: "ownership",
             icon: ShieldCheck,
-        },
-        {
-            key: "license",
-            icon: CircleDollarSign,
         },
         {
             key: "warranty",
