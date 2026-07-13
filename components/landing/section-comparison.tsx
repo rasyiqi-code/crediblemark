@@ -1,4 +1,3 @@
-import { Check } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { getSystemSettings } from "@/lib/server/settings";
 
@@ -43,14 +42,9 @@ export async function Comparison() {
                             key={idx}
                             className="group relative bg-black rounded-2xl p-6 border border-white/5 hover:border-brand-yellow/40 transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/30 flex flex-col gap-4 overflow-hidden"
                         >
-                            {/* Nomor urut samar di background */}
-                            <span className="absolute top-4 right-5 text-6xl font-black text-white/[0.04] select-none leading-none pointer-events-none">
-                                {String(idx + 1).padStart(2, "0")}
-                            </span>
-
-                            {/* Icon */}
-                            <div className="w-9 h-9 rounded-xl bg-brand-yellow/15 border border-brand-yellow/30 flex items-center justify-center flex-shrink-0 group-hover:bg-brand-yellow/25 transition-colors duration-500">
-                                <Check className="w-4 h-4 text-brand-yellow" strokeWidth={3} />
+                            {/* Nomor urut sebagai aksen */}
+                            <div className="w-7 h-7 rounded-full border border-brand-yellow/40 flex items-center justify-center flex-shrink-0">
+                                <span className="text-[10px] font-black text-brand-yellow leading-none">{String(idx + 1).padStart(2, '0')}</span>
                             </div>
 
                             {/* Text */}
