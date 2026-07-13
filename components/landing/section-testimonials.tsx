@@ -20,12 +20,11 @@ export async function Testimonials() {
                 </span>
 
                 {/* Heading */}
-                <h2 className="text-3xl md:text-5xl font-black text-white tracking-tighter leading-tight mb-4">
-                    Sistem yang Telah Dibangun
-                    <span className="text-brand-yellow"> Crediblemark</span>
+                <h2 className="text-2xl md:text-3xl font-black text-white tracking-tight leading-snug mb-3">
+                    Apa yang Sudah Pernah Dibuat.
                 </h2>
-                <p className="text-zinc-400 text-base md:text-lg font-light mb-10 max-w-xl mx-auto">
-                    Lihat kumpulan proyek nyata dari repositori GitHub dan portofolio aktif yang pernah dikerjakan.
+                <p className="text-zinc-500 text-sm md:text-base font-light mb-10 max-w-md mx-auto">
+                    Silakan lihat, tanpa embel-embel.
                 </p>
 
                 {/* CTA ke halaman Portfolio */}
