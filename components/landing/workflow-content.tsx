@@ -71,50 +71,41 @@ export function WorkflowContent() {
 
                 {/* Timeline wrapper */}
                 <div className="relative max-w-7xl mx-auto">
-                    {/* Connecting Line (Desktop) - Horizontal (row 1) */}
+                    {/* Garis penghubung horizontal - tampil di semua ukuran */}
                     <motion.div
                         initial={{ scaleX: 0, opacity: 0 }}
                         whileInView={{ scaleX: 1, opacity: 1 }}
                         viewport={{ once: true }}
                         transition={{ duration: 1.2, delay: 0.4 }}
-                        className="hidden lg:block absolute top-[40px] left-[10%] right-[10%] h-0.5 bg-black/10 origin-left"
+                        className="absolute top-[40px] left-[10%] right-[10%] h-0.5 bg-black/10 origin-left hidden lg:block"
                     />
 
-                    {/* Connecting Line (Mobile) - Vertical Left-Aligned */}
-                    <motion.div
-                        initial={{ scaleY: 0, opacity: 0 }}
-                        whileInView={{ scaleY: 1, opacity: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1.5, delay: 0.5 }}
-                        className="lg:hidden absolute left-8 top-8 bottom-12 w-0.5 bg-black/10 origin-top"
-                    />
-
-                    {/* Steps Container using flex-row (5 columns in a single line on desktop) */}
-                    <div className="flex flex-col lg:flex-row justify-between items-stretch gap-10 lg:gap-4">
-                        {steps.map((step, idx) => (
-                            <motion.div 
-                                key={step.key}
-                                variants={itemVariants} 
-                                className="relative flex lg:flex-col items-center lg:items-center gap-6 lg:gap-0 w-full lg:flex-1"
-                            >
-                                {/* Circle & Icon */}
-                                <div className="w-16 h-16 lg:w-20 lg:h-20 bg-black border-4 border-black/10 rounded-full flex items-center justify-center relative z-10 lg:mx-auto lg:mb-5 shadow-xl group hover:scale-105 transition-all duration-500 shrink-0">
-                                    <step.icon className="w-6 h-6 lg:w-8 lg:h-8 text-brand-yellow group-hover:scale-110 transition-transform" />
-                                    
-                                    {/* Number Badge */}
-                                    <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-brand-yellow text-black border-2 border-black flex items-center justify-center text-[10px] font-black">
-                                        0{idx + 1}
+                    {/* Scroll wrapper mobile */}
+                    <div className="overflow-x-auto no-scrollbar -mx-6 px-6 lg:overflow-visible lg:mx-0 lg:px-0">
+                        {/* Steps Container */}
+                        <div className="flex flex-row lg:justify-between items-start gap-8 lg:gap-4 w-max lg:w-auto">
+                            {steps.map((step, idx) => (
+                                <motion.div
+                                    key={step.key}
+                                    variants={itemVariants}
+                                    className="relative flex flex-col items-center gap-3 w-28 lg:flex-1 lg:w-auto shrink-0"
+                                >
+                                    {/* Circle & Icon */}
+                                    <div className="w-16 h-16 lg:w-20 lg:h-20 bg-black border-4 border-black/10 rounded-full flex items-center justify-center relative z-10 shadow-xl group hover:scale-105 transition-all duration-500">
+                                        <step.icon className="w-6 h-6 lg:w-8 lg:h-8 text-brand-yellow group-hover:scale-110 transition-transform" />
+                                        {/* Number Badge */}
+                                        <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-brand-yellow text-black border-2 border-black flex items-center justify-center text-[10px] font-black">
+                                            0{idx + 1}
+                                        </div>
                                     </div>
-                                </div>
 
-                                {/* Text Content */}
-                                <div className="flex flex-col text-left lg:text-center w-full">
-                                    <h3 className="text-base lg:text-lg font-black text-black mb-1 lg:mb-0 italic uppercase tracking-tight leading-tight">
+                                    {/* Text */}
+                                    <h3 className="text-[11px] lg:text-sm font-black text-black italic uppercase tracking-tight leading-tight text-center">
                                         {t(step.key)}
                                     </h3>
-                                </div>
-                            </motion.div>
-                        ))}
+                                </motion.div>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </motion.div>
