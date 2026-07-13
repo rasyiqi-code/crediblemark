@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Check, Mail, Phone, Linkedin, Github } from "lucide-react";
+import { Check, Mail, Github } from "lucide-react";
 import { getTranslations, getLocale } from "next-intl/server";
 import { getSystemSettings } from "@/lib/server/settings";
 import Image from "next/image";
@@ -9,9 +9,9 @@ export async function SiteFooter() {
     const locale = await getLocale();
 
     const settings = await getSystemSettings([
-        "AGENCY_NAME", 
-        "COMPANY_NAME", 
-        "AGENCY_LOGO", 
+        "AGENCY_NAME",
+        "COMPANY_NAME",
+        "AGENCY_LOGO",
         "AGENCY_LOGO_DISPLAY",
         "CONTACT_PHONE"
     ]);
@@ -24,117 +24,98 @@ export async function SiteFooter() {
 
     const waUrl = contactPhone ? `https://wa.me/${contactPhone.replace(/[^0-9]/g, '')}?text=Halo%20Crediblemark%2C%20saya%20ingin%20berkonsultasi` : "#";
     const email = "hello@crediblemark.com";
-
     const showLogo = logoDisplayMode === "both" || logoDisplayMode === "logo";
     const showText = logoDisplayMode === "both" || logoDisplayMode === "text";
 
+    const navLinks = [
+        { label: "Layanan", href: `/${locale}/services` },
+        { label: "Portfolio", href: `/${locale}/portfolio` },
+        { label: "WordPress", href: `/${locale}/wordpress` },
+        { label: "Web Repair", href: `/${locale}/web-repair` },
+        { label: "Kalkulator", href: `/${locale}/price-calculator` },
+        { label: "Insight", href: "https://blog.crediblemark.com", external: true },
+    ];
+
+    const legalLinks = [
+        { label: "Ketentuan Layanan", href: `/${locale}/terms` },
+        { label: "Kebijakan Privasi", href: `/${locale}/privacy` },
+    ];
+
     return (
-        <footer className="border-t border-white/5 bg-[#030303] text-zinc-400 pt-16 pb-12 relative overflow-hidden">
-            <div className="container mx-auto px-6 relative z-10 max-w-7xl">
-                
-                {/* Upper Grid Layout */}
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8 pb-12 border-b border-white/5">
-                    
-                    {/* Column 1: Info Brand (4 cols) */}
-                    <div className="md:col-span-4 space-y-6">
-                        <div className="flex items-center gap-2.5">
+        <footer className="border-t border-white/5 bg-[#030303] text-zinc-500 py-10 relative">
+            <div className="container mx-auto px-6 max-w-5xl">
+
+                {/* Main Row */}
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-8">
+
+                    {/* Brand */}
+                    <div className="flex flex-col gap-3 max-w-xs">
+                        <div className="flex items-center gap-2">
                             {showLogo && (
                                 logoUrl ? (
-                                    <div className="relative h-8 w-8 overflow-hidden rounded-full border border-white/10">
-                                        <Image
-                                            src={logoUrl}
-                                            alt={agencyName}
-                                            fill
-                                            className="object-cover"
-                                            sizes="32px"
-                                        />
+                                    <div className="relative h-6 w-6 overflow-hidden rounded-full border border-white/10">
+                                        <Image src={logoUrl} alt={agencyName} fill className="object-cover" sizes="24px" />
                                     </div>
                                 ) : (
-                                    <div className="h-7 w-7 rounded-full bg-brand-yellow flex items-center justify-center">
-                                        <Check className="h-3.5 w-3.5 text-black stroke-[3]" />
+                                    <div className="h-6 w-6 rounded-full bg-brand-yellow flex items-center justify-center">
+                                        <Check className="h-3 w-3 text-black stroke-[3]" />
                                     </div>
                                 )
                             )}
                             {showText && (
-                                <span className="font-extrabold text-white tracking-tight text-lg uppercase italic">{agencyName}</span>
+                                <span className="font-extrabold text-white tracking-tight text-sm uppercase italic">{agencyName}</span>
                             )}
                         </div>
-                        
-                        <p className="text-zinc-500 text-xs md:text-sm font-medium leading-relaxed max-w-sm">
+                        <p className="text-xs text-zinc-600 leading-relaxed">
                             {t("desc")}
                         </p>
-                    </div>
-
-                    {/* Column 2: Solusi (2 cols) */}
-                    <div className="md:col-span-2 space-y-4">
-                        <h4 className="text-xs font-black text-white uppercase tracking-widest">Solusi</h4>
-                        <ul className="space-y-2.5 text-xs md:text-sm font-semibold">
-                            <li><Link href={`/${locale}#solusi-web`} className="hover:text-brand-yellow transition-colors">Website Bisnis</Link></li>
-                            <li><Link href={`/${locale}#solusi-app`} className="hover:text-brand-yellow transition-colors">Aplikasi Khusus</Link></li>
-                            <li><Link href={`/${locale}#solusi-app`} className="hover:text-brand-yellow transition-colors">Sistem Operasional</Link></li>
-                            <li><Link href={`/${locale}#solusi-support`} className="hover:text-brand-yellow transition-colors">Integrasi</Link></li>
-                            <li><Link href={`/${locale}#system-audit`} className="hover:text-brand-yellow transition-colors">Digital System Audit</Link></li>
-                            <li><Link href={`/${locale}#solusi-support`} className="hover:text-brand-yellow transition-colors">Maintenance</Link></li>
-                        </ul>
-                    </div>
-
-                    {/* Column 3: Perusahaan (2 cols) */}
-                    <div className="md:col-span-2 space-y-4">
-                        <h4 className="text-xs font-black text-white uppercase tracking-widest">Perusahaan</h4>
-                        <ul className="space-y-2.5 text-xs md:text-sm font-semibold">
-                            <li><Link href={`/${locale}#founder-profile`} className="hover:text-brand-yellow transition-colors">Tentang</Link></li>
-                            <li><Link href={`/${locale}#cara-kerja`} className="hover:text-brand-yellow transition-colors">Cara Kerja</Link></li>
-                            <li><Link href={`/${locale}#studi-kasus`} className="hover:text-brand-yellow transition-colors">Studi Kasus</Link></li>
-                            <li><a href="https://blog.crediblemark.com" target="_blank" rel="noopener noreferrer" className="hover:text-brand-yellow transition-colors">Insight</a></li>
-                            <li><Link href={`/${locale}/contact`} className="hover:text-brand-yellow transition-colors">Kontak</Link></li>
-                        </ul>
-                    </div>
-
-                    {/* Column 4: Legal (2 cols) */}
-                    <div className="md:col-span-2 space-y-4">
-                        <h4 className="text-xs font-black text-white uppercase tracking-widest">Legal</h4>
-                        <ul className="space-y-2.5 text-xs md:text-sm font-semibold">
-                            <li><Link href={`/${locale}/terms`} className="hover:text-brand-yellow transition-colors">Ketentuan Layanan</Link></li>
-                            <li><Link href={`/${locale}/privacy`} className="hover:text-brand-yellow transition-colors">Kebijakan Privasi</Link></li>
-                            <li><a href={waUrl} target="_blank" rel="noopener noreferrer" className="hover:text-brand-yellow transition-colors">Ketentuan Garansi</a></li>
-                            <li><a href={waUrl} target="_blank" rel="noopener noreferrer" className="hover:text-brand-yellow transition-colors">Kepemilikan Sistem</a></li>
-                        </ul>
-                    </div>
-
-                    {/* Column 5: Kontak & Sosmed (2 cols) */}
-                    <div className="md:col-span-2 space-y-4">
-                        <h4 className="text-xs font-black text-white uppercase tracking-widest">Kontak</h4>
-                        <ul className="space-y-3.5 text-xs md:text-sm font-semibold text-zinc-500">
-                            <li className="flex items-center gap-2">
-                                <Mail className="w-4 h-4 text-zinc-400 shrink-0" />
-                                <a href={`mailto:${email}`} className="hover:text-white transition-colors break-all">{email}</a>
-                            </li>
+                        {/* Kontak singkat */}
+                        <div className="flex flex-col gap-1.5 mt-1">
+                            <a href={`mailto:${email}`} className="flex items-center gap-1.5 text-xs text-zinc-600 hover:text-zinc-300 transition-colors">
+                                <Mail className="w-3.5 h-3.5 shrink-0" />
+                                {email}
+                            </a>
                             {contactPhone && (
-                                <li className="flex items-center gap-2">
-                                    <Phone className="w-4 h-4 text-zinc-400 shrink-0" />
-                                    <a href={waUrl} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">{contactPhone}</a>
-                                </li>
+                                <a href={waUrl} target="_blank" rel="noopener noreferrer" className="text-xs text-zinc-600 hover:text-zinc-300 transition-colors pl-5">
+                                    {contactPhone}
+                                </a>
                             )}
-                            <li className="text-[10px] uppercase tracking-wider text-zinc-600 mt-2 font-black leading-none">Jam Operasional:</li>
-                            <li className="text-[11px] leading-relaxed">Senin - Jumat<br />09:00 - 17:00 WIB</li>
-                        </ul>
+                        </div>
+                    </div>
+
+                    {/* Nav Links */}
+                    <div className="flex flex-wrap gap-x-6 gap-y-2 sm:max-w-sm">
+                        {navLinks.map((link) =>
+                            link.external ? (
+                                <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer"
+                                    className="text-xs text-zinc-500 hover:text-white transition-colors">
+                                    {link.label}
+                                </a>
+                            ) : (
+                                <Link key={link.label} href={link.href}
+                                    className="text-xs text-zinc-500 hover:text-white transition-colors">
+                                    {link.label}
+                                </Link>
+                            )
+                        )}
                     </div>
 
                 </div>
 
-                {/* Bottom Bar Layout */}
-                <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-6">
-                    <div className="text-[11px] text-zinc-600 font-semibold text-center md:text-left">
+                {/* Bottom Bar */}
+                <div className="mt-10 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-3">
+                    <p className="text-[11px] text-zinc-700">
                         © {new Date().getFullYear()} {companyName}. Hak Cipta Dilindungi.
-                    </div>
-                    
-                    {/* Social Media Links */}
+                    </p>
                     <div className="flex items-center gap-4">
-                        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-zinc-900 border border-white/5 flex items-center justify-center text-zinc-500 hover:text-brand-yellow transition-colors shadow-lg">
-                            <Linkedin className="w-4 h-4 fill-zinc-500 hover:fill-brand-yellow" />
-                        </a>
-                        <a href="https://github.com/rasyiqi-code" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-zinc-900 border border-white/5 flex items-center justify-center text-zinc-500 hover:text-brand-yellow transition-colors shadow-lg">
-                            <Github className="w-4 h-4 fill-zinc-500 hover:fill-brand-yellow" />
+                        {legalLinks.map((link) => (
+                            <Link key={link.label} href={link.href} className="text-[11px] text-zinc-700 hover:text-zinc-400 transition-colors">
+                                {link.label}
+                            </Link>
+                        ))}
+                        <a href="https://github.com/rasyiqi-code" target="_blank" rel="noopener noreferrer"
+                            className="text-zinc-700 hover:text-zinc-400 transition-colors">
+                            <Github className="w-3.5 h-3.5" />
                         </a>
                     </div>
                 </div>
