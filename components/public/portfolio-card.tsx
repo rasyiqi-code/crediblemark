@@ -23,7 +23,7 @@ export function PortfolioCard({ title, slug, html, externalUrl, imageUrl, descri
     const [imgSrc, setImgSrc] = useState<string>(() => {
         // Coba Opsi 1 (Utama): Auto-Screenshot Live Demo (jika externalUrl ada dan bukan github)
         if (externalUrl && !externalUrl.includes("github.com")) {
-            return `https://image.thum.io/get/width/800/crop/800/${externalUrl}`;
+            return `https://image.thum.io/get/auth/78195-crediblemark.com/width/800/crop/800/${externalUrl}`;
         }
         
         // Coba Opsi 2: GitHub Social Preview (jika externalUrl adalah github)
