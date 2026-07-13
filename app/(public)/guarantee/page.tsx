@@ -93,7 +93,7 @@ export default async function GuaranteePage() {
                             <section className="space-y-3">
                                 <h2 className="text-2xl font-bold text-white">1. Perlindungan Fase Awal</h2>
                                 <p>
-                                    Setelah sesi briefing dan penyusunan blueprint awal diselesaikan, Anda dapat menilai apakah pendekatan dan rencana solusi digital dari **{agencyName}** sesuai dengan kebutuhan bisnis Anda. Jika Anda merasa pendekatan tersebut tidak sesuai dan pekerjaan pengembangan (development) sistem belum dimulai, Anda dapat mengajukan pembatalan proyek dan deposit Anda akan dikembalikan secara penuh sesuai ketentuan yang disepakati.
+                                    Setelah sesi briefing dan penyusunan blueprint awal diselesaikan, Anda dapat menilai apakah pendekatan dan rencana solusi digital dari <strong className="text-white">{agencyName}</strong> sesuai dengan kebutuhan bisnis Anda. Jika Anda merasa pendekatan tersebut tidak sesuai dan pekerjaan pengembangan (development) sistem belum dimulai, Anda dapat mengajukan pembatalan proyek dan deposit Anda akan dikembalikan secara penuh sesuai ketentuan yang disepakati.
                                 </p>
                             </section>
 
@@ -107,11 +107,11 @@ export default async function GuaranteePage() {
                             <section className="space-y-3">
                                 <h2 className="text-2xl font-bold text-white">3. Batasan dan Pengecualian</h2>
                                 <p>
-                                    Garansi yang diberikan oleh **{agencyName}** tidak mencakup hal-hal berikut:
+                                    Garansi yang diberikan oleh <strong className="text-white">{agencyName}</strong> tidak mencakup hal-hal berikut:
                                 </p>
                                 <ul className="list-disc pl-6 space-y-2 text-zinc-400">
                                     <li>Biaya-biaya pihak ketiga seperti domain, hosting, server, lisensi API, plugin berbayar, atau layanan pihak ketiga lainnya yang telah dibeli atas persetujuan klien.</li>
-                                    <li>Kerusakan atau kegagalan sistem yang disebabkan oleh modifikasi kode sumber (source code) yang dilakukan oleh pihak lain di luar tim **{agencyName}**.</li>
+                                    <li>Kerusakan atau kegagalan sistem yang disebabkan oleh modifikasi kode sumber (source code) yang dilakukan oleh pihak lain di luar tim <strong className="text-white">{agencyName}</strong>.</li>
                                     <li>Gangguan layanan yang disebabkan oleh kelalaian manajemen server pihak klien, downtime penyedia cloud/hosting, atau masalah infrastruktur eksternal lainnya.</li>
                                     <li>Perubahan kebutuhan baru (change request) yang tidak tercantum dalam dokumen ruang lingkup proyek awal.</li>
                                 </ul>
@@ -136,7 +136,7 @@ export default async function GuaranteePage() {
                             <section className="space-y-3">
                                 <h2 className="text-2xl font-bold text-white">1. Early Phase Protection</h2>
                                 <p>
-                                    After the briefing session and initial blueprint formulation are completed, you can evaluate whether the approach and digital solution plan from **{agencyName}** align with your business needs. If you find the approach unsuitable and system development work has not yet started, you may request a project cancellation and your deposit will be refunded in full in accordance with the agreed terms.
+                                    After the briefing session and initial blueprint formulation are completed, you can evaluate whether the approach and digital solution plan from <strong className="text-white">{agencyName}</strong> align with your business needs. If you find the approach unsuitable and system development work has not yet started, you may request a project cancellation and your deposit will be refunded in full in accordance with the agreed terms.
                                 </p>
                             </section>
 
@@ -150,11 +150,11 @@ export default async function GuaranteePage() {
                             <section className="space-y-3">
                                 <h2 className="text-2xl font-bold text-white">3. Limitations and Exclusions</h2>
                                 <p>
-                                    The guarantee provided by **{agencyName}** does not cover the following:
+                                    The guarantee provided by <strong className="text-white">{agencyName}</strong> does not cover the following:
                                 </p>
                                 <ul className="list-disc pl-6 space-y-2 text-zinc-400">
                                     <li>Third-party costs such as domain, hosting, server, API licenses, paid plugins, or other third-party services purchased with the client&apos;s consent.</li>
-                                    <li>System damage or failure caused by modifications to the source code made by parties other than the **{agencyName}** team.</li>
+                                    <li>System damage or failure caused by modifications to the source code made by parties other than the <strong className="text-white">{agencyName}</strong> team.</li>
                                     <li>Service interruptions caused by server management negligence on the client side, cloud/hosting provider downtime, or other external infrastructure issues.</li>
                                     <li>New feature additions or scope changes (change requests) not listed in the initial project scope document.</li>
                                 </ul>
