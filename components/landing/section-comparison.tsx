@@ -14,7 +14,7 @@ export async function Comparison() {
     const benefits = t.raw("benefits") as Benefit[];
 
     return (
-        <section id="manfaat" className="py-20 md:py-28 bg-[#c5a850] relative overflow-hidden">
+        <section id="manfaat" className="py-20 md:py-28 bg-[#EFBF04] relative overflow-hidden">
             {/* Grid Pattern */}
             <div className="absolute inset-0 z-0 opacity-[0.08] [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_75%)] pointer-events-none"
                 style={{

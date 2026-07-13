@@ -16,7 +16,7 @@ export async function FinancialLogic() {
     const results = t.raw("results") as string[];
 
     return (
-        <section id="masalah-klien" className="py-24 bg-brand-yellow relative overflow-hidden">
+        <section id="masalah-klien" className="py-24 bg-[#EFBF04] relative overflow-hidden">
             {/* Pola background matrix dots */}
             <div className="absolute inset-0 z-0 opacity-[0.12] [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_75%)] pointer-events-none"
                 style={{
