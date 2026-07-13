@@ -42,11 +42,12 @@ export async function SectionGuarantee() {
 
                     {/* Link Terms */}
                     <div className="pt-4">
-                        <ChatTrigger 
+                        <Link 
+                            href={`/${locale}/guarantee`}
                             className="text-xs sm:text-sm font-bold text-brand-yellow hover:text-brand-yellow/80 underline decoration-brand-yellow/30 underline-offset-4 transition-all"
                         >
                             {t("cta")}
-                        </ChatTrigger>
+                        </Link>
                     </div>
                 </div>
             </div>

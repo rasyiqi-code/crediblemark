@@ -68,6 +68,9 @@ export async function SiteFooter() {
                         <Link href={`/${locale}/terms`} className="text-[11px] text-zinc-500 hover:text-zinc-300 transition-colors">
                             Ketentuan Layanan
                         </Link>
+                        <Link href={`/${locale}/guarantee`} className="text-[11px] text-zinc-500 hover:text-zinc-300 transition-colors">
+                            Ketentuan Garansi
+                        </Link>
                         {contactPhone && (
                             <ChatTrigger 
                                 className="text-[11px] text-zinc-500 hover:text-zinc-300 transition-colors"
