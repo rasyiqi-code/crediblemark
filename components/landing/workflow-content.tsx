@@ -63,21 +63,21 @@ export function WorkflowContent() {
                     <div className="px-4 py-1.5 rounded-full bg-black/10 border border-black/5 text-black text-[10px] font-black uppercase tracking-[0.2em] mb-4 shadow-sm backdrop-blur-sm">
                         {t("badge")}
                     </div>
-                    <h2 className="text-3xl md:text-5xl font-black text-black mb-4 tracking-tighter uppercase italic leading-tight">
+                    <h2 className="text-3xl md:text-5xl font-black text-black mb-4 tracking-tighter italic leading-tight">
                         {t("title")}
                     </h2>
                     <p className="text-black/80 font-bold max-w-2xl mx-auto text-base md:text-lg">{t("subtitle")}</p>
                 </motion.div>
 
                 {/* Timeline wrapper */}
-                <div className="relative max-w-5xl mx-auto">
+                <div className="relative max-w-7xl mx-auto">
                     {/* Connecting Line (Desktop) - Horizontal (row 1) */}
                     <motion.div
                         initial={{ scaleX: 0, opacity: 0 }}
                         whileInView={{ scaleX: 1, opacity: 1 }}
                         viewport={{ once: true }}
                         transition={{ duration: 1.2, delay: 0.4 }}
-                        className="hidden lg:block absolute top-[44px] left-[15%] right-[15%] h-0.5 bg-black/10 origin-left"
+                        className="hidden lg:block absolute top-[40px] left-[10%] right-[10%] h-0.5 bg-black/10 origin-left"
                     />
 
                     {/* Connecting Line (Mobile) - Vertical Left-Aligned */}
@@ -89,16 +89,16 @@ export function WorkflowContent() {
                         className="lg:hidden absolute left-8 top-8 bottom-12 w-0.5 bg-black/10 origin-top"
                     />
 
-                    {/* Steps Container using flex-wrap centering */}
-                    <div className="flex flex-col lg:flex-row lg:flex-wrap justify-center items-stretch gap-12 lg:gap-y-20 lg:gap-x-8">
+                    {/* Steps Container using flex-row (5 columns in a single line on desktop) */}
+                    <div className="flex flex-col lg:flex-row justify-between items-stretch gap-10 lg:gap-4">
                         {steps.map((step, idx) => (
                             <motion.div 
                                 key={step.key}
                                 variants={itemVariants} 
-                                className={`relative flex lg:flex-col items-center lg:items-center gap-6 lg:gap-0 w-full lg:w-[30%] ${idx >= 3 ? "lg:w-[40%]" : ""}`}
+                                className="relative flex lg:flex-col items-center lg:items-center gap-6 lg:gap-0 w-full lg:flex-1"
                             >
                                 {/* Circle & Icon */}
-                                <div className="w-16 h-16 lg:w-20 lg:h-20 bg-black border-4 border-black/10 rounded-full flex items-center justify-center relative z-10 lg:mx-auto lg:mb-4 shadow-xl group hover:scale-105 transition-all duration-500 shrink-0">
+                                <div className="w-16 h-16 lg:w-20 lg:h-20 bg-black border-4 border-black/10 rounded-full flex items-center justify-center relative z-10 lg:mx-auto lg:mb-5 shadow-xl group hover:scale-105 transition-all duration-500 shrink-0">
                                     <step.icon className="w-6 h-6 lg:w-8 lg:h-8 text-brand-yellow group-hover:scale-110 transition-transform" />
                                     
                                     {/* Number Badge */}
@@ -108,13 +108,10 @@ export function WorkflowContent() {
                                 </div>
 
                                 {/* Text Content */}
-                                <div className="flex flex-col text-left lg:text-center">
-                                    <h3 className="text-lg font-black text-black mb-1 lg:mb-2 italic uppercase tracking-tight leading-none">
-                                        {t(step.key).replace(/^\d+\.\s*/, '')}
+                                <div className="flex flex-col text-left lg:text-center w-full">
+                                    <h3 className="text-base lg:text-lg font-black text-black mb-1 lg:mb-0 italic uppercase tracking-tight leading-tight">
+                                        {t(step.key)}
                                     </h3>
-                                    <p className="text-black/75 text-xs lg:text-sm font-semibold leading-relaxed max-w-[280px] lg:mx-auto">
-                                        {t(`${step.key}Desc`)}
-                                    </p>
                                 </div>
                             </motion.div>
                         ))}
