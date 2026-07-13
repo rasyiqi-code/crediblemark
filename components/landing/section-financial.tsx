@@ -43,7 +43,7 @@ export async function FinancialLogic() {
                 </div>
 
                 <ScrollHint variant="inverted" className="gap-6 lg:grid lg:grid-cols-2 lg:gap-8 lg:items-stretch lg:max-w-5xl lg:mx-auto lg:overflow-visible lg:pb-0 px-6 md:px-0">
-                    
+
                     {/* Card A: Masalah Saat Ini */}
                     <div className="relative group flex-shrink-0 w-[82vw] md:w-[450px] lg:w-full snap-center">
                         <div className="h-full bg-white border border-black/15 rounded-[2.5rem] p-6 md:p-10 relative overflow-hidden transition-all duration-500 hover:scale-[1.01] shadow-2xl">

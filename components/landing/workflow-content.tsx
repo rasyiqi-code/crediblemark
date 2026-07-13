@@ -60,13 +60,13 @@ export function WorkflowContent() {
             >
                 {/* Header */}
                 <motion.div variants={itemVariants} className="text-center flex flex-col items-center">
-                    <div className="px-4 py-1.5 rounded-full bg-black/10 border border-black/5 text-black text-[10px] font-black uppercase tracking-[0.2em] mb-4 shadow-sm backdrop-blur-sm">
+                    <div className="px-4 py-1.5 rounded-full bg-brand-yellow/10 border border-brand-yellow/25 text-brand-yellow text-[10px] font-black uppercase tracking-[0.2em] mb-4 shadow-sm backdrop-blur-sm">
                         {t("badge")}
                     </div>
-                    <h2 className="text-3xl md:text-5xl font-black text-black mb-4 tracking-tighter italic leading-tight">
+                    <h2 className="text-3xl md:text-5xl font-black text-white mb-4 tracking-tighter italic leading-tight">
                         {t("title")}
                     </h2>
-                    <p className="text-black/80 font-bold max-w-2xl mx-auto text-base md:text-lg">{t("subtitle")}</p>
+                    <p className="text-zinc-400 font-medium max-w-2xl mx-auto text-base md:text-lg">{t("subtitle")}</p>
                 </motion.div>
 
                 {/* Timeline wrapper */}
@@ -77,7 +77,7 @@ export function WorkflowContent() {
                         whileInView={{ scaleX: 1, opacity: 1 }}
                         viewport={{ once: true }}
                         transition={{ duration: 1.2, delay: 0.4 }}
-                        className="absolute top-[40px] left-[10%] right-[10%] h-0.5 bg-black/10 origin-left hidden lg:block"
+                        className="absolute top-[40px] left-[10%] right-[10%] h-0.5 bg-white/10 origin-left hidden lg:block"
                     />
 
                     {/* Scroll wrapper mobile */}
@@ -91,7 +91,7 @@ export function WorkflowContent() {
                                     className="relative flex flex-col items-center gap-3 w-28 lg:flex-1 lg:w-auto shrink-0"
                                 >
                                     {/* Circle & Icon */}
-                                    <div className="w-16 h-16 lg:w-20 lg:h-20 bg-black border-4 border-black/10 rounded-full flex items-center justify-center relative z-10 shadow-xl group hover:scale-105 transition-all duration-500">
+                                    <div className="w-16 h-16 lg:w-20 lg:h-20 bg-zinc-900 border-4 border-white/5 rounded-full flex items-center justify-center relative z-10 shadow-xl group hover:scale-105 transition-all duration-500">
                                         <step.icon className="w-6 h-6 lg:w-8 lg:h-8 text-brand-yellow group-hover:scale-110 transition-transform" />
                                         {/* Number Badge */}
                                         <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-brand-yellow text-black border-2 border-black flex items-center justify-center text-[10px] font-black">
@@ -100,7 +100,7 @@ export function WorkflowContent() {
                                     </div>
 
                                     {/* Text */}
-                                    <h3 className="text-[11px] lg:text-sm font-black text-black italic uppercase tracking-tight leading-tight text-center">
+                                    <h3 className="text-[11px] lg:text-sm font-black text-zinc-300 group-hover:text-brand-yellow transition-colors italic uppercase tracking-tight leading-tight text-center">
                                         {t(step.key)}
                                     </h3>
                                 </motion.div>
