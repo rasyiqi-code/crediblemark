@@ -45,10 +45,10 @@ export function FAQSection() {
                     viewport={{ once: true }}
                     className="mb-10 md:mb-16 flex flex-col items-center text-center"
                 >
-                    <h2 className="text-4xl md:text-6xl font-black text-black tracking-tight leading-none mb-6">
+                    <h2 className="text-2xl md:text-3xl font-black text-black tracking-tight leading-snug mb-3">
                         {t("title")}
                     </h2>
-                    <p className="text-black/80 font-bold text-lg md:text-xl leading-relaxed max-w-2xl mx-auto text-balance">
+                    <p className="text-black/60 font-medium text-sm leading-relaxed max-w-xl mx-auto">
                         {t("subtitle")}
                     </p>
                 </motion.div>
