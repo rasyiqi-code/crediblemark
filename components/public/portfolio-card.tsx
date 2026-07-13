@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { ExternalLink, Maximize2, Github, Smartphone, Monitor, Code } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 
 interface PortfolioCardProps {
     title: string;
@@ -15,30 +15,37 @@ interface PortfolioCardProps {
     imageUrl?: string;
 }
 
-// Style CSS untuk menyembunyikan scrollbar di preview iframe
-const PREVIEW_HIDE_SCROLLBAR = `<style>body { scrollbar-width: none; -ms-overflow-style: none; } body::-webkit-scrollbar { display: none; }</style>`;
-
-function buildSrcDoc(content: string): string {
-    if (!content) return "<html><body style='background: #f8fafc'></body></html>";
-
-    const trimmed = content.trim();
-    const isFullDocument = /^<!doctype\s+html|^<html[\s>]/i.test(trimmed);
-
-    if (isFullDocument) {
-        if (/<head[\s>]/i.test(trimmed)) {
-            return trimmed.replace(/<head([^>]*)>/i, `<head$1>${PREVIEW_HIDE_SCROLLBAR}`);
-        }
-        return trimmed.replace(/<html([^>]*)>/i, `<html$1><head>${PREVIEW_HIDE_SCROLLBAR}</head>`);
-    }
-
-    return `<html><head>${PREVIEW_HIDE_SCROLLBAR}</head><body>${content}</body></html>`;
-}
-
 export function PortfolioCard({ title, slug, html, externalUrl, imageUrl, description, category }: PortfolioCardProps) {
     const t = useTranslations("Portfolio");
     const previewUrl = `/view-design/${slug}`;
     
-    // Determine icon and CTA based on category
+    // State image dinamis dengan target utama: imageUrl -> gambar lokal -> fallback GitHub / Placeholder
+    const [imgSrc, setImgSrc] = useState<string>(() => {
+        if (imageUrl) return imageUrl;
+        return `/portfolio/${slug}.jpg`; // Coba cari gambar lokal
+    });
+
+    const [hasError, setHasError] = useState(false);
+
+    const handleImageError = () => {
+        if (hasError) return; // Mencegah looping tak terbatas jika fallback juga error
+        setHasError(true);
+
+        // Jika link eksternal adalah repositori GitHub, fallback ke GitHub Social Preview Image
+        if (externalUrl && externalUrl.includes("github.com")) {
+            const match = externalUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/);
+            if (match) {
+                const owner = match[1];
+                const repo = match[2].replace(/\.git$/, "");
+                setImgSrc(`https://opengraph.githubassets.com/1/${owner}/${repo}`);
+                return;
+            }
+        }
+        // Jika bukan github, fallback ke gambar placeholder default yang premium
+        setImgSrc("/images/placeholder-portfolio.jpg");
+    };
+
+    // Tentukan icon & CTA berdasarkan kategori
     const isGithub = category?.toLowerCase().includes("github");
     const isAndroid = category?.toLowerCase().includes("android") || category?.toLowerCase().includes("mobile");
     const isDesktop = category?.toLowerCase().includes("desktop") || category?.toLowerCase().includes("windows") || category?.toLowerCase().includes("mac");
@@ -48,32 +55,20 @@ export function PortfolioCard({ title, slug, html, externalUrl, imageUrl, descri
 
     return (
         <div className="group relative bg-zinc-950/40 border border-white/5 rounded-2xl flex flex-col overflow-hidden hover:border-brand-yellow/30 transition-all duration-700 shadow-2xl hover:shadow-brand-yellow/5 backdrop-blur-sm">
-            {/* Main Visual Area */}
+            {/* Main Visual Area (Only Thumbnails - No heavy iframes) */}
             <div className="p-3">
                 <div className="w-full aspect-[4/3] rounded-xl overflow-hidden border border-white/5 bg-zinc-900 relative group/preview shadow-2xl">
-                    {imageUrl ? (
-                        <Image
-                            src={imageUrl}
-                            alt={title}
-                            fill
-                            className="object-cover transition-transform duration-1000 group-hover/preview:scale-110 opacity-80 group-hover:opacity-100"
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        />
-                    ) : (
-                        <div className="absolute inset-0 origin-top-left w-[400%] h-[400%] scale-[0.25] pointer-events-none select-none opacity-80 group-hover:opacity-100 transition-opacity duration-700">
-                            <iframe
-                                src={externalUrl && !html ? externalUrl : undefined}
-                                srcDoc={html ? buildSrcDoc(html) : undefined}
-                                className="w-full h-full border-none overflow-hidden"
-                                title={title}
-                                scrolling="no"
-                                sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
-                            />
-                        </div>
-                    )}
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                        src={imgSrc}
+                        alt={title}
+                        onError={handleImageError}
+                        className="w-full h-full object-cover transition-transform duration-1000 group-hover/preview:scale-110 opacity-80 group-hover:opacity-100"
+                        loading="lazy"
+                    />
                     
                     {/* Dark Overlay Gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-700" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-700 pointer-events-none" />
 
                     {/* Floating Expand Button */}
                     <Link
@@ -84,7 +79,7 @@ export function PortfolioCard({ title, slug, html, externalUrl, imageUrl, descri
                     </Link>
 
                     {/* Live Indicator Badge */}
-                    <div className="absolute bottom-4 left-4 flex items-center gap-2 px-3 py-1.5 bg-black/40 backdrop-blur-xl rounded-full border border-white/10 shadow-lg">
+                    <div className="absolute bottom-4 left-4 flex items-center gap-2 px-3 py-1.5 bg-black/40 backdrop-blur-xl rounded-full border border-white/10 shadow-lg pointer-events-none">
                         <span className="relative flex h-2 w-2">
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-yellow opacity-75"></span>
                             <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-yellow"></span>
@@ -139,4 +134,3 @@ export function PortfolioCard({ title, slug, html, externalUrl, imageUrl, descri
         </div>
     );
 }
-
