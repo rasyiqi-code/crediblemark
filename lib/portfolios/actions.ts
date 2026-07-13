@@ -52,7 +52,7 @@ async function fetchGithubReposReal(): Promise<PortfolioItem[]> {
             id: repo.id.toString(),
             title: repo.name.split("-").map((word: string) => word.charAt(0).toUpperCase() + word.slice(1)).join(" "),
             slug: repo.name,
-            category: "GitHub " + (repo.language || "Repository"),
+            category: "GitHub",
             description: repo.description || "No description provided.",
             externalUrl: repo.html_url,
             imageUrl: undefined,

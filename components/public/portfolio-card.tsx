@@ -102,8 +102,8 @@ export function PortfolioCard({ title, slug, html, externalUrl, imageUrl, descri
     const Icon = isGithub ? Github : isAndroid ? Smartphone : isDesktop ? Monitor : Code;
     const ctaText = isGithub ? t("viewRepo") : (isAndroid || isDesktop) ? t("getApp") : t("viewCase");
 
-    // Ekstrak language dari category (misal "GitHub TypeScript" -> "TypeScript")
-    const langLabel = isGithubSource && category ? category.replace(/^github\s*/i, "").trim() : null;
+    // Ekstrak language dari description untuk card GitHub (opsional)
+    const langLabel = null;
 
     return (
         <div className={`group relative border rounded-2xl flex flex-col overflow-hidden transition-all duration-700 shadow-xl backdrop-blur-sm ${
