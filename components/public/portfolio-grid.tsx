@@ -85,10 +85,10 @@ export function PortfolioGrid({ items }: PortfolioGridProps) {
 
             {/* Category Filter Bar */}
             {categories.length > 1 && (
-                <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
+                <div className="flex items-center gap-2 mb-10 overflow-x-auto pb-1 no-scrollbar">
                     <button
                         onClick={() => setActiveCategory("all")}
-                        className={`px-4 py-1.5 rounded-full text-xs font-bold tracking-wide transition-all duration-300 border ${activeCategory === "all"
+                        className={`shrink-0 px-4 py-1.5 rounded-full text-xs font-bold tracking-wide transition-all duration-300 border ${activeCategory === "all"
                             ? "text-white border-white/30 shadow-lg"
                             : "text-zinc-400 border-white/10 hover:text-white hover:border-white/20"
                             }`}
@@ -101,7 +101,7 @@ export function PortfolioGrid({ items }: PortfolioGridProps) {
                         <button
                             key={cat}
                             onClick={() => setActiveCategory(cat)}
-                            className={`px-4 py-1.5 rounded-full text-xs font-bold tracking-wide transition-all duration-300 border ${activeCategory === cat
+                            className={`shrink-0 px-4 py-1.5 rounded-full text-xs font-bold tracking-wide transition-all duration-300 border ${activeCategory === cat
                                  ? "text-white border-white/30 shadow-lg"
                                  : "text-zinc-400 border-white/10 hover:text-white hover:border-white/20"
                                  }`}
