@@ -26,7 +26,7 @@ export function FAQSection() {
     const questionKeys = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8'];
 
     return (
-        <section className="py-16 md:py-24 bg-[#EFBF04] relative">
+        <section className="py-16 md:py-24 bg-brand-yellow relative">
             {/* Pola background mesh/crosshatch */}
             <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
                 <div className="absolute inset-0 opacity-[0.05] [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_80%)]"

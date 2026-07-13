@@ -59,7 +59,7 @@ const config = {
                     '5': 'hsl(var(--chart-5))'
                 },
                 brand: {
-                    yellow: '#FED700',
+                    yellow: '#EFBF04',
                     grey: '#C4C4C4'
                 }
             },
