@@ -17,35 +17,48 @@ export interface PortfolioItem {
     createdAt: Date | string;
 }
 
-const STATIC_FALLBACK_PORTFOLIOS: PortfolioItem[] = [
-    {
-        id: "static-1",
-        title: "Crediblemark Digital Agent Platform",
-        slug: "crediblemark-agent",
-        category: "Website & AI Agent Integrations",
-        description: "Platform konsultasi dan otomasi alur kerja digital berbasis Next.js dan AI agent modern.",
-        externalUrl: "https://github.com/rasyiqi/crediblemark",
-        createdAt: new Date().toISOString()
-    },
-    {
-        id: "static-2",
-        title: "E-Commerce System Automation",
-        slug: "ecommerce-automation",
-        category: "Backend Services & APIs",
-        description: "Otomasi sinkronisasi stok, transaksi penjualan, dan pelaporan keuangan real-time.",
-        externalUrl: "https://github.com/rasyiqi/wordpress",
-        createdAt: new Date().toISOString()
-    },
-    {
-        id: "static-3",
-        title: "Business Process Management Portal",
-        slug: "bpm-portal",
-        category: "Internal Tooling & Systems",
-        description: "Sistem manajemen misi, quotation, invoicing, dan portal client terpadu.",
-        externalUrl: "https://github.com/rasyiqi/portfolio",
-        createdAt: new Date().toISOString()
+async function fetchGithubReposReal(): Promise<PortfolioItem[]> {
+    const headers: HeadersInit = {
+        Accept: "application/vnd.github.v3+json",
+    };
+    if (process.env.GITHUB_PAT) {
+        headers["Authorization"] = `token ${process.env.GITHUB_PAT}`;
     }
-];
+
+    try {
+        // Fetch dari user rasyiqi-code
+        const resUser = await fetch("https://api.github.com/users/rasyiqi-code/repos?sort=updated&per_page=10", {
+            headers,
+            next: { revalidate: 3600 } // Cache 1 jam
+        });
+        const reposUser = resUser.ok ? await resUser.json() : [];
+
+        // Fetch dari org crediblemark-official
+        const resOrg = await fetch("https://api.github.com/orgs/crediblemark-official/repos?sort=updated&per_page=10", {
+            headers,
+            next: { revalidate: 3600 } // Cache 1 jam
+        });
+        const reposOrg = resOrg.ok ? await resOrg.json() : [];
+
+        // Gabungkan
+        const allRepos = [...reposOrg, ...reposUser];
+
+        // Map ke PortfolioItem
+        return allRepos.map((repo: any) => ({
+            id: repo.id.toString(),
+            title: repo.name.split("-").map((word: string) => word.charAt(0).toUpperCase() + word.slice(1)).join(" "),
+            slug: repo.name,
+            category: "GitHub " + (repo.language || "Repository"),
+            description: repo.description || "No description provided.",
+            externalUrl: repo.html_url,
+            imageUrl: undefined,
+            createdAt: repo.created_at
+        }));
+    } catch (error) {
+        console.error("[Portfolios] GitHub API fetch failed:", error);
+        return [];
+    }
+}
 
 export async function getPortfolios(): Promise<PortfolioItem[]> {
     return unstable_cache(
@@ -68,12 +81,12 @@ export async function getPortfolios(): Promise<PortfolioItem[]> {
                 });
                 
                 if (!portfolios || portfolios.length === 0) {
-                    return STATIC_FALLBACK_PORTFOLIOS;
+                    return await fetchGithubReposReal();
                 }
                 return portfolios as unknown as PortfolioItem[];
             } catch {
-                console.error("[Portfolios] Failed to fetch from DB, using static fallback");
-                return STATIC_FALLBACK_PORTFOLIOS;
+                console.error("[Portfolios] Failed to fetch from DB, falling back to GitHub API");
+                return await fetchGithubReposReal();
             }
         },
         ["portfolios-list"],
