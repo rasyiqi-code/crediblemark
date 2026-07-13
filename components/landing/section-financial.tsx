@@ -34,7 +34,7 @@ export async function FinancialLogic() {
                     <span className="text-[10px] font-black tracking-widest text-black/60 bg-black/5 border border-black/10 rounded-full px-3.5 py-1.5 mb-6 uppercase inline-block">
                         {t("badge", { defaultValue: "KENALI MASALAHNYA" })}
                     </span>
-                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-black mb-4 tracking-tighter leading-none">
+                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-black mb-4 tracking-tighter leading-[1.1]">
                         {t("title")}
                     </h2>
                     <p className="text-black/80 font-bold text-base md:text-lg max-w-2xl mx-auto text-balance">
