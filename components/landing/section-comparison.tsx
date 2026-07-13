@@ -41,7 +41,7 @@ export async function Comparison() {
                     {benefits.map((benefit, idx) => (
                         <div
                             key={idx}
-                            className="group relative bg-black/80 backdrop-blur-sm rounded-2xl p-6 border border-white/5 hover:border-brand-yellow/40 transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/30 flex flex-col gap-4 overflow-hidden"
+                            className="group relative bg-black rounded-2xl p-6 border border-white/5 hover:border-brand-yellow/40 transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/30 flex flex-col gap-4 overflow-hidden"
                         >
                             {/* Nomor urut samar di background */}
                             <span className="absolute top-4 right-5 text-6xl font-black text-white/[0.04] select-none leading-none pointer-events-none">
