@@ -1,8 +1,8 @@
-import { getPortfolios } from "@/lib/portfolios/actions";
+import { getDbPortfolios } from "@/lib/portfolios/actions";
 import { PortfolioManager } from "@/components/admin/portfolio/portfolio-manager";
 
 export default async function AdminPortfolioPage() {
-    const portfolios = await getPortfolios();
+    const portfolios = await getDbPortfolios();
 
     return (
         <div className="relative min-h-screen">

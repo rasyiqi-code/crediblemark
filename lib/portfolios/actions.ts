@@ -107,6 +107,39 @@ export async function getPortfolios(): Promise<PortfolioItem[]> {
     )();
 }
 
+/**
+ * Khusus untuk admin: hanya mengambil portfolio dari database (tanpa GitHub repos).
+ */
+export async function getDbPortfolios(): Promise<PortfolioItem[]> {
+    try {
+        const portfolios = await prisma.portfolio.findMany({
+            take: 100,
+            orderBy: { createdAt: "desc" },
+            select: {
+                id: true,
+                title: true,
+                slug: true,
+                category: true,
+                description: true,
+                externalUrl: true,
+                imageUrl: true,
+                createdAt: true,
+            }
+        });
+        return portfolios.map(p => ({
+            ...p,
+            category: p.category ?? "",
+            description: p.description ?? undefined,
+            externalUrl: p.externalUrl ?? undefined,
+            imageUrl: p.imageUrl ?? undefined,
+            source: "database" as const
+        }));
+    } catch {
+        console.error("[Portfolios] getDbPortfolios: DB connection failed");
+        return [];
+    }
+}
+
 export async function getPortfolioHtml(slug: string): Promise<string> {
     return unstable_cache(
         async () => {
