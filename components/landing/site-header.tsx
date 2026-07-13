@@ -154,21 +154,24 @@ export async function SiteHeader() {
             {/* Mobile Sub-Header Navigation - Sticky */}
             <div className="sticky top-0 z-40 md:hidden border-b border-white/5 bg-[#0a0a0a] overflow-x-auto no-scrollbar mask-gradient-x">
                 <div className="flex items-center gap-6 px-6 h-10 w-max mx-auto min-w-full">
-                    <Link href={`/${locale}#solusi-web`} className="text-sm font-bold text-sky-500 hover:text-sky-400 transition-colors duration-200 cursor-pointer whitespace-nowrap">
-                        {t("solutions")}
+                    <Link href={`/${locale}/services`} className="text-sm font-bold text-sky-500 hover:text-sky-400 transition-colors duration-200 cursor-pointer whitespace-nowrap">
+                        {t("services")}
                     </Link>
-                    <Link href={`/${locale}#cara-kerja`} className="text-sm font-bold text-zinc-400 hover:text-white transition-colors duration-200 cursor-pointer whitespace-nowrap">
-                        {t("workflow")}
+                    <Link href={`/${locale}/wordpress`} className="text-sm font-bold text-violet-400 hover:text-violet-300 transition-colors duration-200 cursor-pointer whitespace-nowrap">
+                        {t("wordpress")}
                     </Link>
-                    <Link href={`/${locale}#studi-kasus`} className="text-sm font-bold text-zinc-400 hover:text-white transition-colors duration-200 cursor-pointer whitespace-nowrap">
-                        {t("cases")}
+                    <Link href={`/${locale}/web-repair`} className="text-sm font-bold text-amber-500 hover:text-amber-400 transition-colors duration-200 cursor-pointer whitespace-nowrap">
+                        {t("webRepair")}
                     </Link>
-                    <Link href={`/${locale}#pendekatan-kami`} className="text-sm font-bold text-zinc-400 hover:text-white transition-colors duration-200 cursor-pointer whitespace-nowrap">
-                        {t("about")}
+                    <Link href="/promosi" className="text-sm font-bold text-brand-yellow hover:text-brand-yellow/80 transition-colors duration-200 cursor-pointer whitespace-nowrap">
+                        {t("promo")}
                     </Link>
                     <a href={blogUrl} target="_blank" rel="noopener noreferrer" className="text-sm font-bold text-zinc-400 hover:text-white transition-colors duration-200 cursor-pointer whitespace-nowrap">
                         {t("insight")}
                     </a>
+                    <Link href={`/${locale}/portfolio`} className="text-sm font-bold text-zinc-400 hover:text-white transition-colors duration-200 cursor-pointer whitespace-nowrap">
+                        Portfolio
+                    </Link>
                     <Link href={`/${locale}/price-calculator`} className="text-sm font-bold text-emerald-500 hover:text-emerald-400 transition-colors duration-200 cursor-pointer whitespace-nowrap">
                         {t("priceCalculator")}
                     </Link>
