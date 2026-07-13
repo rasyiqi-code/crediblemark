@@ -203,26 +203,27 @@
     "Financial": {
         "title": "Apakah Proses Bisnis Anda Masih Seperti Ini?",
         "subtitle": "Banyak masalah operasional tidak disebabkan oleh tim, tetapi oleh sistem kerja yang belum terhubung.",
-        "problemsTitle": "Masalah yang sering terjadi",
+        "problemsTitle": "Kondisi yang Sering Terjadi",
         "solutionsTitle": "Setelah sistem diterapkan",
         "cta": "Diskusikan Masalah Bisnis Anda",
         "problems": [
-            "Data tersebar di Excel, WhatsApp, dan dokumen terpisah.",
-            "Tim melakukan input data yang sama berulang kali.",
-            "Laporan membutuhkan waktu lama untuk dibuat.",
-            "Stok, transaksi, atau progres pekerjaan sulit dipantau.",
-            "Website sudah ada tetapi belum menghasilkan calon pelanggan.",
-            "Sistem yang digunakan tidak sesuai dengan proses bisnis."
+            "Data tersebar di file, chat, dan aplikasi terpisah.",
+            "Tim memasukkan data yang sama berulang kali.",
+            "Penyusunan laporan membutuhkan waktu lama.",
+            "Stok, transaksi, dan progres sulit dipantau.",
+            "Website belum menghasilkan calon pelanggan.",
+            "Sistem tidak sesuai dengan alur kerja bisnis."
         ],
         "results": [
-            "Data tersimpan dalam satu sistem.",
-            "Progres dapat dipantau lebih mudah.",
-            "Laporan tersedia lebih cepat.",
-            "Pekerjaan berulang dapat diotomasi.",
-            "Akses pengguna lebih terkontrol.",
-            "Keputusan menggunakan data yang sama."
+            "Data terpusat dan dapat diakses dari satu sistem.",
+            "Input berulang dikurangi melalui automasi alur kerja.",
+            "Laporan tersusun lebih cepat dari sumber data yang sama.",
+            "Stok, transaksi, dan progres terlihat lebih jelas.",
+            "Website diarahkan untuk mendukung perolehan prospek.",
+            "Sistem dan proses kerja diselaraskan sesuai kebutuhan."
         ],
-        "badge": "KENALI MASALAHNYA"
+        "badge": "KENALI MASALAHNYA",
+        "resultsTitle": "Perubahan yang Ingin Dicapai"
     },
     "Guarantee": {
         "badge": "PERLINDUNGAN FASE AWAL",

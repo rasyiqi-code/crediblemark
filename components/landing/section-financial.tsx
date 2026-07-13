@@ -55,13 +55,13 @@ export async function FinancialLogic() {
                                     <h3 className="text-xl font-extrabold text-black tracking-tight">{t("problemsTitle")}</h3>
                                 </div>
 
-                                <div className="space-y-4">
+                                <div className="space-y-0.5">
                                     {problems.map((prob, idx) => (
-                                        <div key={idx} className="flex items-start gap-3 group/item">
-                                            <div className="w-5 h-5 rounded-full bg-red-500/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                        <div key={idx} className="flex items-center gap-3 group/item min-h-[48px] py-2 border-b border-black/5 last:border-0">
+                                            <div className="w-5 h-5 rounded-full bg-red-500/10 flex items-center justify-center flex-shrink-0 shadow-sm">
                                                 <X className="w-3 h-3 text-red-600" strokeWidth={3} />
                                             </div>
-                                            <span className="text-zinc-800 text-sm md:text-base font-semibold leading-relaxed">{prob}</span>
+                                            <span className="text-zinc-800 text-xs sm:text-sm md:text-base font-semibold leading-[1.3] flex-1">{prob}</span>
                                         </div>
                                     ))}
                                 </div>
@@ -77,16 +77,16 @@ export async function FinancialLogic() {
                                     <div className="w-10 h-10 rounded-xl bg-brand-yellow/10 flex items-center justify-center flex-shrink-0">
                                         <Sparkles className="w-5 h-5 text-brand-yellow" />
                                     </div>
-                                    <h3 className="text-xl font-extrabold text-white tracking-tight">{t("solutionsTitle")}</h3>
+                                    <h3 className="text-xl font-extrabold text-white tracking-tight">{t("resultsTitle")}</h3>
                                 </div>
 
-                                <div className="space-y-4">
+                                <div className="space-y-0.5">
                                     {results.map((res, idx) => (
-                                        <div key={idx} className="flex items-start gap-3 group/item">
-                                            <div className="w-5 h-5 rounded-full bg-brand-yellow flex items-center justify-center flex-shrink-0 mt-0.5 shadow-lg shadow-brand-yellow/20">
+                                        <div key={idx} className="flex items-center gap-3 group/item min-h-[48px] py-2 border-b border-white/5 last:border-0">
+                                            <div className="w-5 h-5 rounded-full bg-brand-yellow flex items-center justify-center flex-shrink-0 shadow-lg shadow-brand-yellow/20">
                                                 <Check className="w-3 h-3 text-black" strokeWidth={3} />
                                             </div>
-                                            <span className="text-zinc-300 text-sm md:text-base font-semibold leading-relaxed">{res}</span>
+                                            <span className="text-zinc-300 text-xs sm:text-sm md:text-base font-semibold leading-[1.3] flex-1">{res}</span>
                                         </div>
                                     ))}
                                 </div>

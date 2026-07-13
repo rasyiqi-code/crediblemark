@@ -185,26 +185,27 @@
     "Financial": {
         "title": "Are Your Business Processes Still Like This?",
         "subtitle": "Many operational issues are not caused by the team, but by fragmented working systems.",
-        "problemsTitle": "Common Operational Problems",
+        "problemsTitle": "Common Situations",
         "solutionsTitle": "After Implementing the System",
         "cta": "Discuss Your Business Challenges",
         "problems": [
-            "Data scattered in Excel, WhatsApp, and separate documents.",
-            "Team performs redundant data entry tasks.",
-            "Reports take a long time to prepare.",
-            "Stocks, transactions, or operations are hard to monitor.",
-            "Website exists but does not generate leads.",
-            "Used systems do not fit actual business processes."
+            "Data is scattered in separate files, chats, and applications.",
+            "Teams enter the same data repeatedly.",
+            "Preparing reports takes a long time.",
+            "Inventory, transactions, and progress are difficult to monitor.",
+            "Websites are not generating leads yet.",
+            "Systems do not align with business workflows."
         ],
         "results": [
-            "Data stored in a single unified system.",
-            "Progress can be monitored more easily.",
-            "Reports are available faster.",
-            "Repetitive tasks are automated seamlessly.",
-            "User access is more controlled.",
-            "Decisions are made using the same unified data."
+            "Data is centralized and accessible from a single system.",
+            "Repeated inputs are reduced through workflow automation.",
+            "Reports are compiled faster from the same data source.",
+            "Inventory, transactions, and progress are clearly visible.",
+            "Websites are geared to support lead acquisition.",
+            "Systems and workflows are aligned with business needs."
         ],
-        "badge": "IDENTIFY THE PROBLEM"
+        "badge": "IDENTIFY THE PROBLEM",
+        "resultsTitle": "Desired Outcomes"
     },
     "Guarantee": {
         "badge": "EARLY STAGE PROTECTION",
