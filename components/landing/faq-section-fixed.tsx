@@ -10,9 +10,9 @@ import {
 } from "@/components/ui/accordion"
 import { useTranslations, useMessages } from "next-intl";
 import { motion } from "framer-motion";
-import { ArrowRight, Zap } from "lucide-react";
+import { ArrowRight, Compass } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
+
 import { useFloatingChat } from "@/lib/store/floating-chat-store";
 
 
@@ -76,40 +76,27 @@ export function FAQSection() {
                         <div className="absolute inset-0 bg-gradient-to-br from-brand-yellow/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                         
                         <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-brand-yellow flex items-center justify-center mb-6 shadow-[0_0_15px_rgba(254,215,0,0.2)] group-hover:scale-110 transition-transform duration-500">
-                            <Zap className="w-5 h-5 md:w-6 md:h-6 text-black fill-black" />
+                            <Compass className="w-5 h-5 md:w-6 md:h-6 text-black" />
                         </div>
 
-                        <h3 className="text-lg md:text-2xl font-black mb-4 tracking-tighter leading-tight italic uppercase">
-                            {t("ctaTitle")}
+                        <h3 className="text-lg md:text-xl font-black mb-4 tracking-tighter leading-tight italic uppercase">
+                            MASALAHNYA TERASA.<br />SOLUSINYA BELUM JELAS?
                         </h3>
-                        
+
                         <p className="text-zinc-400 font-medium mb-8 leading-relaxed text-[11px] md:text-sm">
-                            {t("ctaDesc")}
+                            Ceritakan proses yang ingin diperbaiki. Crediblemark akan membantu memetakan masalah, menentukan prioritas, dan menilai solusi digital yang paling relevan.
                         </p>
 
-                        <Button 
+                        <Button
                             className="w-full h-11 md:h-12 rounded-full bg-brand-yellow hover:bg-white text-black transition-all duration-300 font-black uppercase tracking-tighter flex items-center justify-center gap-2 group/btn text-[10px] md:text-xs pointer-events-none"
                         >
-                            {t("ctaButton")}
+                            Jadwalkan Diskusi Awal
                             <ArrowRight className="w-3 h-3 transition-transform group-hover/btn:translate-x-1" />
                         </Button>
 
-                        <div className="mt-6 pt-6 border-t border-white/10 w-full flex flex-row items-center justify-center gap-4">
-                            <div className="flex -space-x-2 shrink-0">
-                                {[1, 2, 3, 4].map((i) => (
-                                    <div key={i} className="w-6 h-6 rounded-full border-2 border-black bg-zinc-800 overflow-hidden relative">
-                                        <Image 
-                                            src={`/avatars/avatar-${i}.svg`} 
-                                            alt={`Client Avatar ${i}`} 
-                                            fill
-                                            className="object-cover" 
-                                            sizes="24px"
-                                        />
-                                    </div>
-                                ))}
-                            </div>
-
-                        </div>
+                        <p className="mt-4 text-[10px] text-zinc-600">
+                            30 menit &bull; Online &bull; Tanpa kewajiban memulai proyek
+                        </p>
                     </div>
 
                 </div>
