@@ -51,8 +51,8 @@ export async function DigitalSystemAudit() {
                     </div>
 
                     {/* Right: Blueprint Box Card */}
-                    <div className="w-full max-w-md lg:w-[45%] shrink-0">
-                        <div className="p-6 md:p-8 rounded-[2.5rem] bg-zinc-900/30 border border-white/5 backdrop-blur-xl relative overflow-hidden shadow-2xl">
+                    <div className="w-full lg:w-[52%] shrink-0">
+                        <div className="p-8 md:p-10 rounded-[2.5rem] bg-zinc-900/30 border border-white/5 backdrop-blur-xl relative overflow-hidden shadow-2xl">
                             <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-brand-yellow/10 to-transparent blur-2xl rounded-full" />
                             
                             <div className="flex items-center gap-3 border-b border-white/5 pb-4 mb-6">
