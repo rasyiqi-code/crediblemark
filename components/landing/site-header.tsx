@@ -93,24 +93,28 @@ export async function SiteHeader() {
                             )}
                         </Link>
                         <nav className="hidden md:flex items-center gap-3 lg:gap-6">
-                            {/* Dropdown Solusi - hanya layanan khusus */}
+                            {/* Dropdown Solusi */}
                             <div className="relative group">
                                 <button className="flex items-center gap-1 text-xs lg:text-sm font-bold text-sky-500 hover:text-sky-400 transition-colors duration-200 cursor-pointer whitespace-nowrap bg-transparent border-0 py-2">
                                     {t("solutions")}
                                     <ChevronDown className="w-3.5 h-3.5 transition-transform duration-300 group-hover:rotate-180" />
                                 </button>
                                 <div className="absolute left-0 mt-1 w-64 rounded-2xl bg-[#0a0a0a] border border-white/10 p-2 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 flex flex-col gap-0.5">
+                                    <Link href={`/${locale}/services`} className="block px-4 py-2 text-xs font-bold text-sky-400 hover:text-sky-300 hover:bg-white/5 rounded-xl transition-all">
+                                        {t("services")}
+                                    </Link>
+                                    <div className="my-1 border-t border-white/5" />
                                     <Link href={`/${locale}/wordpress`} className="block px-4 py-2 text-xs font-bold text-violet-400 hover:text-violet-300 hover:bg-white/5 rounded-xl transition-all">
                                         {t("wordpress")}
                                     </Link>
                                     <Link href={`/${locale}/web-repair`} className="block px-4 py-2 text-xs font-bold text-amber-500 hover:text-amber-400 hover:bg-white/5 rounded-xl transition-all">
                                         {t("webRepair")}
                                     </Link>
-                                    <Link href="/promosi" className="block px-4 py-2 text-xs font-bold text-brand-yellow hover:text-brand-yellow/90 hover:bg-white/5 rounded-xl transition-all">
-                                        {t("promo")}
-                                    </Link>
                                 </div>
                             </div>
+                            <Link href="/promosi" className="text-xs lg:text-sm font-bold text-brand-yellow hover:text-brand-yellow/80 transition-colors duration-200 cursor-pointer whitespace-nowrap">
+                                {t("promo")}
+                            </Link>
                             <a href={blogUrl} target="_blank" rel="noopener noreferrer" className="text-xs lg:text-sm font-bold text-zinc-400 hover:text-white transition-colors duration-200 cursor-pointer whitespace-nowrap">
                                 {t("insight")}
                             </a>
