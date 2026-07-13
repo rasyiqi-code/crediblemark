@@ -1,41 +1,49 @@
 import { ShieldCheck } from "lucide-react";
 import { getTranslations } from "next-intl/server";
+import { getSystemSettings } from "@/lib/server/settings";
 
 export async function SectionGuarantee() {
     const t = await getTranslations("Guarantee");
+    const settings = await getSystemSettings(["CONTACT_PHONE"]);
+    const contactPhone = settings.find(s => s.key === "CONTACT_PHONE")?.value;
+    const waUrl = contactPhone ? `https://wa.me/${contactPhone.replace(/[^0-9]/g, '')}?text=Halo%20Crediblemark%2C%20boleh%20saya%20tahu%20ketentuan%20garansi%20perlindungan%20fase%20awal%3F` : "#";
 
     return (
-        <section className="py-20 sm:py-32 bg-black relative overflow-hidden">
+        <section className="py-20 bg-zinc-950 border-t border-white/5 relative overflow-hidden">
             {/* Background Glow */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-brand-yellow/10 rounded-full blur-[120px] pointer-events-none" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-brand-yellow/5 rounded-full blur-[100px] pointer-events-none" />
             
-            <div className="container mx-auto px-4 text-center relative z-10">
-                <div className="max-w-4xl mx-auto">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-8 backdrop-blur-sm">
+            <div className="container mx-auto px-6 text-center relative z-10">
+                <div className="max-w-3xl mx-auto space-y-6">
+                    {/* Badge */}
+                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm mx-auto">
                         <ShieldCheck className="w-4 h-4 text-brand-yellow" />
                         <span className="text-[10px] sm:text-xs font-bold text-white uppercase tracking-widest">
-                            {t("title")}
+                            {t("badge")}
                         </span>
                     </div>
 
-                    <h2 className="text-3xl sm:text-6xl md:text-8xl font-black text-brand-yellow mb-8 tracking-tighter leading-[0.9] uppercase drop-shadow-[0_0_25px_rgba(254,215,0,0.4)]">
-                        {t("subtitle").split('\n')[0]}
-                        {t("subtitle").includes('\n') && (
-                            <span className="block text-base sm:text-2xl md:text-3xl font-medium text-white/50 lowercase tracking-normal mt-4">
-                                {t("subtitle").split('\n')[1]}
-                            </span>
-                        )}
+                    {/* Title */}
+                    <h2 className="text-2xl sm:text-4xl font-black text-brand-yellow tracking-tight leading-tight uppercase pt-2">
+                        {t("title")}
                     </h2>
 
-                    <p className="text-zinc-400 leading-relaxed max-w-xl mx-auto text-sm sm:text-base md:text-lg antialiased font-light">
+                    {/* Description */}
+                    <p className="text-zinc-400 leading-relaxed text-sm sm:text-base md:text-lg max-w-2xl mx-auto font-light">
                         {t("desc")}
                     </p>
 
-                    {t("footer") && (
-                        <p className="mt-8 text-zinc-400 text-xs sm:text-sm">
-                            {t("footer")}
-                        </p>
-                    )}
+                    {/* Link Terms */}
+                    <div className="pt-4">
+                        <a 
+                            href={waUrl} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="text-xs sm:text-sm font-bold text-brand-yellow hover:text-brand-yellow/80 underline decoration-brand-yellow/30 underline-offset-4 transition-all"
+                        >
+                            {t("cta")}
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>

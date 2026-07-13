@@ -1,117 +1,106 @@
-import { Check, X, Building2, Rocket } from "lucide-react";
+import { X, Check, AlertCircle, Sparkles } from "lucide-react";
 import { getTranslations } from "next-intl/server";
-
 import { getSystemSettings } from "@/lib/server/settings";
+import { Button } from "@/components/ui/button";
 import { ScrollHint } from "./scroll-hint";
 
 export async function FinancialLogic() {
     const t = await getTranslations("Financial");
-    // ⚡ Bolt: Use cached getSystemSettings instead of direct DB query
-    const settings = await getSystemSettings(["AGENCY_NAME"]);
+    const settings = await getSystemSettings(["AGENCY_NAME", "CONTACT_PHONE"]);
     const agencyName = settings.find(s => s.key === "AGENCY_NAME")?.value || "Crediblemark";
+    const contactPhone = settings.find(s => s.key === "CONTACT_PHONE")?.value;
+    const waUrl = contactPhone ? `https://wa.me/${contactPhone.replace(/[^0-9]/g, '')}?text=Halo%20Crediblemark%2C%20saya%20tertarik%20mendiskusikan%20masalah%20operasional%20bisnis%20saya` : "#";
+
+    // 6 masalah & 6 hasil
+    const problems = t.raw("problems") as string[];
+    const results = t.raw("results") as string[];
 
     return (
-        <section className="py-24 bg-brand-yellow relative overflow-hidden">
-            {/* Pola background dots yang premium (Dot Matrix) */}
-            <div className="absolute inset-0 z-0 opacity-[0.15] [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_75%)] pointer-events-none"
+        <section id="masalah-klien" className="py-24 bg-brand-yellow relative overflow-hidden">
+            {/* Pola background matrix dots */}
+            <div className="absolute inset-0 z-0 opacity-[0.12] [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_75%)] pointer-events-none"
                 style={{
                     backgroundImage: `radial-gradient(#000 1px, transparent 1px)`,
                     backgroundSize: '24px 24px'
                 }}
             />
 
-            {/* Elemen dekoratif blur (gelap untuk kedalaman) */}
+            {/* Ambient blur */}
             <div className="absolute top-1/4 left-0 w-64 h-64 bg-black/5 blur-[120px] rounded-full" />
             <div className="absolute bottom-1/4 right-0 w-64 h-64 bg-black/5 blur-[120px] rounded-full" />
 
-
             <div className="container mx-auto px-4 relative z-10">
-                <div className="text-center mb-12 relative">
-                    <h2 className="text-2xl md:text-4xl font-black text-black mb-4 tracking-tight inline-flex items-center gap-3 italic">
+                <div className="text-center mb-16 relative">
+                    <h2 className="text-3xl md:text-5xl font-black text-black mb-4 tracking-tight leading-tight">
                         {t("title")}
                     </h2>
-                    <p className="text-black/70 font-semibold text-base max-w-xl mx-auto">
+                    <p className="text-black/80 font-bold text-base md:text-lg max-w-2xl mx-auto text-balance">
                         {t("subtitle")}
                     </p>
                 </div>
 
-                <ScrollHint variant="inverted" className="gap-4 lg:grid lg:grid-cols-2 lg:gap-6 lg:items-stretch lg:max-w-4xl lg:mx-auto lg:overflow-visible lg:pb-0 px-6 md:px-0">
-                    {/* Card A: Typical Full-time Hire */}
-                    <div className="relative group flex-shrink-0 w-[78vw] md:w-[400px] lg:w-full snap-center">
-                        {/* Side Tab "01" */}
-                        <div className="absolute -left-3 top-1/2 -translate-y-1/2 hidden md:flex w-10 h-16 bg-zinc-100 border border-black/5 rounded-l-lg items-center justify-center shadow-2xl z-20">
-                            <span className="text-sm font-black text-black/60 rotate-180 [writing-mode:vertical-lr]">01</span>
-                        </div>
-
-                        <div className="h-full bg-white border border-black/15 rounded-[2rem] p-5 md:p-8 relative overflow-hidden transition-all duration-500 hover:scale-[1.01] shadow-2xl">
-
+                <ScrollHint variant="inverted" className="gap-6 lg:grid lg:grid-cols-2 lg:gap-8 lg:items-stretch lg:max-w-5xl lg:mx-auto lg:overflow-visible lg:pb-0 px-6 md:px-0">
+                    
+                    {/* Card A: Masalah Saat Ini */}
+                    <div className="relative group flex-shrink-0 w-[82vw] md:w-[450px] lg:w-full snap-center">
+                        <div className="h-full bg-white border border-black/15 rounded-[2.5rem] p-6 md:p-10 relative overflow-hidden transition-all duration-500 hover:scale-[1.01] shadow-2xl">
                             <div className="space-y-6 relative z-10">
-                                <div className="flex items-center gap-4">
-                                    <div className="w-10 h-10 rounded-xl bg-zinc-100 flex items-center justify-center border border-black/5 flex-shrink-0">
-                                        <Building2 className="w-5 h-5 text-black/60" />
+                                <div className="flex items-center gap-4 border-b border-black/5 pb-4">
+                                    <div className="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center flex-shrink-0">
+                                        <AlertCircle className="w-5 h-5 text-red-600 animate-pulse" />
                                     </div>
-                                    <h3 className="text-lg font-black text-black tracking-tighter leading-tight italic">{t("hireSenior")}</h3>
+                                    <h3 className="text-xl font-extrabold text-black tracking-tight">{t("problemsTitle")}</h3>
                                 </div>
 
-                                <div className="space-y-3 pt-1">
-                                    <div className="p-4 rounded-xl bg-red-500/5 border border-red-500/10">
-                                        <div className="text-xl font-black text-red-600 mb-0.5 tracking-tighter">{t("salaryOldValue")}</div>
-                                        <div className="text-[10px] text-black/75 font-black tracking-wide leading-none">{t("salaryOld")}</div>
-                                    </div>
-
-                                    <div className="space-y-2.5">
-                                        {[1, 2, 3, 4, 5, 6].map((i) => (
-                                            <div key={i} className="flex items-center gap-3 group/item">
-                                                <div className="w-5 h-5 rounded-full bg-red-500/10 flex items-center justify-center flex-shrink-0 group-hover/item:bg-red-500/20 transition-colors">
-                                                    <X className="w-3 h-3 text-red-600" strokeWidth={3} />
-                                                </div>
-                                                <span className="text-black/80 text-sm font-bold tracking-tight">{t(`comp${i}Old`)}</span>
+                                <div className="space-y-4">
+                                    {problems.map((prob, idx) => (
+                                        <div key={idx} className="flex items-start gap-3 group/item">
+                                            <div className="w-5 h-5 rounded-full bg-red-500/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                                <X className="w-3 h-3 text-red-600" strokeWidth={3} />
                                             </div>
-                                        ))}
-                                    </div>
+                                            <span className="text-zinc-800 text-sm md:text-base font-semibold leading-relaxed">{prob}</span>
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    {/* Card B: Agency (Strategic Partner) */}
-                    <div className="relative group flex-shrink-0 w-[78vw] md:w-[400px] lg:w-full snap-center">
-                        {/* Side Tab "02" */}
-                        <div className="absolute -right-3 top-1/2 -translate-y-1/2 hidden md:flex w-10 h-16 bg-black border border-white/5 rounded-r-lg items-center justify-center shadow-2xl z-20">
-                            <span className="text-sm font-black text-brand-yellow [writing-mode:vertical-lr]">02</span>
-                        </div>
-
-                        <div className="h-full bg-black border border-white/20 rounded-[2rem] p-5 md:p-8 relative overflow-hidden transition-all duration-500 hover:scale-[1.02] shadow-2xl ring-1 ring-white/10">
-
+                    {/* Card B: Hasil Dengan Sistem Crediblemark */}
+                    <div className="relative group flex-shrink-0 w-[82vw] md:w-[450px] lg:w-full snap-center">
+                        <div className="h-full bg-black border border-white/10 rounded-[2.5rem] p-6 md:p-10 relative overflow-hidden transition-all duration-500 hover:scale-[1.02] shadow-2xl ring-1 ring-white/5">
                             <div className="space-y-6 relative z-10">
-                                <div className="flex items-center justify-end gap-4">
-                                    <h3 className="text-lg font-black text-white tracking-tighter leading-tight italic text-right">{t("hybrid", { brand: agencyName })}</h3>
-                                    <div className="w-10 h-10 rounded-xl bg-brand-yellow/10 flex items-center justify-center border border-brand-yellow/20 shadow-inner flex-shrink-0">
-                                        <Rocket className="w-5 h-5 text-brand-yellow animate-pulse" />
+                                <div className="flex items-center gap-4 border-b border-white/10 pb-4">
+                                    <div className="w-10 h-10 rounded-xl bg-brand-yellow/10 flex items-center justify-center flex-shrink-0">
+                                        <Sparkles className="w-5 h-5 text-brand-yellow" />
                                     </div>
+                                    <h3 className="text-xl font-extrabold text-white tracking-tight">{t("solutionsTitle")}</h3>
                                 </div>
 
-                                <div className="space-y-3 pt-1">
-                                    <div className="p-4 rounded-xl bg-brand-yellow/10 border border-brand-yellow/20 shadow-lg shadow-brand-yellow/5">
-                                        <div className="text-xl font-black text-brand-yellow mb-0.5 tracking-tighter">{t("salaryNewValue")}</div>
-                                        <div className="text-[10px] text-brand-yellow/60 font-black tracking-wide leading-none">{t("salaryNew")}</div>
-                                    </div>
-
-                                    <div className="space-y-2.5">
-                                        {[1, 2, 3, 4, 5, 6].map((i) => (
-                                            <div key={i} className="flex items-center gap-3 justify-end group/item text-right">
-                                                <span className="text-zinc-300 text-sm font-black tracking-tight">{t(`comp${i}New`)}</span>
-                                                <div className="w-5 h-5 rounded-full bg-brand-yellow flex items-center justify-center flex-shrink-0 shadow-lg shadow-brand-yellow/20">
-                                                    <Check className="w-3 h-3 text-black" strokeWidth={3} />
-                                                </div>
+                                <div className="space-y-4">
+                                    {results.map((res, idx) => (
+                                        <div key={idx} className="flex items-start gap-3 group/item">
+                                            <div className="w-5 h-5 rounded-full bg-brand-yellow flex items-center justify-center flex-shrink-0 mt-0.5 shadow-lg shadow-brand-yellow/20">
+                                                <Check className="w-3 h-3 text-black" strokeWidth={3} />
                                             </div>
-                                        ))}
-                                    </div>
+                                            <span className="text-zinc-300 text-sm md:text-base font-semibold leading-relaxed">{res}</span>
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </ScrollHint>
+
+                {/* CTA Button di bawah */}
+                <div className="mt-12 flex justify-center">
+                    <a href={waUrl} target="_blank" rel="noopener noreferrer">
+                        <Button className="h-14 px-8 rounded-full bg-black hover:bg-zinc-900 text-brand-yellow font-extrabold tracking-tight shadow-2xl transition-all hover:scale-105 active:scale-95 border border-white/5 flex items-center gap-2 group">
+                            {t("cta")}
+                        </Button>
+                    </a>
+                </div>
             </div>
         </section>
     );

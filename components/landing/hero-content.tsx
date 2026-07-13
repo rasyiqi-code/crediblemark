@@ -14,9 +14,10 @@ import { useFloatingChat } from "@/lib/store/floating-chat-store";
 
 interface HeroContentProps {
     agencyName: string;
+    waUrl: string;
 }
 
-export function HeroContent({ agencyName }: HeroContentProps) {
+export function HeroContent({ agencyName, waUrl }: HeroContentProps) {
     const t = useTranslations("Hero");
     const { setIsMenuOpen } = useFloatingChat();
 
@@ -55,69 +56,54 @@ export function HeroContent({ agencyName }: HeroContentProps) {
                         <div className="flex flex-col gap-4">
                             {/* Status Widget */}
                             <div className="flex justify-center lg:justify-start animate-hero-fade-up">
-                                <Link href="/price-calculator">
-                                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-yellow/10 border border-brand-yellow/20 text-brand-yellow text-sm font-medium hover:bg-brand-yellow/20 transition-colors cursor-pointer w-fit">
-                                        <span className="relative flex h-2 w-2">
-                                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-yellow opacity-75"></span>
-                                            <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-yellow"></span>
-                                        </span>
-                                        {t("statusBadge", { brand: agencyName })}
-                                    </div>
-                                </Link>
+                                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-yellow/10 border border-brand-yellow/20 text-brand-yellow text-xs font-black tracking-wider w-fit">
+                                    <span className="relative flex h-2 w-2">
+                                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-yellow opacity-75"></span>
+                                        <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-yellow"></span>
+                                    </span>
+                                    {t("statusBadge")}
+                                </div>
                             </div>
 
                             <div
                                 className="relative space-y-4 animate-hero-fade-up animation-delay-100"
                             >
-                                <h1 className="text-4xl md:text-6xl xl:text-7xl font-bold tracking-tight leading-[1.1]">
-                                    <TypingHeroTitle
-                                        prefix={t("title1")}
-                                        targets={t.raw("typing.build")}
-                                        mode="typing"
-                                        onStateChange={setTypingStatus}
-                                    />
+                                <h1 className="text-4xl md:text-6xl xl:text-7xl font-extrabold tracking-tight leading-[1.1] text-white">
+                                    {t("title")}
                                 </h1>
-                                <div className="text-2xl md:text-4xl xl:text-5xl font-semibold tracking-tight leading-[1.1] opacity-80">
-                                    <TypingHeroTitle
-                                        prefix={t("forYour")}
-                                        targets={t.raw("typing.audience")}
-                                        mode="rapid"
-                                        isPaused={typingStatus !== "full"}
-                                    />
-                                </div>
                             </div>
                         </div>
 
                         <p
                             className="text-lg md:text-xl text-zinc-400 leading-relaxed animate-hero-fade-up animation-delay-200"
                         >
-                            {t.rich("description", {
-                                white: (chunks: React.ReactNode) => <span className="text-white font-semibold">{chunks}</span>,
-                                brand: agencyName
-                            })}
+                            {t("description")}
                         </p>
 
                         <div
-                            className="flex flex-col gap-4 pt-4 animate-hero-fade-up animation-delay-300"
+                            className="flex flex-col gap-2 pt-4 animate-hero-fade-up animation-delay-300"
                         >
-                            <div className="flex flex-row items-center justify-center lg:justify-start gap-3">
-                                <Button
-                                    onClick={() => setIsMenuOpen(true)}
-                                    size="lg"
-                                    className="h-11 px-5 text-sm md:h-14 md:px-8 md:text-lg bg-brand-yellow text-black hover:bg-brand-yellow/90 rounded-full font-bold shadow-[0_0_20px_rgba(254,215,0,0.3)] hover:shadow-[0_0_35px_rgba(254,215,0,0.5)] transition-all cursor-pointer"
-                                >
-                                    {t("launchDashboard")}
-                                    <ArrowRight className="ml-1.5 w-4 h-4 md:w-5 md:h-5" />
-                                </Button>
+                            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                                <a href={waUrl} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
+                                    <Button
+                                        size="lg"
+                                        className="w-full h-11 px-5 text-sm md:h-14 md:px-8 md:text-lg bg-brand-yellow text-black hover:bg-brand-yellow/90 rounded-full font-bold shadow-[0_0_20px_rgba(254,215,0,0.3)] hover:shadow-[0_0_35px_rgba(254,215,0,0.5)] transition-all cursor-pointer"
+                                    >
+                                        {t("ctaPrimary")}
+                                        <ArrowRight className="ml-1.5 w-4 h-4 md:w-5 md:h-5" />
+                                    </Button>
+                                </a>
 
-
-                                <Link href="/services">
-                                    <Button variant="outline" size="lg" className="h-11 px-5 text-sm md:h-14 md:px-8 md:text-lg bg-zinc-900/50 border-zinc-700 text-zinc-300 hover:bg-brand-yellow/10 hover:text-brand-yellow hover:border-brand-yellow/50 rounded-full transition-all backdrop-blur-sm">
+                                <Link href="#studi-kasus" className="w-full sm:w-auto">
+                                    <Button variant="outline" size="lg" className="w-full h-11 px-5 text-sm md:h-14 md:px-8 md:text-lg bg-zinc-900/50 border-zinc-700 text-zinc-300 hover:bg-brand-yellow/10 hover:text-brand-yellow hover:border-brand-yellow/50 rounded-full transition-all backdrop-blur-sm">
                                         <Zap className="w-4 h-4 mr-1.5 text-brand-yellow" />
-                                        {t("viewServices")}
+                                        {t("ctaSecondary")}
                                     </Button>
                                 </Link>
                             </div>
+                            <p className="text-zinc-500 text-xs mt-2 italic">
+                                {t("ctaHint")}
+                            </p>
                         </div>
 
                         {/* Tech Stack Hints - Marquee */}

@@ -147,6 +147,7 @@ function SolutionCard({ product, index, locale, t, globalTargetIndex }: Solution
 
     return (
         <motion.div
+            id={`solusi-${product.key}`}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -166,10 +167,15 @@ function SolutionCard({ product, index, locale, t, globalTargetIndex }: Solution
             
             <div className="relative z-10 flex flex-col items-center h-full">
                 {/* Icon Box */}
-                <div className="w-16 h-16 rounded-2xl bg-zinc-950 border border-white/10 flex items-center justify-center mb-10 group-hover:scale-110 group-hover:-rotate-3 transition-all duration-700 shadow-2xl relative overflow-hidden">
+                <div className="w-16 h-16 rounded-2xl bg-zinc-950 border border-white/10 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:-rotate-3 transition-all duration-700 shadow-2xl relative overflow-hidden">
                     <div className={`absolute inset-0 bg-gradient-to-br ${product.glow} to-transparent opacity-50`} />
                     <product.icon className={`w-8 h-8 ${product.color} relative z-10`} />
                 </div>
+
+                {/* System Category Badge */}
+                <span className="text-[10px] font-black tracking-widest text-brand-yellow/90 bg-zinc-950/80 border border-white/10 rounded-full px-3.5 py-1 mb-4 uppercase">
+                    {product.key === "web" ? "GROWTH SYSTEM" : product.key === "app" ? "OPERATION SYSTEM" : "SUPPORT SYSTEM"}
+                </span>
 
                 {/* Title */}
                 <h3 className="text-2xl md:text-3xl font-black text-white mb-4 group-hover:text-brand-yellow transition-colors leading-tight tracking-tight">

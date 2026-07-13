@@ -16,7 +16,15 @@
         "seoDescription": "Pratinjau langsung desain {title} oleh {agencyName}."
     },
     "Navigation": {
-        "priceCalculator": "Kalkulator Harga",
+        "solutions": "Solusi",
+        "workflow": "Cara Kerja",
+        "cases": "Studi Kasus",
+        "about": "Tentang Kami",
+        "insight": "Insight",
+        "priceCalculator": "Kalkulator Biaya",
+        "consultation": "Konsultasi Gratis",
+        "clientPortal": "Portal Klien",
+        "priceCalculatorLegacy": "Kalkulator Harga",
         "services": "Layanan Custom",
         "myAccount": "Akun Saya",
         "promo": "Promo",
@@ -25,7 +33,17 @@
         "startProject": "Mulai"
     },
     "Hero": {
-        "statusBadge": "Kamu Mungkin",
+        "statusBadge": "KONSULTAN SISTEM DIGITAL",
+        "title": "Kurangi Pekerjaan Manual dengan Sistem Digital yang Sesuai Bisnis Anda",
+        "description": "Crediblemark membantu bisnis menganalisis proses kerja, merancang solusi, dan membangun website atau aplikasi khusus. Mulai dari konsultasi hingga peluncuran, seluruh sistem dibuat sesuai kebutuhan tim dan menjadi milik Anda.",
+        "ctaPrimary": "Konsultasi Gratis 30 Menit",
+        "ctaSecondary": "Lihat Studi Kasus",
+        "ctaHint": "Dapatkan rekomendasi awal, estimasi biaya, dan gambaran waktu pengerjaan.",
+        "poweredBy": "ANALISIS • RANCANG • BANGUN",
+        "heroTagline1": "PAHAMI MASALAHNYA.",
+        "heroTagline2": "BANGUN SOLUSINYA.",
+        "heroImageAlt": "Expert consultant di {brand} merancang solusi arsitektur sistem digital",
+        "statusBadgeLegacy": "Kamu Mungkin",
         "title1": "Butuh",
         "forYour": "Untuk",
         "typing": {
@@ -46,15 +64,16 @@
                 "Personal"
             ]
         },
-        "description": "Partner teknologi yang membangun website kustom dan sistem operasional untuk meningkatkan penjualan serta mengefisiensikan bisnis Anda. Kami merancang sistem yang mudah digunakan oleh tim Anda, 100% milik Anda tanpa biaya lisensi bulanan.",
         "launchDashboard": "Konsultasi Gratis",
-        "viewServices": "Solusi",
-        "poweredBy": "SISTEM DIGITAL SIAP PAKAI • BEBAS BIAYA BULANAN LISENSI • GARANSI PEMELIHARAAN 90 HARI",
-        "heroTagline1": "BANGUN UNTUK TUMBUH.",
-        "heroTagline2": "RANCANG UNTUK TANGGUH.",
-        "heroImageAlt": "Senior developer di {brand} yang merepresentasikan keahlian rekayasa perangkat lunak dan transformasi digital"
+        "viewServices": "Solusi"
     },
     "SocialProof": {
+        "analysis": "Analisis Kebutuhan",
+        "blueprint": "Blueprint yang Jelas",
+        "price": "Harga Transparan",
+        "progress": "Progres Terpantau",
+        "ownership": "Kepemilikan Sistem",
+        "support": "Dukungan Setelah Peluncuran",
         "faster": "Eksekusi Tepat Waktu",
         "fixedPrice": "Investasi Transparan",
         "verified": "Keamanan & Stabilitas",
@@ -64,33 +83,32 @@
         "stackAI": "Kecerdasan Buatan"
     },
     "Testimonials": {
-        "title": "Kata Mereka",
-        "subtitle": "Kisah sukses mitra kami bersama {brand}.",
-        "reviews": [
+        "title": "Sistem yang Telah Kami Bangun",
+        "subtitle": "Studi kasus solusi digital yang dirancang khusus untuk menyelesaikan masalah bisnis nyata.",
+        "cases": [
             {
-                "name": "Alex Chen",
-                "role": "CTO, InnovateLabs",
-                "text": "{brand} mempercepat siklus pengembangan kami secara signifikan. Mereka membangun MVP kami dalam waktu singkat."
+                "title": "Sistem Pemeriksaan Toko",
+                "industry": "Ritel & Distribusi",
+                "duration": "6 Minggu",
+                "problem": "Pencatatan kunjungan dan bukti pemeriksaan tersebar di beberapa saluran (WhatsApp dan Excel) sehingga sulit dipantau.",
+                "solution": "Dashboard terpusat untuk pencatatan kunjungan, dokumentasi foto, status perbaikan, dan pelaporan otomatis.",
+                "result": "Progres audit lebih mudah dipantau real-time oleh manajemen dan penyusunan laporan bulanan selesai instan."
             },
             {
-                "name": "Sarah Davis",
-                "role": "Lead Engineer, Nexus Systems",
-                "text": "Agency paling profesional yang pernah saya temui. Dashboard Mission Control sangat membantu sinkronisasi."
+                "title": "Sistem Booking & Manajemen Jadwal",
+                "industry": "Layanan Profesional & Kesehatan",
+                "duration": "4 Minggu",
+                "problem": "Pendaftaran jadwal manual via chat rentan tabrakan (double-booking) dan menghabiskan banyak waktu administrasi.",
+                "solution": "Portal reservasi klien mandiri dengan sinkronisasi kalender waktu nyata dan pengingat WhatsApp otomatis.",
+                "result": "Mengurangi beban administrasi manual hingga 85% dan mengeliminasi kesalahan penjadwalan sepenuhnya."
             },
             {
-                "name": "Michael Kim",
-                "role": "Founder, CodeCraft",
-                "text": "Kami scaling dengan mudah. Sangat direkomendasikan untuk founder non-teknis."
-            },
-            {
-                "name": "Jessica Lee",
-                "role": "Product Manager, Apex Digital",
-                "text": "{brand} memberikan stabilitas dan kecepatan untuk meluncurkan MVP hanya dalam 4 minggu."
-            },
-            {
-                "name": "David Wilson",
-                "role": "VP of Engineering, CloudScale",
-                "text": "Performa luar biasa. Pendekatan hybrid AI mereka bekerja sangat efektif."
+                "title": "B2B Customer Portal & Order Management",
+                "industry": "Manufaktur & Grosir",
+                "duration": "8 Minggu",
+                "problem": "Pemesanan distributor masih menggunakan formulir kertas/PDF manual, rawan kesalahan input dan pelacakan stok lambat.",
+                "solution": "Portal khusus distributor untuk input pesanan, cek ketersediaan stok real-time, invoice otomatis, dan lacak status kirim.",
+                "result": "Proses transaksi dipercepat hingga 70%, meningkatkan akurasi pengiriman, dan memperlancar arus kas."
             }
         ],
         "submit": {
@@ -113,27 +131,34 @@
         }
     },
     "Comparison": {
-        "title": "Kenapa Pilih Kami?",
-        "subtitle": "Kami memberikan hasil dan pelayanan di atas standar pasar.",
-        "oldTitle": "Mereka",
-        "old1": "Biaya Siluman:",
-        "old1Sub": "Harga murah di awal, tagihan bengkak di akhir.",
-        "old2": "Proses Tertutup:",
-        "old2Sub": "Anda tidak tahu apa yang sedang dikerjakan.",
-        "old3": "Ketergantungan Vendor:",
-        "old3Sub": "Kode dikunci, Anda dipaksa langganan.",
-        "old4": "Template-based:",
-        "old4Sub": "Sangat sulit diubah sesuai kebutuhan dan rawan kebocoran data.",
-        "newTitle": "{brand}",
-        "recommended": "PILIHAN ENTERPRISE",
-        "new1": "Harga Pasti:",
-        "new1Sub": "Harga yang disepakati adalah harga yang Anda bayar.",
-        "new2": "Laporan Harian:",
-        "new2Sub": "Pantau progres setiap hari via Dashboard.",
-        "new3": "Hak Milik Penuh:",
-        "new3Sub": "Kode aplikasi milik Anda 100% sejak hari pertama.",
-        "new4": "Dibuat Khusus:",
-        "new4Sub": "Sistem dibangun dari nol khusus untuk kebutuhan bisnis Anda."
+        "title": "Apa yang Anda Dapatkan dari {brand}?",
+        "subtitle": "Setiap proyek dirancang agar keputusan, biaya, proses, dan kepemilikan sistem tetap jelas.",
+        "benefits": [
+            {
+                "title": "Analisis Sebelum Pengembangan",
+                "desc": "Kami memetakan masalah dan kebutuhan sebelum menentukan fitur."
+            },
+            {
+                "title": "Ruang Lingkup yang Jelas",
+                "desc": "Fitur, biaya, durasi, dan hasil kerja dikonfirmasi sebelum proyek dimulai."
+            },
+            {
+                "title": "Progres Transparan",
+                "desc": "Klien dapat memantau perkembangan proyek melalui dashboard."
+            },
+            {
+                "title": "Sistem Sesuai Proses Bisnis",
+                "desc": "Sistem dirancang berdasarkan kebutuhan pengguna, bukan sekadar mengikuti template."
+            },
+            {
+                "title": "Kepemilikan yang Jelas",
+                "desc": "Kode, database, dan akses diserahkan sesuai ketentuan setelah pembayaran selesai."
+            },
+            {
+                "title": "Dukungan Setelah Peluncuran",
+                "desc": "Tersedia garansi bug, dokumentasi, pelatihan, dan opsi maintenance."
+            }
+        ]
     },
     "ProductCatalog": {
         "title": "Solusi Strategis",
@@ -147,68 +172,74 @@
     },
     "Solutions": {
         "badge": "Solusi Strategis",
-        "title": "Solusi Digital untuk Kembangkan Bisnis.",
-        "subtitle": "Kami membangun website premium, sistem database, dan aplikasi kustom untuk menaikkan penjualan dan mengotomatiskan operasional harian Anda.",
+        "title": "Solusi yang Dibangun Berdasarkan Kebutuhan Bisnis",
+        "subtitle": "Kami tidak menjual satu solusi untuk semua. Setiap sistem dirancang berdasarkan masalah, proses kerja, pengguna, dan tujuan bisnis.",
         "items": {
             "web": {
-                "title": "Website Premium & Mesin Pemasaran",
-                "target": "Company Profile, Landing Page, Blog Perusahaan, Content Marketing, Toko Online, Portfolio Pro, Media Hub, Microsite Campaign, Web Edukasi, Portal Berita, Katalog Digital, Event Page, Brand Activation",
-                "desc": "Membangun website profil perusahaan atau toko online kustom untuk menarik pelanggan baru, membangun kredibilitas brand, dan meningkatkan penjualan.",
-                "cta": "Tingkatkan Penjualan"
+                "title": "Website untuk Penjualan dan Kredibilitas",
+                "target": "Company Profile, Landing Page, Blog Perusahaan, Content Marketing, Toko Online, Portfolio Pro, Katalog Digital, Event Page",
+                "desc": "Website company profile, landing page, katalog, dan e-commerce yang membantu bisnis membangun kepercayaan serta menghasilkan calon pelanggan.",
+                "cta": "Lihat Solusi Website"
             },
             "app": {
-                "title": "Aplikasi Bisnis & Sistem Operasional",
-                "target": "Sistem Internal, Dashboard Khusus, Platform SaaS, Otomasi Bisnis, CRM Kustom, Sistem Inventaris, Portal Keanggotaan, Management Tool, Integrasi API Sistem, Sistem Booking, Payroll App, Tracking Logistik, Dashboard Analytic",
-                "desc": "Membangun sistem inventaris, kasir, CRM, atau portal keanggotaan kustom untuk menyederhanakan tugas staf, menghilangkan pencatatan manual, dan menghemat waktu.",
-                "cta": "Otomatiskan Kerja"
+                "title": "Aplikasi dan Sistem Operasional",
+                "target": "Sistem Internal, Dashboard Khusus, Platform SaaS, Otomasi Bisnis, CRM Kustom, Sistem Inventaris, Portal Keanggotaan, Management Tool",
+                "desc": "CRM, inventory, booking, dashboard, portal pelanggan, dan sistem administrasi yang mengurangi pekerjaan manual serta menyatukan data bisnis.",
+                "cta": "Lihat Sistem Bisnis"
             },
             "security": {
-                "title": "Keamanan Sistem & Pemeliharaan Cloud",
-                "target": "Enterprise Brand, High-Traffic Site, AI-Ready SEO, Cybersecurity, Anti-DDoS, Data Protection, GEO Optimization, Search Generative AI, Bot Protection, Cloud Security, Database Encryption, Audit Keamanan",
-                "desc": "Menjaga website Anda tetap online 24/7 tanpa gangguan, melindungi data pelanggan dari hacker, serta optimasi agar mudah ditemukan di pencarian modern.",
-                "cta": "Amankan Bisnis"
+                "title": "Integrasi, Keamanan, dan Dukungan",
+                "target": "Integrasi API, Deployment Server, Monitoring Keamanan, Database Backup, Cloud Maintenance, Enkripsi Data, Keamanan Sistem",
+                "desc": "Integrasi API, deployment, monitoring, backup, perbaikan keamanan, dan maintenance untuk menjaga sistem tetap stabil.",
+                "cta": "Lihat Dukungan Sistem"
             }
         }
     },
     "Workflow": {
-        "badge": "3 Langkah Peluncuran.",
-        "title": "Proses Kerja Jujur",
-        "subtitle": "Semua progres terpantau setiap saat melalui Dashboard Klien. Cara kerja yang transparan, cepat, dan fokus pada hasil nyata.",
-        "step1": "Rencana & Cara Kerja",
-        "step1Desc": "Diskusikan ide bisnis Anda bersama kami. Kami akan menyusun daftar fitur dan estimasi rencana kerja secara rinci.",
-        "step2": "Pengerjaan Bertahap",
-        "step2Desc": "Anda mendapatkan penawaran harga tetap tanpa biaya tambahan tersembunyi. Pembayaran DP awal dilakukan secara aman.",
-        "step3": "Serah Terima & Bantuan",
-        "step3Desc": "Lihat progres di dashboard. Ada revisi? Cukup klik bagian yang ingin diubah. Saya kerjakan, Anda terima beres."
+        "badge": "Proses Terstruktur",
+        "title": "Dari Masalah Bisnis Menjadi Sistem yang Siap Digunakan",
+        "subtitle": "Setiap proyek mengikuti proses yang terstruktur, transparan, dan dapat dipantau.",
+        "step1": "01. Konsultasi Awal",
+        "step1Desc": "Kami membahas masalah, pengguna, proses kerja, dan tujuan bisnis Anda.",
+        "step2": "02. Audit dan Blueprint",
+        "step2Desc": "Kami memetakan kebutuhan, solusi, prioritas fitur, biaya, dan waktu pengerjaan.",
+        "step3": "03. Desain & Pengembangan",
+        "step3Desc": "Tim merancang tampilan UI, database, fitur, dan integrasi yang dibutuhkan.",
+        "step4": "04. Pengujian & Pelatihan",
+        "step4Desc": "Sistem diuji bersama pengguna dan tim klien mendapatkan panduan penggunaan lengkap.",
+        "step5": "05. Peluncuran & Dukungan",
+        "step5Desc": "Sistem diluncurkan, dipantau, dan mendapatkan garansi perbaikan sesuai ketentuan."
     },
     "Financial": {
-        "title": "Yang Jarang Disadari",
-        "subtitle": "Mengapa menghabiskan waktu berbulan-bulan membangun tim internal jika Anda bisa langsung meluncur?",
-        "comparison": "Logika Finansial",
-        "hireSenior": "Merekrut Karyawan Sendiri",
-        "hybrid": "Kemitraan {brand}",
-        "salaryOldValue": "Beban Operasional Tinggi",
-        "salaryOld": "Gaji Bulanan Tetap + THR + Fasilitas Kerja",
-        "salaryNewValue": "Investasi Sekali Bayar",
-        "salaryNew": "Bayar Hanya Sesuai Kebutuhan Proyek",
-        "comp1Old": "Cari & Rekrut Staf (1-3 bulan).",
-        "comp1New": "Mulai Kerja Instan (Hari ke-1).",
-        "comp2Old": "Gaji Programmer Ahli Sangat Mahal.",
-        "comp2New": "Kualitas Tim Ahli, Bayar Hanya Sesuai Proyek.",
-        "comp3Old": "Risiko Karyawan Resign & Sistem Macet.",
-        "comp3New": "Jaminan Sistem Selesai & Berjalan Lancar.",
-        "comp4Old": "Bantuan Manajemen & Training Rumit.",
-        "comp4New": "Terima Beres, Kami Kelola Semuanya.",
-        "comp5Old": "Biaya Laptop, Lisensi Software & BPJS.",
-        "comp5New": "Sistem 100% Milik Anda (Tanpa Biaya Sewa).",
-        "comp6Old": "Proses Lambat & Drama Internal Tim.",
-        "comp6New": "Pengerjaan Cepat & Garansi Hasil Pasti."
+        "title": "Apakah Proses Bisnis Anda Masih Seperti Ini?",
+        "subtitle": "Banyak masalah operasional bukan disebabkan oleh tim, tetapi oleh sistem kerja yang belum terhubung.",
+        "problemsTitle": "Masalah Operasional Saat Ini",
+        "solutionsTitle": "Yang Berubah Setelah Sistem Diterapkan",
+        "cta": "Diskusikan Masalah Bisnis Anda",
+        "problems": [
+            "Data tersebar di Excel, WhatsApp, dan dokumen terpisah.",
+            "Laporan membutuhkan waktu lama untuk dibuat.",
+            "Tim melakukan input data berulang.",
+            "Stok, transaksi, atau pekerjaan sulit dipantau.",
+            "Website sudah ada tetapi tidak menghasilkan calon pelanggan.",
+            "Sistem yang digunakan tidak sesuai proses bisnis."
+        ],
+        "results": [
+            "Data tersimpan dalam satu sistem terpusat.",
+            "Progres operasional dapat dipantau real-time.",
+            "Laporan tersedia lebih cepat dan akurat.",
+            "Pekerjaan berulang dapat diotomasi otomatis.",
+            "Akses pengguna lebih terkontrol dan aman.",
+            "Pengambilan keputusan menggunakan data yang sama."
+        ]
     },
     "Guarantee": {
-        "title": "Aman dan Transparan.",
-        "subtitle": "Garansi Uang Kembali 100%\nSebelum Mulai Dikerjakan",
-        "desc": "Jika rencana kerja awal tidak sesuai setelah diskusi awal kita, uang muka (DP) Anda kami kembalikan 100%. Tanpa syarat. Anda tetap boleh menyimpan rancangan tersebut selama proyek belum masuk tahap pembuatan.",
-        "footer": "Tanpa syarat. Tanpa drama. Anda tetap berhak menyimpan hasil rancangan awal dari kami."
+        "badge": "PERLINDUNGAN FASE AWAL",
+        "title": "Mulai dengan Risiko yang Lebih Rendah",
+        "desc": "Setelah sesi briefing dan penyusunan blueprint awal, Anda dapat mengevaluasi apakah pendekatan Crediblemark sesuai dengan kebutuhan bisnis. Jika tidak sesuai dan pekerjaan pengembangan belum dimulai, biaya deposit akan dikembalikan sesuai ketentuan.",
+        "cta": "Baca Ketentuan Garansi",
+        "titleLegacy": "Aman dan Transparan.",
+        "subtitle": "Garansi Uang Kembali 100%\nSebelum Mulai Dikerjakan"
     },
     "CustomCTA": {
         "title": "Butuh Solusi Spesifik?",
@@ -275,24 +306,28 @@
         "payAmount": "Bayar {amount}"
     },
     "About": {
-        "role": "Tentang Kami",
-        "name": "Tim {brand}",
-        "badge": "PENGALAMAN 12+ TAHUN",
-        "quote": "Fokus solusi, tanpa komplikasi.",
-        "description": "Setiap bisnis memiliki DNA yang unik, begitu pula sistem yang dibutuhkannya. Kami membangun sistem dari nol dengan standar kode yang rapi (clean code) dan keamanan terbaik di industri. Fokus kami hanya satu: memberikan Anda fondasi digital yang solid dan cepat untuk menopang pertumbuhan bisnis jangka panjang"
+        "role": "PENDEKATAN KAMI",
+        "name": "Pendekatan {brand}",
+        "badge": "ANALISIS SEBELUM KODE",
+        "quote": "Kami Tidak Langsung Menawarkan Aplikasi",
+        "description": "Kami memulai setiap proyek dengan memahami masalah, proses kerja, pengguna, dan tujuan bisnis Anda. Setelah kebutuhan jelas, kami menentukan apakah solusinya berupa website, aplikasi khusus, integrasi, automasi, atau perbaikan proses yang sudah berjalan. Hasilnya adalah sistem yang relevan, mudah digunakan, dan dapat dikembangkan sesuai pertumbuhan bisnis."
     },
     "Stats": {
-        "stack": {
-            "title": "Teknologi",
-            "desc": "Pilihan Terbaik"
+        "analysis": {
+            "title": "Analisis Sebelum Development",
+            "desc": "Prioritas Masalah & Kebutuhan"
         },
-        "royalty": {
-            "title": "100%",
-            "desc": "Hak Milik Sistem"
+        "ownership": {
+            "title": "Kepemilikan Sistem yang Jelas",
+            "desc": "100% Milik Anda"
         },
-        "performance": {
-            "title": "Rp 0",
-            "desc": "Tanpa Biaya Tersembunyi"
+        "license": {
+            "title": "Tanpa Lisensi dari Crediblemark",
+            "desc": "Rp 0 Biaya Lisensi"
+        },
+        "warranty": {
+            "title": "Garansi Bug 90 Hari",
+            "desc": "Dukungan Pasca Peluncuran"
         }
     },
     "ClientDashboard": {
@@ -346,48 +381,28 @@
         }
     },
     "FAQ": {
-        "title": "Punya Keraguan?",
-        "subtitle": "Kami tahu Anda punya banyak pertanyaan. Mari kita bahas tuntas di sini agar Anda bisa melangkah dengan yakin.",
-        "q1": "Apakah saya bisa berkonsultasi atau mengobrol langsung?",
-        "a1": "Kami menggunakan sistem komunikasi kami (live chat/dashboard) supaya setiap keputusan tercatat rapi dan pekerjaan lebih cepat selesai. Namun jika ada hal mendesak, kita bisa menjadwalkan sesi telepon atau video call khusus.",
-        "q2": "Bagaimana jika ada kendala teknis (error) setelah website/aplikasi jadi?",
-        "a2": "Setiap proyek memiliki <strong>Garansi Perbaikan Error selama 90 Hari</strong>. Anda cukup melapor lewat panel khusus, dan tim kami akan segera memperbaikinya agar bisnis Anda tetap berjalan lancar tanpa gangguan.",
-        "q3": "Siapa yang memiliki file mentah (kode) aplikasinya nanti?",
-        "a3": "Anda memiliki <strong>hak milik 100%</strong>. Setelah semua pembayaran selesai, semua file mentah, desain, dan akses sistem akan kami serahkan sepenuhnya kepada Anda. Anda tidak akan \"terikat\" dengan kami selamanya.",
-        "q4": "Bagaimana jika saya ingin menambah fitur baru di tengah jalan?",
-        "a4": "Kami sangat fleksibel. Jika perubahannya kecil, bisa langsung kami sesuaikan. Namun jika fiturnya cukup besar, kami akan buatkan rencana tambahan agar jadwal peluncuran utama tetap tepat waktu.",
-        "q5": "Teknologi apa yang digunakan untuk membangun sistem saya?",
-        "a5": "Kami menggunakan teknologi terbaru yang super cepat dan aman (seperti yang digunakan perusahaan teknologi dunia). Tim ahli kami juga bisa menyesuaikan sistem ini dengan aplikasi atau database yang sudah Anda miliki saat ini.",
-        "q6": "Bisakah sistem ini dihubungkan dengan aplikasi lain (seperti WhatsApp, SAP, atau Bank)?",
-        "a6": "Sangat bisa. Kami berpengalaman menghubungkan sistem dengan berbagai layanan populer seperti WhatsApp, sistem pembayaran, Google, hingga software manajemen perusahaan besar (SAP).",
-        "q7": "Bagaimana dengan rahasia ide dan data bisnis saya?",
-        "a7": "Kami sangat menjaga rahasia. Kami siap menandatangani **Surat Perjanjian Kerahasiaan (NDA)** sebelum proyek dimulai untuk memastikan ide dan data bisnis Anda tetap aman bersama kami.",
-        "q8": "Bagaimana sistem pembayarannya?",
-        "a8": "Kami menggunakan sistem pembayaran bertahap. Anda hanya membayar ketika tahap pekerjaan tertentu sudah selesai dan Anda setujui. Jadi, investasi Anda jauh lebih aman.",
-        "q9": "Apakah ada bantuan setelah website/aplikasi diluncurkan?",
-        "a9": "Tentu. Kami menyediakan paket pendampingan bulanan untuk menjaga keamanan sistem, memantau server, hingga membantu menambah fitur baru secara rutin jika bisnis Anda semakin besar.",
-        "q10": "Berapa lama waktu pembuatannya?",
-        "a10": "Biasanya versi awal yang siap pakai selesai dalam 1-2 bulan. Untuk sistem perusahaan yang sangat rumit, bisa memakan waktu 3-6 bulan tergantung banyaknya fitur.",
-        "q11": "Kenapa harganya berbeda dengan pekerja lepas (freelancer)?",
-        "a11": "Karena Anda membayar untuk **kepastian dan kualitas**. Kami memberikan tim ahli profesional dan jaminan sistem yang kuat—tidak akan lemot atau \"crash\" saat banyak pelanggan yang mengakses secara bersamaan.",
-        "q12": "Apakah saya bisa melihat proses pengerjaannya?",
-        "a12": "Ya, Anda mendapatkan akses penuh. Sejak kontrak dimulai, Anda bisa melihat progres pengerjaan secara transparan. Semua itu adalah milik Anda.",
-        "q13": "Bagaimana jika ada kendala teknis setelah serah terima?",
-        "a13": "Kami memberikan garansi perbaikan gratis selama 3 bulan pertama. Kami pastikan sistem Anda berjalan sempurna sebelum kami benar-benar melepasnya.",
-        "q14": "Sejak kapan CredibleMark berdiri?",
-        "a14": "CredibleMark telah aktif memberikan solusi digital strategis sejak tahun 2013.",
-        "q15": "Berapa investasi yang dibutuhkan untuk sebuah proyek?",
-        "a15": "Investasi disesuaikan dengan skala dan kompleksitas sistem yang Anda butuhkan. Kami fokus pada kualitas jangka panjang, bukan sekadar harga murah. Detail perkiraan harga untuk setiap model layanan dapat Anda lihat di halaman Layanan.",
-        "q16": "Apa saja fasilitas paling dominan CredibleMark dibanding tempat pembuatan website lainnya?",
-        "a16": "Keunggulan utama kami adalah **Transparansi Total** (Dashboard real-time), **Hak Milik Penuh** (Source code milik Anda), **Tanpa Biaya Tersembunyi**, serta kualitas **Hasil Kodingan dan UI** yang premium dan modern.",
-        "q17": "Berapa lama waktu pengerjaan proyek?",
-        "a17": "Untuk versi awal yang siap pakai (MVP), kami biasanya menyelesaikannya dalam waktu minimal 4 minggu tergantung kerumitan fitur.",
-        "q18": "CredibleMark melayani apa saja?",
-        "a18": "Kami melayani pembuatan website profesional, aplikasi web kompleks (sistem internal, CRM, SaaS), keamanan siber, hingga menghubungkan sistem Anda dengan layanan lain seperti WhatsApp atau sistem pembayaran.",
-        "q19": "Apa keuntungannya memiliki website dari pada memiliki marketplace?",
-        "a19": "Dengan website sendiri, Anda memiliki kendali penuh atas data pelanggan, bebas dari biaya potongan komisi pihak ketiga, dan bisa membangun brand yang jauh lebih eksklusif dan profesional.",
-        "q20": "Bagaimana cara dapat cuan melalui CredibleMark?",
-        "a20": "Selain membangun sistem yang mengotomasi bisnis, Anda juga bisa mendapatkan penghasilan tambahan dengan bergabung di Program Afiliasi kami melalui tautan ini: https://crediblemark.com/affiliate/join"
+        "title": "Pertanyaan Sebelum Memulai Proyek",
+        "subtitle": "Jawaban singkat mengenai konsultasi, biaya, proses, kepemilikan, dan dukungan.",
+        "q1": "Apakah saya harus sudah memiliki daftar fitur?",
+        "a1": "Tidak perlu. Kami memulai dengan sesi konsultasi untuk memahami masalah bisnis Anda. Tim kami yang akan membantu memetakan dan menyusun daftar fitur yang paling relevan.",
+        "q2": "Bagaimana Crediblemark menentukan solusi?",
+        "a2": "Kami menganalisis proses kerja, profil pengguna, dan tujuan bisnis Anda. Dari situ, kami menentukan apakah solusinya berupa website, aplikasi khusus, integrasi sistem, atau automasi alur kerja.",
+        "q3": "Berapa biaya pembuatan website atau aplikasi?",
+        "a3": "Biaya disesuaikan dengan kompleksitas sistem. Kami memberikan estimasi investasi yang transparan setelah menyusun blueprint awal, tanpa biaya siluman di akhir.",
+        "q4": "Berapa lama proses pengerjaannya?",
+        "a4": "Untuk versi awal yang siap pakai (MVP), biasanya membutuhkan waktu 4 hingga 8 minggu tergantung pada kompleksitas fitur yang disepakati.",
+        "q5": "Siapa yang memiliki source code dan database?",
+        "a5": "Anda memiliki <strong>kepemilikan sistem 100%</strong>. Setelah pembayaran selesai, seluruh kode, database, dan akses sistem diserahkan sepenuhnya kepada Anda.",
+        "q6": "Bagaimana jika kebutuhan berubah selama proyek?",
+        "a6": "Sebagai konsultan, kami sangat fleksibel. Perubahan kecil bisa langsung disesuaikan. Untuk perubahan besar, kami akan sesuaikan prioritas fitur atau menyusun rencana fase berikutnya agar rilis tetap tepat waktu.",
+        "q7": "Apakah tersedia garansi setelah sistem diluncurkan?",
+        "a7": "Ya, kami memberikan <strong>Garansi Bug selama 90 Hari</strong> setelah sistem diluncurkan untuk memastikan kelancaran operasional tim Anda.",
+        "q8": "Apakah Crediblemark menyediakan maintenance?",
+        "a8": "Tentu. Kami menyediakan opsi layanan pemeliharaan (maintenance) berkala untuk memantau keamanan server, backup database, serta pembaruan sistem.",
+        "ctaTitle": "Belum Tahu Sistem Apa yang Dibutuhkan?",
+        "ctaDesc": "Ceritakan proses yang ingin diperbaiki. Anda tidak perlu memahami istilah teknis atau menyiapkan daftar fitur.",
+        "ctaButton": "Jadwalkan Konsultasi Gratis",
+        "ctaSocialProof": "Respons maksimal satu hari kerja."
     },
     "Dashboard": {
         "Sidebar": {
@@ -891,5 +906,31 @@
         "agreementText": "Dengan menandatangani dokumen ini, kedua belah pihak menyepakati rincian fitur kerja, nilai investasi, serta skema pembayaran yang tertera di atas.",
         "clientRepresentative": "Perwakilan Klien",
         "moreInfoAt": "Info selengkapnya kunjungi"
+    },
+    "Audit": {
+        "title": "Belum Tahu Harus Mulai dari Mana?",
+        "subtitle": "Mulai dengan Digital System Audit.",
+        "desc": "Kami memeriksa proses kerja, kebutuhan pengguna, sistem yang sudah digunakan, dan masalah utama bisnis. Hasilnya berupa Digital System Blueprint sebagai dasar pengembangan.",
+        "blueprintTitle": "Blueprint Memuat:",
+        "blueprintItems": [
+            "Peta proses kerja saat ini",
+            "Identifikasi masalah dan risiko operasional",
+            "Rekomendasi solusi sistem digital",
+            "Diagram arsitektur sistem awal",
+            "Prioritas fitur dan rencana rilis",
+            "Estimasi waktu dan jadwal proyek",
+            "Estimasi kebutuhan investasi",
+            "Tahapan implementasi dan pelatihan"
+        ],
+        "cta": "Pelajari Digital System Audit"
+    },
+    "Team": {
+        "title": "Orang yang Akan Menangani Proyek Anda",
+        "subtitle": "Konsultan dan engineer berpengalaman yang bekerja langsung untuk merancang serta membangun sistem bisnis Anda.",
+        "roles": {
+            "consultant": "Digital System Consultant",
+            "lead": "Lead Systems Engineer",
+            "ui": "Product Designer"
+        }
     }
 }

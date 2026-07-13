@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { DashboardCurrencySwitcher, DashboardLanguageSwitcher } from "@/components/dashboard/header/currency-switcher";
 import { hexclaveServerApp } from "@/lib/config/hexclave";
-import { Check, LogIn, Rocket, LayoutDashboard } from "lucide-react";
+import { Check, LogIn, Rocket, LayoutDashboard, ChevronDown } from "lucide-react";
 
 import { getTranslations, getLocale } from "next-intl/server";
 
@@ -37,13 +37,14 @@ export async function SiteHeader() {
 
     const blogUrl = `http://blog.${blogHostname}`;
 
-    // Fetch Logo
-    // Fetch Logo & Brand
+    // Fetch Logo & Brand & Phone
     // ⚡ Bolt: Use cached getSystemSettings instead of direct DB query
-    const settings = await getSystemSettings(["AGENCY_LOGO", "AGENCY_NAME", "AGENCY_LOGO_DISPLAY"]);
+    const settings = await getSystemSettings(["AGENCY_LOGO", "AGENCY_NAME", "AGENCY_LOGO_DISPLAY", "CONTACT_PHONE"]);
     const logoUrl = settings.find(s => s.key === "AGENCY_LOGO")?.value;
     const agencyName = settings.find(s => s.key === "AGENCY_NAME")?.value || "Crediblemark";
     const displayMode = settings.find(s => s.key === "AGENCY_LOGO_DISPLAY")?.value || "both"; // 'both', 'logo', 'text'
+    const contactPhone = settings.find(s => s.key === "CONTACT_PHONE")?.value;
+    const waUrl = contactPhone ? `https://wa.me/${contactPhone.replace(/[^0-9]/g, '')}?text=Halo%20Crediblemark%2C%20saya%20tertarik%20berkonsultasi%20mengenai%20sistem%20digital` : "#";
 
 
     // Actually, "Text Only" usually implies just the text name.
@@ -93,27 +94,49 @@ export async function SiteHeader() {
                         </Link>
 
                         <nav className="hidden md:flex items-center gap-3 lg:gap-6">
+                            {/* Dropdown Solusi */}
+                            <div className="relative group">
+                                <button className="flex items-center gap-1 text-xs lg:text-sm font-bold text-sky-500 hover:text-sky-400 transition-colors duration-200 cursor-pointer whitespace-nowrap bg-transparent border-0 py-2">
+                                    {t("solutions")}
+                                    <ChevronDown className="w-3.5 h-3.5 transition-transform duration-300 group-hover:rotate-180" />
+                                </button>
+                                <div className="absolute left-0 mt-1 w-64 rounded-2xl bg-[#0a0a0a] border border-white/10 p-2 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 flex flex-col gap-0.5">
+                                    <Link href={`/${locale}#solusi-web`} className="block px-4 py-2.5 text-xs font-bold text-zinc-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">
+                                        Website Penjualan & Kredibilitas
+                                    </Link>
+                                    <Link href={`/${locale}#solusi-app`} className="block px-4 py-2.5 text-xs font-bold text-zinc-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">
+                                        Aplikasi & Sistem Operasional
+                                    </Link>
+                                    <Link href={`/${locale}#solusi-support`} className="block px-4 py-2.5 text-xs font-bold text-zinc-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">
+                                        Integrasi & Dukungan Sistem
+                                    </Link>
+                                    <div className="my-1 border-t border-white/5" />
+                                    <Link href={`/${locale}/wordpress`} className="block px-4 py-2 text-xs font-bold text-violet-400 hover:text-violet-300 hover:bg-white/5 rounded-xl transition-all">
+                                        {t("wordpress")}
+                                    </Link>
+                                    <Link href={`/${locale}/web-repair`} className="block px-4 py-2 text-xs font-bold text-amber-500 hover:text-amber-400 hover:bg-white/5 rounded-xl transition-all">
+                                        {t("webRepair")}
+                                    </Link>
+                                    <Link href="/promosi" className="block px-4 py-2 text-xs font-bold text-brand-yellow hover:text-brand-yellow/90 hover:bg-white/5 rounded-xl transition-all">
+                                        {t("promo")}
+                                    </Link>
+                                </div>
+                            </div>
+                            <Link href={`/${locale}#cara-kerja`} className="text-xs lg:text-sm font-bold text-zinc-400 hover:text-white transition-colors duration-200 cursor-pointer whitespace-nowrap">
+                                {t("workflow")}
+                            </Link>
+                            <Link href={`/${locale}#studi-kasus`} className="text-xs lg:text-sm font-bold text-zinc-400 hover:text-white transition-colors duration-200 cursor-pointer whitespace-nowrap">
+                                {t("cases")}
+                            </Link>
+                            <Link href={`/${locale}#pendekatan-kami`} className="text-xs lg:text-sm font-bold text-zinc-400 hover:text-white transition-colors duration-200 cursor-pointer whitespace-nowrap">
+                                {t("about")}
+                            </Link>
+                            <a href={blogUrl} target="_blank" rel="noopener noreferrer" className="text-xs lg:text-sm font-bold text-zinc-400 hover:text-white transition-colors duration-200 cursor-pointer whitespace-nowrap">
+                                {t("insight")}
+                            </a>
                             <Link href={`/${locale}/price-calculator`} className="text-xs lg:text-sm font-bold text-emerald-500 hover:text-emerald-400 transition-colors duration-200 cursor-pointer whitespace-nowrap">
                                 {t("priceCalculator")}
                             </Link>
-                            <Link href={`/${locale}/services`} className="text-xs lg:text-sm font-bold text-sky-500 hover:text-sky-400 transition-colors duration-200 cursor-pointer whitespace-nowrap">
-                                {t("services")}
-                            </Link>
-                            <Link href={`/${locale}/wordpress`} className="text-xs lg:text-sm font-bold text-violet-400 hover:text-violet-300 transition-colors duration-200 cursor-pointer whitespace-nowrap">
-                                {t("wordpress")}
-                            </Link>
-                            <Link href={`/${locale}/web-repair`} className="text-xs lg:text-sm font-bold text-amber-500 hover:text-amber-400 transition-colors duration-200 cursor-pointer whitespace-nowrap">
-                                {t("webRepair")}
-                            </Link>
-                            <Link href={`/portfolio`} className="text-xs lg:text-sm font-bold text-rose-500 hover:text-rose-400 transition-colors duration-200 cursor-pointer whitespace-nowrap">
-                                Portfolio
-                            </Link>
-                            <Link href="/promosi" className="text-xs lg:text-sm font-bold text-brand-yellow hover:text-brand-yellow/90 transition-colors duration-200 cursor-pointer whitespace-nowrap">
-                                {t("promo")}
-                            </Link>
-                            <a href={blogUrl} target="_blank" rel="noopener noreferrer" className="text-xs lg:text-sm font-bold text-orange-500 hover:text-orange-400 transition-colors duration-200 cursor-pointer whitespace-nowrap">
-                                Blog
-                            </a>
                         </nav>
 
                     </div>
@@ -125,61 +148,47 @@ export async function SiteHeader() {
                             <DashboardCurrencySwitcher />
                         </div>
 
-                        <div className="flex items-center gap-1.5 md:gap-3">
-                            {user ? (
-                                <Link href={`/${locale}/dashboard`}>
-                                    <Button className="h-8 sm:h-9 text-sm bg-brand-yellow hover:bg-brand-yellow/90 text-black font-semibold cursor-pointer rounded-full px-3 sm:px-5 shadow-lg shadow-brand-yellow/20 transition-all hover:scale-105 active:scale-95 border-0" aria-label="Dashboard">
-                                        <LayoutDashboard className="w-4 h-4 sm:hidden" />
-                                        <span className="hidden sm:inline">Dashboard</span>
-                                    </Button>
-                                </Link>
-                            ) : (
-                                <>
-                                    <Link href="/handler/sign-in">
-                                        <Button variant="ghost" className="text-zinc-400 hover:text-white hover:bg-white/5 rounded-full px-2 sm:px-3 h-8 text-xs" aria-label={tc("login")}>
-                                            <LogIn className="w-4 h-4 sm:hidden" />
-                                            <span className="hidden sm:inline">{tc("login")}</span>
-                                        </Button>
-                                    </Link>
-                                    <Link href={`/${locale}/price-calculator`}>
-                                        <Button className="h-8 sm:h-9 text-sm bg-brand-yellow hover:bg-brand-yellow/90 text-black font-semibold cursor-pointer rounded-full px-3 sm:px-5 shadow-lg shadow-brand-yellow/20 transition-all hover:scale-105 active:scale-95 border-0" aria-label={t("startProject")}>
-                                            <Rocket className="w-4 h-4 sm:hidden" />
-                                            <span className="hidden sm:inline">{t("startProject")}</span>
-                                        </Button>
-                                    </Link>
-                                </>
-                            )}
+                        <div className="flex items-center gap-2 md:gap-4">
+                            {/* Portal Klien - Tampilan kecil/minimal */}
+                            <Link href={user ? `/${locale}/dashboard` : "/handler/sign-in"}>
+                                <span className="text-xs font-bold text-zinc-400 hover:text-white transition-colors py-2 cursor-pointer flex items-center gap-1">
+                                    <LayoutDashboard className="w-3.5 h-3.5" />
+                                    <span className="hidden sm:inline">{t("clientPortal")}</span>
+                                </span>
+                            </Link>
+
+                            {/* Tombol Konsultasi Gratis (Utama) */}
+                            <a href={waUrl} target="_blank" rel="noopener noreferrer">
+                                <Button className="h-8 sm:h-9 text-xs md:text-sm bg-brand-yellow hover:bg-brand-yellow/90 text-black font-extrabold cursor-pointer rounded-full px-3 sm:px-5 shadow-lg shadow-brand-yellow/10 transition-all hover:scale-105 active:scale-95 border-0" aria-label={t("consultation")}>
+                                    <Rocket className="w-3.5 h-3.5 sm:hidden" />
+                                    <span className="hidden sm:inline">{t("consultation")}</span>
+                                </Button>
+                            </a>
                         </div>
                     </div>
                 </div>
-            </header>
-
-            {/* Mobile Sub-Header Navigation - Sticky */}
+            </header>            {/* Mobile Sub-Header Navigation - Sticky */}
             <div className="sticky top-0 z-40 md:hidden border-b border-white/5 bg-[#0a0a0a] overflow-x-auto no-scrollbar mask-gradient-x">
                 <div className="flex items-center gap-6 px-6 h-10 w-max mx-auto min-w-full">
+                    <Link href={`/${locale}#solusi-web`} className="text-sm font-bold text-sky-500 hover:text-sky-400 transition-colors duration-200 cursor-pointer whitespace-nowrap">
+                        {t("solutions")}
+                    </Link>
+                    <Link href={`/${locale}#cara-kerja`} className="text-sm font-bold text-zinc-400 hover:text-white transition-colors duration-200 cursor-pointer whitespace-nowrap">
+                        {t("workflow")}
+                    </Link>
+                    <Link href={`/${locale}#studi-kasus`} className="text-sm font-bold text-zinc-400 hover:text-white transition-colors duration-200 cursor-pointer whitespace-nowrap">
+                        {t("cases")}
+                    </Link>
+                    <Link href={`/${locale}#pendekatan-kami`} className="text-sm font-bold text-zinc-400 hover:text-white transition-colors duration-200 cursor-pointer whitespace-nowrap">
+                        {t("about")}
+                    </Link>
+                    <a href={blogUrl} target="_blank" rel="noopener noreferrer" className="text-sm font-bold text-zinc-400 hover:text-white transition-colors duration-200 cursor-pointer whitespace-nowrap">
+                        {t("insight")}
+                    </a>
                     <Link href={`/${locale}/price-calculator`} className="text-sm font-bold text-emerald-500 hover:text-emerald-400 transition-colors duration-200 cursor-pointer whitespace-nowrap">
                         {t("priceCalculator")}
                     </Link>
-                    <Link href={`/${locale}/services`} className="text-sm font-bold text-sky-500 hover:text-sky-400 transition-colors duration-200 cursor-pointer whitespace-nowrap">
-                        {t("services")}
-                    </Link>
-                    <Link href={`/${locale}/wordpress`} className="text-sm font-bold text-violet-400 hover:text-violet-300 transition-colors duration-200 cursor-pointer whitespace-nowrap">
-                        {t("wordpress")}
-                    </Link>
-                    <Link href={`/${locale}/web-repair`} className="text-sm font-bold text-amber-500 hover:text-amber-400 transition-colors duration-200 cursor-pointer whitespace-nowrap">
-                        {t("webRepair")}
-                    </Link>
-                    <Link href={`/portfolio`} className="text-sm font-bold text-rose-500 hover:text-rose-400 transition-colors duration-200 cursor-pointer whitespace-nowrap">
-                        Portfolio
-                    </Link>
-                    <Link href="/promosi" className="text-sm font-bold text-brand-yellow hover:text-brand-yellow/90 transition-colors duration-200 cursor-pointer whitespace-nowrap">
-                        {t("promo")}
-                    </Link>
-                    <a href={blogUrl} target="_blank" rel="noopener noreferrer" className="text-sm font-bold text-orange-500 hover:text-orange-400 transition-colors duration-200 cursor-pointer whitespace-nowrap">
-                        Blog
-                    </a>
                 </div>
-
             </div>
         </>
     );

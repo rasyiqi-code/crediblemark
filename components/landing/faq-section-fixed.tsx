@@ -20,22 +20,10 @@ export function FAQSection() {
     const messages = useMessages();
     const faqData = (messages as Record<string, unknown>)?.FAQ || {};
     const t = useTranslations("FAQ");
-    const tFooter = useTranslations("Footer");
     const { setIsMenuOpen } = useFloatingChat();
 
-
-    
-    const questionKeys = Object.keys(faqData)
-        .filter(key => key.startsWith('q'))
-        .sort((a, b) => {
-            const numA = parseInt(a.substring(1));
-            const numB = parseInt(b.substring(1));
-            return numA - numB;
-        });
-
-    if (questionKeys.length === 0) {
-        return null;
-    }
+    // Hanya tampilkan q1 sampai q8
+    const questionKeys = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8'];
 
     return (
         <section className="py-16 md:py-24 bg-brand-yellow relative">
@@ -57,10 +45,10 @@ export function FAQSection() {
                     viewport={{ once: true }}
                     className="mb-10 md:mb-16 flex flex-col items-center text-center"
                 >
-                    <h2 className="text-4xl md:text-6xl lg:text-7xl font-black text-black tracking-tight leading-none mb-6">
+                    <h2 className="text-4xl md:text-6xl font-black text-black tracking-tight leading-none mb-6">
                         {t("title")}
                     </h2>
-                    <p className="text-black/80 font-semibold text-lg md:text-xl leading-relaxed max-w-2xl mx-auto">
+                    <p className="text-black/80 font-bold text-lg md:text-xl leading-relaxed max-w-2xl mx-auto text-balance">
                         {t("subtitle")}
                     </p>
                 </motion.div>
@@ -92,17 +80,17 @@ export function FAQSection() {
                         </div>
 
                         <h3 className="text-lg md:text-2xl font-black mb-4 tracking-tighter leading-tight italic uppercase">
-                            {tFooter("ctaTitle")}
+                            {t("ctaTitle")}
                         </h3>
                         
                         <p className="text-zinc-400 font-medium mb-8 leading-relaxed text-[11px] md:text-sm">
-                            {tFooter("ctaDescription")}
+                            {t("ctaDesc")}
                         </p>
 
                         <Button 
                             className="w-full h-11 md:h-12 rounded-full bg-brand-yellow hover:bg-white text-black transition-all duration-300 font-black uppercase tracking-tighter flex items-center justify-center gap-2 group/btn text-[10px] md:text-xs pointer-events-none"
                         >
-                            {tFooter("ctaButton")}
+                            {t("ctaButton")}
                             <ArrowRight className="w-3 h-3 transition-transform group-hover/btn:translate-x-1" />
                         </Button>
 
@@ -122,7 +110,7 @@ export function FAQSection() {
                             </div>
                             <div className="flex items-center gap-2 text-[8px] md:text-[9px] font-black text-zinc-400 uppercase tracking-widest whitespace-nowrap">
                                 <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
-                                {tFooter("ctaSocialProof")}
+                                {t("ctaSocialProof")}
                             </div>
                         </div>
                     </div>

@@ -16,124 +16,101 @@
         "seoDescription": "Live preview of {title} by {agencyName}."
     },
     "Navigation": {
-        "priceCalculator": "Price Calculator",
-        "services": "Services",
+        "solutions": "Solutions",
+        "workflow": "How It Works",
+        "cases": "Case Studies",
+        "about": "About Us",
+        "insight": "Insight",
+        "priceCalculator": "Cost Calculator",
+        "consultation": "Free Consultation",
+        "clientPortal": "Client Portal",
+        "priceCalculatorLegacy": "Price Calculator",
+        "services": "Custom Services",
         "myAccount": "My Account",
         "promo": "Promo",
-        "wordpress": "WordPress",
-        "webRepair": "Repair",
+        "wordpress": "WordPress Services",
+        "webRepair": "Web Repair",
         "startProject": "Start"
     },
     "Hero": {
-        "statusBadge": "You",
-        "title1": "Need",
-        "forYour": "For Your",
-        "typing": {
-            "build": [
-                "Web",
-                "App",
-                "SaaS",
-                "Systems",
-                "Products",
-                "Platforms",
-                "Solutions",
-                "Growth",
-                "Presence"
-            ],
-            "audience": [
-                "Business",
-                "Organization",
-                "Individual"
-            ]
-        },
-        "description": "A technology partner that builds custom websites and operational systems to grow your sales and streamline your business. We design tools that are easy for your team to use, 100% owned by you with no monthly license fees.",
-        "launchDashboard": "Free Consultation",
-        "viewServices": "Solutions",
-        "poweredBy": "READY-TO-USE DIGITAL SYSTEMS • ZERO HIDDEN MONTHLY FEES • 90-DAY WARRANTY & SUPPORT",
-        "heroTagline1": "BUILD TO SCALE.",
-        "heroTagline2": "DESIGN TO PREVAIL.",
-        "heroImageAlt": "Senior developer at {brand} representing expert software engineering and digital transformation"
+        "statusBadge": "DIGITAL SYSTEM CONSULTANT",
+        "title": "Reduce Manual Work with a Digital System Tailored to Your Business",
+        "description": "Crediblemark helps businesses analyze workflows, design solutions, and build custom websites or applications. From consultation to launch, the entire system is built to your team's needs and owned by you.",
+        "ctaPrimary": "Free 30-Minute Consultation",
+        "ctaSecondary": "View Case Studies",
+        "ctaHint": "Get initial recommendations, cost estimates, and project timelines.",
+        "poweredBy": "ANALYZE • DESIGN • BUILD",
+        "heroTagline1": "UNDERSTAND THE PROBLEM.",
+        "heroTagline2": "BUILD THE SOLUTION.",
+        "heroImageAlt": "Expert consultant at {brand} designing digital system architecture"
     },
     "SocialProof": {
-        "faster": "On-Time Delivery",
-        "fixedPrice": "Transparent Investment",
-        "verified": "Secure & Stable Systems",
-        "stackFramework": "Modern Frameworks",
-        "stackCloud": "Cloud Infrastructure",
-        "stackDatabase": "Scalable Database",
-        "stackAI": "Artificial Intelligence"
+        "analysis": "Requirement Analysis",
+        "blueprint": "Clear Blueprint",
+        "price": "Transparent Pricing",
+        "progress": "Trackable Progress",
+        "ownership": "System Ownership",
+        "support": "Post-Launch Support"
     },
     "Testimonials": {
-        "title": "Trusted by Founders",
-        "subtitle": "Join satisfied clients building with {brand}.",
-        "reviews": [
+        "title": "Systems We Have Built",
+        "subtitle": "Case studies of digital solutions custom-built to solve real business challenges.",
+        "cases": [
             {
-                "name": "Alex Chen",
-                "role": "CTO, InnovateLabs",
-                "text": "{brand} accelerated our development cycle significantly. They built our MVP in record time."
+                "title": "Retail Audit System",
+                "industry": "Retail & Distribution",
+                "duration": "6 Weeks",
+                "problem": "Visit logs and audit proofs were scattered across WhatsApp and Excel, making consolidation difficult.",
+                "solution": "Centralized dashboard for logging visits, photo documentation, resolution status, and automated reporting.",
+                "result": "Audit progress is easily monitored in real-time by management, and monthly report creation is instant."
             },
             {
-                "name": "Sarah Davis",
-                "role": "Lead Engineer, Nexus Systems",
-                "text": "The most professional agency I've worked with. The Mission Control dashboard kept us perfectly in sync."
+                "title": "Booking & Schedule Management",
+                "industry": "Professional Services & Healthcare",
+                "duration": "4 Weeks",
+                "problem": "Manual WhatsApp booking led to double-bookings and consumed significant administrative hours.",
+                "solution": "Self-service client booking portal with real-time calendar sync and automated WhatsApp reminders.",
+                "result": "Reduced manual administrative load by 85% and eliminated scheduling conflicts entirely."
             },
             {
-                "name": "Michael Kim",
-                "role": "Founder, CodeCraft",
-                "text": "We scaled effortlessly with their code. Highly recommended for any non-technical founder."
-            },
-            {
-                "name": "Jessica Lee",
-                "role": "Product Manager, Apex Digital",
-                "text": "{brand} provided the stability and speed we needed to launch our MVP in just 4 weeks."
-            },
-            {
-                "name": "David Wilson",
-                "role": "VP of Engineering, CloudScale",
-                "text": "Incredible performance and reliability. Their hybrid AI approach works like magic."
+                "title": "B2B Customer Portal & Order Management",
+                "industry": "Manufacturing & Wholesale",
+                "duration": "8 Weeks",
+                "problem": "Distributor orders used manual paper/PDF forms, prone to input errors and slow stock tracking.",
+                "solution": "Dedicated distributor portal for order submission, real-time stock checks, auto-invoicing, and shipment tracking.",
+                "result": "Accelerated order cycles by 70%, improved shipping accuracy, and streamlined cash flow."
             }
-        ],
-        "submit": {
-            "title": "Share Your Experience",
-            "subtitle": "How has {brand} helped your business?",
-            "fullName": "Full Name",
-            "roleCompany": "Role & Company",
-            "yourTestimonial": "Your Testimonial",
-            "placeholderName": "Alex Chen",
-            "placeholderRole": "CTO, InnovateLabs",
-            "placeholderContent": "{brand} helped us ship our MVP in record time...",
-            "submitButton": "Submit Testimonial",
-            "thankYou": "Thank You!",
-            "successDesc": "Your testimonial has been submitted successfully. It will appear on our homepage once verified by our team.",
-            "returnHome": "Return Home",
-            "toastSuccess": "Testimonial submitted successfully!",
-            "toastError": "Something went wrong. Please try again.",
-            "toastFillAll": "Please fill in all fields",
-            "toastFail": "Failed to submit. Please try again."
-        }
+        ]
     },
     "Comparison": {
-        "title": "Why We Are Worth It",
-        "subtitle": "Because we provide results and service far beyond typical providers.",
-        "oldTitle": "Them",
-        "old1": "Hidden Costs:",
-        "old1Sub": "Cheap upfront, ballooning bills later.",
-        "old2": "Closed Process:",
-        "old2Sub": "You have no idea what's being worked on.",
-        "old3": "Vendor Lock-in:",
-        "old3Sub": "Locked code, forced subscriptions.",
-        "old4": "Template-based:",
-        "old4Sub": "Hard to customize and prone to security leaks.",
-        "newTitle": "{brand}",
-        "recommended": "ENTERPRISE CHOICE",
-        "new1": "Fixed Price:",
-        "new1Sub": "The agreed price is exactly what you pay.",
-        "new2": "Daily Reports:",
-        "new2Sub": "Monitor progress every day via Dashboard.",
-        "new3": "Full Ownership:",
-        "new3Sub": "100% ownership of your application code from day one.",
-        "new4": "Bespoke Dev:",
-        "new4Sub": "Built from scratch specifically for your business needs."
+        "title": "What You Get from {brand}",
+        "subtitle": "Every project is designed so that decisions, costs, processes, and ownership remain clear.",
+        "benefits": [
+            {
+                "title": "Analysis Before Development",
+                "desc": "We map out problems and needs before determining any features."
+            },
+            {
+                "title": "Clear Project Scope",
+                "desc": "Features, costs, duration, and deliverables are confirmed before kickoff."
+            },
+            {
+                "title": "Transparent Progress",
+                "desc": "Clients can monitor the project's evolution in real-time via the dashboard."
+            },
+            {
+                "title": "Tailored to Your Workflows",
+                "desc": "The system is built based on user needs, not just following templates."
+            },
+            {
+                "title": "Clear Ownership",
+                "desc": "Code, database, and system accesses are handed over in full after payment."
+            },
+            {
+                "title": "Post-Launch Support",
+                "desc": "Bug warranties, documentation, team training, and maintenance options are available."
+            }
+        ]
     },
     "ProductCatalog": {
         "title": "Strategic Solutions",
@@ -146,69 +123,73 @@
         "viewMoreFeatures": "View {count} more features for {title}"
     },
     "Solutions": {
-        "badge": "Solutions by Value",
-        "title": "Digital Solutions to Grow Your Business.",
-        "subtitle": "We build custom websites, database systems, and custom apps to increase sales and automate daily operations.",
+        "badge": "Strategic Solutions",
+        "title": "Solutions Built on Business Needs",
+        "subtitle": "We do not sell a one-size-fits-all solution. Each system is designed based on workflows, users, and business goals.",
         "items": {
             "web": {
-                "title": "Premium Websites & Marketing Engines",
-                "target": "Company Profile, Landing Page, Corporate Blog, Content Marketing, Online Store, Pro Portfolio, Media Hub, Campaign Microsite, Education Web, News Portal, Digital Catalog, Event Page, Brand Activation",
-                "desc": "Build a premium company profile website or custom online store to attract clients, build trust, and drive sales. No WordPress templates.",
-                "cta": "Increase Sales"
+                "title": "Websites for Sales and Credibility",
+                "target": "Company Profile, Landing Page, Company Blog, Content Marketing, Online Store, Pro Portfolio, Digital Catalog",
+                "desc": "Company profile websites, landing pages, catalogs, and e-commerce platforms that help businesses build trust and generate leads.",
+                "cta": "View Website Solutions"
             },
             "app": {
-                "title": "Business Apps & Internal Systems",
-                "target": "Internal System, Custom Dashboard, SaaS Platform, Business Automation, Custom CRM, Inventory System, Member Portal, Management Tool, API Integration, Booking System, Payroll App, Logistics Tracking, Analytic Dashboard",
-                "desc": "Build custom inventory tracking, booking systems, CRMs, or client portals to automate tasks, eliminate manual paperwork, and save time.",
-                "cta": "Automate Operations"
+                "title": "Applications & Operational Systems",
+                "target": "Internal Systems, Custom Dashboards, SaaS Platforms, Business Automation, Custom CRM, Inventory Systems, Client Portals",
+                "desc": "CRM, inventory, booking, dashboards, customer portals, and admin systems that reduce manual work and unify business data.",
+                "cta": "View Business Systems"
             },
             "security": {
-                "title": "System Security & Cloud Maintenance",
-                "target": "Enterprise Brand, High-Traffic Site, AI-Ready SEO, Cybersecurity, Anti-DDoS, Data Protection, GEO Optimization, Search Generative AI, Bot Protection, Cloud Security, Database Encryption, Security Audit",
-                "desc": "Keep your system online 24/7, protect client databases from hackers, and optimize your business for modern AI search engines.",
-                "cta": "Protect Systems"
+                "title": "Integration, Security, & Support",
+                "target": "API Integration, Server Deployment, Security Monitoring, Database Backups, Cloud Maintenance, Data Encryption, Systems Security",
+                "desc": "API integrations, deployment, monitoring, backups, security patching, and maintenance to keep your systems stable.",
+                "cta": "View System Support"
             }
         }
     },
     "Workflow": {
-        "badge": "3-Step Launch.",
-        "title": "Honest Work Process",
-        "subtitle": "Track your project's progress in real-time through the Client Dashboard. Transparent, fast, and outcome-focused.",
-        "step1": "Plan & Structure",
-        "step1Desc": "Discuss your business goals with us. We will map out a detailed feature list and clear timeline for your project.",
-        "step2": "Fixed Price Scope",
-        "step2Desc": "Receive a guaranteed fixed price with no hidden costs. Pay a secure initial deposit to start the work.",
-        "step3": "Review & Launch",
-        "step3Desc": "Track progress on your dashboard. Need changes? Just click where you want to edit. We do the work, you launch."
+        "badge": "Structured Process",
+        "title": "From Business Problem to Ready-to-Use Digital System",
+        "subtitle": "Each project follows a structured, transparent, and trackable process.",
+        "step1": "01. Initial Consultation",
+        "step1Desc": "We discuss your business problems, users, workflows, and objectives.",
+        "step2": "02. Audit & Blueprint",
+        "step2Desc": "We map out requirements, solutions, feature priorities, costs, and timeline.",
+        "step3": "03. Design & Development",
+        "step3Desc": "Our team designs UI mockups, database schemas, features, and required integrations.",
+        "step4": "04. Testing & Training",
+        "step4Desc": "The system is tested with users, and your team gets comprehensive usage training.",
+        "step5": "05. Launch & Support",
+        "step5Desc": "The system goes live, is monitored, and is backed by our post-launch warranty."
     },
     "Financial": {
-        "title": "What is Often Overlooked.",
-        "subtitle": "Why waste months trying to build an in-house development team when you can launch instantly?",
-        "comparison": "Financial Logic",
-        "hireSenior": "Hiring In-House Developers",
-        "hybrid": "{brand} Partnership",
-        "salaryOldValue": "High Monthly Overhead",
-        "salaryOld": "Fixed Salaries + Benefits + Equipment",
-        "salaryNewValue": "One-Time Project Price",
-        "salaryNew": "Pay Only for What You Actually Need",
-        "comp1Old": "Hiring & onboarding (1-3 months).",
-        "comp1New": "Instant Execution (Day 1).",
-        "comp2Old": "High-level software talent is expensive.",
-        "comp2New": "Expert team quality, project-based cost.",
-        "comp3Old": "Risk of employee resignation & downtime.",
-        "comp3New": "Guaranteed delivery & system operation.",
-        "comp4Old": "Management overhead & training hassle.",
-        "comp4New": "Hands-off for you, we manage everything.",
-        "comp5Old": "Costs for laptops, software keys, office space.",
-        "comp5New": "100% owned systems (no monthly rent/licensing).",
-        "comp6Old": "Slow progress & internal team conflicts.",
-        "comp6New": "Fast execution & guaranteed outcome."
+        "title": "Are Your Business Processes Still Like This?",
+        "subtitle": "Many operational issues are not caused by the team, but by fragmented working systems.",
+        "problemsTitle": "Current Operational Problems",
+        "solutionsTitle": "Changes After Implementing the System",
+        "cta": "Discuss Your Business Challenges",
+        "problems": [
+            "Data scattered in Excel, WhatsApp, and separate documents.",
+            "Reports take a long time to prepare.",
+            "Team performs redundant data entry tasks.",
+            "Stocks, transactions, or operations are hard to monitor.",
+            "Website exists but does not generate leads.",
+            "Used systems do not fit actual business processes."
+        ],
+        "results": [
+            "Data stored in a single centralized system.",
+            "Operational progress can be monitored in real-time.",
+            "Reports are available faster and more accurately.",
+            "Repetitive tasks are automated seamlessly.",
+            "User access is more controlled and secure.",
+            "Decisions are made using the same unified data."
+        ]
     },
     "Guarantee": {
-        "title": "We Take On All The Risk.",
-        "subtitle": "100% Money Back Guarantee\nDuring Briefing Phase",
-        "desc": "We are very confident in our hybrid system. If after the AI briefing session and receiving the initial Blueprint you feel it doesn't fit our approach, we will refund your deposit 100%.",
-        "footer": "No questions asked. No drama. You still get to keep the AI-generated Blueprint analysis."
+        "badge": "EARLY STAGE PROTECTION",
+        "title": "Start with Lower Risks",
+        "desc": "After the briefing and blueprint phase, you can evaluate if our approach fits your business. If it doesn't align and development hasn't started, your deposit will be refunded according to terms.",
+        "cta": "Read Warranty Terms"
     },
     "CustomCTA": {
         "title": "Need a Specific Solution?",
@@ -217,24 +198,28 @@
         "contact": "Contact Us"
     },
     "About": {
-        "role": "About Us",
-        "name": "{brand} Team",
-        "badge": "12+ YEARS EXPERIENCE",
-        "quote": "Focus on solutions, no complications.",
-        "description": "Every business has a unique DNA, and so do the systems they need. We build infrastructure from scratch with the highest industry standards for clean code and security. Our focus is singular: providing you with a solid and fast digital foundation to sustain long-term business growth."
+        "role": "OUR APPROACH",
+        "name": "{brand} Approach",
+        "badge": "ANALISIS BEFORE CODE",
+        "quote": "We Do Not Instantly Offer an App",
+        "description": "We start every project by understanding problems, workflows, users, and business goals. Once needs are clear, we determine if the solution is a website, custom app, integration, automation, or refinement of existing processes. The result is a relevant, easy-to-use system that grows with your business."
     },
     "Stats": {
-        "stack": {
-            "title": "Technology",
-            "desc": "Fast & Stable"
+        "analysis": {
+            "title": "Analysis Before Development",
+            "desc": "Problems & Needs Priority"
         },
-        "royalty": {
-            "title": "100%",
-            "desc": "Owned by You"
+        "ownership": {
+            "title": "Clear System Ownership",
+            "desc": "100% Owned by You"
         },
-        "performance": {
-            "title": "$0",
-            "desc": "Zero Hidden Costs"
+        "license": {
+            "title": "No Licensing from Crediblemark",
+            "desc": "$0 License Fees"
+        },
+        "warranty": {
+            "title": "90-Day Bug Warranty",
+            "desc": "Post-Launch Support"
         }
     },
     "ClientDashboard": {
@@ -288,48 +273,28 @@
         }
     },
     "FAQ": {
-        "title": "Have Doubts?",
-        "subtitle": "We know you have many questions. Let's cover everything here so you can move forward with confidence.",
-        "q1": "Is direct synchronous communication available?",
-        "a1": "Our platform is optimized for <strong>Asynchronous Communication</strong> to ensure precision and absolute documentation. However, for critical coordination or deep strategic consulting, scheduled Premium Call sessions are available.",
-        "q2": "How is post-deployment stability managed?",
-        "a2": "All projects include a <strong>90-Day Performance Warranty</strong>. Bug reports are prioritized within your dashboard to ensure zero disruption to your business operations.",
-        "q3": "Who retains ownership of the source code?",
-        "a3": "Your organization retains <strong>100% full ownership</strong>. Upon project completion, all technical assets and GitHub repositories are transferred to your corporate control.",
-        "q4": "What is the procedure for scope adjustments?",
-        "a4": "We operate with full transparency. Minor adjustments are handled within active iterations, while significant scope changes are managed as supplemental missions to keep the primary timeline predictable.",
-        "q5": "What technology standards do you follow?",
-        "a5": "We standardize on high-performance stacks like <strong>Next.js & TypeScript</strong>. Our <strong>Senior Systems Architects</strong> are equipped to adapt to your existing enterprise infrastructure as required.",
-        "q6": "Can you integrate with third-party enterprise systems?",
-        "a6": "Absolutely. We routinely integrate with industrial-grade APIs and cloud services such as <strong>Stripe, SAP, Google Cloud</strong>, and various custom internal gateways.",
-        "q7": "What about NDA and confidentiality?",
-        "a7": "We take intellectual property seriously. We are ready to sign your company's standard NDA before any code is written.",
-        "q8": "How are payments structured?",
-        "a8": "We use a milestone-based payment system. You only release funds when a specific deliverable is approved on your dashboard.",
-        "q9": "Do you provide long-term maintenance?",
-        "a9": "Yes, we offer retainer packages for ongoing feature development, security updates, and infrastructure monitoring.",
-        "q10": "How long does a typical project take?",
-        "a10": "Most MVPs are delivered in 4-8 weeks. Enterprise migrations may take 3-6 months depending on complexity.",
-        "q11": "Why is the price more expensive than a freelancer?",
-        "a11": "Because you are paying for certainty. We provide a professional team and a guarantee of code that won't break when traffic spikes.",
-        "q12": "Do I get access to the source code?",
-        "a12": "Yes. From the moment the contract is signed, all the code we write is your company's asset.",
-        "q13": "What if there are bugs?",
-        "a13": "We provide a free bug fix guarantee for the first 90 days after launch.",
-        "q14": "Since when was CredibleMark founded?",
-        "a14": "CredibleMark has been actively providing strategic digital solutions since 2013.",
-        "q15": "How much investment is required for a project?",
-        "a15": "Investment is tailored to the scale and complexity of the system you need. We focus on long-term quality, not just cheap pricing. Detailed price estimates for each service model can be found on the Service page.",
-        "q16": "What are the dominant features of CredibleMark compared to other website builders?",
-        "a16": "Our main advantages are **Total Transparency** (real-time Dashboard), **Full Ownership** (Source code belongs to you), **No Hidden Fees**, as well as premium and modern **Coding Results and UI** quality.",
-        "q17": "How long does a project typically take?",
-        "a17": "For a ready-to-use initial version (MVP), we usually complete it within a minimum of 4 weeks depending on the complexity of the features.",
-        "q18": "What services does CredibleMark provide?",
-        "a18": "We provide professional website development, complex web applications (internal systems, CRM, SaaS), cybersecurity, and integrating your systems with other services like WhatsApp or payment gateways.",
-        "q19": "What is the advantage of having a website over a marketplace?",
-        "a19": "With your own website, you have full control over customer data, are free from third-party commission fees, and can build a much more exclusive and professional brand.",
-        "q20": "How can I make money through CredibleMark?",
-        "a20": "In addition to building systems that automate your business, you can also earn extra income by joining our Affiliate Program through this link: https://crediblemark.com/affiliate/join"
+        "title": "Questions Before Starting the Project",
+        "subtitle": "Short answers about consultation, pricing, process, ownership, and support.",
+        "q1": "Do I need to have a feature list ready?",
+        "a1": "Not at all. We start with a consultation to understand your business challenge. Our team will help map and compile the most relevant feature list.",
+        "q2": "How does Crediblemark determine a solution?",
+        "a2": "We analyze your workflow, user profiles, and business goals. From there, we determine if the solution is a website, custom application, API integration, or automation.",
+        "q3": "How much does it cost to build a website or app?",
+        "a3": "Cost depends on complexity. We provide a transparent investment estimate after mapping out the initial blueprint, with no hidden fees at the end.",
+        "q4": "How long does the development process take?",
+        "a4": "For a ready-to-use initial version (MVP), it typically takes 4 to 8 weeks depending on the agreed feature complexity.",
+        "q5": "Who owns the source code and database?",
+        "a5": "You have <strong>100% system ownership</strong>. Once final payment is completed, all source code, database access, and system credentials are handed over to you.",
+        "q6": "What if requirements change mid-project?",
+        "a6": "As consultants, we are flexible. Minor changes can be adjusted instantly. For major changes, we will re-prioritize features or plan a next phase to keep the release on schedule.",
+        "q7": "Is there a warranty after the system is launched?",
+        "a7": "Yes, we provide a <strong>90-Day Bug Warranty</strong> post-launch to ensure your team's operational stability.",
+        "q8": "Does Crediblemark offer system maintenance?",
+        "a8": "Absolutely. We offer regular maintenance packages to monitor server health, backup databases, and perform routine security updates.",
+        "ctaTitle": "Don't Know What System You Need?",
+        "ctaDesc": "Tell us the process you want to improve. You don't need to understand technical terms or prepare a feature list.",
+        "ctaButton": "Schedule a Free Consultation",
+        "ctaSocialProof": "Maximum 1 business day response time."
     },
     "Dashboard": {
         "Sidebar": {
@@ -891,5 +856,31 @@
         "agreementText": "By signing this document, both parties agree to the details of the work features, investment value, and payment scheme listed above.",
         "clientRepresentative": "Client Representative",
         "moreInfoAt": "For more info, visit"
+    },
+    "Audit": {
+        "title": "Don't Know Where to Start?",
+        "subtitle": "Begin with a Digital System Audit.",
+        "desc": "We inspect your workflows, user needs, existing systems, and core business challenges. The result is a Digital System Blueprint as your development foundation.",
+        "blueprintTitle": "The Blueprint Contains:",
+        "blueprintItems": [
+            "Current workflow mapping",
+            "Identification of operational risks",
+            "Digital system recommendations",
+            "Initial system architecture diagram",
+            "Feature prioritization & release plan",
+            "Timeline and project schedule",
+            "Investment estimate breakdown",
+            "Implementation & training steps"
+        ],
+        "cta": "Learn About Digital System Audit"
+    },
+    "Team": {
+        "title": "People Who Will Handle Your Project",
+        "subtitle": "Experienced consultants and engineers working directly to design and build your business system.",
+        "roles": {
+            "consultant": "Digital System Consultant",
+            "lead": "Lead Systems Engineer",
+            "ui": "Product Designer"
+        }
     }
 }

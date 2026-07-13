@@ -15,6 +15,9 @@ const FinancialLogic = dynamic(() => import("@/components/landing/section-financ
 const Workflow = dynamic(() => import("@/components/landing/section-workflow").then(mod => mod.Workflow));
 const Testimonials = dynamic(() => import("@/components/landing/section-testimonials").then(mod => mod.Testimonials));
 const SectionGuarantee = dynamic(() => import("@/components/landing/section-guarantee").then(mod => mod.SectionGuarantee));
+const ConsultBuildOperate = dynamic(() => import("@/components/landing/section-cbo").then(mod => mod.ConsultBuildOperate));
+const DigitalSystemAudit = dynamic(() => import("@/components/landing/section-audit").then(mod => mod.DigitalSystemAudit));
+const TeamSection = dynamic(() => import("@/components/landing/section-team").then(mod => mod.TeamSection));
 
 const ScrollAnimationWrapper = dynamic(() => import("@/components/ui/scroll-animation-wrapper").then(mod => mod.ScrollAnimationWrapper));
 import { JsonLd } from "@/components/seo/json-ld";
@@ -112,14 +115,22 @@ export default async function Home() {
         <SocialProof />
       </ScrollAnimationWrapper>
 
-      <Comparison />
-      <SectionSolutions />
       <FinancialLogic />
-      <Workflow />
-
+      <ConsultBuildOperate />
+      <SectionSolutions />
+      <DigitalSystemAudit />
+      
       <ScrollAnimationWrapper>
         <Testimonials />
       </ScrollAnimationWrapper>
+
+      <Comparison />
+
+      <ScrollAnimationWrapper>
+        <Workflow />
+      </ScrollAnimationWrapper>
+
+      <TeamSection />
 
       <ScrollAnimationWrapper>
         <SectionGuarantee />

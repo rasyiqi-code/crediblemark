@@ -1,11 +1,12 @@
 "use client";
 
 import { motion, Variants } from "framer-motion";
-import { Database, Cloud, Zap, Lock, Brain, LayoutTemplate, ShieldCheck } from "lucide-react";
+import { Search, FileText, Coins, Activity, Key, Wrench } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 export function SocialProofContent() {
     const t = useTranslations("SocialProof");
+    
     const containerVariants: Variants = {
         hidden: { opacity: 0 },
         visible: {
@@ -38,19 +39,18 @@ export function SocialProofContent() {
                 <div className="relative overflow-hidden w-full [mask-image:linear-gradient(to_right,transparent,white_10%,white_90%,transparent)]">
                     <div
                         className="flex gap-12 md:gap-16 w-max pr-12 md:pr-16 opacity-50 grayscale hover:grayscale-0 transition-all duration-500 marquee-track"
-                        style={{ animation: 'marquee-scroll 40s linear infinite' }}
+                        style={{ animation: 'marquee-scroll 35s linear infinite' }}
                     >
                         {[...Array(4)].flatMap(() => [
-                            { icon: Zap, text: t("faster") },
-                            { icon: ShieldCheck, text: t("fixedPrice") },
-                            { icon: Lock, text: t("verified") },
-                            { icon: LayoutTemplate, text: t("stackFramework") },
-                            { icon: Cloud, text: t("stackCloud") },
-                            { icon: Database, text: t("stackDatabase") },
-                            { icon: Brain, text: t("stackAI") }
+                            { icon: Search, text: t("analysis") },
+                            { icon: FileText, text: t("blueprint") },
+                            { icon: Coins, text: t("price") },
+                            { icon: Activity, text: t("progress") },
+                            { icon: Key, text: t("ownership") },
+                            { icon: Wrench, text: t("support") }
                         ]).map((item, i) => (
-                            <div key={i} className="flex items-center justify-center gap-2 text-zinc-300 font-bold whitespace-nowrap text-sm sm:text-base md:text-lg">
-                                <item.icon className="w-5 h-5 text-brand-yellow" /> {item.text}
+                            <div key={i} className="flex items-center justify-center gap-3 text-zinc-300 font-bold whitespace-nowrap text-sm sm:text-base md:text-lg">
+                                <item.icon className="w-5 h-5 text-brand-yellow shrink-0" /> {item.text}
                             </div>
                         ))}
                     </div>
