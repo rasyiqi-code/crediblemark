@@ -35,7 +35,7 @@
     "Hero": {
         "statusBadge": "KONSULTAN & PENGEMBANG SISTEM DIGITAL INDEPENDEN",
         "title": "Perancang Sistem\nDigital Bisnis Anda",
-        "description": "Crediblemark membantu bisnis menganalisis proses kerja, merancang solusi, dan membangun website atau aplikasi khusus, mulai dari konsultasi hingga sistem siap digunakan.",
+        "description": "Dari analisis proses hingga sistem siap digunakan, Crediblemark membantu bisnis membangun solusi digital yang relevan, efisien, dan mudah dikembangkan.",
         "ctaPrimary": "Konsultasi Gratis 30 Menit",
         "ctaSecondary": "Lihat Studi Kasus",
         "ctaHint": "Dapatkan rekomendasi awal, estimasi biaya, dan gambaran waktu pengerjaan.",
@@ -304,20 +304,20 @@
     },
     "Stats": {
         "founder": {
-            "title": "Ditangani Langsung oleh Founder",
-            "desc": "Konsultasi dan pengembangan utama dilakukan langsung oleh orang yang mengerjakan proyek Anda."
+            "title": "Analisis Sebelum Pengembangan",
+            "desc": "Kebutuhan dan proses dipahami sebelum solusi ditentukan."
         },
         "scope": {
             "title": "Ruang Lingkup Transparan",
-            "desc": "Fitur, biaya, waktu, dan hasil kerja dikonfirmasi sebelum proyek dimulai."
+            "desc": "Fitur, biaya, dan durasi disepakati sejak awal."
         },
         "ownership": {
             "title": "Kepemilikan Sistem Jelas",
-            "desc": "Kode, database, dan akses diserahkan sesuai ketentuan setelah pembayaran selesai."
+            "desc": "Kode, data, dan akses diserahkan sesuai ketentuan proyek."
         },
         "warranty": {
             "title": "Garansi Bug 90 Hari",
-            "desc": "Perbaikan bug setelah peluncuran tersedia sesuai ruang lingkup dan ketentuan proyek."
+            "desc": "Bug sesuai ruang lingkup diperbaiki setelah sistem diluncurkan."
         }
     },
     "ClientDashboard": {

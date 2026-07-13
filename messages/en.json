@@ -35,7 +35,7 @@
     "Hero": {
         "statusBadge": "INDEPENDENT DIGITAL SYSTEM CONSULTANT & DEVELOPER",
         "title": "Designer of Your\nBusiness Digital System",
-        "description": "Crediblemark helps businesses analyze workflows, design solutions, and build custom websites or applications, from consultation to launch.",
+        "description": "From process analysis to a ready-to-use system, Crediblemark helps businesses build digital solutions that are relevant, efficient, and easy to scale.",
         "ctaPrimary": "Free 30-Minute Consultation",
         "ctaSecondary": "View Case Studies",
         "ctaHint": "Get initial recommendations, cost estimates, and project timelines.",
@@ -228,20 +228,20 @@
     },
     "Stats": {
         "founder": {
-            "title": "Handled Directly by the Founder",
-            "desc": "Consultation and main development are done directly by the person working on your project."
+            "title": "Analysis Before Development",
+            "desc": "Needs and processes are understood before solutions are determined."
         },
         "scope": {
             "title": "Transparent Project Scope",
-            "desc": "Features, costs, duration, and deliverables are confirmed before kickoff."
+            "desc": "Features, costs, and duration are agreed upon from the start."
         },
         "ownership": {
             "title": "Clear System Ownership",
-            "desc": "Code, database, and system accesses are handed over after payment based on terms."
+            "desc": "Code, data, and system access are handed over based on project terms."
         },
         "warranty": {
             "title": "90-Day Bug Warranty",
-            "desc": "Post-launch bug repairs are available in accordance with project scope and terms."
+            "desc": "Bugs within the scope are fixed after the system launch."
         }
     },
     "ClientDashboard": {
