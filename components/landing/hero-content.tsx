@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Zap, TrendingUp, Activity, BarChart3 } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { TypingHeroTitle } from "./typing-hero-title";
 import { cn } from "@/lib/shared/utils";
 import { useFloatingChat } from "@/lib/store/floating-chat-store";
@@ -19,6 +19,7 @@ interface HeroContentProps {
 
 export function HeroContent({ agencyName, waUrl }: HeroContentProps) {
     const t = useTranslations("Hero");
+    const locale = useLocale();
     const { setIsMenuOpen } = useFloatingChat();
 
     const [isMobile, setIsMobile] = React.useState(false);
@@ -93,7 +94,7 @@ export function HeroContent({ agencyName, waUrl }: HeroContentProps) {
                                     <ArrowRight className="ml-1.5 w-4 h-4 md:w-5 md:h-5" />
                                 </Button>
 
-                                <Link href="#studi-kasus" className="w-full sm:w-auto">
+                                <Link href={`/${locale}/portfolio`} className="w-full sm:w-auto">
                                     <Button variant="outline" size="lg" className="w-full h-11 px-5 text-sm md:h-14 md:px-8 md:text-lg bg-zinc-900/50 border-zinc-700 text-zinc-300 hover:bg-brand-yellow/10 hover:text-brand-yellow hover:border-brand-yellow/50 rounded-full transition-all backdrop-blur-sm">
                                         <Zap className="w-4 h-4 mr-1.5 text-brand-yellow" />
                                         {t("ctaSecondary")}

@@ -1,9 +1,10 @@
 import { ShieldCheck } from "lucide-react";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, getLocale } from "next-intl/server";
 import { getSystemSettings } from "@/lib/server/settings";
-import { ChatTrigger } from "./chat-trigger";
+import Link from "next/link";
 
 export async function SectionGuarantee() {
+    const locale = await getLocale();
     const t = await getTranslations("Guarantee");
     const settings = await getSystemSettings(["CONTACT_PHONE"]);
     const contactPhone = settings.find(s => s.key === "CONTACT_PHONE")?.value;
