@@ -19,16 +19,14 @@ export function PortfolioCard({ title, slug, html, externalUrl, imageUrl, descri
     const t = useTranslations("Portfolio");
     const previewUrl = `/view-design/${slug}`;
     
-    // State image dinamis dengan target utama: imageUrl -> Auto-Screenshot -> GitHub -> Gambar Lokal -> Placeholder
+    // State image dinamis dengan inisialisasi awal ke opsi dinamis realtime (Auto-Screenshot / GitHub)
     const [imgSrc, setImgSrc] = useState<string>(() => {
-        if (imageUrl) return imageUrl;
-        
-        // Coba Opsi 2: Auto-Screenshot Live Demo (jika externalUrl ada dan bukan github)
+        // Coba Opsi 1 (Utama): Auto-Screenshot Live Demo (jika externalUrl ada dan bukan github)
         if (externalUrl && !externalUrl.includes("github.com")) {
             return `https://image.thum.io/get/width/800/crop/800/${externalUrl}`;
         }
         
-        // Coba Opsi 3: GitHub Social Preview (jika externalUrl adalah github)
+        // Coba Opsi 2: GitHub Social Preview (jika externalUrl adalah github)
         if (externalUrl && externalUrl.includes("github.com")) {
             const match = externalUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/);
             if (match) {
@@ -38,35 +36,41 @@ export function PortfolioCard({ title, slug, html, externalUrl, imageUrl, descri
             }
         }
         
-        // Default awal jika tidak ada URL eksternal: Gambar Lokal
+        // Coba Opsi 3: Database imageUrl (jika diisi manual)
+        if (imageUrl) return imageUrl;
+
+        // Default awal jika tidak ada URL eksternal & database image: Gambar Lokal
         return `/portfolio/${slug}.jpg`;
     });
 
     const [fallbackStep, setFallbackStep] = useState<number>(0);
 
     const handleImageError = () => {
-        // Step 0: Error dari Opsi Otomatis (imageUrl, Thum.io, atau GitHub OG)
+        // Step 0: Error dari Opsi Dinamis Realtime
         if (fallbackStep === 0) {
             setFallbackStep(1);
-            // Jika gambar awal adalah Thum.io, tapi link-nya merupakan repositori GitHub, coba GitHub OG
-            if (externalUrl && externalUrl.includes("github.com") && !imgSrc.includes("opengraph.githubassets.com")) {
-                const match = externalUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/);
-                if (match) {
-                    const owner = match[1];
-                    const repo = match[2].replace(/\.git$/, "");
-                    setImgSrc(`https://opengraph.githubassets.com/1/${owner}/${repo}`);
-                    return;
-                }
+            // Fallback ke: Database imageUrl (jika ada dan belum dicoba)
+            if (imageUrl && imgSrc !== imageUrl) {
+                setImgSrc(imageUrl);
+                return;
             }
-            // Jika bukan, langsung fallback ke Gambar Lokal
-            setImgSrc(`/portfolio/${slug}.jpg`);
-            return;
         }
 
-        // Step 1: Error dari Gambar Lokal
-        if (fallbackStep === 1) {
+        // Step 1: Error dari imageUrl
+        if (fallbackStep <= 1) {
             setFallbackStep(2);
-            // Jika belum mencoba GitHub Social Preview, coba load sebagai fallback sebelum placeholder
+            // Fallback ke: Gambar Lokal (jika belum dicoba)
+            const localPath = `/portfolio/${slug}.jpg`;
+            if (imgSrc !== localPath) {
+                setImgSrc(localPath);
+                return;
+            }
+        }
+
+        // Step 2: Error dari Gambar Lokal
+        if (fallbackStep <= 2) {
+            setFallbackStep(3);
+            // Coba GitHub Social Preview jika tautannya GitHub dan belum pernah dicoba sebelumnya
             if (externalUrl && externalUrl.includes("github.com") && !imgSrc.includes("opengraph.githubassets.com")) {
                 const match = externalUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/);
                 if (match) {
@@ -80,8 +84,8 @@ export function PortfolioCard({ title, slug, html, externalUrl, imageUrl, descri
             return;
         }
 
-        // Step 2: Cadangan terakhir jika semuanya gagal
-        if (fallbackStep >= 2) {
+        // Step 3: Cadangan terakhir jika semuanya gagal
+        if (fallbackStep >= 3) {
             setImgSrc("/images/placeholder-portfolio.jpg");
         }
     };
