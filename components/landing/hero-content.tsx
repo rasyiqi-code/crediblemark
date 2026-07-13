@@ -68,7 +68,7 @@ export function HeroContent({ agencyName, waUrl }: HeroContentProps) {
                             <div
                                 className="relative space-y-4 animate-hero-fade-up animation-delay-100"
                             >
-                                <h1 className="text-4xl md:text-6xl xl:text-7xl font-extrabold tracking-tight leading-[1.1] text-white">
+                                <h1 className="text-4xl md:text-6xl xl:text-7xl font-extrabold tracking-tight leading-[1.1] text-white whitespace-pre-line">
                                     {t("title")}
                                 </h1>
                             </div>
