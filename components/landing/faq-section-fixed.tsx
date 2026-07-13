@@ -108,10 +108,7 @@ export function FAQSection() {
                                     </div>
                                 ))}
                             </div>
-                            <div className="flex items-center gap-2 text-[8px] md:text-[9px] font-black text-zinc-400 uppercase tracking-widest whitespace-nowrap">
-                                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
-                                {t("ctaSocialProof")}
-                            </div>
+
                         </div>
                     </div>
 
