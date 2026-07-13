@@ -30,14 +30,14 @@ async function fetchGithubReposReal(): Promise<PortfolioItem[]> {
         // Fetch dari user rasyiqi-code
         const resUser = await fetch("https://api.github.com/users/rasyiqi-code/repos?sort=updated&per_page=10", {
             headers,
-            next: { revalidate: 3600 } // Cache 1 jam
+            next: { revalidate: 2592000 } // Cache 30 hari
         });
         const reposUser = resUser.ok ? await resUser.json() : [];
 
         // Fetch dari org crediblemark-official
         const resOrg = await fetch("https://api.github.com/orgs/crediblemark-official/repos?sort=updated&per_page=10", {
             headers,
-            next: { revalidate: 3600 } // Cache 1 jam
+            next: { revalidate: 2592000 } // Cache 30 hari
         });
         const reposOrg = resOrg.ok ? await resOrg.json() : [];
 
