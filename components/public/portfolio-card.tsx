@@ -19,30 +19,71 @@ export function PortfolioCard({ title, slug, html, externalUrl, imageUrl, descri
     const t = useTranslations("Portfolio");
     const previewUrl = `/view-design/${slug}`;
     
-    // State image dinamis dengan target utama: imageUrl -> gambar lokal -> fallback GitHub / Placeholder
+    // State image dinamis dengan target utama: imageUrl -> Auto-Screenshot -> GitHub -> Gambar Lokal -> Placeholder
     const [imgSrc, setImgSrc] = useState<string>(() => {
         if (imageUrl) return imageUrl;
-        return `/portfolio/${slug}.jpg`; // Coba cari gambar lokal
-    });
-
-    const [hasError, setHasError] = useState(false);
-
-    const handleImageError = () => {
-        if (hasError) return; // Mencegah looping tak terbatas jika fallback juga error
-        setHasError(true);
-
-        // Jika link eksternal adalah repositori GitHub, fallback ke GitHub Social Preview Image
+        
+        // Coba Opsi 2: Auto-Screenshot Live Demo (jika externalUrl ada dan bukan github)
+        if (externalUrl && !externalUrl.includes("github.com")) {
+            return `https://image.thum.io/get/width/800/crop/800/${externalUrl}`;
+        }
+        
+        // Coba Opsi 3: GitHub Social Preview (jika externalUrl adalah github)
         if (externalUrl && externalUrl.includes("github.com")) {
             const match = externalUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/);
             if (match) {
                 const owner = match[1];
                 const repo = match[2].replace(/\.git$/, "");
-                setImgSrc(`https://opengraph.githubassets.com/1/${owner}/${repo}`);
-                return;
+                return `https://opengraph.githubassets.com/1/${owner}/${repo}`;
             }
         }
-        // Jika bukan github, fallback ke gambar placeholder default yang premium
-        setImgSrc("/images/placeholder-portfolio.jpg");
+        
+        // Default awal jika tidak ada URL eksternal: Gambar Lokal
+        return `/portfolio/${slug}.jpg`;
+    });
+
+    const [fallbackStep, setFallbackStep] = useState<number>(0);
+
+    const handleImageError = () => {
+        // Step 0: Error dari Opsi Otomatis (imageUrl, Thum.io, atau GitHub OG)
+        if (fallbackStep === 0) {
+            setFallbackStep(1);
+            // Jika gambar awal adalah Thum.io, tapi link-nya merupakan repositori GitHub, coba GitHub OG
+            if (externalUrl && externalUrl.includes("github.com") && !imgSrc.includes("opengraph.githubassets.com")) {
+                const match = externalUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/);
+                if (match) {
+                    const owner = match[1];
+                    const repo = match[2].replace(/\.git$/, "");
+                    setImgSrc(`https://opengraph.githubassets.com/1/${owner}/${repo}`);
+                    return;
+                }
+            }
+            // Jika bukan, langsung fallback ke Gambar Lokal
+            setImgSrc(`/portfolio/${slug}.jpg`);
+            return;
+        }
+
+        // Step 1: Error dari Gambar Lokal
+        if (fallbackStep === 1) {
+            setFallbackStep(2);
+            // Jika belum mencoba GitHub Social Preview, coba load sebagai fallback sebelum placeholder
+            if (externalUrl && externalUrl.includes("github.com") && !imgSrc.includes("opengraph.githubassets.com")) {
+                const match = externalUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/);
+                if (match) {
+                    const owner = match[1];
+                    const repo = match[2].replace(/\.git$/, "");
+                    setImgSrc(`https://opengraph.githubassets.com/1/${owner}/${repo}`);
+                    return;
+                }
+            }
+            setImgSrc("/images/placeholder-portfolio.jpg");
+            return;
+        }
+
+        // Step 2: Cadangan terakhir jika semuanya gagal
+        if (fallbackStep >= 2) {
+            setImgSrc("/images/placeholder-portfolio.jpg");
+        }
     };
 
     // Tentukan icon & CTA berdasarkan kategori
