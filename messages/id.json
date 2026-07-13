@@ -103,27 +103,27 @@
         "benefits": [
             {
                 "title": "Analisis Sebelum Pengembangan",
-                "desc": "Masalah dan kebutuhan dipahami sebelum fitur dan teknologi ditentukan."
+                "desc": "Masalah, pengguna, dan alur kerja dipahami sebelum solusi dan fitur ditentukan."
             },
             {
-                "title": "Komunikasi Langsung",
-                "desc": "Anda berkomunikasi langsung dengan founder sekaligus pengembang yang mengerjakan proyek."
+                "title": "Keputusan Dibahas Bersama",
+                "desc": "Prioritas, pilihan solusi, dan konsekuensinya dibahas agar keputusan tidak dibuat berdasarkan asumsi."
             },
             {
                 "title": "Ruang Lingkup Transparan",
-                "desc": "Fitur, biaya, waktu, dan hasil kerja disepakati sebelum proyek dimulai."
+                "desc": "Fitur, biaya, waktu, hasil kerja, dan batas perubahan disepakati sebelum pengembangan dimulai."
             },
             {
                 "title": "Progres Dapat Dipantau",
-                "desc": "Perkembangan pekerjaan dapat dilihat melalui dashboard proyek."
+                "desc": "Tahapan pekerjaan, perkembangan, dan hasil pengujian dapat ditinjau selama proyek berjalan."
             },
             {
                 "title": "Kepemilikan Sistem Jelas",
-                "desc": "Kode, database, dan akses diserahkan berdasarkan ketentuan proyek."
+                "desc": "Kode, database, akun, dan dokumentasi diserahkan sesuai ketentuan proyek."
             },
             {
                 "title": "Dukungan Setelah Peluncuran",
-                "desc": "Tersedia garansi bug, dokumentasi, pelatihan, maintenance, dan pengembangan lanjutan."
+                "desc": "Dokumentasi, pelatihan, dan garansi bug diberikan sesuai ruang lingkup yang disepakati."
             }
         ]
     },
