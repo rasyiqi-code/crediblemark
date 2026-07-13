@@ -3,6 +3,7 @@ import { Check } from "lucide-react";
 import { getTranslations, getLocale } from "next-intl/server";
 import { getSystemSettings } from "@/lib/server/settings";
 import Image from "next/image";
+import { ChatTrigger } from "./chat-trigger";
 
 export async function SiteFooter() {
     const t = await getTranslations("Footer");
@@ -68,10 +69,11 @@ export async function SiteFooter() {
                             Ketentuan Layanan
                         </Link>
                         {contactPhone && (
-                            <a href={waUrl} target="_blank" rel="noopener noreferrer"
-                                className="text-[11px] text-zinc-500 hover:text-zinc-300 transition-colors">
+                            <ChatTrigger 
+                                className="text-[11px] text-zinc-500 hover:text-zinc-300 transition-colors"
+                            >
                                 Hubungi
-                            </a>
+                            </ChatTrigger>
                         )}
                     </div>
 

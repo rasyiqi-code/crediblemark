@@ -1,6 +1,7 @@
 import { ShieldCheck } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { getSystemSettings } from "@/lib/server/settings";
+import { ChatTrigger } from "./chat-trigger";
 
 export async function SectionGuarantee() {
     const t = await getTranslations("Guarantee");
@@ -40,14 +41,11 @@ export async function SectionGuarantee() {
 
                     {/* Link Terms */}
                     <div className="pt-4">
-                        <a 
-                            href={waUrl} 
-                            target="_blank" 
-                            rel="noopener noreferrer" 
+                        <ChatTrigger 
                             className="text-xs sm:text-sm font-bold text-brand-yellow hover:text-brand-yellow/80 underline decoration-brand-yellow/30 underline-offset-4 transition-all"
                         >
                             {t("cta")}
-                        </a>
+                        </ChatTrigger>
                     </div>
                 </div>
             </div>

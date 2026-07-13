@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { getSystemSettings } from "@/lib/server/settings";
 import { Button } from "@/components/ui/button";
 import { ScrollHint } from "./scroll-hint";
+import { CtaChatButton } from "./cta-chat-button";
 
 export async function FinancialLogic() {
     const t = await getTranslations("Financial");
@@ -98,11 +99,9 @@ export async function FinancialLogic() {
 
                 {/* CTA Button di bawah */}
                 <div className="mt-12 flex justify-center">
-                    <a href={waUrl} target="_blank" rel="noopener noreferrer">
-                        <Button className="h-14 px-8 rounded-full bg-black hover:bg-zinc-900 text-brand-yellow font-extrabold tracking-tight shadow-2xl transition-all hover:scale-105 active:scale-95 border border-white/5 flex items-center gap-2 group">
-                            {t("cta")}
-                        </Button>
-                    </a>
+                    <CtaChatButton className="h-14 px-8 rounded-full bg-black hover:bg-zinc-900 text-brand-yellow font-extrabold tracking-tight shadow-2xl transition-all hover:scale-105 active:scale-95 border border-white/5 flex items-center gap-2 group">
+                        {t("cta")}
+                    </CtaChatButton>
                 </div>
             </div>
         </section>

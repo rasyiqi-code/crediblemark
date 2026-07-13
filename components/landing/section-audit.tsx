@@ -2,6 +2,7 @@ import { FileCheck, CheckCircle2, ArrowRight } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { getSystemSettings } from "@/lib/server/settings";
 import { Button } from "@/components/ui/button";
+import { CtaChatButton } from "./cta-chat-button";
 
 export async function DigitalSystemAudit() {
     const t = await getTranslations("Audit");
@@ -41,12 +42,10 @@ export async function DigitalSystemAudit() {
                         </p>
 
                         <div className="pt-6 flex justify-center lg:justify-start">
-                            <a href={waUrl} target="_blank" rel="noopener noreferrer">
-                                <Button className="h-14 px-8 rounded-full bg-brand-yellow hover:bg-brand-yellow/90 text-black font-extrabold shadow-lg shadow-brand-yellow/10 transition-all hover:scale-105 active:scale-95 flex items-center gap-2 group border-0">
-                                    {t("cta")}
-                                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                                </Button>
-                            </a>
+                            <CtaChatButton className="h-14 px-8 rounded-full bg-brand-yellow hover:bg-brand-yellow/90 text-black font-extrabold shadow-lg shadow-brand-yellow/10 transition-all hover:scale-105 active:scale-95 flex items-center gap-2 group border-0">
+                                {t("cta")}
+                                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                            </CtaChatButton>
                         </div>
                     </div>
 

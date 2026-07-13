@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { CtaChatButton } from "./cta-chat-button";
 import { DashboardCurrencySwitcher, DashboardLanguageSwitcher } from "@/components/dashboard/header/currency-switcher";
 import { hexclaveServerApp } from "@/lib/config/hexclave";
 import { Check, LogIn, Rocket, LayoutDashboard, ChevronDown } from "lucide-react";
@@ -140,12 +141,13 @@ export async function SiteHeader() {
 
                         <div className="flex items-center gap-2 md:gap-4">
                             {/* Tombol Konsultasi Gratis (Utama) */}
-                            <a href={waUrl} target="_blank" rel="noopener noreferrer">
-                                <Button className="h-8 sm:h-9 text-xs md:text-sm bg-brand-yellow hover:bg-brand-yellow/90 text-black font-extrabold cursor-pointer rounded-full px-3 sm:px-5 shadow-lg shadow-brand-yellow/10 transition-all hover:scale-105 active:scale-95 border-0" aria-label={t("consultation")}>
-                                    <Rocket className="w-3.5 h-3.5 sm:hidden" />
-                                    <span className="hidden sm:inline">{t("consultation")}</span>
-                                </Button>
-                            </a>
+                            <CtaChatButton 
+                                className="h-8 sm:h-9 text-xs md:text-sm bg-brand-yellow hover:bg-brand-yellow/90 text-black font-extrabold cursor-pointer rounded-full px-3 sm:px-5 shadow-lg shadow-brand-yellow/10 transition-all hover:scale-105 active:scale-95 border-0" 
+                                ariaLabel={t("consultation")}
+                            >
+                                <Rocket className="w-3.5 h-3.5 sm:hidden" />
+                                <span className="hidden sm:inline">{t("consultation")}</span>
+                            </CtaChatButton>
                         </div>
                     </div>
                 </div>

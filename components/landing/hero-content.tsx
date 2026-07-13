@@ -84,15 +84,14 @@ export function HeroContent({ agencyName, waUrl }: HeroContentProps) {
                             className="flex flex-col gap-2 pt-4 animate-hero-fade-up animation-delay-300"
                         >
                             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-                                <a href={waUrl} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
-                                    <Button
-                                        size="lg"
-                                        className="w-full h-11 px-5 text-sm md:h-14 md:px-8 md:text-lg bg-brand-yellow text-black hover:bg-brand-yellow/90 rounded-full font-bold shadow-[0_0_20px_rgba(254,215,0,0.3)] hover:shadow-[0_0_35px_rgba(254,215,0,0.5)] transition-all cursor-pointer"
-                                    >
-                                        {t("ctaPrimary")}
-                                        <ArrowRight className="ml-1.5 w-4 h-4 md:w-5 md:h-5" />
-                                    </Button>
-                                </a>
+                                <Button
+                                    onClick={() => setIsMenuOpen(true)}
+                                    size="lg"
+                                    className="w-full sm:w-auto h-11 px-5 text-sm md:h-14 md:px-8 md:text-lg bg-brand-yellow text-black hover:bg-brand-yellow/90 rounded-full font-bold shadow-[0_0_20px_rgba(254,215,0,0.3)] hover:shadow-[0_0_35px_rgba(254,215,0,0.5)] transition-all cursor-pointer"
+                                >
+                                    {t("ctaPrimary")}
+                                    <ArrowRight className="ml-1.5 w-4 h-4 md:w-5 md:h-5" />
+                                </Button>
 
                                 <Link href="#studi-kasus" className="w-full sm:w-auto">
                                     <Button variant="outline" size="lg" className="w-full h-11 px-5 text-sm md:h-14 md:px-8 md:text-lg bg-zinc-900/50 border-zinc-700 text-zinc-300 hover:bg-brand-yellow/10 hover:text-brand-yellow hover:border-brand-yellow/50 rounded-full transition-all backdrop-blur-sm">
