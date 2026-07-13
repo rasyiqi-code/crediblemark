@@ -154,7 +154,7 @@ function SolutionCard({ product, index, locale, t, globalTargetIndex }: Solution
             transition={{ delay: 0.1 * (index + 1), duration: 0.5 }}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
-            className={`flex-shrink-0 w-[85vw] md:w-full snap-center group relative p-8 rounded-[2.5rem] bg-zinc-900/30 border border-white/5 transition-all duration-500 flex flex-col items-center text-center h-full backdrop-blur-xl overflow-hidden shadow-2xl ${product.border}`}
+            className={`flex-shrink-0 w-[85vw] md:w-full snap-center group relative p-6 md:p-8 rounded-[2rem] bg-zinc-900/30 border border-white/5 transition-all duration-500 flex flex-col items-center text-center h-full backdrop-blur-xl overflow-hidden shadow-2xl ${product.border}`}
         >
             {/* Interactive Spotlight */}
             <motion.div
@@ -167,41 +167,38 @@ function SolutionCard({ product, index, locale, t, globalTargetIndex }: Solution
             
             <div className="relative z-10 flex flex-col items-center h-full w-full">
                 {/* Icon Box */}
-                <div className="w-16 h-16 rounded-2xl bg-zinc-950 border border-white/10 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:-rotate-3 transition-all duration-700 shadow-2xl relative overflow-hidden">
+                <div className="w-14 h-14 rounded-2xl bg-zinc-950 border border-white/10 flex items-center justify-center mb-5 group-hover:scale-110 group-hover:-rotate-3 transition-all duration-700 shadow-2xl relative overflow-hidden">
                     <div className={`absolute inset-0 bg-gradient-to-br ${product.glow} to-transparent opacity-50`} />
-                    <product.icon className={`w-8 h-8 ${product.color} relative z-10`} />
+                    <product.icon className={`w-7 h-7 ${product.color} relative z-10`} />
                 </div>
 
                 {/* System Category Badge */}
-                <span className="text-[10px] font-black tracking-widest text-brand-yellow/90 bg-zinc-950/80 border border-white/10 rounded-full px-3.5 py-1 mb-4 uppercase">
+                <span className="text-[9px] font-black tracking-widest text-brand-yellow/90 bg-zinc-950/80 border border-white/10 rounded-full px-3 py-1 mb-3 uppercase">
                     {product.key === "web" ? "GROWTH SYSTEM" : product.key === "app" ? "OPERATION SYSTEM" : "SUPPORT SYSTEM"}
                 </span>
 
                 {/* Title */}
-                <h3 className="text-2xl md:text-3xl font-black text-white mb-4 group-hover:text-brand-yellow transition-colors leading-tight tracking-tight">
+                <h3 className="text-xl md:text-2xl font-black text-white mb-3 group-hover:text-brand-yellow transition-colors leading-tight tracking-tight">
                     {t(`items.${product.key}.title`)}
                 </h3>
 
                 {/* Description */}
-                <p className="text-zinc-400 font-medium leading-relaxed mb-8 text-sm group-hover:text-zinc-200 transition-colors">
+                <p className="text-zinc-400 font-semibold leading-relaxed mb-6 text-xs sm:text-sm group-hover:text-zinc-200 transition-colors">
                     {t(`items.${product.key}.desc`)}
                 </p>
 
-                {/* Divider */}
-                <div className="w-full h-px bg-white/5 mb-6" />
-
-                {/* Services List (Dinamis / Berganti-ganti) */}
-                <div className="w-full mb-10 flex-grow flex flex-col justify-center items-center">
-                    <h4 className="text-[10px] font-black text-zinc-500 uppercase tracking-widest mb-4">Layanan Terkait:</h4>
-                    <div className="h-10 flex items-center justify-center overflow-hidden w-full relative">
+                {/* Services List (Dinamis / Berganti-ganti dalam Mini-Box) */}
+                <div className="w-full mb-6 flex-grow flex flex-col justify-center items-center min-h-[72px] bg-zinc-950/50 rounded-2xl border border-white/5 p-3.5 transition-colors group-hover:bg-zinc-950/80">
+                    <h4 className="text-[8px] font-black text-zinc-500 uppercase tracking-widest mb-2 leading-none">Layanan Terkait</h4>
+                    <div className="h-8 flex items-center justify-center overflow-hidden w-full relative">
                         <AnimatePresence mode="wait">
                             <motion.span
                                 key={serviceIndex}
-                                initial={{ y: 15, opacity: 0 }}
+                                initial={{ y: 12, opacity: 0 }}
                                 animate={{ y: 0, opacity: 1 }}
-                                exit={{ y: -15, opacity: 0 }}
+                                exit={{ y: -12, opacity: 0 }}
                                 transition={{ duration: 0.3, ease: "circOut" }}
-                                className="text-sm md:text-base font-extrabold text-brand-yellow uppercase tracking-widest leading-relaxed text-center drop-shadow-[0_0_8px_rgba(255,200,0,0.2)]"
+                                className="text-xs md:text-sm font-black text-brand-yellow uppercase tracking-widest leading-relaxed text-center drop-shadow-[0_0_8px_rgba(255,200,0,0.15)]"
                             >
                                 {services[serviceIndex]}
                             </motion.span>
