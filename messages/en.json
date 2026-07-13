@@ -223,8 +223,8 @@
         "role": "CREDIBLEMARK APPROACH",
         "name": "{brand} Approach",
         "badge": "ANALYSIS BEFORE CODE",
-        "quote": "Crediblemark Does Not Instantly Offer an App",
-        "description": "Every project starts by understanding problems, workflows, users, and business goals. Once needs are clear, we determine if the solution is a website, custom app, integration, automation, or refinement of existing processes. Analysis, design, and main development are handled directly by the founder. Communication is streamlined, decisions are faster, and business goals are not lost in translation."
+        "quote": "Start with the Business Problem.",
+        "description": "A good system does not start with a feature list. Workflows, user needs, bottlenecks, and business goals must be understood first.\n\nOnce the problem is clear, we determine if the solution is a process refinement, website, custom app, integration, automation, or using existing tools."
     },
     "Stats": {
         "founder": {

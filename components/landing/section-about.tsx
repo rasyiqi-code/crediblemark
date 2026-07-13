@@ -35,20 +35,20 @@ export async function AboutSection() {
                             <p className="text-brand-yellow text-xs sm:text-sm font-bold tracking-[.4em] uppercase opacity-90">
                                 {t("role")}
                             </p>
-                            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white leading-[1.15] tracking-tight">
+                            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white leading-[1.15] tracking-tight">
                                 &ldquo;{t("quote")}&rdquo;
                             </h2>
                         </div>
 
                         <div className="max-w-2xl mx-auto lg:mx-0 space-y-6">
-                            <p className="text-zinc-400 text-base sm:text-lg leading-relaxed antialiased font-light">
+                            <p className="text-zinc-400 font-medium leading-relaxed mb-6 text-sm sm:text-base md:text-lg whitespace-pre-line">
                                 {t("description", { brand: agencyName })}
                             </p>
 
                             <div className="pt-4 flex justify-center lg:justify-start">
                                 <Link href="#cara-kerja">
                                     <Button className="h-12 px-6 rounded-full bg-brand-yellow hover:bg-brand-yellow/90 text-black font-extrabold shadow-lg shadow-brand-yellow/10 transition-all hover:scale-105 active:scale-95 flex items-center gap-2 group border-0">
-                                        Pelajari Cara Kerjanya
+                                        Pelajari Pendekatannya
                                         <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                                     </Button>
                                 </Link>
@@ -64,9 +64,7 @@ export async function AboutSection() {
 
 function SystemBlueprintVisual() {
     return (
-        <div className="w-full aspect-[4/3] rounded-3xl overflow-hidden bg-zinc-950/80 border border-white/5 relative z-10 flex items-center justify-center p-6 shadow-2xl">
-            {/* Ambient Background Glow */}
-            <div className="absolute inset-0 bg-gradient-to-br from-zinc-900/50 via-black to-zinc-950/50 pointer-events-none" />
+        <div className="w-full aspect-[4/3] overflow-hidden relative z-10 flex items-center justify-center p-0">
             <svg className="w-full h-full text-zinc-600 relative z-10" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
                 {/* Defs for gradients & glows */}
                 <defs>
@@ -82,14 +80,14 @@ function SystemBlueprintVisual() {
 
                 {/* Nodes */}
                 {/* Business Problem */}
-                <rect x="25" y="30" width="115" height="52" rx="14" fill="#09090b" stroke="#FED700" strokeWidth="1.5" />
-                <text x="82.5" y="55" fill="#FED700" fontSize="9" fontWeight="bold" textAnchor="middle" fontFamily="monospace" letterSpacing="0.05em">MASALAH BISNIS</text>
-                <text x="82.5" y="68" fill="#71717a" fontSize="7.5" textAnchor="middle" fontFamily="sans-serif">Data Tersebar & Manual</text>
+                <rect x="25" y="30" width="125" height="52" rx="14" fill="#09090b" stroke="#FED700" strokeWidth="1.5" />
+                <text x="87.5" y="55" fill="#FED700" fontSize="9" fontWeight="bold" textAnchor="middle" fontFamily="monospace" letterSpacing="0.05em">MASALAH BISNIS</text>
+                <text x="87.5" y="68" fill="#71717a" fontSize="7.5" textAnchor="middle" fontFamily="sans-serif">Data Tersebar & Manual</text>
 
                 {/* Consult & Audit */}
-                <rect x="25" y="218" width="115" height="52" rx="14" fill="#09090b" stroke="#3b82f6" strokeWidth="1.5" />
-                <text x="82.5" y="243" fill="#3b82f6" fontSize="9" fontWeight="bold" textAnchor="middle" fontFamily="monospace" letterSpacing="0.05em">1. KONSULTASI & AUDIT</text>
-                <text x="82.5" y="256" fill="#71717a" fontSize="7.5" textAnchor="middle" fontFamily="sans-serif">Petakan Proses Kerja</text>
+                <rect x="25" y="218" width="125" height="52" rx="14" fill="#09090b" stroke="#3b82f6" strokeWidth="1.5" />
+                <text x="87.5" y="243" fill="#3b82f6" fontSize="9" fontWeight="bold" textAnchor="middle" fontFamily="monospace" letterSpacing="0.05em">1. KONSULTASI & AUDIT</text>
+                <text x="87.5" y="256" fill="#71717a" fontSize="7.5" textAnchor="middle" fontFamily="sans-serif">Petakan Proses Kerja</text>
 
                 {/* System Blueprint */}
                 <rect x="250" y="30" width="125" height="52" rx="14" fill="#09090b" stroke="#a855f7" strokeWidth="1.5" />
@@ -103,12 +101,12 @@ function SystemBlueprintVisual() {
 
                 {/* Connecting Paths with flowing dots */}
                 {/* Path 1: Problem -> Consult */}
-                <path d="M 82.5 82 L 82.5 218" stroke="#27272a" strokeWidth="2" strokeDasharray="4,4" />
+                <path d="M 87.5 82 L 87.5 218" stroke="#27272a" strokeWidth="2" strokeDasharray="4,4" />
                 
                 {/* Path 2: Consult -> Design */}
-                <path d="M 140 244 L 192 244 L 192 56 L 250 56" stroke="#3b82f6" strokeWidth="2" strokeOpacity="0.4" id="flowPath1" />
+                <path d="M 150 244 L 192 244 L 192 56 L 250 56" stroke="#3b82f6" strokeWidth="2" strokeOpacity="0.4" id="flowPath1" />
                 <circle r="3.5" fill="#3b82f6">
-                    <animateMotion dur="4.5s" repeatCount="indefinite" path="M 140 244 L 192 244 L 192 56 L 250 56" />
+                    <animateMotion dur="4.5s" repeatCount="indefinite" path="M 150 244 L 192 244 L 192 56 L 250 56" />
                 </circle>
 
                 {/* Path 3: Design -> System */}
