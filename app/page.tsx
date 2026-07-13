@@ -17,7 +17,6 @@ const Testimonials = dynamic(() => import("@/components/landing/section-testimon
 const SectionGuarantee = dynamic(() => import("@/components/landing/section-guarantee").then(mod => mod.SectionGuarantee));
 const ConsultBuildSupport = dynamic(() => import("@/components/landing/section-cbo").then(mod => mod.ConsultBuildSupport));
 const DigitalSystemAudit = dynamic(() => import("@/components/landing/section-audit").then(mod => mod.DigitalSystemAudit));
-const TeamSection = dynamic(() => import("@/components/landing/section-team").then(mod => mod.TeamSection));
 const PartnersSection = dynamic(() => import("@/components/landing/section-partners").then(mod => mod.PartnersSection));
 
 const ScrollAnimationWrapper = dynamic(() => import("@/components/ui/scroll-animation-wrapper").then(mod => mod.ScrollAnimationWrapper));
@@ -131,7 +130,6 @@ export default async function Home() {
         <Workflow />
       </ScrollAnimationWrapper>
 
-      <TeamSection />
       <PartnersSection />
 
       <ScrollAnimationWrapper>
