@@ -162,16 +162,10 @@ export default async function PortfolioPage() {
                             {agencyName} {t('showcase')}
                         </Badge>
 
-                        <h1 className="text-4xl md:text-6xl font-black tracking-tight text-white mb-6 leading-tight">
-                            <span className="text-brand-yellow drop-shadow-2xl">{t('titlePart1')}</span> <br />
-                            <TextTypewriter
-                                text={t('titlePart2')}
-                                className="text-transparent bg-clip-text bg-gradient-to-br from-white via-zinc-200 to-zinc-500"
-                                speed={40}
-                                delay={500}
-                            />
+                        <h1 className="text-2xl md:text-3xl font-black tracking-tight text-white mb-4 leading-snug">
+                            {t('titlePart1')}
                         </h1>
-                        <p className="text-zinc-400 max-w-2xl mx-auto text-sm md:text-base lg:text-lg leading-relaxed font-light mb-8">
+                        <p className="text-zinc-500 max-w-lg mx-auto text-sm md:text-base leading-relaxed font-light mb-8">
                             {t('description')}
                         </p>
 
