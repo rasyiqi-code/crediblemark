@@ -554,6 +554,8 @@
         "typeLiveSite": "Live Site",
         "typeLiveRender": "Live Render",
         "all": "All",
+        "projects": "Projects",
+        "repos": "Repositories",
         "empty": "No portfolios found for this category."
     },
     "Loader": {

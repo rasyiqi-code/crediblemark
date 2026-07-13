@@ -15,6 +15,7 @@ export interface PortfolioItem {
     imageUrl?: string;
     htmlContent?: string;
     createdAt: Date | string;
+    source?: "database" | "github";
 }
 
 async function fetchGithubReposReal(): Promise<PortfolioItem[]> {
@@ -55,7 +56,8 @@ async function fetchGithubReposReal(): Promise<PortfolioItem[]> {
             description: repo.description || "No description provided.",
             externalUrl: repo.html_url,
             imageUrl: undefined,
-            createdAt: repo.created_at
+            createdAt: repo.created_at,
+            source: "github"
         }));
     } catch (error) {
         console.error("[Portfolios] GitHub API fetch failed:", error);
@@ -66,6 +68,7 @@ async function fetchGithubReposReal(): Promise<PortfolioItem[]> {
 export async function getPortfolios(): Promise<PortfolioItem[]> {
     return unstable_cache(
         async () => {
+            const dbPortfolios: PortfolioItem[] = [];
             try {
                 // Batasi maksimal 50 portfolio item untuk performa RAM server
                 const portfolios = await prisma.portfolio.findMany({
@@ -83,16 +86,23 @@ export async function getPortfolios(): Promise<PortfolioItem[]> {
                     }
                 });
                 
-                if (!portfolios || portfolios.length === 0) {
-                    return await fetchGithubReposReal();
-                }
-                return portfolios as unknown as PortfolioItem[];
+                dbPortfolios.push(...portfolios.map(p => ({
+                    ...p,
+                    source: "database"
+                })) as unknown as PortfolioItem[]);
             } catch {
-                console.error("[Portfolios] Failed to fetch from DB, falling back to GitHub API");
-                return await fetchGithubReposReal();
+                console.error("[Portfolios] Failed to fetch from DB");
             }
+
+            const githubRepos = await fetchGithubReposReal();
+            const mappedGithub = githubRepos.map(g => ({
+                ...g,
+                source: "github"
+            })) as unknown as PortfolioItem[];
+
+            return [...dbPortfolios, ...mappedGithub];
         },
-        ["portfolios-list"],
+        ["portfolios-list-combined"],
         { revalidate: 3600, tags: ["portfolios"] }
     )();
 }

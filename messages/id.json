@@ -630,6 +630,8 @@
         "typeLiveSite": "Situs Langsung",
         "typeLiveRender": "Render Langsung",
         "all": "Semua",
+        "projects": "Proyek",
+        "repos": "Repositori",
         "empty": "Aduh, lupa atau belum sempat posting."
     },
     "Loader": {
