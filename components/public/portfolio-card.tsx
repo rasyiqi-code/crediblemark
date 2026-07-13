@@ -23,7 +23,12 @@ export function PortfolioCard({ title, slug, html, externalUrl, imageUrl, descri
     const [imgSrc, setImgSrc] = useState<string>(() => {
         // Coba Opsi 1 (Utama): Auto-Screenshot Live Demo (jika externalUrl ada dan bukan github)
         if (externalUrl && !externalUrl.includes("github.com")) {
-            return `https://image.thum.io/get/auth/78195-crediblemark.com/width/800/crop/800/${externalUrl}`;
+            // Gunakan auth key hanya di production karena domain referer diikat ke crediblemark.com
+            const isProd = process.env.NODE_ENV === "production";
+            const thumUrl = isProd 
+                ? `https://image.thum.io/get/auth/78195-crediblemark.com/width/800/crop/800/${externalUrl}`
+                : `https://image.thum.io/get/width/800/crop/800/${externalUrl}`;
+            return thumUrl;
         }
         
         // Coba Opsi 2: GitHub Social Preview (jika externalUrl adalah github)
@@ -56,7 +61,7 @@ export function PortfolioCard({ title, slug, html, externalUrl, imageUrl, descri
             }
         }
 
-        // Step 1: Error dari imageUrl
+        // Step 1: Error dari imageUrl (atau langsung dilompati jika tidak ada imageUrl)
         if (fallbackStep <= 1) {
             setFallbackStep(2);
             // Fallback ke: Gambar Lokal (jika belum dicoba)
@@ -80,14 +85,11 @@ export function PortfolioCard({ title, slug, html, externalUrl, imageUrl, descri
                     return;
                 }
             }
-            setImgSrc("/images/placeholder-portfolio.jpg");
-            return;
         }
 
-        // Step 3: Cadangan terakhir jika semuanya gagal
-        if (fallbackStep >= 3) {
-            setImgSrc("/images/placeholder-portfolio.jpg");
-        }
+        // Step 3: Cadangan terakhir jika semuanya gagal (Menggunakan gambar abstrak premium Unsplash agar 100% online & bebas 404)
+        setFallbackStep(4);
+        setImgSrc("https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop");
     };
 
     // Tentukan icon & CTA berdasarkan kategori

@@ -43,8 +43,11 @@ async function fetchGithubReposReal(): Promise<PortfolioItem[]> {
         // Gabungkan
         const allRepos = [...reposOrg, ...reposUser];
 
+        // Filter: Hanya tampilkan repositori publik (karena repositori privat akan memicu error muat gambar di browser)
+        const publicRepos = allRepos.filter((repo: any) => !repo.private);
+
         // Map ke PortfolioItem
-        return allRepos.map((repo: any) => ({
+        return publicRepos.map((repo: any) => ({
             id: repo.id.toString(),
             title: repo.name.split("-").map((word: string) => word.charAt(0).toUpperCase() + word.slice(1)).join(" "),
             slug: repo.name,
