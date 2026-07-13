@@ -3,14 +3,23 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowRight, Zap, Layers, ShieldCheck, Sparkles } from "lucide-react";
-import { motion, useMotionValue, useMotionTemplate } from "framer-motion";
+import { motion, useMotionValue, useMotionTemplate, AnimatePresence } from "framer-motion";
 import { useTranslations, useLocale } from "next-intl";
-import { useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { ScrollHint } from "./scroll-hint";
 
 export function SectionSolutions() {
     const t = useTranslations("Solutions");
     const locale = useLocale();
+    const [globalTargetIndex, setGlobalTargetIndex] = useState(0);
+
+    useEffect(() => {
+        // Interval global 2.5 detik untuk memutar teks layanan terkait
+        const interval = setInterval(() => {
+            setGlobalTargetIndex((prev) => prev + 1);
+        }, 2500);
+        return () => clearInterval(interval);
+    }, []);
 
     const products = [
         { 
@@ -89,6 +98,7 @@ export function SectionSolutions() {
                             index={index}
                             locale={locale}
                             t={t}
+                            globalTargetIndex={globalTargetIndex}
                         />
                     ))}
                 </ScrollHint>
@@ -108,15 +118,17 @@ interface SolutionCardProps {
     index: number;
     locale: string;
     t: any;
+    globalTargetIndex: number;
 }
 
-function SolutionCard({ product, index, locale, t }: Omit<SolutionCardProps, "globalTargetIndex">) {
+function SolutionCard({ product, index, locale, t, globalTargetIndex }: SolutionCardProps) {
     const mouseX = useMotionValue(0);
     const mouseY = useMotionValue(0);
     const rectRef = useRef<DOMRect | null>(null);
     
     // Ambil array list layanan dari i18n
     const services = t.raw(`items.${product.key}.services`) as string[];
+    const serviceIndex = services.length > 0 ? (globalTargetIndex % services.length) : 0;
 
     const handleMouseMove = (e: React.MouseEvent) => {
         if (!rectRef.current) {
@@ -178,17 +190,23 @@ function SolutionCard({ product, index, locale, t }: Omit<SolutionCardProps, "gl
                 {/* Divider */}
                 <div className="w-full h-px bg-white/5 mb-6" />
 
-                {/* Services List */}
-                <div className="w-full space-y-3.5 mb-10 text-left flex-grow">
+                {/* Services List (Dinamis / Berganti-ganti) */}
+                <div className="w-full mb-10 flex-grow flex flex-col justify-center items-center">
                     <h4 className="text-[10px] font-black text-zinc-500 uppercase tracking-widest mb-4">Layanan Terkait:</h4>
-                    {services && services.map((service, idx) => (
-                        <div key={idx} className="flex items-start gap-2.5">
-                            <div className="w-1.5 h-1.5 rounded-full bg-brand-yellow shrink-0 mt-2" />
-                            <span className="text-zinc-400 text-xs md:text-sm font-semibold leading-relaxed group-hover:text-zinc-200 transition-colors">
-                                {service}
-                            </span>
-                        </div>
-                    ))}
+                    <div className="h-10 flex items-center justify-center overflow-hidden w-full relative">
+                        <AnimatePresence mode="wait">
+                            <motion.span
+                                key={serviceIndex}
+                                initial={{ y: 15, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                exit={{ y: -15, opacity: 0 }}
+                                transition={{ duration: 0.3, ease: "circOut" }}
+                                className="text-sm md:text-base font-extrabold text-brand-yellow uppercase tracking-widest leading-relaxed text-center drop-shadow-[0_0_8px_rgba(255,200,0,0.2)]"
+                            >
+                                {services[serviceIndex]}
+                            </motion.span>
+                        </AnimatePresence>
+                    </div>
                 </div>
 
                 {/* Action */}
