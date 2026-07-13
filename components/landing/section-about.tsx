@@ -80,43 +80,43 @@ function SystemBlueprintVisual() {
 
                 {/* Nodes */}
                 {/* Business Problem */}
-                <rect x="25" y="30" width="125" height="52" rx="14" fill="#09090b" stroke="#FED700" strokeWidth="1.5" />
-                <text x="87.5" y="55" fill="#FED700" fontSize="9" fontWeight="bold" textAnchor="middle" fontFamily="monospace" letterSpacing="0.05em">MASALAH BISNIS</text>
-                <text x="87.5" y="68" fill="#71717a" fontSize="7.5" textAnchor="middle" fontFamily="sans-serif">Data Tersebar & Manual</text>
+                <rect x="25" y="30" width="135" height="52" rx="14" fill="#09090b" stroke="#FED700" strokeWidth="2.5" />
+                <text x="92.5" y="55" fill="#FED700" fontSize="9" fontWeight="bold" textAnchor="middle" fontFamily="monospace" letterSpacing="0.05em">MASALAH BISNIS</text>
+                <text x="92.5" y="68" fill="#71717a" fontSize="7.5" textAnchor="middle" fontFamily="sans-serif">Data Tersebar & Manual</text>
 
                 {/* Consult & Audit */}
-                <rect x="25" y="218" width="125" height="52" rx="14" fill="#09090b" stroke="#3b82f6" strokeWidth="1.5" />
-                <text x="87.5" y="243" fill="#3b82f6" fontSize="9" fontWeight="bold" textAnchor="middle" fontFamily="monospace" letterSpacing="0.05em">1. KONSULTASI & AUDIT</text>
-                <text x="87.5" y="256" fill="#71717a" fontSize="7.5" textAnchor="middle" fontFamily="sans-serif">Petakan Proses Kerja</text>
+                <rect x="25" y="218" width="135" height="52" rx="14" fill="#09090b" stroke="#3b82f6" strokeWidth="2.5" />
+                <text x="92.5" y="243" fill="#3b82f6" fontSize="9" fontWeight="bold" textAnchor="middle" fontFamily="monospace" letterSpacing="0.05em">KONSULTASI & AUDIT</text>
+                <text x="92.5" y="256" fill="#71717a" fontSize="7.5" textAnchor="middle" fontFamily="sans-serif">Petakan Proses Kerja</text>
 
                 {/* System Blueprint */}
-                <rect x="250" y="30" width="125" height="52" rx="14" fill="#09090b" stroke="#a855f7" strokeWidth="1.5" />
-                <text x="312.5" y="55" fill="#a855f7" fontSize="9" fontWeight="bold" textAnchor="middle" fontFamily="monospace" letterSpacing="0.05em">2. BLUEPRINT DESIGN</text>
-                <text x="312.5" y="68" fill="#71717a" fontSize="7.5" textAnchor="middle" fontFamily="sans-serif">Spesifikasi & Flow Data</text>
+                <rect x="240" y="30" width="135" height="52" rx="14" fill="#09090b" stroke="#a855f7" strokeWidth="2.5" />
+                <text x="307.5" y="55" fill="#a855f7" fontSize="9" fontWeight="bold" textAnchor="middle" fontFamily="monospace" letterSpacing="0.05em">BLUEPRINT DESIGN</text>
+                <text x="307.5" y="68" fill="#71717a" fontSize="7.5" textAnchor="middle" fontFamily="sans-serif">Spesifikasi & Flow Data</text>
 
                 {/* Custom Digital System */}
-                <rect x="250" y="218" width="125" height="52" rx="14" fill="#09090b" stroke="#10b981" strokeWidth="1.5" />
-                <text x="312.5" y="243" fill="#10b981" fontSize="9" fontWeight="bold" textAnchor="middle" fontFamily="monospace" letterSpacing="0.05em">3. SISTEM DIGITAL</text>
-                <text x="312.5" y="256" fill="#71717a" fontSize="7.5" textAnchor="middle" fontFamily="sans-serif">Otomatis & Siap Pakai</text>
+                <rect x="240" y="218" width="135" height="52" rx="14" fill="#09090b" stroke="#10b981" strokeWidth="2.5" />
+                <text x="307.5" y="243" fill="#10b981" fontSize="9" fontWeight="bold" textAnchor="middle" fontFamily="monospace" letterSpacing="0.05em">SISTEM DIGITAL</text>
+                <text x="307.5" y="256" fill="#71717a" fontSize="7.5" textAnchor="middle" fontFamily="sans-serif">Otomatis & Siap Pakai</text>
 
                 {/* Connecting Paths with flowing dots */}
                 {/* Path 1: Problem -> Consult */}
-                <path d="M 87.5 82 L 87.5 218" stroke="#27272a" strokeWidth="2" strokeDasharray="4,4" />
+                <path d="M 92.5 82 L 92.5 218" stroke="#27272a" strokeWidth="2" strokeDasharray="4,4" />
                 
                 {/* Path 2: Consult -> Design */}
-                <path d="M 150 244 L 192 244 L 192 56 L 250 56" stroke="#3b82f6" strokeWidth="2" strokeOpacity="0.4" id="flowPath1" />
+                <path d="M 160 244 L 192 244 L 192 56 L 240 56" stroke="#3b82f6" strokeWidth="2" strokeOpacity="0.4" id="flowPath1" />
                 <circle r="3.5" fill="#3b82f6">
-                    <animateMotion dur="4.5s" repeatCount="indefinite" path="M 150 244 L 192 244 L 192 56 L 250 56" />
+                    <animateMotion dur="4.5s" repeatCount="indefinite" path="M 160 244 L 192 244 L 192 56 L 240 56" />
                 </circle>
 
                 {/* Path 3: Design -> System */}
-                <path d="M 312.5 82 L 312.5 218" stroke="#a855f7" strokeWidth="2" strokeOpacity="0.4" id="flowPath2" />
+                <path d="M 307.5 82 L 307.5 218" stroke="#a855f7" strokeWidth="2" strokeOpacity="0.4" id="flowPath2" />
                 <circle r="3.5" fill="#a855f7">
-                    <animateMotion dur="3.5s" repeatCount="indefinite" path="M 312.5 82 L 312.5 218" />
+                    <animateMotion dur="3.5s" repeatCount="indefinite" path="M 307.5 82 L 307.5 218" />
                 </circle>
 
                 {/* Center Badge: Value */}
-                <circle cx="192" cy="150" r="28" fill="#020202" stroke="#FED700" strokeWidth="1.5" filter="url(#glow)" />
+                <circle cx="192" cy="150" r="28" fill="#020202" stroke="#FED700" strokeWidth="2.5" filter="url(#glow)" />
                 <text x="192" y="148" fill="#FED700" fontSize="8" fontWeight="black" textAnchor="middle" fontFamily="monospace">SOLUSI</text>
                 <text x="192" y="157" fill="#fff" fontSize="6.5" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">DIGITAL</text>
             </svg>
