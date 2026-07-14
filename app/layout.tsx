@@ -184,6 +184,7 @@ export default async function RootLayout({
         {/* Preconnect to critical origins */}
         {/* Optimasi LCP: Menghapus preconnect yang tidak terpakai (GTM & GA dimuat menggunakan lazyOnload) */}
         <link rel="preconnect" href="https://i.pravatar.cc" />
+        <link rel="alternate" type="application/rss+xml" title="Crediblemark Feed" href="/feed" />
 
       </head>
       <body className={cn(inter.variable, inter.className, "bg-black text-white antialiased relative")}>
