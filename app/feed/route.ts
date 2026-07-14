@@ -48,9 +48,10 @@ export async function GET() {
     // 1. Map Portfolios
     for (const item of portfolios) {
         if (item && item.slug) {
+            const link = item.externalUrl || `${baseUrl}/view-design/${item.slug}`;
             feedItems.push({
                 title: `[Portfolio] ${item.title}`,
-                link: `${baseUrl}/view-design/${item.slug}`,
+                link: link,
                 description: item.description || "Design portfolio showcase.",
                 pubDate: item.createdAt ? new Date(item.createdAt) : new Date(),
                 guid: `portfolio-${item.id}`,
