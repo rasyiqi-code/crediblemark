@@ -115,8 +115,8 @@ export async function fetchRenderedHtml(url: string, localBaseUrl?: string): Pro
     const absoluteUrl = ensureAbsoluteUrl(url);
 
     if (!accountId || !apiToken) {
-        console.error("[CloudflareProxy] Missing credentials");
-        throw new Error("Missing Cloudflare credentials (cloudflare_account_id, cloudflare_api_token) in system settings.");
+        console.warn("[CloudflareProxy] Kredensial tidak ditemukan (cloudflare_account_id, cloudflare_api_token) di pengaturan sistem. Menggunakan raw HTML fetch.");
+        return await fetchRawHtml(url, localBaseUrl);
     }
 
     const endpoint = `https://api.cloudflare.com/client/v4/accounts/${accountId}/browser-rendering/content`;
