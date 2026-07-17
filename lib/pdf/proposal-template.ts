@@ -53,7 +53,6 @@ export interface ProposalMessages {
         investTitle: string;
         baseInvestLabel: string;
         addonHeaderModule: string;
-        addonHeaderScheme: string;
         addonHeaderInvest: string;
         moreInfoAt: string;
         agreementText: string;

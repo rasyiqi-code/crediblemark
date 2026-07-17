@@ -112,7 +112,6 @@
         "old4": "Template-based:",
         "old4Sub": "Sangat sulit diubah sesuai kebutuhan dan rawan kebocoran data.",
         "newTitle": "{brand}",
-        "recommended": "PILIHAN ENTERPRISE",
         "new1": "Harga Pasti:",
         "new1Sub": "Harga yang disepakati adalah harga yang Anda bayar.",
         "new2": "Laporan Harian:",
@@ -260,13 +259,7 @@
         "comp2Old": "Gaji Senior Sangat Mahal & Langka.",
         "comp2New": "Kualitas Setara, Harga Proyek.",
         "comp3Old": "Risiko Resign & Masalah Teknis.",
-        "comp3New": "Jaminan Sistem Berjalan Lancar.",
-        "comp4Old": "Beban Manajemen & Pelatihan Tinggi.",
-        "comp4New": "Tanpa Beban Manajemen (Hands-off).",
-        "comp5Old": "Biaya Alat, Software & BPJS.",
-        "comp5New": "Hak Milik Kode 100% (Tanpa Lisensi).",
-        "comp6Old": "Revisi Lambat & Drama Internal.",
-        "comp6New": "Revisi Terjamin Sesuai Kesepakatan."
+        "comp3New": "Jaminan Sistem Berjalan Lancar."
     },
     "Guarantee": {
         "badge": "PERLINDUNGAN FASE AWAL",
@@ -940,9 +933,7 @@
         "fallbackFeature": "Layanan implementasi fungsional {title} lengkap.",
         "investTitle": "Investasi Layanan",
         "baseInvestLabel": "Biaya Layanan Utama ({priceModel})",
-        "paymentScheme": "Skema Pembayaran",
         "addonHeaderModule": "Modul Add-on",
-        "addonHeaderScheme": "Skema",
         "addonHeaderInvest": "Investasi",
         "agreementText": "Dengan menandatangani dokumen ini, kedua belah pihak menyepakati rincian fitur kerja, nilai investasi, serta skema pembayaran yang tertera di atas.",
         "clientRepresentative": "Perwakilan Klien",
