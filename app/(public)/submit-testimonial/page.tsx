@@ -76,7 +76,7 @@ export async function generateMetadata(
 export const dynamic = "force-dynamic";
 
 export default async function SubmitTestimonialPage() {
-    const user = await hexclaveServerApp.getUser();
+    const user = await hexclaveServerApp.getUser().catch(() => null);
 
     if (!user) {
         redirect("/handler/sign-in?after_auth_return_to=/submit-testimonial");

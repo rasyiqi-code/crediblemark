@@ -11,7 +11,7 @@ import { getSystemSettings } from "@/lib/server/settings";
 import { LogoImage } from "./logo-image";
 
 export async function SiteHeader() {
-    const user = await hexclaveServerApp.getUser();
+    const user = await hexclaveServerApp.getUser().catch(() => null);
     const t = await getTranslations("Navigation");
     const tc = await getTranslations("Common");
     const locale = await getLocale();

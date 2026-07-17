@@ -55,7 +55,7 @@ export default async function PublicInvoicePage(props: { params: Promise<{ id: s
     const token = searchParams.token as string | undefined;
 
     // Auth Guard / Fetch User
-    const user = await hexclaveServerApp.getUser();
+    const user = await hexclaveServerApp.getUser().catch(() => null);
     const order = await getOrder(id);
 
     if (!order) notFound();

@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { hexclaveServerApp } from "@/lib/config/hexclave";
 
 export async function POST(req: Request) {
-    const user = await hexclaveServerApp.getUser();
+    const user = await hexclaveServerApp.getUser().catch(() => null);
     // Allow messages if they are from a logged-in user OR it's a guest message to a valid ticket
     // Authentication for admin is still needed if sender is 'admin'
 

@@ -2,7 +2,16 @@
 import { hexclaveServerApp } from "@/lib/config/hexclave";
 
 export async function getCurrentUser() {
-    return await hexclaveServerApp.getUser();
+    try {
+        return await hexclaveServerApp.getUser();
+    } catch (error: any) {
+        if (error && error.message && error.message.includes("Dynamic server usage")) {
+            // Abaikan log saat NextJS static analysis build time mencoba merender statis
+        } else {
+            console.error("[Auth Helper] Gagal mengambil data user:", error);
+        }
+        return null;
+    }
 }
 
 /**

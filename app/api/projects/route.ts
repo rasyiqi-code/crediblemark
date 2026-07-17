@@ -16,7 +16,7 @@ export async function GET(request: Request) {
     const limit = parseInt(searchParams.get("limit") || "10");
     const skip = (page - 1) * limit;
 
-    const user = await hexclaveServerApp.getUser();
+    const user = await hexclaveServerApp.getUser().catch(() => null);
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
     // 1. Resolusi User untuk Pencarian Berbasis Nama (Hanya deteksi jika query berupa UUID)
@@ -115,7 +115,7 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-    const user = await hexclaveServerApp.getUser();
+    const user = await hexclaveServerApp.getUser().catch(() => null);
 
     if (!user) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

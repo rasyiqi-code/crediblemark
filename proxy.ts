@@ -42,7 +42,7 @@ export default async function proxy(request: NextRequest) {
         // Melakukan dynamic import hexclaveServerApp hanya ketika mengakses dashboard.
         // Ini mempercepat cold start dan mengurangi penggunaan memori untuk request non-dashboard.
         const { hexclaveServerApp } = await import("@/lib/config/hexclave");
-        const user = await hexclaveServerApp.getUser();
+        const user = await hexclaveServerApp.getUser().catch(() => null);
         if (!user) {
             return NextResponse.redirect(new URL("/handler/sign-in", request.url));
         }

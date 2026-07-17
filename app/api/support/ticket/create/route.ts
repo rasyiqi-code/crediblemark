@@ -12,7 +12,7 @@ const createTicketSchema = z.object({
 });
 
 export async function POST(request: Request) {
-    const user = await hexclaveServerApp.getUser();
+    const user = await hexclaveServerApp.getUser().catch(() => null);
 
     try {
         const json = await request.json();

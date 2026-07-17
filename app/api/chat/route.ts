@@ -7,7 +7,7 @@ export async function POST(req: Request) {
     try {
         // Auth check: hanya user login yang boleh menggunakan AI chatbot
         // Mencegah abuse biaya API LLM oleh pihak tak berwenang
-        const user = await hexclaveServerApp.getUser();
+        const user = await hexclaveServerApp.getUser().catch(() => null);
         if (!user) {
             return new Response(JSON.stringify({ error: "Unauthorized" }), {
                 status: 401,
