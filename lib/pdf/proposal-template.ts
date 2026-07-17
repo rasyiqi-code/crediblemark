@@ -91,7 +91,7 @@ export interface ProposalMessages {
         f5: string;
         f6: string;
     };
-    Financial: {
+    ProposalFinancial: {
         title: string;
         subtitle: string;
         hireSenior: string;

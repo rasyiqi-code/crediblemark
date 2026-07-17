@@ -37,22 +37,22 @@ export function renderFinancialPage(
         : (isEn ? 'Fixed Price' : 'Harga Pasti');
 
     const tSec4Title = messages.ProposalExport.sec4Title as string;
-    const tFinTitle = messages.Financial.title as string;
-    const tFinSubtitle = messages.Financial.subtitle as string;
-    const tFinHireOld = messages.Financial.hireSenior as string;
-    const tFinHireNew = (messages.Financial.hybrid as string).replace("{brand}", "Crediblemark");
+    const tFinTitle = messages.ProposalFinancial.title as string;
+    const tFinSubtitle = messages.ProposalFinancial.subtitle as string;
+    const tFinHireOld = messages.ProposalFinancial.hireSenior as string;
+    const tFinHireNew = (messages.ProposalFinancial.hybrid as string).replace("{brand}", "Crediblemark");
 
-    const tFinOverheadLabel = messages.Financial.salaryOldValue as string;
-    const tFinOverheadDesc = messages.Financial.salaryOld as string;
-    const tFinProjectLabel = messages.Financial.salaryNewValue as string;
-    const tFinProjectDesc = messages.Financial.salaryNew as string;
+    const tFinOverheadLabel = messages.ProposalFinancial.salaryOldValue as string;
+    const tFinOverheadDesc = messages.ProposalFinancial.salaryOld as string;
+    const tFinProjectLabel = messages.ProposalFinancial.salaryNewValue as string;
+    const tFinProjectDesc = messages.ProposalFinancial.salaryNew as string;
 
-    const fin1Old = messages.Financial.comp1Old as string;
-    const fin1New = messages.Financial.comp1New as string;
-    const fin2Old = messages.Financial.comp2Old as string;
-    const fin2New = messages.Financial.comp2New as string;
-    const fin3Old = messages.Financial.comp3Old as string;
-    const fin3New = messages.Financial.comp3New as string;
+    const fin1Old = messages.ProposalFinancial.comp1Old as string;
+    const fin1New = messages.ProposalFinancial.comp1New as string;
+    const fin2Old = messages.ProposalFinancial.comp2Old as string;
+    const fin2New = messages.ProposalFinancial.comp2New as string;
+    const fin3Old = messages.ProposalFinancial.comp3Old as string;
+    const fin3New = messages.ProposalFinancial.comp3New as string;
 
     const tInvestTitle = messages.ProposalExport.investTitle as string;
     const tBaseInvestLabel = (messages.ProposalExport.baseInvestLabel as string).replace("{priceModel}", priceModel);

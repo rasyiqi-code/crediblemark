@@ -225,6 +225,28 @@
         "badge": "KENALI MASALAHNYA",
         "resultsTitle": "Perubahan yang Ingin Dicapai"
     },
+    "ProposalFinancial": {
+        "title": "Kenapa Pilih Kami?",
+        "subtitle": "Kami memberikan hasil dan pelayanan di atas standar pasar.",
+        "hireSenior": "HIRE SENIOR DEV",
+        "hybrid": "{brand} (HYBRID)",
+        "salaryOldValue": "Biaya Operasional Tinggi",
+        "salaryOld": "Gaji Tetap + Tunjangan + Operasional",
+        "salaryNewValue": "Harga Pasti (Fixed-Price)",
+        "salaryNew": "Investasi Berbasis Proyek (Efisien)",
+        "comp1Old": "Rekrutmen & Persiapan (2-3 bulan).",
+        "comp1New": "Eksekusi Instan (Hari ke-1).",
+        "comp2Old": "Gaji Senior Sangat Mahal & Langka.",
+        "comp2New": "Kualitas Setara, Harga Proyek.",
+        "comp3Old": "Risiko Resign & Masalah Teknis.",
+        "comp3New": "Jaminan Sistem Berjalan Lancar.",
+        "comp4Old": "Beban Manajemen & Pelatihan Tinggi.",
+        "comp4New": "Tanpa Beban Manajemen (Hands-off).",
+        "comp5Old": "Biaya Alat, Software & BPJS.",
+        "comp5New": "Hak Milik Kode 100% (Tanpa Lisensi).",
+        "comp6Old": "Revisi Lambat & Drama Internal.",
+        "comp6New": "Revisi Terjamin Sesuai Kesepakatan."
+    },
     "Guarantee": {
         "badge": "PERLINDUNGAN FASE AWAL",
         "title": "Mulai Tanpa Risiko",

@@ -18,7 +18,7 @@ export async function GET() {
 
     // Fetch data secara paralel untuk performa optimal
     const [portfolios, services, changelogs] = await Promise.all([
-        getPortfolios().catch((err) => {
+        getPortfolios().catch((err: any) => {
             console.error("[RSS Feed] Gagal mengambil portfolio:", err);
             return [];
         }),
@@ -33,11 +33,11 @@ export async function GET() {
                 description: true,
                 createdAt: true,
             },
-        }).catch((err) => {
+        }).catch((err: any) => {
             console.error("[RSS Feed] Gagal mengambil layanan:", err);
             return [];
         }),
-        getChangelogs(true, 20).catch((err) => {
+        getChangelogs(true, 20).catch((err: any) => {
             console.error("[RSS Feed] Gagal mengambil changelog:", err);
             return [];
         }),

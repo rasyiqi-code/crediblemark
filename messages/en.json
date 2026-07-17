@@ -207,6 +207,28 @@
         "badge": "IDENTIFY THE PROBLEM",
         "resultsTitle": "Desired Outcomes"
     },
+    "ProposalFinancial": {
+        "title": "Why We Are Worth It",
+        "subtitle": "Because we provide results and service far beyond typical providers.",
+        "hireSenior": "HIRE SENIOR DEV",
+        "hybrid": "{brand} (HYBRID)",
+        "salaryOldValue": "High Operational Costs",
+        "salaryOld": "Fixed Salary + Benefits + Operations",
+        "salaryNewValue": "Fixed-Price Investment",
+        "salaryNew": "Project-Based Investment (Efficient)",
+        "comp1Old": "Recruitment & Onboarding (2-3 months).",
+        "comp1New": "Instant Execution (Day 1).",
+        "comp2Old": "Senior Talent is Expensive & Rare.",
+        "comp2New": "Same Quality, Project-Based Price.",
+        "comp3Old": "Resignation & Technical Risks.",
+        "comp3New": "Guaranteed Smooth System Performance.",
+        "comp4Old": "High Management & Training Overhead.",
+        "comp4New": "No Management Burden (Hands-off).",
+        "comp5Old": "Equipment, Software & Benefits Costs.",
+        "comp5New": "100% Code Ownership (No Licenses).",
+        "comp6Old": "Slow Revision & Internal Drama.",
+        "comp6New": "Guaranteed Revisions per Agreement."
+    },
     "Guarantee": {
         "badge": "EARLY STAGE PROTECTION",
         "title": "Start with Lower Risks",
