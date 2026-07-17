@@ -62,6 +62,8 @@ export interface ProposalMessages {
     Comparison: {
         title: string;
         subtitle: string;
+        proposalTitle?: string;
+        proposalSubtitle?: string;
         oldTitle: string;
         newTitle: string;
         old1: string;
@@ -109,12 +111,12 @@ export interface ProposalMessages {
     };
     FAQ: {
         title: string;
-        q4: string;
-        a4: string;
-        q3: string;
-        a3: string;
-        q13: string;
-        a13: string;
+        proposalQ1: string;
+        proposalA1: string;
+        proposalQ2: string;
+        proposalA2: string;
+        proposalQ3: string;
+        proposalA3: string;
     };
     Guarantee: {
         title: string;

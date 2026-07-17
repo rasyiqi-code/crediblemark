@@ -16,12 +16,12 @@ export function renderFaqPage(
     const tFaqTitle = messages.FAQ.title as string;
     const tMoreInfoAt = messages.ProposalExport.moreInfoAt as string;
 
-    const faqQ1 = messages.FAQ.q4 as string;
-    const faqA1 = messages.FAQ.a4 as string;
-    const faqQ2 = messages.FAQ.q3 as string;
-    const faqA2 = messages.FAQ.a3 as string;
-    const faqQ3 = messages.FAQ.q13 as string;
-    const faqA3 = messages.FAQ.a13 as string;
+    const faqQ1 = messages.FAQ.proposalQ1 as string;
+    const faqA1 = messages.FAQ.proposalA1 as string;
+    const faqQ2 = messages.FAQ.proposalQ2 as string;
+    const faqA2 = messages.FAQ.proposalA2 as string;
+    const faqQ3 = messages.FAQ.proposalQ3 as string;
+    const faqA3 = messages.FAQ.proposalA3 as string;
 
     const tGuarTitle = messages.Guarantee.title as string;
     const tGuarSubtitle = (messages.Guarantee.subtitle as string).replace("\n", " ");

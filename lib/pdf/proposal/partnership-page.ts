@@ -9,8 +9,8 @@ export function renderPartnershipPage(params: ProposalHtmlParams, totalPages: nu
     const title = getProposalTitle(service);
 
     const tSec3Title = messages.ProposalExport.sec3Title as string;
-    const tCompTitle = (messages.Comparison.title as string).replace("{brand}", "Crediblemark");
-    const tCompSubtitle = messages.Comparison.subtitle as string;
+    const tCompTitle = ((messages.Comparison.proposalTitle || messages.Comparison.title) as string).replace("{brand}", "Crediblemark");
+    const tCompSubtitle = (messages.Comparison.proposalSubtitle || messages.Comparison.subtitle) as string;
     const tCompOldTitle = messages.Comparison.oldTitle as string;
     const tCompNewTitle = (messages.Comparison.newTitle as string).replace("{brand}", "Crediblemark");
 
